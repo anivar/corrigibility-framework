@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this framework, please cite it as below."
+type: article
+title: "Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework"
+authors:
+  - family-names: "Aravind"
+    given-names: "Anivar A"
+    orcid: "https://orcid.org/0009-0009-8995-0005"
+    email: "ping@anivar.net"
+    website: "https://anivar.net"
+version: "1.0.0"
+date-released: "2026-01-11"
+url: "https://indiastack.in/dpi/"
+repository-code: "https://github.com/anivar/corrigibility-framework"
+license: "CC0-1.0"
+keywords:
+  - digital public infrastructure
+  - corrigibility
+  - cybernetics
+  - Ashby
+  - Ostrom
+  - free software
+  - AI governance
+  - Aadhaar
+  - UPI
+abstract: >-
+  Digital Public Infrastructure (DPI)—including identity systems, payment rails,
+  data exchanges, and increasingly AI-based services—is being deployed globally
+  at population scale. This paper introduces a formal framework for evaluating
+  DPI based on corrigibility: the structural capacity of those affected by a
+  system to detect error, signal harm, and trigger correction without incurring
+  material loss. We derive five necessary tests—EXIT, CODE, AUDIT, GOVERN, and
+  FORK—from three independent theoretical traditions: cybernetics, commons
+  governance, and free software principles.

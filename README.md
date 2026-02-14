@@ -18,6 +18,7 @@ A structural framework for evaluating Digital Public Infrastructure (DPI).
 
 ## Quick Links
 
+- [Paper (PDF)](https://indiastack.in/dpi/paper/corrigibility-framework.pdf)
 - [Website](https://indiastack.in/dpi/)
 - [Schema: infrastructure.json](schema/infrastructure.json)
 - [Schema: corrigibility.json](schema/corrigibility.json)
@@ -72,11 +73,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 ## Citation
 
 ```bibtex
-@misc{corrigibility-framework,
+@article{aravind2026corrigibility,
   author = {Aravind, Anivar A},
-  title = {Corrigibility Framework},
+  title = {Corrigibility as a Structural Precondition for Digital Public Infrastructure},
   year = {2026},
-  url = {https://indiastack.in/dpi/}
+  url = {https://indiastack.in/dpi/paper/corrigibility-framework.pdf}
 }
 ```
 

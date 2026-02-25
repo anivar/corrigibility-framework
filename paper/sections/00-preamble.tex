@@ -85,6 +85,26 @@
 \pgfplotsset{compat=1.17}
 \usepgfplotslibrary{fillbetween}
 \usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% Clarification box for preemptive counterarguments
+\newtcolorbox{clarification}[1][]{
+    enhanced,
+    breakable,
+    colback=blue!3,
+    colframe=blue!40!black,
+    coltitle=white,
+    fonttitle=\bfseries,
+    title=Clarification,
+    left=3pt,
+    right=3pt,
+    top=2pt,
+    bottom=2pt,
+    boxrule=0.5pt,
+    arc=2pt,
+    #1
+}
+
 \usepackage{subcaption}
 \usepackage{capt-of}
 

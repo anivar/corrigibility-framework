@@ -85,6 +85,26 @@
 \pgfplotsset{compat=1.17}
 \usepgfplotslibrary{fillbetween}
 \usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% Clarification box for preemptive counterarguments
+\newtcolorbox{clarification}[1][]{
+    enhanced,
+    breakable,
+    colback=blue!3,
+    colframe=blue!40!black,
+    coltitle=white,
+    fonttitle=\bfseries,
+    title=Clarification,
+    left=3pt,
+    right=3pt,
+    top=2pt,
+    bottom=2pt,
+    boxrule=0.5pt,
+    arc=2pt,
+    #1
+}
+
 \usepackage{subcaption}
 \usepackage{capt-of}
 
@@ -248,14 +268,14 @@ Transparency specifications or open standards are insufficient if the executing 
 
 While inspection enables understanding, \textbf{Independent Verification} enables truth. This functions as the sensor in the cybernetic feedback loop. A system is verifiable only if external, permissionless actors can test its behavior, measure its error rates, and document its failure modes within production environments.
 
-\begin{quote}
-\textbf{Clarification:} The framework does not equate auditability with direct participation.
+\begin{clarification}
+The framework does not equate auditability with direct participation.
 \begin{itemize}[noitemsep]
     \item AUDIT $\neq$ ``everyone audits''
     \item AUDIT $=$ ``no one can prevent auditing''
 \end{itemize}
-\textbf{Journalism analogy:} Not everyone investigates corruption. Democracy still depends on the \textit{possibility} of investigation. The problem today is not that auditors exist---it's that operators can legally block them. \textbf{The tradeoff: Contestable expertise over unchallengeable authority.} That's a defensible democratic position.
-\end{quote}
+\textbf{Journalism analogy:} Not everyone investigates corruption. Democracy still depends on the \textit{possibility} of investigation. The problem today is not that auditors exist; it's that operators can legally block them. \textbf{The tradeoff: Contestable expertise over unchallengeable authority.} That's a defensible democratic position.
+\end{clarification}
 
 Incorrigible systems typically capture this function. \textbf{UPI} permits RBI regulatory audits, but transaction-level verification requires NPCI authorization; independent researchers cannot measure failure rates or dispute resolution times. \textbf{Open-weights AI models} (Llama, Qwen, DeepSeek) selectively publish red-teaming results while blocking independent adversarial testing at scale. \textbf{Bitcoin} provides the counter-model: every transaction is independently verifiable by any node, and consensus is cryptographic proof. Similarly, \textbf{Let's Encrypt} publishes Certificate Transparency logs, making every issued certificate publicly auditable in real time.
 
@@ -284,15 +304,15 @@ A related confusion conflates governing one's own data in a system with governin
 
 The ultimate check on power is the ability to recreate it. \textbf{Independent Reproduction} determines whether the ecosystem allows the infrastructure itself to be separated from its current steward. This requirement distinguishes structural resilience from simple market competition.
 
-\begin{quote}
-\textbf{Clarification:} The paper does not define FORK as ``routine divergence in production.'' It defines FORK as: \textbf{Credible replaceability in extremis.}
+\begin{clarification}
+The paper does not define FORK as ``routine divergence in production.'' It defines FORK as: \textbf{Credible replaceability in extremis.}
 
 \textbf{Constitutional analogy:} US Constitution is forkable (amendable, secession historically possible). That does not mean every county runs a different constitution. The \textit{possibility} disciplines the center.
 
-\textbf{The stable equilibrium:} Latent forkability + strong coordination incentives. Email works not because everyone forks SMTP---but because anyone \textit{could}.
+\textbf{The stable equilibrium:} Latent forkability + strong coordination incentives. Email works not because everyone forks SMTP, but because anyone \textit{could}.
 
 \textbf{Key asymmetry:} FORK is a threat, not a preference. No one wants fragmentation. But irreversibility without exit is worse.
-\end{quote}
+\end{clarification}
 
 The existence of competitors, such as choosing between two proprietary cloud providers, provides an ``Exit'' option but not a ``Fork.'' Shifting providers allows a user to escape a specific operator, but it forces them to abandon their history, identity, and operational logic. This action is substitution, not reproduction.
 
@@ -473,11 +493,11 @@ A critical clarification is required regarding the framework's claims about inco
 \textbf{Principle (Harm Accumulation):} Incorrigible systems accumulate harm until correction becomes catastrophic rather than incremental. The framework does NOT claim ``incorrigibility leads to collapse.'' It claims that \textbf{corrigibility is a precondition for a system to be meaningfully public.}
 \end{quote}
 
-This is ontological classification, not historical prediction. North Korea is stable, incorrigible, and not public in any meaningful sense---confirming, not refuting, the framework. Tyrannies can persist indefinitely while crushing their subjects. The system stabilizes; the humans do not.
+This is ontological classification, not historical prediction. North Korea is stable, incorrigible, and not public in any meaningful sense, confirming rather than refuting the framework. Tyrannies can persist indefinitely while crushing their subjects. The system stabilizes; the humans do not.
 
-\begin{quote}
-\textbf{The Core Claim (Post-Critique):} Corrigibility is not a guarantee of justice. It is a guarantee that \textbf{injustice is contestable}.
-\end{quote}
+\begin{clarification}[title=The Core Claim]
+Corrigibility is not a guarantee of justice. It is a guarantee that \textbf{injustice is contestable}.
+\end{clarification}
 
 A prison can be stable. A prison can even be efficient. But it is not public. That's the line the framework draws.
 
@@ -500,13 +520,13 @@ v_{\min} < v_{\text{correction}} < v_{\max}
 \label{eq:velocity-bounds}
 \end{equation}
 
-\begin{quote}
-\textbf{Clarification:} Constitutional democracy \textit{invented} latency---bicameralism, judicial review, amendment supermajorities. Friction isn't failure. Friction is how minorities survive majorities. The gap between accusation and punishment is where due process lives. \textbf{Instantaneous correction is lynching.}
+\begin{clarification}[title=Velocity Bounds]
+Constitutional democracy \textit{invented} latency: bicameralism, judicial review, amendment supermajorities. Friction isn't failure. Friction is how minorities survive majorities. The gap between accusation and punishment is where due process lives. \textbf{Instantaneous correction is lynching.}
 
 The framework does not argue for automated, instant, or algorithmic governance. It argues for \textbf{availability of correction channels, not their speed}. Nothing in EXIT, GOVERN, or AUDIT requires immediacy. They require possibility without permission. Courts are a designed correction channel. They satisfy GOVERN (binding authority), AUDIT (independent review), and EXIT (injunctions prevent harm). \textbf{The framework criticizes absence, not latency.}
-\end{quote}
+\end{clarification}
 
-$E(t)$ is driven by environmental volatility---identity fraud tactics, software exploits, pandemics, or economic shocks. These phenomena tend to grow exponentially or appear in high-velocity impulse shocks. In contrast, centralized governance operates on \textbf{bureaucratic time}. Legislative changes and judicial reviews are measured in months or years, while technical errors accumulate on \textbf{digital time}, measured in milliseconds. Appendix~\ref{appendix:proofs} provides a formal control-theoretic treatment of these claims; no additional assumptions beyond those stated here are introduced.
+$E(t)$ is driven by environmental volatility: identity fraud tactics, software exploits, pandemics, or economic shocks. These phenomena tend to grow exponentially or appear in high-velocity impulse shocks. In contrast, centralized governance operates on \textbf{bureaucratic time}. Legislative changes and judicial reviews are measured in months or years, while technical errors accumulate on \textbf{digital time}, measured in milliseconds. Appendix~\ref{appendix:proofs} provides a formal control-theoretic treatment of these claims; no additional assumptions beyond those stated here are introduced.
 
 \begin{equation}
 \frac{dC_{\text{bureaucratic}}}{dt} \ll \frac{dE_{\text{digital}}}{dt}
@@ -1842,6 +1862,12 @@ y_N = y_0 + \sum_{k=0}^{N-1} d_k
 \end{equation}
 
 For any non-zero mean disturbance $\mathbb{E}[d_k] = \mu > 0$, the expected state grows linearly: $\mathbb{E}[y_N] = y_0 + N\mu \to \infty$. This provides a simple, indisputable demonstration of open-loop divergence.
+
+\textbf{Friction cost in discrete model:} The friction coefficient $\epsilon$ from Condition~1 manifests in this discrete model as a delay or reduction in the correction term. Specifically, if correction requires bureaucratic processing with latency $\tau$ time steps and efficiency loss $\eta < 1$, then:
+\begin{equation}
+u_k = \eta \cdot f(y_{k-\tau}, d_{k-\tau})
+\end{equation}
+where $f(\cdot)$ is the feedback policy. When $\tau > 0$ or $\eta < 1$, the effective correction rate is reduced, directly corresponding to the continuous-time friction cost $\epsilon > 0$. The stability condition $|dC/dt| \geq |dE/dt| + \epsilon$ translates to requiring the feedback policy to over-correct relative to the disturbance rate, accounting for these frictional losses.
 
 \subsubsection{Formal Error and Correction Rates}
 

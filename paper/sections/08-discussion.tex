@@ -138,6 +138,17 @@ A pattern emerges from Section~\ref{sec:diagnosis}: systems that pass all five t
 
 This correlation reflects a structural tension between essentiality and corrigibility.
 
+\begin{proposition}[Essentiality-Corrigibility Tension]
+\label{prop:essentiality}
+For any infrastructure system $S$ where participation is a prerequisite to survival, the EXIT test cannot be satisfied.
+\end{proposition}
+
+\begin{proof}
+EXIT requires that refusal incur no disproportionate penalty (Section~\ref{sec:tests}, Test 1). Let $S$ be essential: participation is required for access to food, shelter, healthcare, or legal identity. Refusal of $S$ therefore entails exclusion from survival necessities. Exclusion from survival necessities is a disproportionate penalty by any reasonable standard. Therefore, EXIT fails. \qed
+\end{proof}
+
+This proposition formalizes an empirical observation: among the systems evaluated in Section~\ref{sec:diagnosis}, those that pass all five tests are precisely those where participation remains genuinely voluntary.
+
 \subsubsection{The Essentiality Trap}
 
 Essential services create the economic coercion that undermines EXIT. When refusal means exclusion from survival, the feedback loop breaks regardless of other properties. \citet{hirschman1970} observed that exit is effective precisely because it is voluntary. The credible threat of departure disciplines the system. When departure means death (literal or social), exit ceases to function as feedback. It becomes self-exclusion.
@@ -158,7 +169,7 @@ This is the lesson of the UPI/Aadhaar contrast. Both are Indian government syste
 
 Under this model, no single implementation would be essential; the protocol would be. A citizen excluded from one provider could obtain equivalent service from another. Estonian X-Road approaches this architecture: the protocol is open, implementations are distributed across institutions, and the Nordic Institute for Interoperability Solutions (NIIS) provides multi-stakeholder governance. Citizens cannot opt out of the data exchange layer, but no single institution controls their access to all services.
 
-X-Road demonstrates that scale and corrigibility are compatible. It passes CODE (MIT-licensed), AUDIT (transaction logs, public enforcement against misuse), GOVERN (multi-national NIIS), and FORK (deployed in 25+ countries). It fails full EXIT but compensates through strong performance on the other four tests. This compensation is unstable (it depends on continued good-faith governance) but it proves that population-scale infrastructure need not exhibit the total capture of Aadhaar.
+X-Road demonstrates that scale and corrigibility are compatible. It passes CODE (MIT-licensed), AUDIT (transaction logs, public enforcement against misuse), GOVERN (multi-national NIIS), and FORK (deployed in 25+ countries). It fails full EXIT but mitigates this structural risk through strong performance on the other four tests. This mitigation is contingent (it depends on continued good-faith governance) but it proves that population-scale infrastructure need not exhibit the total capture of Aadhaar.
 
 \subsubsection{The Finding}
 
@@ -187,7 +198,7 @@ This sequence reflects the causal structure of the feedback loop: signal, sensin
 
 \subsubsection{Phase Transitions}
 
-The transition is not gradual improvement. It is a series of phase transitions. Each test either passes or fails; the system remains incorrigible until all five pass. A system that achieves CODE but not EXIT has become transparent without becoming accountable. Users can see their oppression; they cannot escape it.
+The transition is not gradual improvement. It is a series of phase transitions. Each test either passes or fails; the system remains incorrigible until all five pass. A system that achieves CODE but not EXIT has become transparent without becoming accountable. Users can observe the system's logic but cannot modify their participation.
 
 This explains why open-washing is effective: partial progress creates the appearance of reform while preserving structural capture. The framework rejects partial credit precisely because partial feedback loops do not partially function.
 

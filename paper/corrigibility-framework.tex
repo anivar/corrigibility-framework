@@ -198,6 +198,7 @@ In cybernetics, the relationship between a controller and its environment is gov
 
 \begin{equation}
 V(\text{controller}) \geq V(\text{disturbance})
+\label{eq:ashby}
 \end{equation}
 
 In DPI, the ``disturbance'' is the boundless diversity of the human population. No pre-programmed rule set can match this variety. Stability, therefore, relies on feedback channels that transmit error signals from the population back into the system's behavior. If these channels (specifically the ability to exit or correct) are blocked, the controller's variety effectively collapses. The system loses the capacity to regulate its own impact, leading inevitably to volatility or oppression.
@@ -247,6 +248,15 @@ Transparency specifications or open standards are insufficient if the executing 
 
 While inspection enables understanding, \textbf{Independent Verification} enables truth. This functions as the sensor in the cybernetic feedback loop. A system is verifiable only if external, permissionless actors can test its behavior, measure its error rates, and document its failure modes within production environments.
 
+\begin{quote}
+\textbf{Clarification:} The framework does not equate auditability with direct participation.
+\begin{itemize}[noitemsep]
+    \item AUDIT $\neq$ ``everyone audits''
+    \item AUDIT $=$ ``no one can prevent auditing''
+\end{itemize}
+\textbf{Journalism analogy:} Not everyone investigates corruption. Democracy still depends on the \textit{possibility} of investigation. The problem today is not that auditors exist---it's that operators can legally block them. \textbf{The tradeoff: Contestable expertise over unchallengeable authority.} That's a defensible democratic position.
+\end{quote}
+
 Incorrigible systems typically capture this function. \textbf{UPI} permits RBI regulatory audits, but transaction-level verification requires NPCI authorization; independent researchers cannot measure failure rates or dispute resolution times. \textbf{Open-weights AI models} (Llama, Qwen, DeepSeek) selectively publish red-teaming results while blocking independent adversarial testing at scale. \textbf{Bitcoin} provides the counter-model: every transaction is independently verifiable by any node, and consensus is cryptographic proof. Similarly, \textbf{Let's Encrypt} publishes Certificate Transparency logs, making every issued certificate publicly auditable in real time.
 
 The structural function of opacity is sensor failure. A system whose error rates cannot be independently measured cannot be regulated. The controller receives no signal about divergence from intended behavior. Under Ashby's Law, such a system will drift until external forces impose correction. Those forces, operating outside the technical loop, will impose correction through channels the system cannot anticipate or absorb. \citet{pasquale2015} describes this as a ``one-way mirror'' relationship, but the cybernetic translation is precise: asymmetric observability breaks the feedback loop at the sensing stage.
@@ -274,7 +284,28 @@ A related confusion conflates governing one's own data in a system with governin
 
 The ultimate check on power is the ability to recreate it. \textbf{Independent Reproduction} determines whether the ecosystem allows the infrastructure itself to be separated from its current steward. This requirement distinguishes structural resilience from simple market competition.
 
+\begin{quote}
+\textbf{Clarification:} The paper does not define FORK as ``routine divergence in production.'' It defines FORK as: \textbf{Credible replaceability in extremis.}
+
+\textbf{Constitutional analogy:} US Constitution is forkable (amendable, secession historically possible). That does not mean every county runs a different constitution. The \textit{possibility} disciplines the center.
+
+\textbf{The stable equilibrium:} Latent forkability + strong coordination incentives. Email works not because everyone forks SMTP---but because anyone \textit{could}.
+
+\textbf{Key asymmetry:} FORK is a threat, not a preference. No one wants fragmentation. But irreversibility without exit is worse.
+\end{quote}
+
 The existence of competitors, such as choosing between two proprietary cloud providers, provides an ``Exit'' option but not a ``Fork.'' Shifting providers allows a user to escape a specific operator, but it forces them to abandon their history, identity, and operational logic. This action is substitution, not reproduction.
+
+\subsubsection{Natural vs Constructed Barriers}
+
+A critical distinction must be drawn between barriers to forking that are \textbf{natural} (arising from coordination costs, network effects, or capital requirements) and those that are \textbf{constructed} (arising from legal prohibition, regulatory monopoly, or deliberate technical enclosure).
+
+\begin{itemize}
+    \item \textbf{Natural barriers}: Gmail dominates email not because forking SMTP is illegal, but because Google invested in spam filtering and UX. Anyone \textit{can} run their own mail server. Network effects and capital create friction, but not prohibition.
+    \item \textbf{Constructed barriers}: NPCI is the \textit{only permitted} instant payment switch in India. The barrier is regulatory, not economic. Even with infinite capital, you cannot legally compete with UPI's core switching function.
+\end{itemize}
+
+The FORK test fails only when constructed barriers prevent reproduction. Natural barriers reduce the \textit{likelihood} of forking; constructed barriers eliminate its \textit{possibility}. A system with high natural barriers but no constructed barriers (Linux, email) remains structurally corrigible. A system with low natural barriers but constructed prohibition (hypothetically: open-source software banned by law) would fail FORK despite technical simplicity.
 
 A system passes the FORK test only if the community possesses the legal rights, technical artifacts, and economic means to spawn a functionally equivalent instance. \textbf{Aadhaar} fails completely: no entity outside UIDAI can reproduce the identity infrastructure. \textbf{OpenSearch} demonstrates what successful forking looks like. When Elastic changed its license, AWS forked Elasticsearch and the community continued development independently. \textbf{Linux} has been forked thousands of times (Android, Chrome OS, countless distributions). \textbf{Llama} presents partial forkability: anyone can run the weights, but reproducing the training requires resources only a handful of companies possess. If Meta abandoned Llama tomorrow, the community could not recreate it.
 
@@ -434,6 +465,22 @@ This principle prevents a common evasion: claiming corrigibility by publishing p
 
 The five tests define the static architecture of a corrigible system. However, infrastructure exists in time. When we apply these structural requirements to dynamic systems, three fundamental implications emerge regarding stability, energy conservation, and the rule of law. These principles explain why centralized grievance redressal mechanisms---the standard answer of bureaucracies to error---are mathematically insufficient to guarantee stability.
 
+\subsection{The Harm Accumulation Principle}
+
+A critical clarification is required regarding the framework's claims about incorrigible systems:
+
+\begin{quote}
+\textbf{Principle (Harm Accumulation):} Incorrigible systems accumulate harm until correction becomes catastrophic rather than incremental. The framework does NOT claim ``incorrigibility leads to collapse.'' It claims that \textbf{corrigibility is a precondition for a system to be meaningfully public.}
+\end{quote}
+
+This is ontological classification, not historical prediction. North Korea is stable, incorrigible, and not public in any meaningful sense---confirming, not refuting, the framework. Tyrannies can persist indefinitely while crushing their subjects. The system stabilizes; the humans do not.
+
+\begin{quote}
+\textbf{The Core Claim (Post-Critique):} Corrigibility is not a guarantee of justice. It is a guarantee that \textbf{injustice is contestable}.
+\end{quote}
+
+A prison can be stable. A prison can even be efficient. But it is not public. That's the line the framework draws.
+
 \subsection{The Correction Velocity Inequality}
 \label{subsec:velocity}
 
@@ -443,7 +490,21 @@ We posit the \textbf{Temporal Stability Condition}: A system is corrigible only 
 
 \begin{equation}
 \frac{d}{dt} C(t) > \frac{d}{dt} E(t)
+\label{eq:velocity-lower}
 \end{equation}
+
+However, correction velocity has both a \textbf{lower bound} (preventing harm accumulation) and an \textbf{upper bound} (preventing manipulation):
+
+\begin{equation}
+v_{\min} < v_{\text{correction}} < v_{\max}
+\label{eq:velocity-bounds}
+\end{equation}
+
+\begin{quote}
+\textbf{Clarification:} Constitutional democracy \textit{invented} latency---bicameralism, judicial review, amendment supermajorities. Friction isn't failure. Friction is how minorities survive majorities. The gap between accusation and punishment is where due process lives. \textbf{Instantaneous correction is lynching.}
+
+The framework does not argue for automated, instant, or algorithmic governance. It argues for \textbf{availability of correction channels, not their speed}. Nothing in EXIT, GOVERN, or AUDIT requires immediacy. They require possibility without permission. Courts are a designed correction channel. They satisfy GOVERN (binding authority), AUDIT (independent review), and EXIT (injunctions prevent harm). \textbf{The framework criticizes absence, not latency.}
+\end{quote}
 
 $E(t)$ is driven by environmental volatility---identity fraud tactics, software exploits, pandemics, or economic shocks. These phenomena tend to grow exponentially or appear in high-velocity impulse shocks. In contrast, centralized governance operates on \textbf{bureaucratic time}. Legislative changes and judicial reviews are measured in months or years, while technical errors accumulate on \textbf{digital time}, measured in milliseconds. Appendix~\ref{appendix:proofs} provides a formal control-theoretic treatment of these claims; no additional assumptions beyond those stated here are introduced.
 
@@ -465,6 +526,7 @@ When a system fails to correct errors due to the velocity mismatch described abo
 
 \begin{equation}
 F_{\text{designed}} + F_{\text{emergent}} = K
+\label{eq:conservation}
 \end{equation}
 
 Here, $F_{\text{designed}}$ represents the flow of correction through designed channels---principally \textbf{EXIT} (reducing participation) and \textbf{GOVERN} (altering rules). When these channels are structurally blocked or throttled by bureaucracy, the pressure shifts to $F_{\text{emergent}}$. Emergent correction channels take the form of protest, litigation, hacks, grey markets, and eventually, civil unrest.
@@ -478,6 +540,7 @@ A critical distinction must be drawn between \textit{grievance} and \textit{gove
 
 \begin{equation}
 \frac{\partial S}{\partial G} = 0
+\label{eq:grievance}
 \end{equation}
 
 Grievance channels that record dissatisfaction without a binding mechanism to modify execution, policy, or eligibility logic do not constitute a feedback loop. They serve an aesthetic function, mimicking responsiveness while preserving the controller's rigidity. Under Ashby's Law, if the controller's response variety does not increase in response to signal, regulation has failed.
@@ -1254,6 +1317,89 @@ However, these costs must be weighed against the costs of continued incorrigibil
 \end{itemize}
 
 The systems in Table~\ref{tab:positive} demonstrate that corrigibility at scale is economically sustainable. Linux, Kubernetes, and Let's Encrypt operate at population scale with resource models that have proven durable over decades.
+
+\subsection{Political vs Structural Corrigibility}
+\label{subsec:political-structural}
+
+A critical objection holds that the framework applies market logic (exit/fork) to non-market systems. You cannot fork India.
+
+The response requires distinguishing two modes of correction:
+
+\begin{itemize}
+    \item \textbf{Political corrigibility} (voice via elections)---how \textit{states} are corrected
+    \item \textbf{Structural corrigibility} (exit/fork)---how \textit{infrastructure} is corrected
+\end{itemize}
+
+States are corrected politically. DPI sits \textit{below} politics---that's the problem. When DPI is captured by executive authority, political correction mechanisms don't reach it.
+
+\textbf{The real issue:} Aadhaar wasn't passed by Parliament until 2016 (as money bill to avoid Rajya Sabha). UIDAI operated for 7 years on executive authority alone. This is the gap the framework identifies---infrastructure that escapes democratic correction.
+
+Democracies have \textit{constitutional} correction mechanisms (elections, courts, amendments). DPI often lacks these. The Constitution can be amended; Aadhaar's architecture cannot be voted on.
+
+\subsection{The Distributional Question}
+\label{subsec:distributional}
+
+The debate isn't ``scale vs sovereignty.'' It's \textbf{whose suffering counts}.
+
+\begin{itemize}
+    \item Platform speed benefits the median user.
+    \item Incorrigibility harms the marginal user.
+    \item The marginal user has no voice because EXIT is blocked.
+\end{itemize}
+
+Corrigibility is a \textbf{distributional question}. The framework makes visible who bears the cost of system failures. When we ask ``Is this system corrigible?'' we are really asking: ``When this system fails someone, can they do anything about it?''
+
+The answer for Aadhaar is no. Documented starvation deaths in Jharkhand weren't caused by ``too much democracy''---they were caused by a system where the marginal user had no recourse when biometric authentication failed.
+
+\subsection{Coordination Goods and Inherent Unforkability}
+\label{subsec:coordination}
+
+The forking paradox presents a genuine limitation: if you can fork the Public Infrastructure, it may no longer be public.
+
+A ``public'' good (like law or money) derives its value from universality. We all agree on the same truth. If the Identity System is ``forkable,'' and I fork it to create ``Blue-Identity'' while you use ``Red-Identity,'' we have destroyed the common knowledge required for society to function.
+
+\begin{quote}
+\textbf{Concession:} Identity, money, and law may be \textbf{inherently unforkable} coordination goods. The paper does not demand \textit{actual forking}---it demands \textit{credible threat of forking}. But for coordination goods, even the threat may undermine function.
+\end{quote}
+
+This is a genuine tension the framework cannot fully resolve. The stable equilibrium may be: latent forkability + strong coordination incentives. Email works not because everyone forks SMTP---but because anyone \textit{could}. Whether this equilibrium is achievable for identity infrastructure remains an open question.
+
+\subsection{Engaging ``Regulate the Loop''}
+\label{subsec:regulate}
+
+A sophisticated objection accepts the diagnosis but rejects the prescription:
+
+\begin{quote}
+``We accept your Diagnosis (The Loop is Broken). We reject your Prescription (Break the Platform). We choose to \textbf{Regulate the Loop} rather than Fork the Code, because the cost of Forking is Poverty.''
+\end{quote}
+
+This argument has force. UPI moved from 0 to billions of transactions in 7 years. Email standardization took decades. India doesn't have decades. Poverty is now.
+
+\textbf{Where this lands:}
+\begin{itemize}
+    \item RBI \textit{could} mandate error rate disclosure, demographic audits, grievance SLOs
+    \item Political correction (parliament, courts) exists even without FORK
+    \item Speed-to-scale tradeoff is real
+\end{itemize}
+
+\textbf{Where this misses:}
+\begin{itemize}
+    \item ``Regulate the loop'' assumes trustworthy regulators. RBI reports to Finance Ministry. UIDAI is executive authority with no parliamentary oversight. Who regulates the regulator?
+    \item In captured states, ``regulate later'' means ``never''
+    \item Gmail $\neq$ UPI: Gmail \textit{earned} users with features---you CAN leave for Proton, Fastmail, self-hosted. UPI has \textit{regulatory monopoly}---you CANNOT build a competing instant payment switch. Gmail is incorrigible by choice. UPI is incorrigible by law.
+    \item ``Regulate later'' rarely happens: Aadhaar 2009 pilot $\rightarrow$ 2016 mandatory $\rightarrow$ 2018 Supreme Court $\rightarrow$ still no real audit. 15 years. Where's the regulation?
+\end{itemize}
+
+\subsection{Utility Does Not Equal Accountability}
+\label{subsec:utility}
+
+A system can be \textbf{useful AND structurally captured}. Both are true simultaneously.
+
+UPI \textit{has} democratized payments. The framework risks dismissing real-world impact if this isn't acknowledged. But the question the framework asks is different: \textbf{When UPI fails someone, can they correct it?}
+
+The answer is no. That's the point.
+
+The framework measures \textbf{accountability structure}, not \textbf{utility}. A system can score 0/5 and still be beneficial. The score indicates \textit{structural risk}, not \textit{current harm}. A house built without fire exits can function perfectly for decades---until there's a fire.
 
 \section{Conclusion}
 

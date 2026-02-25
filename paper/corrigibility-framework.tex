@@ -449,9 +449,17 @@ Formally: Let $L_1, L_2, \ldots, L_n$ be the layers of a system, ordered by prox
 
 \begin{equation}
 T_{\text{system}} = \bigwedge_{i=1}^{n} T(L_i)
+\label{eq:layer-propagation}
 \end{equation}
 
-The system passes $T$ if and only if every layer passes $T$.
+The system passes $T$ if and only if every layer passes $T$. The full corrigibility determination extends this across all five tests:
+
+\begin{equation}
+\text{Corrigible}(S) = \bigwedge_{t \in \mathcal{T}} \bigwedge_{i=1}^{n} T_t(L_i) \quad \text{where } \mathcal{T} = \{\text{EXIT, CODE, AUDIT, GOVERN, FORK}\}
+\label{eq:full-corrigibility}
+\end{equation}
+
+This double conjunction formalizes the ``weakest link'' principle: failure of any test at any layer propagates to the system determination.
 
 \subsubsection{Application to Identity Infrastructure}
 
@@ -531,6 +539,26 @@ $E(t)$ is driven by environmental volatility: identity fraud tactics, software e
 \begin{equation}
 \frac{dC_{\text{bureaucratic}}}{dt} \ll \frac{dE_{\text{digital}}}{dt}
 \end{equation}
+
+\subsubsection{Integral Stability and Robustness Margin}
+
+The instantaneous condition $C(t) > E(t)$ is necessary but insufficient. A system may satisfy this condition momentarily while accumulating net harm over time. The \textbf{integral stability condition} captures persistence:
+
+\begin{equation}
+\int_{t_0}^{t_1} \left( C(t) - E(t) \right) dt \geq 0 \quad \forall \, t_1 > t_0
+\label{eq:integral-stability}
+\end{equation}
+
+This requires no net harm accumulation over any time window. A system that corrects errors eventually but accumulates harm during delay violates this condition.
+
+For practical robustness against measurement noise and burst errors, we define a \textbf{robustness margin} $\delta > 0$:
+
+\begin{equation}
+C(t) - E(t) > \delta \quad \text{(robust stability)}
+\label{eq:robustness-margin}
+\end{equation}
+
+Systems operating at $C(t) \approx E(t)$ are marginally stable; any perturbation tips them into harm accumulation. The margin $\delta$ represents excess correction capacity that absorbs shocks. Empirical calibration of $\delta$ requires measuring error and correction rates during incident windows (see Future Work).
 
 This timescale mismatch is an instance of the Collingridge Dilemma \citep{collingridge1980}: a double-bind in technology governance. Early in a technology's development, change is easy but the need for change cannot be foreseen (the information problem). Later, when impacts become clear, change has become expensive, difficult, and time-consuming because the technology is entrenched (the power problem).
 
@@ -683,6 +711,40 @@ If a community has the legal right to fork a model but lacks access to the origi
 \begin{claim}
 Legal permission to fork without access to compute or data is meaningless. This is an infrastructure question, not a licensing question.
 \end{claim}
+
+\subsubsection{Minimum Evidence for Learned System Forkability}
+\label{subsubsec:ai-fork-evidence}
+
+To prevent ``FORK fails'' from becoming a rhetorical claim rather than a verifiable determination, learned systems must satisfy specific evidentiary requirements:
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Evidence requirements for FORK in learned systems}
+\label{tab:ai-fork-evidence}
+\begin{tabular}{@{}llp{6cm}@{}}
+\toprule
+\textbf{Artifact} & \textbf{Status} & \textbf{Verification} \\
+\midrule
+Inference code & Required & Open source license; build reproducibility \\
+Model weights & Required & Public download; hash verification \\
+Training data manifest & Required & Data Sheets \citep{gebru2021} with provenance \\
+Training checkpoint & Recommended & Enables fine-tuning without full retrain \\
+Training code & Required & Includes preprocessing, hyperparameters \\
+Compute cost estimate & Required & FLOP estimate or cloud cost documentation \\
+Successful reproduction & Decisive & Third-party retrain within 10\% of benchmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Forkability Determination.} A learned system passes FORK if:
+\begin{enumerate}[noitemsep]
+    \item All ``Required'' artifacts are publicly available under permissive terms
+    \item The compute cost estimate demonstrates feasibility for at least one non-operator entity (government research consortium, academic cluster, or distributed compute pool)
+    \item Either a successful third-party reproduction exists, OR the training code + data manifest enables reproduction in principle
+\end{enumerate}
+
+Systems that publish weights but withhold training data or code achieve only \textbf{inference forkability}, not \textbf{training forkability}. Inference forkability permits running the model; training forkability permits correcting it. Only the latter satisfies FORK for governance purposes.
 
 \section{Empirical Evaluation}
 \label{sec:diagnosis}
@@ -1124,6 +1186,27 @@ This trade-off is justified on two grounds. First, the regulatory purpose: a sys
 
 For diagnostic purposes, gradation remains useful. The auditor schema (Appendix~\ref{appendix:schema}) preserves continuous measurements in fields like \texttt{penalty\_ratio}, \texttt{visibility}, and \texttt{fix\_latency\_observed}. The binary determination is the output; the continuous measurements are the inputs. Evaluators can examine the inputs to prioritize interventions even when the output is uniformly ``fail.''
 
+\subsubsection{Legitimacy Threshold vs Physical Claim}
+
+A critical clarification: the binary model is a \textbf{legitimacy threshold}, not a physical claim about feedback dynamics. Control theorists correctly observe that real systems exhibit continuous variation in loop gain, observability, and actuation authority. A sensor with 50\% accuracy transmits \textit{some} signal; partial actuation produces \textit{some} correction.
+
+The framework does not dispute this physical reality. It makes a normative claim: \textbf{below a threshold of feedback quality, a system forfeits the right to claim public legitimacy}. The threshold is binary because legitimacy is binary. A prison that permits appeals 10\% of the time is still a prison.
+
+\paragraph{Sensitivity Analysis.} Let continuous inputs be $\{p, v, \tau, b, r\}$ (penalty ratio, visibility, latency, bindingness, resource ratio) as defined in Table~\ref{tab:operational-proxies}. The binary determination function $D$ is:
+
+\begin{equation}
+D = \mathbf{1}[p \leq p^*] \land \mathbf{1}[v \geq v^*] \land \mathbf{1}[\tau \leq \tau^*] \land \mathbf{1}[b = \text{true}] \land \mathbf{1}[r \leq r^*]
+\end{equation}
+
+where $\mathbf{1}[\cdot]$ is the indicator function and $\{p^*, v^*, \tau^*, r^*\}$ are threshold values. This formulation makes explicit that:
+\begin{enumerate}[noitemsep]
+    \item Continuous inputs are preserved for diagnosis
+    \item The AND-conjunction enforces the ``weakest link'' principle
+    \item Threshold calibration is a policy choice, separable from the structural argument
+\end{enumerate}
+
+Systems near thresholds warrant scrutiny; systems far below thresholds across multiple dimensions are unambiguously incorrigible. The binary output serves regulatory clarity; the continuous inputs serve diagnostic priority.
+
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
@@ -1259,6 +1342,18 @@ EXIT requires that refusal incur no disproportionate penalty (Section~\ref{sec:t
 
 This proposition formalizes an empirical observation: among the systems evaluated in Section~\ref{sec:diagnosis}, those that pass all five tests are precisely those where participation remains genuinely voluntary.
 
+\begin{corollary}[No Exemptions from Essentiality Tension]
+The following do NOT constitute valid exemptions from Proposition~\ref{prop:essentiality}:
+\begin{enumerate}[noitemsep]
+    \item \textbf{Emergency necessity}: Pandemics, wars, and crises do not suspend the requirement for correction channels. Systems deployed under emergency conditions that block EXIT remain incorrigible; the emergency explains but does not justify the structural failure.
+    \item \textbf{Efficiency gains}: That a mandatory system delivers services faster or cheaper than alternatives does not restore EXIT. Efficiency is orthogonal to corrigibility (Section~\ref{subsec:utility}).
+    \item \textbf{Democratic authorization}: Legislative mandates do not convert incorrigible systems into corrigible ones. A democratically enacted prison is still a prison.
+    \item \textbf{Benevolent intent}: Good-faith operation does not substitute for structural accountability. The framework evaluates architecture, not intentions.
+\end{enumerate}
+\end{corollary}
+
+\paragraph{The Only Routes.} Proposition~\ref{prop:essentiality} admits exactly two architectural responses (detailed in Section~\ref{subsubsec:arch-responses}): \textbf{protected alternatives} (guaranteeing functional non-digital pathways by law) or \textbf{federated implementation} (ensuring no single provider is essential). All other proposed remedies---oversight boards, ombudsmen, post-hoc judicial review---operate on the assumption that EXIT exists. They are supplements to corrigibility, not substitutes for it.
+
 \subsubsection{The Essentiality Trap}
 
 Essential services create the economic coercion that undermines EXIT. When refusal means exclusion from survival, the feedback loop breaks regardless of other properties. \citet{hirschman1970} observed that exit is effective precisely because it is voluntary. The credible threat of departure disciplines the system. When departure means death (literal or social), exit ceases to function as feedback. It becomes self-exclusion.
@@ -1268,6 +1363,7 @@ The systems in Table~\ref{tab:positive} avoid this trap because alternatives exi
 Aadhaar has been made prerequisite to existence. Documented cases demonstrate the consequence: at least 27 starvation deaths in India between 2015 and 2018 were attributed to Aadhaar-related exclusion from food rations \citep{khera2017}. These deaths are not anomalies; they are the structural prediction of a system that blocks EXIT while governing essential services.
 
 \subsubsection{Architectural Responses}
+\label{subsubsec:arch-responses}
 
 The tension admits two resolutions, both architectural:
 
@@ -1818,6 +1914,56 @@ FORK & Resource feasibility ratio $r$ & $r \leq 10^{-3}$ \\
     \item Resource ratio $r$ = estimated FLOP to retrain / aggregate community compute capacity.
 \end{itemize}
 
+\subsection{Measurement Procedures for Reproducibility}
+\label{subsec:measurement}
+
+To enable third-party reproduction of pass/fail determinations, each test requires specific evidence types:
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Evidence requirements for reproducible assessment}
+\label{tab:evidence-requirements}
+\begin{tabular}{@{}lp{5cm}p{5cm}@{}}
+\toprule
+\textbf{Test} & \textbf{Required Evidence} & \textbf{Verification Method} \\
+\midrule
+EXIT & (1) Legal mandate status, (2) documented alternative pathways, (3) penalty documentation & Survey of legal instruments; cost comparison with alternatives; user testimony \\
+CODE & (1) Source repository URL, (2) build reproducibility proof, (3) execution path coverage & Hash verification; deterministic build; static analysis of critical paths \\
+AUDIT & (1) API documentation, (2) data access agreement, (3) historical error rate publication & Attempt independent measurement; verify data freshness; compare operator vs independent findings \\
+GOVERN & (1) Charter/statute URL with hash, (2) governance action log, (3) enforcement history & Legal analysis; search for overruled operator decisions; verify binding mechanism \\
+FORK & (1) License text, (2) technical artifact availability, (3) resource cost estimate, (4) successful fork examples & License audit; attempt reproduction; cost modeling; historical fork survey \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Reproducibility Standard.} An assessment is reproducible if an independent auditor, given only the evidence artifacts listed above, reaches the same pass/fail determination. Disagreements must trace to (a) threshold calibration differences or (b) missing evidence, not to ambiguity in the test definitions themselves.
+
+\subsection{Three-Indicator Protocol}
+\label{subsec:three-indicator}
+
+For maximum reproducibility, each test uses exactly three indicators: one continuous score, one binary flag, and one threshold-based metric.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Three-indicator protocol for reproducible assessment}
+\label{tab:three-indicator}
+\begin{tabular}{@{}lp{3.5cm}p{3.5cm}p{3.5cm}@{}}
+\toprule
+\textbf{Test} & \textbf{Continuous Score} & \textbf{Binary Flag} & \textbf{Threshold Metric} \\
+\midrule
+EXIT & \texttt{penalty\_ratio}: cost(exit) / cost(stay) & \texttt{legal\_barrier}: is exit criminalized? & Pass if $p \leq 1.2$ AND \texttt{legal\_barrier} = false \\
+CODE & \texttt{visibility}: public LOC / total critical path LOC & \texttt{build\_reproducible}: deterministic build exists? & Pass if $v \geq 0.95$ AND \texttt{build} = true \\
+AUDIT & \texttt{observability}: \% transactions independently verifiable & \texttt{access\_permitted}: third parties can test? & Pass if $o \geq 0.9$ AND \texttt{access} = true \\
+GOVERN & \texttt{override\_resistance}: historical rate of operator overrules & \texttt{binding\_charter}: irrevocable legal instrument? & Pass if $r = 0$ AND \texttt{charter} = true \\
+FORK & \texttt{cost\_ratio}: fork cost / community resources & \texttt{legal\_rights}: permissive license? & Pass if $c \leq 0.001$ AND \texttt{rights} = true \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Inter-Rater Calibration.} Before deployment, independent auditors should assess 3--5 systems using this protocol and compare determinations. Disagreements identify threshold calibration issues. Target: $\kappa \geq 0.8$ (Cohen's kappa) for binary determinations.
+
 \subsection{Network Adoption Model for Fork Feasibility}
 
 Model adoption fraction $\alpha(t)$. A community-spawned fork succeeds if $\alpha$ crosses critical mass $\alpha^*$. Logistic adoption with social influence:
@@ -2080,6 +2226,51 @@ Established the baseline thesis: Corrigibility is a structural precondition, dis
 \textbf{Closed the DID-Washing Loophole.} Added layer-decomposed evaluation requiring analysis at each architectural stratum. Systems claiming corrigibility through identifier decentralization while retaining centralized governance at higher layers are now explicitly diagnosed. Introduced the propagation rule: $T_{\text{system}} = \bigwedge T(L_i)$.
 
 \end{description}
+
+\section{Anticipated Objections and Responses}
+\label{appendix:objections}
+
+This appendix addresses the strongest objections to the framework, organized by the discipline from which they originate.
+
+\subsection{Control Theory Objections}
+
+\paragraph{Objection 1: Binary model ignores continuous feedback dynamics.}
+``Real control systems have continuous loop gain. Partial observability and partial actuation still provide some regulation. Your binary pass/fail ignores systems that are 'mostly corrigible.'''
+
+\textbf{Response:} The objection conflates physical description with normative threshold. We do not dispute that real systems exhibit continuous variation in feedback quality. The binary model is a \textit{legitimacy threshold}, not a physical claim (Section~\ref{sec:discussion}). A feedback loop with 50\% sensor accuracy transmits some signal; this does not mean the system deserves public trust. The determination function $D$ (Equation in Section 8.1) makes explicit that continuous inputs feed a binary output. The threshold is where we draw the line for public legitimacy, separable from the physics.
+
+\paragraph{Objection 2: Where is the Lyapunov stability proof?}
+``You claim systems diverge without feedback. Show the Lyapunov function. Without rigorous stability analysis, this is hand-waving.''
+
+\textbf{Response:} Appendix~\ref{appendix:proofs} provides the formal treatment. Theorem 1 (Null-Feedback Instability) proves that when $H=0$ or $K=0$, the system operates open-loop and diverges under non-zero disturbance. The discrete integrator example (Section B.6.2) provides an elementary proof: $y_N = y_0 + \sum d_k \to \infty$ for any non-zero mean disturbance. A full Lyapunov treatment would require specifying the state space for a particular DPI implementation; the framework operates at the architectural level, where the key insight---open loops diverge---is mathematically trivial.
+
+\subsection{Political Science Objections}
+
+\paragraph{Objection 3: You ignore legitimate state interests.}
+``Governments have valid reasons for mandatory systems: national security, public health, anti-fraud. Your framework would prohibit pandemic contact tracing.''
+
+\textbf{Response:} The framework does not prohibit mandatory systems; it diagnoses their structural properties. Emergency necessity explains but does not justify incorrigibility (Corollary to Proposition~\ref{prop:essentiality}). A pandemic contact-tracing system can still satisfy CODE (open source), AUDIT (independent testing), GOVERN (binding privacy constraints), and FORK (interoperable protocol). Only EXIT is constrained by mandatory participation. The question is whether the other four tests pass---not whether mandates are ever legitimate. Section~\ref{sec:discussion} explicitly notes that corrigibility is compatible with strict, non-negotiable rules.
+
+\paragraph{Objection 4: Proposition 2 proves your framework is useless.}
+``You prove essential services can never be fully corrigible. This makes your framework irrelevant for the systems that matter most---identity, payments, healthcare.''
+
+\textbf{Response:} The proposition identifies a structural constraint, not a reason to abandon analysis. The architectural responses (Section~\ref{subsubsec:arch-responses}) show two paths: protected alternatives (guarantee non-digital equivalents) or federated implementation (no single provider essential). X-Road demonstrates 4/5 at population scale. The finding that fully corrigible essential services require architectural innovation is the framework's central contribution. Diagnosing why current systems fail is prerequisite to designing better ones.
+
+\subsection{Empirical Objections}
+
+\paragraph{Objection 5: Your pass/fail determinations are subjective.}
+``Two auditors could reach different conclusions. Without precise, reproducible metrics, this is opinion dressed as science.''
+
+\textbf{Response:} Section~\ref{subsec:measurement} specifies evidence requirements for each test. Table~\ref{tab:evidence-requirements} lists required artifacts and verification methods. The reproducibility standard states: an assessment is reproducible if an independent auditor, given only the evidence artifacts, reaches the same determination. Disagreements must trace to threshold calibration or missing evidence, not definition ambiguity. The JSON schemas (Appendix~\ref{appendix:schema}) enforce structured disclosure. Future work includes inter-rater reliability studies.
+
+\paragraph{Objection 6: FORK is illusory for AI systems.}
+``You admit compute costs make AI retraining impractical. If FORK always fails for frontier AI, your framework just says 'all AI is incorrigible'---trivially true and useless.''
+
+\textbf{Response:} Section~\ref{subsubsec:ai-fork-evidence} specifies minimum evidence for learned system forkability. The key distinction is \textit{inference forkability} (running weights) vs \textit{training forkability} (reproducing the model). Only training forkability satisfies FORK for governance purposes. The evidence requirements (Table~\ref{tab:ai-fork-evidence}) are achievable: published training code, data manifests, and compute cost estimates. The claim is not that all AI fails FORK, but that systems withholding these artifacts fail. OLMo, Pythia, and academic models demonstrate that FORK-compliant AI is possible; the question is whether frontier labs choose to comply.
+
+\subsection{Summary}
+
+The framework withstands scrutiny from control theory (binary is threshold, not physics), political science (mandates can coexist with corrigibility on other dimensions), and empirical methodology (reproducible metrics exist). The strongest residual objection---network effects making FORK practically impossible even when legally permitted---is acknowledged in Limitations and proposed for formal treatment in Future Work.
 
 % ============================================
 % REFERENCES (at end, per academic standard)

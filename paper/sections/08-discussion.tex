@@ -229,3 +229,86 @@ However, these costs must be weighed against the costs of continued incorrigibil
 \end{itemize}
 
 The systems in Table~\ref{tab:positive} demonstrate that corrigibility at scale is economically sustainable. Linux, Kubernetes, and Let's Encrypt operate at population scale with resource models that have proven durable over decades.
+
+\subsection{Political vs Structural Corrigibility}
+\label{subsec:political-structural}
+
+A critical objection holds that the framework applies market logic (exit/fork) to non-market systems. You cannot fork India.
+
+The response requires distinguishing two modes of correction:
+
+\begin{itemize}
+    \item \textbf{Political corrigibility} (voice via elections)---how \textit{states} are corrected
+    \item \textbf{Structural corrigibility} (exit/fork)---how \textit{infrastructure} is corrected
+\end{itemize}
+
+States are corrected politically. DPI sits \textit{below} politics---that's the problem. When DPI is captured by executive authority, political correction mechanisms don't reach it.
+
+\textbf{The real issue:} Aadhaar wasn't passed by Parliament until 2016 (as money bill to avoid Rajya Sabha). UIDAI operated for 7 years on executive authority alone. This is the gap the framework identifies---infrastructure that escapes democratic correction.
+
+Democracies have \textit{constitutional} correction mechanisms (elections, courts, amendments). DPI often lacks these. The Constitution can be amended; Aadhaar's architecture cannot be voted on.
+
+\subsection{The Distributional Question}
+\label{subsec:distributional}
+
+The debate isn't ``scale vs sovereignty.'' It's \textbf{whose suffering counts}.
+
+\begin{itemize}
+    \item Platform speed benefits the median user.
+    \item Incorrigibility harms the marginal user.
+    \item The marginal user has no voice because EXIT is blocked.
+\end{itemize}
+
+Corrigibility is a \textbf{distributional question}. The framework makes visible who bears the cost of system failures. When we ask ``Is this system corrigible?'' we are really asking: ``When this system fails someone, can they do anything about it?''
+
+The answer for Aadhaar is no. Documented starvation deaths in Jharkhand weren't caused by ``too much democracy''---they were caused by a system where the marginal user had no recourse when biometric authentication failed.
+
+\subsection{Coordination Goods and Inherent Unforkability}
+\label{subsec:coordination}
+
+The forking paradox presents a genuine limitation: if you can fork the Public Infrastructure, it may no longer be public.
+
+A ``public'' good (like law or money) derives its value from universality. We all agree on the same truth. If the Identity System is ``forkable,'' and I fork it to create ``Blue-Identity'' while you use ``Red-Identity,'' we have destroyed the common knowledge required for society to function.
+
+\begin{quote}
+\textbf{Concession:} Identity, money, and law may be \textbf{inherently unforkable} coordination goods. The paper does not demand \textit{actual forking}---it demands \textit{credible threat of forking}. But for coordination goods, even the threat may undermine function.
+\end{quote}
+
+This is a genuine tension the framework cannot fully resolve. The stable equilibrium may be: latent forkability + strong coordination incentives. Email works not because everyone forks SMTP---but because anyone \textit{could}. Whether this equilibrium is achievable for identity infrastructure remains an open question.
+
+\subsection{Engaging ``Regulate the Loop''}
+\label{subsec:regulate}
+
+A sophisticated objection accepts the diagnosis but rejects the prescription:
+
+\begin{quote}
+``We accept your Diagnosis (The Loop is Broken). We reject your Prescription (Break the Platform). We choose to \textbf{Regulate the Loop} rather than Fork the Code, because the cost of Forking is Poverty.''
+\end{quote}
+
+This argument has force. UPI moved from 0 to billions of transactions in 7 years. Email standardization took decades. India doesn't have decades. Poverty is now.
+
+\textbf{Where this lands:}
+\begin{itemize}
+    \item RBI \textit{could} mandate error rate disclosure, demographic audits, grievance SLOs
+    \item Political correction (parliament, courts) exists even without FORK
+    \item Speed-to-scale tradeoff is real
+\end{itemize}
+
+\textbf{Where this misses:}
+\begin{itemize}
+    \item ``Regulate the loop'' assumes trustworthy regulators. RBI reports to Finance Ministry. UIDAI is executive authority with no parliamentary oversight. Who regulates the regulator?
+    \item In captured states, ``regulate later'' means ``never''
+    \item Gmail $\neq$ UPI: Gmail \textit{earned} users with features---you CAN leave for Proton, Fastmail, self-hosted. UPI has \textit{regulatory monopoly}---you CANNOT build a competing instant payment switch. Gmail is incorrigible by choice. UPI is incorrigible by law.
+    \item ``Regulate later'' rarely happens: Aadhaar 2009 pilot $\rightarrow$ 2016 mandatory $\rightarrow$ 2018 Supreme Court $\rightarrow$ still no real audit. 15 years. Where's the regulation?
+\end{itemize}
+
+\subsection{Utility Does Not Equal Accountability}
+\label{subsec:utility}
+
+A system can be \textbf{useful AND structurally captured}. Both are true simultaneously.
+
+UPI \textit{has} democratized payments. The framework risks dismissing real-world impact if this isn't acknowledged. But the question the framework asks is different: \textbf{When UPI fails someone, can they correct it?}
+
+The answer is no. That's the point.
+
+The framework measures \textbf{accountability structure}, not \textbf{utility}. A system can score 0/5 and still be beneficial. The score indicates \textit{structural risk}, not \textit{current harm}. A house built without fire exits can function perfectly for decades---until there's a fire.

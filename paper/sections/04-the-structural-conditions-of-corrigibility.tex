@@ -31,6 +31,15 @@ Transparency specifications or open standards are insufficient if the executing 
 
 While inspection enables understanding, \textbf{Independent Verification} enables truth. This functions as the sensor in the cybernetic feedback loop. A system is verifiable only if external, permissionless actors can test its behavior, measure its error rates, and document its failure modes within production environments.
 
+\begin{quote}
+\textbf{Clarification:} The framework does not equate auditability with direct participation.
+\begin{itemize}[noitemsep]
+    \item AUDIT $\neq$ ``everyone audits''
+    \item AUDIT $=$ ``no one can prevent auditing''
+\end{itemize}
+\textbf{Journalism analogy:} Not everyone investigates corruption. Democracy still depends on the \textit{possibility} of investigation. The problem today is not that auditors exist---it's that operators can legally block them. \textbf{The tradeoff: Contestable expertise over unchallengeable authority.} That's a defensible democratic position.
+\end{quote}
+
 Incorrigible systems typically capture this function. \textbf{UPI} permits RBI regulatory audits, but transaction-level verification requires NPCI authorization; independent researchers cannot measure failure rates or dispute resolution times. \textbf{Open-weights AI models} (Llama, Qwen, DeepSeek) selectively publish red-teaming results while blocking independent adversarial testing at scale. \textbf{Bitcoin} provides the counter-model: every transaction is independently verifiable by any node, and consensus is cryptographic proof. Similarly, \textbf{Let's Encrypt} publishes Certificate Transparency logs, making every issued certificate publicly auditable in real time.
 
 \subsection{Test 4: GOVERN (Constitutive Constraint)}
@@ -48,7 +57,28 @@ Consequently, claims of governance must be evidentiary rather than declarative. 
 
 The ultimate check on power is the ability to recreate it. \textbf{Independent Reproduction} determines whether the ecosystem allows the infrastructure itself to be separated from its current steward. This requirement distinguishes structural resilience from simple market competition.
 
+\begin{quote}
+\textbf{Clarification:} The paper does not define FORK as ``routine divergence in production.'' It defines FORK as: \textbf{Credible replaceability in extremis.}
+
+\textbf{Constitutional analogy:} US Constitution is forkable (amendable, secession historically possible). That does not mean every county runs a different constitution. The \textit{possibility} disciplines the center.
+
+\textbf{The stable equilibrium:} Latent forkability + strong coordination incentives. Email works not because everyone forks SMTP---but because anyone \textit{could}.
+
+\textbf{Key asymmetry:} FORK is a threat, not a preference. No one wants fragmentation. But irreversibility without exit is worse.
+\end{quote}
+
 The existence of competitors, such as choosing between two proprietary cloud providers, provides an ``Exit'' option but not a ``Fork.'' Shifting providers allows a user to escape a specific operator, but it forces them to abandon their history, identity, and operational logic. This action is substitution, not reproduction.
+
+\subsubsection{Natural vs Constructed Barriers}
+
+A critical distinction must be drawn between barriers to forking that are \textbf{natural} (arising from coordination costs, network effects, or capital requirements) and those that are \textbf{constructed} (arising from legal prohibition, regulatory monopoly, or deliberate technical enclosure).
+
+\begin{itemize}
+    \item \textbf{Natural barriers}: Gmail dominates email not because forking SMTP is illegal, but because Google invested in spam filtering and UX. Anyone \textit{can} run their own mail server. Network effects and capital create friction, but not prohibition.
+    \item \textbf{Constructed barriers}: NPCI is the \textit{only permitted} instant payment switch in India. The barrier is regulatory, not economic. Even with infinite capital, you cannot legally compete with UPI's core switching function.
+\end{itemize}
+
+The FORK test fails only when constructed barriers prevent reproduction. Natural barriers reduce the \textit{likelihood} of forking; constructed barriers eliminate its \textit{possibility}. A system with high natural barriers but no constructed barriers (Linux, email) remains structurally corrigible. A system with low natural barriers but constructed prohibition (hypothetically: open-source software banned by law) would fail FORK despite technical simplicity.
 
 A system passes the FORK test only if the community possesses the legal rights, technical artifacts, and economic means to spawn a functionally equivalent instance. \textbf{Aadhaar} fails completely: no entity outside UIDAI can reproduce the identity infrastructure. \textbf{OpenSearch} demonstrates what successful forking looks like. When Elastic changed its license, AWS forked Elasticsearch and the community continued development independently. \textbf{Linux} has been forked thousands of times (Android, Chrome OS, countless distributions). \textbf{Llama} presents partial forkability: anyone can run the weights, but reproducing the training requires resources only a handful of companies possess. If Meta abandoned Llama tomorrow, the community could not recreate it.
 

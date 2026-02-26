@@ -406,6 +406,26 @@ where each component is normalized to $[0,1]$:
     \item $c_{\text{legal}}$: regulatory friction and contractual barriers
 \end{itemize}
 
+\paragraph{Worked Example: Aadhaar vs UPI.} Consider switching from Aadhaar-linked services to hypothetical alternatives:
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}lcccccl@{}}
+\toprule
+\textbf{System} & $c_{\text{data}}$ & $c_{\text{down}}$ & $c_{\text{reprov}}$ & $c_{\text{net}}$ & $c_{\text{legal}}$ & $\sigma$ \\
+\midrule
+Aadhaar $\to$ Alt ID & 1.0 & 1.0 & 1.0 & 0.8 & 1.0 & 4.8 \\
+UPI $\to$ Cash/Card & 0.2 & 0.1 & 0.3 & 0.4 & 0.0 & 1.0 \\
+UPI $\to$ Alt Payment & 0.3 & 0.2 & 0.4 & 0.5 & 0.1 & 1.5 \\
+\bottomrule
+\end{tabular}
+\caption{Illustrative switching cost estimates. Aadhaar exhibits near-maximal $\sigma$ because no data export exists ($c_{\text{data}} = 1$), service denial during transition is total ($c_{\text{down}} = 1$), and legal mandate forecloses alternatives ($c_{\text{legal}} = 1$). UPI retains lower $\sigma$ because cash and cards remain legal alternatives.}
+\label{tab:switching-example}
+\end{table}
+
+With $\Sigma^* = 2.0$ as a policy threshold, Aadhaar ($\sigma = 4.8$) categorically fails EXIT/FORK while UPI ($\sigma = 1.0$--$1.5$) passes conditionally. The calculation reveals that Aadhaar's incorrigibility is not merely a governance failure but a mathematical certainty given its architectural constraints.
+
 \paragraph{The Portability Threshold.} EXIT and FORK functionally fail when switching cost to all plausible alternatives exceeds a policy threshold:
 
 \begin{equation}
@@ -690,13 +710,39 @@ A critical distinction must be drawn between \textit{grievance} and \textit{gove
 
 Grievance channels that record dissatisfaction without a binding mechanism to modify execution, policy, or eligibility logic do not constitute a feedback loop. They serve an aesthetic function, mimicking responsiveness while preserving the controller's rigidity. Under Ashby's Law, if the controller's response variety does not increase in response to signal, regulation has failed.
 
+\subsubsection{Active Deception}
+\label{subsec:active-deception}
+
+A more severe pathology occurs when systems do not merely fail to correct errors but actively misrepresent their state or capabilities. We term this \textbf{Active Deception}: the systematic production of false signals that degrade the epistemic environment for external oversight.
+
+Active Deception takes three forms:
+
+\paragraph{1. Safety-Washing.} Systems that claim safety certifications, audits, or approvals that do not correspond to verifiable structural properties. A system may publish ``privacy by design'' documents while implementing opaque centralized logging; display compliance badges while blocking independent audit access; or cite ethics board oversight while exempting operational decisions from board review. The deception lies in the gap between representation and verifiable architecture.
+
+\paragraph{2. Open-Washing.} Systems that claim openness while structurally foreclosing the rights that openness implies. Publishing inference code while withholding training data, weights, or RLHF preferences constitutes open-washing: it mimics CODE compliance while preventing meaningful reproduction (FORK). The term ``open'' has been systematically degraded through this practice, requiring the framework to specify \textit{structural} rather than \textit{nominal} criteria.
+
+\paragraph{3. Audit Theatre.} Systems that permit nominal inspection while structurally preventing the inspector from detecting errors. This includes: providing read access to sanitized logs rather than raw execution traces; permitting audits only at pre-announced times; or granting access to components that do not determine actual behavior. The auditor observes a Potemkin system; the production system operates under different logic.
+
+These pathologies share a common structure: they corrupt the feedback channel by injecting false negatives. When external observers receive signals indicating ``compliant,'' ``safe,'' or ``open,'' they rationally reduce oversight intensity. The deception is not merely a failure to inform but an active degradation of the correction system's sensor function.
+
+Under the framework's cybernetic model, Active Deception constitutes a \textbf{sensor attack}: the deliberate corruption of the AUDIT channel to prevent the control loop from detecting deviation. Unlike passive incorrigibility (which merely blocks correction), Active Deception induces false confidence that accelerates divergence.
+
 \subsection{The Structural Preconditions of Law}
+\label{subsec:rule-of-ledger}
 
 These dynamics have profound implications for constitutional review. Legal doctrines such as proportionality analysis presuppose that state intrusions can be measured, minimized, and remedied. However, modern digital systems frequently violate the structural assumptions upon which these legal doctrines rest.
 
 A court cannot apply proportionality review to a system whose execution is opaque (\textbf{CODE}). A legislature cannot remedy harm if the mechanism of harm is an irreversible digital transaction (\textbf{EXIT}). A regulator cannot oversee a system if they lack the technical capability to inspect it independent of the operator (\textbf{AUDIT}).
 
 Where digital systems block these channels structurally, the rule of law becomes a legal fiction. External review mechanisms cannot function meaningfully if the internal architecture is designed to resist observation and modification. Therefore, \textbf{corrigibility} should be understood not merely as a technical specification, but as the \textit{evidentiary precondition} required for the law to take hold of the machine.
+
+\subsubsection{The Rule of the Ledger}
+
+Digital execution introduces a rival governance paradigm: the \textbf{Rule of the Ledger}, in which authority is exerted through synchronized, self-executing artifacts rather than mediated institutional processes. Under this paradigm, the technical capacity for instantaneous state change (account freezes, entitlement adjustments) can be embedded in the execution layer; the institutional channels of review (courts, ombudsmen, bicameral procedural delays) operate on distinct and much slower time scales. The consequence is \textbf{Universal Failure Propagation}: when identity, payment, and entitlement layers synchronize, a single erroneous state transition in one layer can automatically and immediately propagate penalties across other layers.
+
+Two structural implications follow. First, doctrines that presuppose reversible administrative acts (proportionality, injunctive relief) are ipso facto disabled if the necessary observability and reversal primitives are not present within the technical loop (\textbf{CODE}, \textbf{AUDIT}, \textbf{GOVERN}). Second, legal remedies become performative unless they are accompanied by verifiable, machine-enforceable restraints (signed chains of authority, multi-party escrow of execution privileges, or pre-authorized blocking hooks that operate within the same temporal envelope as the ledger itself).
+
+The Rule of the Ledger therefore reframes the law-infrastructure relationship: courts and regulators cannot simply be invoked later; corrigibility requires embedding evidentiary and counter-majoritarian restraints into the system's operational fabric. This is not a call for ``autonomous legal machines'' but for technical modes of constraint that render legal review materially possible rather than symbolic.
 
 \section{Corrigibility in Automated and Agentic Systems}
 \label{sec:learned}
@@ -1335,6 +1381,23 @@ All systems that pass share common properties:
 
 Scale does not require capture. Universality does not require opacity. The choice is architectural.
 
+\subsubsection{The DPI Trilemma}
+\label{subsubsec:trilemma}
+
+The empirical pattern suggests a structural constraint we call the \textbf{DPI Trilemma}. A state-operated DPI can strongly realize any two of the following three properties, but not all three simultaneously:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Sovereignty}: local control over standards, execution, and data residency;
+    \item \textbf{Scale}: population-level ubiquity and mandatory integration across essential services;
+    \item \textbf{Neutrality}: non-discriminatory access and competitive fairness at the execution layer.
+\end{enumerate}
+
+Formally: under middle-power constraints (limited leverage over global platform incumbents), achieving both Sovereignty and Scale requires centralized enforcement of standards and routing. That centralization tends to compress the governance options available at the execution layer and thus erodes Neutrality. Conversely, systems that safeguard Neutrality (Linux, Bitcoin) typically lack mandatory scale or are provisioned in ways that preserve distributed governance.
+
+India's experience is illustrative: the design choices that delivered an ``Atmanirbhar'' stack and near-universal reach (Sovereignty + Scale) produced a structural dependency on a small set of switching and credentialing authorities, which in turn materially reduced neutrality in execution (see Aadhaar/UPI evaluations, Table~\ref{tab:govt_infra}). The Trilemma reframes these outcomes: the observed failures are not merely implementation mistakes but predictable architectural trade-offs.
+
+Any prescriptive response must therefore treat neutrality as an architectural variable (portability, multi-issuer requirement, anti-exclusive procurement), not an aspirational outcome. The Functional Exit Equivalence remedies in Section~\ref{subsubsec:arch-responses} address precisely this constraint.
+
 \subsection{The Essential Services Problem}
 \label{subsec:essential}
 
@@ -1499,7 +1562,7 @@ The binary model is a deliberate analytical choice. Real systems exhibit continu
 
 This trade-off is justified on two grounds. First, the regulatory purpose: a system either meets the threshold for public legitimacy or it does not. Graduated compliance creates negotiation space that operators exploit. Second, the cybernetic purpose: a feedback loop either closes or it does not. Partial closure is a category error; a wire that transmits 50\% of the signal does not produce 50\% of the regulation.
 
-For diagnostic purposes, gradation remains useful. The auditor schema (Appendix~\ref{appendix:schema}) preserves continuous measurements in fields like \texttt{penalty\_ratio}, \texttt{visibility}, and \texttt{fix\_latency\_observed}. The binary determination is the output; the continuous measurements are the inputs. Evaluators can examine the inputs to prioritize interventions even when the output is uniformly ``fail.''
+For diagnostic purposes, gradation remains useful. Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main} specify continuous measurements such as \texttt{penalty\_ratio}, \texttt{visibility}, and \texttt{fix\_latency\_observed}. The binary determination is the output; the continuous measurements are the inputs. Evaluators can examine the inputs to prioritize interventions even when the output is uniformly ``fail.''
 
 \subsubsection{Legitimacy Threshold vs Physical Claim}
 
@@ -1507,7 +1570,7 @@ A critical clarification: the binary model is a \textbf{legitimacy threshold}, n
 
 The framework does not dispute this physical reality. It makes a normative claim: \textbf{below a threshold of feedback quality, a system forfeits the right to claim public legitimacy}. The threshold is binary because legitimacy is binary. A prison that permits appeals 10\% of the time is still a prison.
 
-\paragraph{Sensitivity Analysis.} Let continuous inputs be $\{p, v, \tau, b, r\}$ (penalty ratio, visibility, latency, bindingness, resource ratio) as defined in Table~\ref{tab:operational-proxies}. The binary determination function $D$ is:
+\paragraph{Sensitivity Analysis.} Let continuous inputs be $\{p, v, \tau, b, r\}$ (penalty ratio, visibility, latency, bindingness, resource ratio) as defined in Table~\ref{tab:operational-proxies-main}. The binary determination function $D$ is:
 
 \begin{equation}
 D = \mathbf{1}[p \leq p^*] \land \mathbf{1}[v \geq v^*] \land \mathbf{1}[\tau \leq \tau^*] \land \mathbf{1}[b = \text{true}] \land \mathbf{1}[r \leq r^*]
@@ -1521,6 +1584,49 @@ where $\mathbf{1}[\cdot]$ is the indicator function and $\{p^*, v^*, \tau^*, r^*
 \end{enumerate}
 
 Systems near thresholds warrant scrutiny; systems far below thresholds across multiple dimensions are unambiguously incorrigible. The binary output serves regulatory clarity; the continuous inputs serve diagnostic priority.
+
+\subsubsection{Continuous Indicators for Diagnostic Use}
+
+The continuous measurements underlying binary determinations enable both threshold calibration and diagnostic prioritization. Table~\ref{tab:operational-proxies-main} specifies operational proxies; Table~\ref{tab:three-indicator-main} formalizes the three-indicator protocol.
+
+\begin{table}[htbp]
+\centering
+\caption{Operational proxies for the five tests. Thresholds are illustrative and subject to calibration.}
+\label{tab:operational-proxies-main}
+\begin{tabular}{lll}
+\toprule
+\textbf{Test} & \textbf{Proxy Metric} & \textbf{Illustrative Threshold} \\
+\midrule
+EXIT & Penalty ratio $p$ & $p \leq 1.2$ \\
+CODE & Visibility fraction $v$ & $v \geq 0.9$ \\
+AUDIT & Mean time to detect (MTTD) & MTTD $\leq$ 24 hours \\
+GOVERN & Bindingness + throughput $\tau$ & binding = true, $\tau \geq 1$ per 10k users/day \\
+FORK & Resource feasibility ratio $r$ & $r \leq 10^{-3}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Interpretation:} Penalty ratio $p$ = cost(non-digital alternative) / cost(digital). Visibility $v$ = public LOC / total LOC on critical execution path. Resource ratio $r$ = estimated FLOP to retrain / aggregate community compute capacity.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Three-indicator protocol: continuous score, binary flag, and threshold metric for each test.}
+\label{tab:three-indicator-main}
+\begin{tabular}{@{}lp{3.2cm}p{3.2cm}p{3.5cm}@{}}
+\toprule
+\textbf{Test} & \textbf{Continuous Score} & \textbf{Binary Flag} & \textbf{Threshold Metric} \\
+\midrule
+EXIT & \texttt{penalty\_ratio}: cost(exit) / cost(stay) & \texttt{legal\_barrier}: is exit criminalized? & Pass if $p \leq 1.2$ AND \texttt{legal\_barrier} = false \\
+CODE & \texttt{visibility}: public LOC / total critical path LOC & \texttt{build\_reproducible}: deterministic build exists? & Pass if $v \geq 0.95$ AND \texttt{build} = true \\
+AUDIT & \texttt{observability}: \% transactions independently verifiable & \texttt{access\_permitted}: third parties can test? & Pass if $o \geq 0.9$ AND \texttt{access} = true \\
+GOVERN & \texttt{override\_resistance}: historical rate of operator overrules & \texttt{binding\_charter}: irrevocable legal instrument? & Pass if $r = 0$ AND \texttt{charter} = true \\
+FORK & \texttt{cost\_ratio}: fork cost / community resources & \texttt{legal\_rights}: permissive license? & Pass if $c \leq 0.001$ AND \texttt{rights} = true \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Inter-Rater Calibration.} Before deployment, independent auditors should assess 3--5 systems using this protocol and compare determinations. Disagreements identify threshold calibration issues. Target: $\kappa \geq 0.8$ (Cohen's kappa) for binary determinations.
 
 \begin{figure}[htbp]
 \centering
@@ -1764,6 +1870,21 @@ UPI \textit{has} democratized payments. The framework risks dismissing real-worl
 The answer is no. This is the point.
 
 The framework measures \textbf{accountability structure}, not \textbf{utility}. A system can score 0/5 and still be beneficial. The score indicates \textit{structural risk}, not \textit{current harm}. A house built without fire exits can function perfectly for decades, until there is a fire.
+
+\subsubsection{Climate Washing}
+\label{subsec:climate-washing}
+
+A variant of safety-washing has emerged in DPI discourse: claims that digital infrastructure is inherently ``sustainable'' or ``green'' because it replaces paper, reduces travel, or enables ``efficient'' resource allocation. This \textbf{Climate Washing} deploys environmental rhetoric to deflect accountability critiques.
+
+The structural analysis reveals three problems:
+
+\paragraph{1. Hidden Energy Footprint.} Digital infrastructure has non-trivial energy and material costs: data centers, network equipment, device manufacturing, and e-waste. The claim that ``digital is green'' compares against a paper baseline while ignoring these embodied costs. A proper lifecycle analysis would compare total system footprints, including the rebound effects of increased transaction volume enabled by digital convenience. Such analyses are rarely published; when they are, results are mixed.
+
+\paragraph{2. Transparency Failure.} Climate claims for DPI systems typically fail the CODE test: the energy consumption data, carbon accounting methodology, and lifecycle assumptions are not publicly auditable. When NPCI claims UPI reduces carbon emissions, the underlying calculations are not verifiable. This is precisely the audit-theatre pattern identified in Section~\ref{subsec:active-deception}: a claim of virtue without the evidentiary infrastructure to support it.
+
+\paragraph{3. Deflection Function.} Climate rhetoric serves a political function: it reframes accountability critiques as opposition to environmental progress. The implicit argument is: ``If you criticize Aadhaar's surveillance, you are against paperless government and therefore against the environment.'' This framing collapses distinct concerns (privacy, accountability, environmental impact) into a single axis and positions critics as anti-progress.
+
+The framework's response is structural: environmental claims, like safety claims, must satisfy the five tests. A system cannot claim environmental legitimacy if its energy footprint is not auditable (CODE, AUDIT), if affected communities cannot contest the methodology (GOVERN), or if lock-in prevents migration to more efficient alternatives (EXIT, FORK). ``Green DPI'' that fails these tests is not green infrastructure; it is climate washing.
 
 \section{Conclusion}
 
@@ -2123,32 +2244,6 @@ Failure of these predicates renders $\mathcal{I}$ a ``Hazmat Environment'' for a
 \label{fig:agentic-automaton}
 \end{figure}
 
-\subsection{Operational Proxies and Thresholds}
-
-\begin{table}[htbp]
-\centering
-\caption{Operational proxies for the five tests. Thresholds are illustrative.}
-\label{tab:operational-proxies}
-\begin{tabular}{lll}
-\hline
-\textbf{Test} & \textbf{Proxy Metric} & \textbf{Illustrative Threshold} \\
-\hline
-EXIT & Penalty ratio $p$ & $p \leq 1.2$ \\
-CODE & Visibility fraction $v$ & $v \geq 0.9$ \\
-AUDIT & Mean time to detect (MTTD) & MTTD $\leq$ 24 hours \\
-GOVERN & Bindingness + throughput $\tau$ & binding = true, $\tau \geq 1$ per 10k users/day \\
-FORK & Resource feasibility ratio $r$ & $r \leq 10^{-3}$ \\
-\hline
-\end{tabular}
-\end{table}
-
-\textbf{Interpretation:}
-\begin{itemize}
-    \item Penalty ratio $p$ = cost(non-digital alternative) / cost(digital).
-    \item Visibility $v$ = public LOC / total LOC on critical execution path.
-    \item Resource ratio $r$ = estimated FLOP to retrain / aggregate community compute capacity.
-\end{itemize}
-
 \subsection{Measurement Procedures for Reproducibility}
 \label{subsec:measurement}
 
@@ -2172,32 +2267,7 @@ FORK & (1) License text, (2) technical artifact availability, (3) resource cost 
 \end{tabular}
 \end{table}
 
-\paragraph{Reproducibility Standard.} An assessment is reproducible if an independent auditor, given only the evidence artifacts listed above, reaches the same pass/fail determination. Disagreements must trace to (a) threshold calibration differences or (b) missing evidence, not to ambiguity in the test definitions themselves.
-
-\subsection{Three-Indicator Protocol}
-\label{subsec:three-indicator}
-
-For maximum reproducibility, each test uses exactly three indicators: one continuous score, one binary flag, and one threshold-based metric.
-
-\begin{table}[htbp]
-\centering
-\small
-\caption{Three-indicator protocol for reproducible assessment}
-\label{tab:three-indicator}
-\begin{tabular}{@{}lp{3.5cm}p{3.5cm}p{3.5cm}@{}}
-\toprule
-\textbf{Test} & \textbf{Continuous Score} & \textbf{Binary Flag} & \textbf{Threshold Metric} \\
-\midrule
-EXIT & \texttt{penalty\_ratio}: cost(exit) / cost(stay) & \texttt{legal\_barrier}: is exit criminalized? & Pass if $p \leq 1.2$ AND \texttt{legal\_barrier} = false \\
-CODE & \texttt{visibility}: public LOC / total critical path LOC & \texttt{build\_reproducible}: deterministic build exists? & Pass if $v \geq 0.95$ AND \texttt{build} = true \\
-AUDIT & \texttt{observability}: \% transactions independently verifiable & \texttt{access\_permitted}: third parties can test? & Pass if $o \geq 0.9$ AND \texttt{access} = true \\
-GOVERN & \texttt{override\_resistance}: historical rate of operator overrules & \texttt{binding\_charter}: irrevocable legal instrument? & Pass if $r = 0$ AND \texttt{charter} = true \\
-FORK & \texttt{cost\_ratio}: fork cost / community resources & \texttt{legal\_rights}: permissive license? & Pass if $c \leq 0.001$ AND \texttt{rights} = true \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\paragraph{Inter-Rater Calibration.} Before deployment, independent auditors should assess 3--5 systems using this protocol and compare determinations. Disagreements identify threshold calibration issues. Target: $\kappa \geq 0.8$ (Cohen's kappa) for binary determinations.
+\paragraph{Reproducibility Standard.} An assessment is reproducible if an independent auditor, given only the evidence artifacts listed above, reaches the same pass/fail determination. Disagreements must trace to (a) threshold calibration differences or (b) missing evidence, not to ambiguity in the test definitions themselves. Continuous metrics and threshold protocols are provided in Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main} (Section~\ref{subsec:methodology}).
 
 \subsection{Network Adoption Model for Fork Feasibility}
 

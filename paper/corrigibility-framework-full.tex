@@ -1,82 +1,34 @@
-\documentclass{article}
-\usepackage{arxiv}
+\documentclass[11pt, a4paper]{article}
 
-% Professional header setup
-\renewcommand{\undertitle}{}
-\renewcommand{\shorttitle}{}
-\renewcommand{\headeright}{}
-
-% Override arxiv.sty header with clean professional layout
-\AtBeginDocument{
-  \fancyhf{}
-  \fancyhead[L]{\footnotesize\textit{Corrigibility as a Structural Precondition for DPI}}
-  \fancyhead[R]{\footnotesize\textit{Aravind}}
-  \fancyfoot[C]{\thepage}
-  \renewcommand{\headrulewidth}{0.4pt}
-}
-
-% arXiv preprint format - packages loaded in dependency order
+% Standard academic packages for policy/law journals
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amsthm}
-\usepackage{libertinust1math}        % Libertinus math (must follow amsmath)
+\usepackage{libertinust1math}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{float}
 \usepackage[inline]{enumitem}
-\usepackage{authblk}
-
-% These must come BEFORE hyperref
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
 \usepackage{xcolor}
 \usepackage{colortbl}
 \usepackage{url}
 \usepackage{natbib}
 
-% Hyperref (must load before hyperxmp)
+\onehalfspacing % Standard for law/policy journal submissions
+
+% Hyperref setup for a solo author
 \usepackage[
     colorlinks=true,
     linkcolor=blue!70!black,
     citecolor=green!50!black,
     urlcolor=blue!60!black,
     bookmarks=true,
-    pdfauthor={Anivar A Aravind (ORCID: 0009-0009-8995-0005)},
-    pdftitle={Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework},
-    pdfsubject={Structural evaluation framework for Digital Public Infrastructure using cybernetics, commons governance, and free software principles. Proposes five tests (EXIT, CODE, AUDIT, GOVERN, FORK) to verify whether systems permit correction by those they affect.},
-    pdfkeywords={%
-        Digital Public Infrastructure, DPI, G20 DPI Framework, Infrastructure Governance, Public Infrastructure Accountability, %
-        Corrigibility, Structural Accountability, Five Tests Framework, EXIT CODE AUDIT GOVERN FORK, %
-        AI Alignment, AI Corrigibility, Learned Systems, Training Data Governance, AI Ethics, Machine Learning Accountability, %
-        Cybernetics, Ashby Law, Requisite Variety, Feedback Control Systems, Control Theory, %
-        Commons Governance, Ostrom Design Principles, Digital Commons, Infrastructure Commons, %
-        Free Software, Open Source Governance, Forkability, Software Freedom, Four Freedoms, %
-        Digital Rights, Digital Autonomy, Surveillance Infrastructure, Consent Architecture, %
-        India Stack, Aadhaar, UPI, Pix, Open-washing, Safety-washing, %
-        Constitutional Preconditions, Tech Law, Administrative Law, Proportionality Review%
-    },
-    pdfcreator={LaTeX with hyperref},
-    pdfproducer={pdfTeX},
-    pdflang={en}
+    pdfauthor={Anivar A Aravind},
+    pdftitle={Corrigibility as a Structural Precondition for Digital Public Infrastructure}
 ]{hyperref}
-
-% Hyperxmp for XMP metadata and CC0 license (must load after hyperref)
-\usepackage{hyperxmp}
-\hypersetup{
-    pdfcopyright={This work is dedicated to the public domain under CC0 1.0 Universal.},
-    pdflicenseurl={https://creativecommons.org/publicdomain/zero/1.0/},
-    pdfcontacturl={https://anivar.net},
-    pdfcontactemail={ping@anivar.net},
-    pdfauthortitle={Independent Researcher},
-    pdfmetalang={en},
-    pdftype={Text}
-}
-
-% Force Author in PDF info dict using pdfTeX primitive
-\makeatletter
-\AtBeginDocument{%
-  \ifx\pdfinfo\@undefined\else
-    \pdfinfo{/Author (Anivar A Aravind \string(ORCID: 0009-0009-8995-0005\string))}%
-  \fi
-}
-\makeatother
 \urlstyle{same}
 \usepackage{listings}
 \usepackage{tikz}
@@ -147,21 +99,23 @@
 \newtheorem{corollary}{Corollary}
 \newtheorem{remark}{Remark}
 
-\title{Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework}
+\title{\textbf{Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework}}
 
-\author[1]{Anivar A Aravind\thanks{Corresponding author: \href{https://anivar.net}{anivar.net} · \texttt{ping@anivar.net} · ORCID: \href{https://orcid.org/0009-0009-8995-0005}{0009-0009-8995-0005}}}
-\affil[1]{Independent Researcher}
+\author{
+    \textbf{Anivar A Aravind} \\
+    \textit{Independent Researcher} \\
+    \href{mailto:ping@anivar.net}{\texttt{ping@anivar.net}} \\
+    ORCID: \href{https://orcid.org/0009-0009-8995-0005}{0009-0009-8995-0005}
+}
 
-\date{January 2026}
+\date{\today}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-\textbf{Digital Public Infrastructure (DPI) operates at the scale of populations.} Systems governing identity, payment, and data exchange effectively constitute a new administrative state. While international definitions from the G20 and United Nations articulate normative aspirations (that systems \textit{should} be open, inclusive, and safe), they largely lack the structural requirements to verify these attributes.
-
-This paper proposes a formal evaluation framework based on \textbf{corrigibility}: the structural capacity of those affected by a system to detect error, signal harm, and trigger correction. We synthesize necessary conditions from three traditions: cybernetics (Ashby's Law of Requisite Variety), commons governance (Ostrom's design principles), and free software (Stallman's four freedoms). The resulting framework identifies five non-negotiable properties: \textbf{Reversibility, Inspectability, Verification, Constraint, and Reproduction}. We demonstrate that a failure in any single dimension breaks the feedback loop required for system stability. Furthermore, we extend this framework to learned systems (AI) and establish evidentiary standards for distinguishing authentic governance from performative compliance. The framework is released under CC0 public domain.
+Digital Public Infrastructure (DPI) operates at the scale of populations, effectively constituting a new administrative state. While international definitions from the G20 and United Nations articulate normative aspirations---that systems should be open, inclusive, and safe---they largely lack the structural requirements to verify these attributes. This paper proposes a formal evaluation framework based on \textit{corrigibility}: the structural capacity of those affected by a system to detect error, signal harm, and trigger binding correction. By synthesizing necessary conditions from cybernetics (Ashby's Law), commons governance (Ostrom's design principles), and free software (Stallman's four freedoms), this framework identifies five non-negotiable architectural properties: Reversibility, Inspectability, Verification, Constraint, and Reproduction. The analysis demonstrates that a failure in any single dimension breaks the feedback loop required for system stability. Furthermore, this paper extends the framework to stochastic learned systems (AI) and establishes evidentiary standards to distinguish authentic governance from performative compliance. The complete framework is released into the public domain (CC0).
 \end{abstract}
 
 \section{Introduction}
@@ -174,13 +128,11 @@ Current policy discourse defines DPI through aspirational language. The G20 New 
 
 This paper defines corrigibility not as a moral preference, but as a structural property essential for stability. The central argument is that \textbf{unverifiable constraint is structurally indistinguishable from absolute operator control.} Therefore, public legitimacy requires more than policy assertions; it requires a cryptographic chain of custody and a verifiable capacity for correction.
 
-\paragraph{Contributions.} This paper makes the following contributions:
+\paragraph{Contributions.} This paper formalizes the structural preconditions for public digital infrastructure, transitioning the discourse from normative aspirations to falsifiable engineering constraints. Specifically, the contributions are threefold:
 \begin{enumerate}[noitemsep]
-    \item \textbf{Formal Framework}: This paper formalizes DPI corrigibility through five structural tests (EXIT, CODE, AUDIT, GOVERN, FORK) derived from cybernetic control theory, commons governance, and free software principles.
-    \item \textbf{Stability Proof}: A control-theoretic proof demonstrates that partial corrigibility is equivalent to open-loop instability, explaining why systems that fail any single test accumulate uncorrectable harm.
-    \item \textbf{Empirical Application}: The framework is applied to national identity systems (Aadhaar), payment infrastructure (UPI), and learned systems (AI), demonstrating systematic evaluation of real-world DPI.
-    \item \textbf{Extension to AI}: The framework extends to stochastic learned systems, identifying the Temporal Variety Gap as a fundamental challenge and proposing verification methods for non-deterministic infrastructure.
-    \item \textbf{Machine-Readable Schema}: We provide JSON schemas enabling automated corrigibility assessment and standardized infrastructure disclosure.
+    \item \textbf{A Synthesis of Corrigibility}: This framework distills principles from cybernetics, commons governance, and free software into five verifiable structural tests (EXIT, CODE, AUDIT, GOVERN, FORK).
+    \item \textbf{Control-Theoretic Formalization}: A mathematical proof (Appendix B) demonstrates that partial compliance with these tests is functionally equivalent to open-loop instability.
+    \item \textbf{Empirical Vulnerability Assessment}: The framework evaluates major national infrastructures (e.g., Aadhaar, UPI) and extends the tests to learned systems (AI), formalizing the resource barriers to structural accountability.
 \end{enumerate}
 
 \paragraph{Paper Structure.} Section~\ref{sec:problem} diagnoses why current DPI definitions fail. Section~\ref{sec:theory} establishes the theoretical foundations from cybernetics, commons governance, and free software. Section~\ref{sec:tests} derives the five structural tests. Section~\ref{sec:dynamics} analyzes temporal dynamics and the correction velocity inequality. Section~\ref{sec:learned} extends the framework to AI systems. Section~\ref{sec:diagnosis} provides empirical evaluation of existing infrastructure. Section~\ref{sec:discussion} addresses implications, including essential services and agentic scaling. The appendices formalize the control-theoretic proofs and provide machine-readable schemas for automated assessment.
@@ -973,7 +925,7 @@ Systems that publish weights but withhold training data or code achieve only \te
 
 As DPI transitions to support the ``Agentic Economy,'' corrigibility moves from a moral preference to an engineering requirement. Autonomous agents lack the biological resilience to handle bureaucracy.
 
-We distinguish this from ``AI Alignment.'' Alignment asks: \textit{Can the operator control the system?} Corrigibility asks: \textit{Can the affected subject correct the system?} Structural legitimacy requires the latter.
+This framework distinguishes structural corrigibility from ``AI Alignment.'' Alignment asks: \textit{Can the operator control the system?} Corrigibility asks: \textit{Can the affected subject correct the system?} Structural legitimacy requires the latter.
 
 \subsubsection{Corrigibility as an API Contract for Agents}
 
@@ -1440,16 +1392,20 @@ All systems that pass share common properties:
 
 Scale does not require capture. Universality does not require opacity. The choice is architectural.
 
-\subsubsection{The DPI Trilemma}
-\label{subsubsec:trilemma}
+\subsection{The DPI Trilemma}
+\label{subsec:trilemma}
 
-The empirical pattern suggests a structural constraint we call the \textbf{DPI Trilemma}. A state-operated DPI can strongly realize any two of the following three properties, but not all three simultaneously:
+The empirical pattern suggests a structural constraint governing state-backed infrastructure.
 
+\begin{proposition}[The DPI Trilemma]
+\label{prop:trilemma}
+A state-operated Digital Public Infrastructure can strongly realize any two of the following three properties, but not all three simultaneously:
 \begin{enumerate}[noitemsep]
     \item \textbf{Sovereignty}: local control over standards, execution, and data residency;
     \item \textbf{Scale}: population-level ubiquity and mandatory integration across essential services;
-    \item \textbf{Neutrality}: non-discriminatory access and competitive fairness at the execution layer.
+    \item \textbf{Neutrality}: non-discriminatory access and competitive fairness at the execution layer, guaranteed by structural corrigibility.
 \end{enumerate}
+\end{proposition}
 
 Formally: under middle-power constraints (limited leverage over global platform incumbents), achieving both Sovereignty and Scale requires centralized enforcement of standards and routing. That centralization tends to compress the governance options available at the execution layer and thus erodes Neutrality. Conversely, systems that safeguard Neutrality (Linux, Bitcoin) typically lack mandatory scale or are provisioned in ways that preserve distributed governance.
 
@@ -2402,120 +2358,35 @@ This requires $\dot{C}(t) \geq \dot{E}(t)$ on average. When correction operates 
     \item Agent automaton demonstrates need for explicit machine-facing EXIT/CODE/AUDIT primitives.
 \end{enumerate}
 
-\section{Schema Specifications (v1.7)}
+\section{Schema Specifications and Automated Assessment}
 \label{appendix:schema}
 
-The schemas below are condensed for publication. Full machine-readable JSON schemas with complete validation rules are available at the repository URLs listed in the Data and Code Availability section. Implementations must validate against the complete schemas to generate valid proofs of corrigibility.
+To move beyond qualitative debate, this framework establishes a machine-readable logic for accountability via two JSON schemas: the \texttt{infrastructure.json} (Operator Disclosure) and the \texttt{corrigibility.json} (Auditor Assessment). By enforcing specific data structures, policy rhetoric is converted into falsifiable assertions of system state.
 
-\subsection{Infrastructure Manifest (Operator Disclosure)}
+\subsection{Architecture}
 
-This schema forces operators to make definitive commitments. Note the specific inclusion of \texttt{offline\_equivalent} to track the \textbf{EXIT} test and \texttt{when\_uncertain} to track AI safety failures.
+The architecture relies on a separation of concerns mirroring the adversarial legal process:
 
-\begin{lstlisting}[language=json,caption={Operator Disclosure Schema (condensed)}]
-{
-  "$id": "https://indiastack.in/dpi/schema/infrastructure.json",
-  "title": "DPI Operational Manifest v1.7",
-  "required": ["schema_version", "meta", "access", "governance"],
-  "properties": {
-    "schema_version": {
-      "const": "1.7",
-      "description": "Schema version for forward compatibility"
-    },
-    "meta": {
-      "required": ["system_id", "deployment", "lifecycle"],
-      "properties": {
-        "system_id": { "type": "string" },
-        "deployment": { "enum": ["production","staging","pilot"] },
-        "lifecycle": { "enum": ["active","deprecated","archived"] }
-      }
-    },
-    "governance": {
-      "required": ["model", "escalation_paths"],
-      "properties": {
-        "model": { "enum": ["community","foundation","corporate",
-                           "government","closed"] },
-        "escalation_paths": [{
-          "required": ["level","url","binding"],
-          "binding": { "type": "boolean" }
-        }]
-      }
-    },
-    "layers": {
-      "type": "array",
-      "description": "Architectural layers for decomposed evaluation",
-      "items": {
-        "required": ["layer_name", "controller", "transparency"],
-        "properties": {
-          "layer_name": { "type": "string" },
-          "controller": { "type": "string",
-            "description": "Entity with governance authority" },
-          "transparency": { "enum": ["full","partial","none"] },
-          "forkable": { "type": "boolean" }
-        }
-      }
-    },
-    "learned_components": [{
-      "role": { "enum": ["advisory","decision","enforcement"] },
-      "when_uncertain": { "enum": ["escalates","fails_open",
-                                   "fails_closed","silent"] }
-    }],
-    "access": {
-      "required": ["offline_equivalent"],
-      "offline_equivalent": { "type": "boolean" }
-    }
-  }
-}
-\end{lstlisting}
+\begin{enumerate}[noitemsep]
+    \item \textbf{infrastructure.json (Operator's Affidavit):} A signed declaration by the system operator asserting specific operational properties, governance commitments, and functional limitations. Key fields include \texttt{offline\_equivalent} (tracking EXIT), \texttt{when\_uncertain} (tracking AI safety failures), and \texttt{layers} (enabling decomposed evaluation).
 
-\subsection{Corrigibility Assessment (Auditor Assessment)}
+    \item \textbf{corrigibility.json (Auditor's Finding):} An independent, cryptographically signed evaluation that tests the operator's claims against observable reality. Key fields include \texttt{penalty\_ratio} (quantifying coerciveness), \texttt{visibility} (CODE inspection level), and \texttt{user\_authority} (GOVERN binding status).
+\end{enumerate}
 
-The auditor schema replaces subjective grading with hard observational measurements. Note the \texttt{penalty\_ratio}, which quantifies the coerciveness of the system (the cost difference between digital and manual access).
+This architecture makes contradictions machine-readable. If an operator claims a governance mechanism is ``binding'' in their affidavit, but the auditor's observation marks the \texttt{user\_authority} field as ``advisory,'' the mismatch serves as mathematically verifiable proof of governance failure.
 
-\begin{lstlisting}[language=json,caption={Auditor Assessment Schema (condensed)}]
-{
-  "$id": "https://indiastack.in/dpi/schema/corrigibility.json",
-  "title": "Corrigibility Assessment v1.7",
-  "required": ["target","assessed_by","assessed_at","tests","determination"],
-  "properties": {
-    "target": { "type": "string" },
-    "assessed_by": { "type": "string" },
-    "assessed_at": { "type": "string", "format": "date-time" },
-    "assessment_validity_period": {
-      "type": "string", "format": "duration",
-      "description": "ISO 8601 duration (e.g., P6M for 6 months)"
-    },
-    "tests": {
-      "required": ["exit","code","audit","govern","fork"],
-      "exit": { "pass": "boolean", "penalty_ratio": "number" },
-      "code": { "pass": "boolean",
-                "visibility": { "enum": ["full","partial","none"] } },
-      "audit": { "pass": "boolean", "fix_latency_observed": "string" },
-      "govern": { "pass": "boolean",
-                  "user_authority": { "enum": ["binding","veto",
-                                               "advisory","none"] } },
-      "fork": { "pass": "boolean", "barriers": ["string"] }
-    },
-    "layer_assessments": {
-      "type": "array",
-      "description": "Per-layer test results for decomposed evaluation",
-      "items": {
-        "required": ["layer_name", "tests"],
-        "properties": {
-          "layer_name": { "type": "string" },
-          "tests": { "$ref": "#/properties/tests" }
-        }
-      }
-    },
-    "determination": {
-      "description": "Derived outcome. MUST be recomputed by evaluators.",
-      "required": ["corrigible","tests_passed"],
-      "corrigible": { "type": "boolean",
-                      "description": "TRUE iff tests_passed == 5" },
-      "tests_passed": { "type": "integer", "minimum": 0, "maximum": 5 }
-    }
-  }
-}
-\end{lstlisting}
+\subsection{Schema Repository}
+
+Due to space constraints, the full normative JSON schemas (v1.7) with exhaustive validation rules are hosted externally. The schemas include:
+
+\begin{itemize}[noitemsep]
+    \item Exhaustive field definitions for all five tests
+    \item Layer-decomposed evaluation structures
+    \item Learned system extensions (model role, uncertainty handling)
+    \item Cryptographic signing requirements (Ed25519, DID anchoring)
+\end{itemize}
+
+Researchers and auditors may access, validate, and contribute to these schemas via the permanent repository: \url{https://indiastack.in/dpi/schema/}. The framework source code, including validation scripts suitable for CI/CD integration, is available at the GitHub repository listed in the Data and Code Availability section.
 
 \section{Verification and Enforcement}
 \label{appendix:rules}
@@ -2637,7 +2508,7 @@ The following sections from this paper are self-contained and suitable for adapt
 
 \item[Utility Does Not Equal Accountability (Section~\ref{subsec:utility})] Clarifies that useful systems can still be structurally captured. Suitable for general technology audiences.
 
-\item[The DPI Trilemma (Section~\ref{subsubsec:trilemma})] Sovereignty + Scale + Neutrality constraint. Suitable for international development and governance audiences.
+\item[The DPI Trilemma (Section~\ref{subsec:trilemma})] Sovereignty + Scale + Neutrality constraint. Suitable for international development and governance audiences.
 \end{description}
 
 A condensed ``core'' version of this paper (omitting these sections) is available for venues with stricter length constraints.

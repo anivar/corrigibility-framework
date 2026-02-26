@@ -1,0 +1,125 @@
+% ACM Conference Format (for FAccT, CHI, etc.)
+\documentclass[sigconf,nonacm]{acmart}
+
+% Essential packages
+\usepackage{booktabs}
+\usepackage[inline]{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds, shadows.blur, decorations.pathreplacing}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{fillbetween}
+\usepackage{subcaption}
+\usepackage{listings}
+
+% Define colors for test names
+\definecolor{exitcolor}{HTML}{06B6D4}
+\definecolor{codecolor}{HTML}{3B82F6}
+\definecolor{auditcolor}{HTML}{A855F7}
+\definecolor{governcolor}{HTML}{F59E0B}
+\definecolor{forkcolor}{HTML}{F472B6}
+
+% Theorem environments
+\newtheorem{condition}{Condition}
+\newtheorem{claim}{Claim}
+
+% Clarification box (simplified for ACM)
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{clarification}[1][]{
+    enhanced,
+    breakable,
+    colback=blue!3,
+    colframe=blue!40!black,
+    coltitle=white,
+    fonttitle=\bfseries,
+    title=Clarification,
+    left=3pt,
+    right=3pt,
+    top=2pt,
+    bottom=2pt,
+    boxrule=0.5pt,
+    arc=2pt,
+    #1
+}
+
+% JSON styling
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily\scriptsize,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10},
+}
+
+\begin{document}
+
+\title{Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework}
+
+\author{Anivar A Aravind}
+\affiliation{%
+  \institution{Independent Researcher}
+  \country{India}
+}
+\email{ping@anivar.net}
+
+\begin{abstract}
+The definitions governing Digital Public Infrastructure (DPI) rely heavily on normative aspirations rather than falsifiable engineering constraints. This paper formalizes DPI accountability through the lens of cybernetics, modeling infrastructure as a feedback control system. We propose five verifiable structural tests for corrigibility: EXIT, CODE, AUDIT, GOVERN, and FORK. We provide a control-theoretic proof demonstrating that partial compliance with these tests is functionally equivalent to open-loop instability; failure in any single dimension severs the feedback loop, causing uncorrected error to accumulate. We apply this framework empirically to national identity systems, payment rails, and learned systems. Finally, we identify ``Governance Denial of Service (GDoS)'' as a novel failure mode, proving that incorrigible systems rely on a hidden ``human friction buffer'' that renders them structurally unstable under the scaling demands of autonomous AI agents.
+\end{abstract}
+
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10003120.10003130</concept_id>
+       <concept_desc>Human-centered computing~Collaborative and social computing</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10002978.10003029</concept_id>
+       <concept_desc>Security and privacy~Human and societal aspects of security and privacy</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Human-centered computing~Collaborative and social computing}
+\ccsdesc[500]{Security and privacy~Human and societal aspects of security and privacy}
+
+\keywords{Digital Public Infrastructure, Corrigibility, Cybernetics, Feedback Control, AI Alignment, Governance}
+
+\maketitle
+
+% ============================================
+% MAIN CONTENT - Include from separate file or paste body here
+% ============================================
+
+% NOTE: For submission, copy the body content from corrigibility-framework.tex
+% (from \section{Introduction} to \end{document}) and paste below.
+%
+% The ACM format has strict page limits:
+% - FAccT: 10 pages + unlimited references
+% - CHI: 10 pages + unlimited references
+%
+% Key sections to include:
+% 1. Introduction
+% 2. The Problem: Definitions Without Structure
+% 3. Theoretical Foundations
+% 4. The Structural Conditions of Corrigibility
+% 5. Control-Theoretic Formalization (NEW - moved from appendix)
+% 6. The Dynamics of Incorrigibility
+% 7. Extension to AI and Agentic Systems (with GDoS)
+% 8. Empirical Evaluation
+% 9. Discussion (condensed)
+% 10. Conclusion
+%
+% Trim or move to supplementary materials:
+% - Extended political economy discussion
+% - Full JSON schemas (reference GitHub instead)
+% - Detailed appendices
+
+\input{body-cs} % Or paste content directly
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}

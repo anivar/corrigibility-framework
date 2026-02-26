@@ -1,0 +1,114 @@
+% IEEE Journal Format (for IEEE TTS, S&P, etc.)
+\documentclass[journal]{IEEEtran}
+
+% Essential packages
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[inline]{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds, shadows.blur, decorations.pathreplacing}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{fillbetween}
+\usepackage{hyperref}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Define colors for test names
+\definecolor{exitcolor}{HTML}{06B6D4}
+\definecolor{codecolor}{HTML}{3B82F6}
+\definecolor{auditcolor}{HTML}{A855F7}
+\definecolor{governcolor}{HTML}{F59E0B}
+\definecolor{forkcolor}{HTML}{F472B6}
+
+% Theorem environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{condition}{Condition}
+\newtheorem{corollary}{Corollary}
+
+% Clarification box (simplified for IEEE)
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{clarification}[1][]{
+    enhanced,
+    breakable,
+    colback=blue!3,
+    colframe=blue!40!black,
+    coltitle=white,
+    fonttitle=\bfseries,
+    title=Clarification,
+    left=3pt,
+    right=3pt,
+    top=2pt,
+    bottom=2pt,
+    boxrule=0.5pt,
+    arc=2pt,
+    #1
+}
+
+% JSON styling
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily\scriptsize,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10},
+}
+
+\begin{document}
+
+\title{Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework}
+
+\author{Anivar~A~Aravind%
+\thanks{A. A. Aravind is an Independent Researcher, India (e-mail: ping@anivar.net). ORCID: 0009-0009-8995-0005.}}
+
+\markboth{IEEE Transactions on Technology and Society}%
+{Aravind: Corrigibility as a Structural Precondition for DPI}
+
+\maketitle
+
+\begin{abstract}
+The definitions governing Digital Public Infrastructure (DPI) rely heavily on normative aspirations rather than falsifiable engineering constraints. This paper formalizes DPI accountability through the lens of cybernetics, modeling infrastructure as a feedback control system. We propose five verifiable structural tests for corrigibility: EXIT, CODE, AUDIT, GOVERN, and FORK. We provide a control-theoretic proof demonstrating that partial compliance with these tests is functionally equivalent to open-loop instability; failure in any single dimension severs the feedback loop, causing uncorrected error to accumulate. We apply this framework empirically to national identity systems, payment rails, and learned systems. Finally, we identify ``Governance Denial of Service (GDoS)'' as a novel failure mode, proving that incorrigible systems rely on a hidden ``human friction buffer'' that renders them structurally unstable under the scaling demands of autonomous AI agents.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Digital Public Infrastructure, Corrigibility, Cybernetics, Feedback Control Systems, AI Alignment, Infrastructure Governance, Ashby's Law
+\end{IEEEkeywords}
+
+% ============================================
+% MAIN CONTENT - Include from separate file or paste body here
+% ============================================
+
+% NOTE: For submission, copy the body content from corrigibility-framework.tex
+% (from \section{Introduction} to before \end{document}) and paste below.
+%
+% IEEE TTS typically allows 8-12 pages for regular papers.
+%
+% Key sections to include:
+% 1. Introduction
+% 2. The Problem: Definitions Without Structure
+% 3. Theoretical Foundations
+% 4. The Structural Conditions of Corrigibility
+% 5. Control-Theoretic Formalization (with proofs)
+% 6. The Dynamics of Incorrigibility
+% 7. Extension to AI and Agentic Systems (with GDoS)
+% 8. Empirical Evaluation
+% 9. Discussion (condensed)
+% 10. Conclusion
+%
+% Move to supplementary materials or online appendix:
+% - Extended political economy discussion
+% - Full JSON schemas
+% - Detailed appendices
+
+\input{body-cs} % Or paste content directly
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

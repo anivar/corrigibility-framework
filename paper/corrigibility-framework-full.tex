@@ -193,6 +193,15 @@ The definitional inadequacy manifests as four distinct capture vectors:
 
 \textbf{Fourth, Scale is not Accountability.} A system that serves a billion users achieves universality, but universal deployment does not confer public legitimacy. Population-scale operation may simply mean population-scale capture. The ``public'' in such definitions refers to the number of subjects, not the structure of control. (Addressed by the essential services problem, Section~\ref{subsec:essential}.)
 
+\subsection{Structural Theater and Open-Washing}
+\label{subsec:openwashing-intro}
+
+The absence of structural criteria enables what we term \textbf{Open-washing}: the invocation of openness, interoperability, or digital sovereignty as reputational signals without satisfying reproducibility or governance conditions.
+
+In the absence of EXIT, CODE, AUDIT, GOVERN, and FORK guarantees, claims of openness are merely descriptive properties of implementation rather than enforceable constraints on power. A system may publish APIs, release partial source code, or adopt open standards while remaining structurally incorrigible.
+
+Open-washing therefore constitutes a category error: conflating technical transparency with structural accountability. The corrigibility framework distinguishes \textit{symbolic openness} from \textit{constitutional openness} by requiring that affected participants retain binding pathways for contestation and reproduction.
+
 \subsection{The Core Thesis}
 
 Without hard structural requirements, ``Public'' becomes a mere descriptor of scale rather than a mode of accountability. Just as classification systems become invisible as they gain acceptance \citep{bowker1999}, incorrigible infrastructure recedes into the background, becoming unchallengeable precisely as it becomes essential.
@@ -253,6 +262,52 @@ This tradition clarifies that openness is not a passive property (reading code) 
 This framework defines corrigibility as the existence of specific mechanical capabilities that allow the subjects of a system to maintain control over it. Digital Public Infrastructure cannot rely on intent or policy to guarantee this property; it requires a specific architecture.
 
 These capabilities form a hierarchy of defense. If a system lacks any single capability, the feedback loop breaks. Such a system becomes structurally indistinguishable from a monopoly exercising absolute control.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.6cm, auto, >=latex, thick,
+    block/.style={draw, rectangle, minimum height=1cm, minimum width=2cm, rounded corners, font=\small},
+    sum/.style={draw, circle, inner sep=2pt},
+    label/.style={font=\tiny\sffamily, text=gray}
+]
+    % Main flow
+    \node[block, fill=gray!10] (disturbance) at (0, 2) {Human Variety};
+    \node[sum] (sum1) at (0, 0) {$+$};
+    \node[block, fill=codecolor!20] (plant) at (3, 0) {DPI System};
+    \node[block, fill=gray!10] (output) at (6.5, 0) {Decision};
+
+    % Feedback path
+    \node[block, fill=exitcolor!20] (exit) at (6.5, -1.8) {EXIT};
+    \node[block, fill=auditcolor!20] (audit) at (3, -1.8) {AUDIT};
+    \node[block, fill=governcolor!20] (govern) at (0, -1.8) {GOVERN};
+
+    % FORK as expansion
+    \node[block, fill=forkcolor!20, dashed] (fork) at (-2.5, -1.8) {FORK};
+
+    % CODE overlay
+    \node[label, above=0.1cm of plant] {CODE: Logic Visible};
+
+    % Connections - forward path
+    \draw[->] (disturbance) -- node[right, label] {$d(t)$} (sum1);
+    \draw[->] (sum1) -- node[above, label] {$u(t)$} (plant);
+    \draw[->] (plant) -- node[above, label] {$y(t)$} (output);
+
+    % Connections - feedback path
+    \draw[->] (output) -- node[right, label] {Error Signal} (exit);
+    \draw[->] (exit) -- node[above, label] {Sensor} (audit);
+    \draw[->] (audit) -- node[above, label] {Controller} (govern);
+    \draw[->] (govern) -- (sum1);
+
+    % FORK expansion
+    \draw[->, dashed] (fork) -- node[above, label] {Variety Expansion} (govern);
+
+    % Annotations
+    \node[font=\tiny, text=red!70!black, align=center] at (3, -3.2) {Failure of any component $\rightarrow$ open-loop divergence};
+\end{tikzpicture}
+\caption{\textbf{Corrigibility as a Closed-Loop Control Architecture.} Digital Public Infrastructure is modeled as a feedback control system subject to continuous human and environmental disturbance. Corrigibility requires that error signals (EXIT) remain detectable, that system behavior be intelligible (CODE), that sensing mechanisms be transparent (AUDIT), that binding corrective authority exist (GOVERN), and that structural reproduction be feasible (FORK). Failure of any single component collapses the loop into open-loop operation. Under non-zero integrating disturbance, error diverges unboundedly (Null-Feedback Instability Theorem, Appendix~\ref{appendix:proofs}). Corrigibility is therefore a structural property of loop integrity, not a matter of operator intent.}
+\label{fig:control-loop}
+\end{figure}
 
 \subsection{Test 1: EXIT (Reversibility of Participation)}
 
@@ -808,6 +863,8 @@ The framework is governance-agnostic: corporate participation is not disqualifyi
 
 \textbf{License vs. Governance}: Redis Ltd. added AGPLv3 in 2025, restoring open licensing. But license is orthogonal to governance. \textit{License} determines what you may do with code; \textit{governance} determines who decides what it becomes. Redis passes one; Valkey passes both.
 
+\textbf{International Counterexample: Estonia's X-Road.} Estonia's X-Road architecture provides a counterexample demonstrating that scale does not necessitate centralized capture. Its federated data exchange model distributes control across institutional nodes, preserving CODE transparency (fully open-source, MIT license) and enabling institutional FORK at the implementation layer. While EXIT remains limited for certain core registries, the federated topology significantly reduces concentration coupling compared to monolithic architectures. X-Road has been adopted by Finland, Iceland, and deployed in over 20 countries, illustrating that corrigibility properties are architectural rather than cultural. The framework does not require cultural homogeneity or small population size; it requires federated governance that prevents single-point capture.
+
 \subsection{The Taxonomy of Open-Washing}
 \label{subsec:openwashing}
 
@@ -1217,6 +1274,8 @@ Federated
 \caption{\textbf{Functional Exit Equivalence (FEE).} Top: Non-essential systems generate error signals through market exit. Middle: Essential systems without FEE block error signals entirely. Bottom: Essential systems with FEE use compensatory mechanisms to restore error signal strength.}
 \label{fig:fee}
 \end{figure}
+
+\paragraph{Real-World Analogues.} A partial real-world analogue of Protected Alternatives can be observed in telecommunications number portability regimes and in Open Banking interoperability mandates (e.g., PSD2 in the European Union). These frameworks preserve service continuity while enabling institutional exit at the provider layer. While not fully satisfying EXIT in existential services such as identity, they demonstrate that architectural separation between infrastructure rails and service operators is technically feasible. Corrigibility does not demand regression to analog systems; it demands layered modularity that prevents existential lock-in.
 
 \subsubsection{Design Responses to Proposition~\ref{prop:essentiality}}
 \label{subsubsec:arch-responses}
@@ -2162,6 +2221,16 @@ Any value asserted in \texttt{determination} MUST be mechanically recomputed fro
 \section{Formal Structural Proofs}
 \label{appendix:proofs}
 
+\paragraph{Executive Summary (Non-Technical Overview).}
+This appendix formalizes two core claims of the paper using control theory:
+\begin{enumerate}[noitemsep]
+    \item \textbf{Null-Feedback Instability Theorem:} If any component of the feedback path is structurally severed, the system operates as open-loop and will diverge under persistent disturbance.
+    \item \textbf{Strict Correction Velocity Inequality:} If the rate of digital error propagation exceeds the rate of institutional correction, post-hoc remedies are mathematically insufficient to prevent systemic failure.
+\end{enumerate}
+These proofs do not introduce new normative claims; they establish that corrigibility is a physical property of feedback systems rather than a policy preference.
+
+\medskip
+
 To formalize the assertion that ``partial corrigibility is a fatal structural failure,'' we model Digital Public Infrastructure as a standard feedback control system subject to environmental disturbance.
 
 \subsection{Proof of Open-Loop Instability (The ``Fatal Failure'' Theorem)}
@@ -2690,6 +2759,11 @@ It asserts:
 
 \section{Schema Specifications and Automated Assessment}
 \label{appendix:schema}
+
+\paragraph{Executive Summary (Machine-Readable Corrigibility).}
+This appendix provides illustrative JSON schemas demonstrating how corrigibility tests can be operationalized in machine-readable form. These schemas are not implementation mandates; they are reference architectures showing how error taxonomies, binding governance mechanisms, and audit transparency can be encoded as enforceable technical constraints. The objective is to demonstrate that corrigibility can be implemented as infrastructure logic rather than advisory policy.
+
+\medskip
 
 To move beyond qualitative debate, this framework establishes a machine-readable logic for accountability via two JSON schemas: the \texttt{infrastructure.json} (Operator Disclosure) and the \texttt{corrigibility.json} (Auditor Assessment). By enforcing specific data structures, policy rhetoric is converted into falsifiable assertions of system state.
 

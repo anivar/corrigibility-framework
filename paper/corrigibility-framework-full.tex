@@ -710,10 +710,22 @@ A critical distinction must be drawn between \textit{grievance} and \textit{gove
 
 Grievance channels that record dissatisfaction without a binding mechanism to modify execution, policy, or eligibility logic do not constitute a feedback loop. They serve an aesthetic function, mimicking responsiveness while preserving the controller's rigidity. Under Ashby's Law, if the controller's response variety does not increase in response to signal, regulation has failed.
 
-\subsubsection{Active Deception as Sensor Attack}
+\subsubsection{Active Deception}
 \label{subsec:active-deception}
 
-A severe pathology occurs when systems actively misrepresent their state: \textbf{safety-washing} (compliance claims without verifiable properties), \textbf{open-washing} (nominal openness without structural rights), and \textbf{audit theatre} (inspection access to non-representative components). Under the cybernetic model, these constitute \textbf{sensor attacks}: deliberate corruption of the AUDIT channel that induces false confidence and accelerates divergence.
+A more severe pathology occurs when systems do not merely fail to correct errors but actively misrepresent their state or capabilities. We term this \textbf{Active Deception}: the systematic production of false signals that degrade the epistemic environment for external oversight.
+
+Active Deception takes three forms:
+
+\paragraph{1. Safety-Washing.} Systems that claim safety certifications, audits, or approvals that do not correspond to verifiable structural properties. A system may publish ``privacy by design'' documents while implementing opaque centralized logging; display compliance badges while blocking independent audit access; or cite ethics board oversight while exempting operational decisions from board review. The deception lies in the gap between representation and verifiable architecture.
+
+\paragraph{2. Open-Washing.} Systems that claim openness while structurally foreclosing the rights that openness implies. Publishing inference code while withholding training data, weights, or RLHF preferences constitutes open-washing: it mimics CODE compliance while preventing meaningful reproduction (FORK). The term ``open'' has been systematically degraded through this practice, requiring the framework to specify \textit{structural} rather than \textit{nominal} criteria.
+
+\paragraph{3. Audit Theatre.} Systems that permit nominal inspection while structurally preventing the inspector from detecting errors. This includes: providing read access to sanitized logs rather than raw execution traces; permitting audits only at pre-announced times; or granting access to components that do not determine actual behavior. The auditor observes a Potemkin system; the production system operates under different logic.
+
+These pathologies share a common structure: they corrupt the feedback channel by injecting false negatives. When external observers receive signals indicating ``compliant,'' ``safe,'' or ``open,'' they rationally reduce oversight intensity. The deception is not merely a failure to inform but an active degradation of the correction system's sensor function.
+
+Under the framework's cybernetic model, Active Deception constitutes a \textbf{sensor attack}: the deliberate corruption of the AUDIT channel to prevent the control loop from detecting deviation. Unlike passive incorrigibility (which merely blocks correction), Active Deception induces false confidence that accelerates divergence.
 
 \subsection{The Structural Preconditions of Law}
 \label{subsec:rule-of-ledger}
@@ -1728,7 +1740,17 @@ Democracies have \textit{constitutional} correction mechanisms (elections, court
 \subsubsection{The Distributional Question}
 \label{subsec:distributional}
 
-Corrigibility is fundamentally distributional: platform speed benefits the median user; incorrigibility harms the marginal user who has no voice because EXIT is blocked. The framework makes visible who bears the cost of system failures.
+The debate is not ``scale vs sovereignty.'' The debate is \textbf{whose suffering counts}.
+
+\begin{itemize}
+    \item Platform speed benefits the median user.
+    \item Incorrigibility harms the marginal user.
+    \item The marginal user has no voice because EXIT is blocked.
+\end{itemize}
+
+Corrigibility is a \textbf{distributional question}. The framework makes visible who bears the cost of system failures. When we ask ``Is this system corrigible?'' we are really asking: ``When this system fails someone, can they do anything about it?''
+
+The answer for Aadhaar is no. Documented starvation deaths in Jharkhand were not caused by ``too much democracy''; they were caused by a system where the marginal user had no recourse when biometric authentication failed.
 
 \subsection{Pathways and Limits}
 \label{subsec:pathways}
@@ -1812,10 +1834,61 @@ A ``public'' good (like law or money) derives its value from universality. We al
 
 This is a genuine tension the framework cannot fully resolve. The stable equilibrium may be: latent forkability + strong coordination incentives. Email works not because everyone forks SMTP, but because anyone \textit{could}. Whether this equilibrium is achievable for identity infrastructure remains an open question.
 
+\subsubsection{Engaging ``Regulate the Loop''}
+\label{subsec:regulate}
+
+A sophisticated objection accepts the diagnosis but rejects the prescription:
+
+\begin{quote}
+``We accept your Diagnosis (The Loop is Broken). We reject your Prescription (Break the Platform). We choose to \textbf{Regulate the Loop} rather than Fork the Code, because the cost of Forking is Poverty.''
+\end{quote}
+
+This argument has force. UPI moved from 0 to billions of transactions in 7 years. Email standardization took decades. India does not have decades. Poverty is now.
+
+\textbf{Where this lands:}
+\begin{itemize}
+    \item RBI \textit{could} mandate error rate disclosure, demographic audits, grievance SLOs
+    \item Political correction (parliament, courts) exists even without FORK
+    \item Speed-to-scale tradeoff is real
+\end{itemize}
+
+\textbf{Where this misses:}
+\begin{itemize}
+    \item ``Regulate the loop'' assumes trustworthy regulators. RBI reports to Finance Ministry. UIDAI is executive authority with no parliamentary oversight. Who regulates the regulator?
+    \item In captured states, ``regulate later'' means ``never''
+    \item Gmail $\neq$ UPI: Gmail \textit{earned} users with features: you CAN leave for Proton, Fastmail, self-hosted. UPI has \textit{regulatory monopoly}: you CANNOT build a competing instant payment switch. Gmail is incorrigible by choice. UPI is incorrigible by law.
+    \item ``Regulate later'' rarely happens: Aadhaar 2009 pilot $\rightarrow$ 2016 mandatory $\rightarrow$ 2018 Supreme Court $\rightarrow$ still no real audit. 15 years. Where's the regulation?
+\end{itemize}
+
 \subsubsection{Utility Does Not Equal Accountability}
 \label{subsec:utility}
 
-The framework measures \textbf{accountability structure}, not \textbf{utility}. A system can score 0/5 and still be beneficial; the score indicates \textit{structural risk}, not \textit{current harm}. UPI has democratized payments, but the question is: \textbf{when UPI fails someone, can they correct it?} A house built without fire exits can function perfectly for decades, until there is a fire.
+A system can be \textbf{useful AND structurally captured}. Both are true simultaneously.
+
+UPI \textit{has} democratized payments. The framework risks dismissing real-world impact if this is not acknowledged. But the question the framework asks is different: \textbf{When UPI fails someone, can they correct it?}
+
+The answer is no. This is the point.
+
+The framework measures \textbf{accountability structure}, not \textbf{utility}. A system can score 0/5 and still be beneficial. The score indicates \textit{structural risk}, not \textit{current harm}. A house built without fire exits can function perfectly for decades, until there is a fire.
+
+\subsubsection{Climate Washing}
+\label{subsec:climate-washing}
+
+\begin{definition}[Climate Washing]
+The use of climate rhetoric or urgency to legitimize actions, policies, or structural changes whose primary effects extend beyond genuine climate mitigation, whether for reputational, financial, institutional, or governance advantage.
+\end{definition}
+
+A variant of safety-washing has emerged in DPI discourse: claims that digital infrastructure is inherently ``sustainable'' or ``green'' because it replaces paper, reduces travel, or enables ``efficient'' resource allocation. Climate washing deploys environmental rhetoric to deflect accountability critiques.
+
+The structural analysis reveals three problems:
+
+\paragraph{1. Hidden Energy Footprint.} Digital infrastructure has non-trivial energy and material costs: data centers, network equipment, device manufacturing, and e-waste. The claim that ``digital is green'' compares against a paper baseline while ignoring these embodied costs. A proper lifecycle analysis would compare total system footprints, including the rebound effects of increased transaction volume enabled by digital convenience. Such analyses are rarely published; when they are, results are mixed.
+
+\paragraph{2. Transparency Failure.} Climate claims for DPI systems typically fail the CODE test: the energy consumption data, carbon accounting methodology, and lifecycle assumptions are not publicly auditable. When NPCI claims UPI reduces carbon emissions, the underlying calculations are not verifiable. This is precisely the audit-theatre pattern identified in Section~\ref{subsec:active-deception}: a claim of virtue without the evidentiary infrastructure to support it.
+
+\paragraph{3. Deflection Function.} Climate rhetoric serves a political function: it reframes accountability critiques as opposition to environmental progress. The implicit argument is: ``If you criticize Aadhaar's surveillance, you are against paperless government and therefore against the environment.'' This framing collapses distinct concerns (privacy, accountability, environmental impact) into a single axis and positions critics as anti-progress.
+
+The framework's response is structural: environmental claims, like safety claims, must satisfy the five tests. A system cannot claim environmental legitimacy if its energy footprint is not auditable (CODE, AUDIT), if affected communities cannot contest the methodology (GOVERN), or if lock-in prevents migration to more efficient alternatives (EXIT, FORK). ``Green DPI'' that fails these tests is not green infrastructure; it is climate washing.
 
 \section{Conclusion}
 
@@ -2507,6 +2580,27 @@ This appendix addresses the strongest objections to the framework, organized by 
 \subsection{Summary}
 
 The framework withstands scrutiny from control theory (binary is threshold, not physics), political science (mandates can coexist with corrigibility on other dimensions), and empirical methodology (reproducible metrics exist). The strongest residual objection---network effects making FORK practically impossible even when legally permitted---is acknowledged in Limitations and proposed for formal treatment in Future Work.
+
+\section{Sections Suitable for Standalone Publication}
+\label{appendix:opeds}
+
+The following sections from this paper are self-contained and suitable for adaptation as op-eds, policy briefs, or standalone essays:
+
+\begin{description}
+\item[Active Deception (Section~\ref{subsec:active-deception})] Defines safety-washing, open-washing, and audit theatre as sensor attacks on accountability infrastructure. Suitable for technology policy audiences.
+
+\item[Climate Washing (Section~\ref{subsec:climate-washing})] Analyzes environmental rhetoric in DPI discourse. Suitable for climate and technology policy intersection.
+
+\item[Engaging ``Regulate the Loop'' (Section~\ref{subsec:regulate})] Responds to the ``regulate later'' objection. Suitable for development economics and policy audiences.
+
+\item[The Distributional Question (Section~\ref{subsec:distributional})] Frames corrigibility as a question of whose suffering counts. Suitable for social justice and equity audiences.
+
+\item[Utility Does Not Equal Accountability (Section~\ref{subsec:utility})] Clarifies that useful systems can still be structurally captured. Suitable for general technology audiences.
+
+\item[The DPI Trilemma (Section~\ref{subsubsec:trilemma})] Sovereignty + Scale + Neutrality constraint. Suitable for international development and governance audiences.
+\end{description}
+
+A condensed ``core'' version of this paper (omitting these sections) is available for venues with stricter length constraints.
 
 % ============================================
 % REFERENCES (at end, per academic standard)

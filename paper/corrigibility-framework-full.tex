@@ -1270,6 +1270,34 @@ A central challenge in complying with the \textbf{CODE} test is redefining the o
 
 Therefore, publishing inference code alone does not satisfy the CODE test. It allows an auditor to run the machine, but not to understand why it produces specific outputs. To bridge this gap, compliance requires structured disclosure across the training pipeline, such as \textbf{Data Sheets for Datasets} \citep{gebru2021} and \textbf{Model Cards} \citep{mitchell2019}. These artifacts function as the ``source code'' for structural evaluation; withholding them renders the system a black box.
 
+\subsubsection{The LWD-R Triad}
+
+For world models and agentic systems, the traditional transparency requirements (code, weights, data) are necessary but insufficient. We extend the disclosure requirement to the \textbf{LWD-R Triad}:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{L (Logic)}: Model architecture and inference code
+    \item \textbf{W (Weights)}: Trained parameters
+    \item \textbf{D (Data)}: Training corpus with provenance (Data Sheets)
+    \item \textbf{R (Representation Schema)}: The ontological categories the model uses to parse reality
+\end{itemize}
+
+The fourth component, \textbf{R}, is critical for world models that encode a de facto administrative ontology. When an AI system classifies citizens, transactions, or risks, it instantiates categories that become infrastructural facts. Failure to disclose \textbf{R} renders the model's worldview non-inspectable.
+
+\subsubsection{Ontological Opacity and Representation Capture Risk}
+\label{subsubsec:rcr}
+
+We define \textbf{Representation Capture Risk (RCR)} as the condition where a society becomes dependent on a model's categorical schema without structural means to contest or modify those categories.
+
+Let $\Delta O$ represent the \textbf{ontological contestability} of a system---the degree to which affected parties can challenge, modify, or replace the representation schema. RCR occurs when:
+
+\begin{equation}
+\Delta O \to 0
+\end{equation}
+
+Under RCR, the model's internal categories become non-contestable administrative facts. A welfare eligibility model that classifies applicants into risk tiers, or a world model that parses geopolitical actors into threat categories, exercises definitional power over reality. When $\Delta O = 0$, the system fails CODE not because the weights are hidden, but because the \textit{meaning structure} is opaque.
+
+This extends the CODE test for world models: compliance requires not merely weight publication but \textbf{representation schema disclosure}---machine-readable specifications of the ontological categories the model employs, with documented justification for category boundaries.
+
 \subsection{The Temporal Variety Gap}
 \label{subsec:temporal-gap}
 
@@ -1530,6 +1558,29 @@ In this state, policy ceases to guide behavior in advance; it instead reacts pos
 \subsubsection{Implications for the DPI Trilemma}
 
 The DPI Trilemma is most structurally acute for states operating under external platform dominance and capital-intensive scaling constraints. In such contexts, maximizing Sovereignty and Scale typically requires centralized orchestration, which places structural pressure on execution-layer Neutrality. This is not a policy preference but a control-theoretic constraint: centralization reduces governance variety, and reduced variety erodes the system's capacity to treat diverse inputs equitably under Ashby's Law. The constraint is architectural rather than inevitable and may be mitigated through federated implementation, multi-issuer requirements, and protocol-based rather than platform-based infrastructure design.
+
+\subsection{Architecture-Specific Risk Summary}
+
+The preceding analysis enables architecture-specific risk diagnosis. Different model architectures exhibit distinct failure profiles across the five tests and the new RCR dimension.
+
+\begin{table}[htbp]
+\centering
+\caption{\textbf{Topology-Aware Corrigibility Risk.} Impact of architectural class on structural tests. Notation: W = weights opacity, G = gating opacity, R = representation opacity, S = scale barrier, O = ontological capture, F = fragmentation, $\kappa$ = compute capture.}
+\label{tab:topology-risk-arch}
+\small
+\begin{tabular}{@{}lllllll@{}}
+\toprule
+\textbf{Architecture} & \textbf{EXIT} & \textbf{CODE} & \textbf{$\Delta O$ (RCR)} & \textbf{AUDIT} & \textbf{GOVERN} & \textbf{FORK} \\
+\midrule
+Dense LLM & Partial & Fail (W) & Medium & Partial & Fail (S) & Fail ($\kappa$) \\
+Mixture of Experts & Medium & Fail (G) & Medium & Fail (S) & Partial & \textbf{Pass} \\
+World Model & Fail (O) & Fail (R) & \textbf{Very Low} & Partial & Partial & Fail ($\kappa$) \\
+Edge / SLM & \textbf{Pass} & \textbf{Pass} & High & Fail (F) & Fail (F) & \textbf{Pass} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Interpretation:} Dense LLMs fail FORK due to compute capture ($\kappa$). World models present the highest RCR (lowest $\Delta O$) because their representation schemas encode administrative ontologies that resist contestation. Edge/SLM models pass EXIT and FORK but may fail GOVERN due to fragmented deployment making coordinated governance infeasible.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -1871,6 +1922,18 @@ Digital Public Infrastructure is not a specific technology; it is a claim of pol
 This paper argues that such legitimacy cannot be derived from self-declarations, "open standards" labeling, or multilateral endorsements. It relies on a specific cybernetic property: \textbf{Corrigibility}. The capacity of the governed to observe the rules, verify their execution, limit their reach, and, if necessary, reproduce the infrastructure to escape its capture.
 
 This paper has proposed five rigorous tests to verify this capacity. The analysis demonstrates that systems currently touted as DPI models (Aadhaar, UPI, and proprietary AI) fail these tests, revealing them to be administrative enclosures rather than public goods. Conversely, the systems which actually run the world (Linux, Kubernetes, the Web) pass them structurally.
+
+\subsection{The Asymmetry of Intelligence}
+
+The problem of AI-DPI governance is not a problem of intelligence, but a problem of \textbf{infrastructural asymmetry}. Corrigibility declines not because models are powerful, but because centralized scaling concentrates compute, ontology, and routing control into fewer hands. The five tests diagnose this concentration; they do not measure capability.
+
+A world model running on distributed edge devices with open weights, published representation schemas, and federated governance would pass all five tests regardless of its intelligence. A narrow classifier running on centralized infrastructure with opaque logic and mandatory participation would fail regardless of its simplicity. The framework is architecture-sensitive, not capability-sensitive.
+
+This reframing matters for policy. The discourse of ``AI risk'' often conflates capability with capture. Corrigibility separates these concerns: a system can be simultaneously powerful and accountable, or weak and authoritarian. The question is not ``How smart is it?'' but ``Can those it affects correct it?''
+
+\begin{remark}[Necessary but Not Sufficient]
+Corrigibility is a necessary, but not sufficient, condition for a good society. It does not guarantee fairness, eliminate bias, or produce just outcomes. It merely preserves the \textit{structural possibility} of contestation. A corrigible system can still encode unjust policies---but those policies can be challenged, measured, and changed. An incorrigible system forecloses even that possibility.
+\end{remark}
 
 \subsection{The Roadmap Out}
 

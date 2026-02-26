@@ -1759,6 +1759,30 @@ FORK & \texttt{cost\_ratio}: fork / community resources & \texttt{rights}: permi
 \label{fig:failure_modes}
 \end{figure}
 
+\subsection{Corrigibility Under Adversarial Conditions}
+\label{subsec:adversarial}
+
+A frequent objection to structural transparency requirements (EXIT, CODE, AUDIT, GOVERN, FORK) concerns adversarial security environments. Critics argue that permitting external audit or interoperability in critical digital infrastructure---particularly identity, payments, or routing rails---may expand the attack surface available to hostile states or organized cyber actors.
+
+This framework does not equate corrigibility with unrestricted public exposure of live exploit vectors. Corrigibility requires \textbf{structured contestability}, not indiscriminate disclosure. The distinction is architectural:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Auditability} refers to verifiable oversight mechanisms (cryptographic proofs, independent inspection rights, reproducible builds, sandboxed red-teaming, hardware-isolated verification environments), not public release of zero-day vulnerabilities.
+    \item \textbf{CODE transparency} requires inspectability of system logic and ontology, but does not mandate real-time publication of operational secrets (e.g., private keys, network topologies, live intrusion telemetry).
+    \item \textbf{GOVERN mechanisms} may incorporate tiered access controls and certified verifiers, provided the certification process itself remains contestable.
+\end{itemize}
+
+Security and corrigibility are not mutually exclusive variables; rather, both depend on layered design. In adversarial contexts, excessive opacity can itself become a systemic vulnerability by preventing early detection of latent design flaws. Historical failures in both public and private infrastructure demonstrate that closed architectures do not eliminate breach risk---they merely concentrate it.
+
+Accordingly, the framework assumes:
+\begin{enumerate}[noitemsep]
+    \item Security controls may limit raw exploit exposure.
+    \item Such controls must not eliminate independent verification pathways.
+    \item Emergency override or classified layers must themselves be subject to post-hoc audit.
+\end{enumerate}
+
+Corrigibility in adversarial environments therefore implies \textbf{structured verifiability}, not universal visibility. The objective is to preserve corrective bandwidth without compromising defensive posture.
+
 \subsection{Political Economy of Accountability}
 \label{subsec:political-economy-discussion}
 
@@ -1936,6 +1960,26 @@ UPI \textit{has} democratized payments. The framework risks dismissing real-worl
 The answer is no. This is the point.
 
 The framework measures \textbf{accountability structure}, not \textbf{utility}. A system can score 0/5 and still be beneficial. The score indicates \textit{structural risk}, not \textit{current harm}. A house built without fire exits can function perfectly for decades, until there is a fire.
+
+\subsection{Institutional Preconditions for Large-Scale Corrigibility}
+\label{subsec:institutional}
+
+The framework presumes the existence of intermediary institutions capable of exercising audit, representation, and governance functions. At population scales involving tens or hundreds of millions, spontaneous civic coordination cannot be assumed.
+
+Unlike open-source software communities---where contributors are self-selected and technically specialized---state-scale infrastructure must serve heterogeneous populations with asymmetric digital literacy, resource access, and organizational capacity. The structural availability of audit rights does not guarantee their effective exercise.
+
+Accordingly, structural corrigibility requires:
+
+\begin{description}[noitemsep]
+    \item[Independent Verification Bodies] Publicly funded or legally mandated audit institutions insulated from operator control.
+    \item[Civic Technical Intermediaries] NGOs, academic labs, and watchdog entities with standing to invoke GOVERN mechanisms.
+    \item[Distributed Representation Channels] Mechanisms allowing affected groups to escalate systematic errors collectively, rather than solely through individual grievance.
+    \item[Anti-Capture Safeguards] Rotation requirements, transparency obligations for auditors, and conflict-of-interest constraints to prevent elite capture of oversight functions.
+\end{description}
+
+The framework does not assume idealized commons governance. It asserts instead that without institutionalized intermediaries, formal corrigibility tests degrade into symbolic compliance.
+
+In this sense, \textbf{corrigibility is necessary but not sufficient for equitable outcomes}. Institutional capacity determines whether structural safeguards translate into practical accountability.
 
 \section{Conclusion and Transition Paths}
 

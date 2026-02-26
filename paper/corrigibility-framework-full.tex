@@ -1455,6 +1455,82 @@ This is not a security failure but a control-theoretic inevitability. Systems la
 Agentic scaling amplifies the correction velocity inequality. Systems that are marginally stable under human interaction rates become catastrophically unstable under agent interaction rates. The human friction buffer is not a feature; it is a hidden subsidy that masks architectural incorrigibility.
 \end{claim}
 
+\subsection{Workflow Sovereignty and the Rule of Workflow}
+\label{subsec:workflow-sovereignty}
+
+The final mutation of digital infrastructure is the transition from static registries to \textbf{Workflow Orchestration layers} (e.g., Palantir-style data fusion or agentic AI pipelines). In this regime, the operating layer of the state is no longer a ledger of records, but an orchestration of decisions.
+
+\subsubsection{From Rule of Law to Rule of Workflow}
+
+In classical governance, policy is defined in statute, executed by bureaucracy, and reviewed by courts. In a ``Rule of Workflow'' regime, policy becomes emergent from the orchestration logic: data schemas define reality, prompts define interpretation, and API contracts define valid inputs.
+
+\textbf{Workflow Capture} is formalized as follows. Let $W$ be the orchestration layer, $M$ the underlying model, $S$ the state policy function, and $D$ the decision output. While classical governance assumes $S \rightarrow D$, AI-native governance operates as:
+\begin{equation}
+S \rightarrow W(M, \text{Data}) \rightarrow D
+\end{equation}
+
+If $W$ is proprietary and non-forkable, the state's ability to alter policy ($\Delta S$) vanishes because outcomes are constrained by the workflow's technical affordances. Policy debate is reduced to parameter tuning within a vendor-controlled ontology.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.9, font=\sffamily\small,
+    block/.style={rectangle, rounded corners, draw=gray!70, fill=gray!10, minimum width=1.8cm, minimum height=0.8cm},
+    wblock/.style={rectangle, rounded corners, draw=forkcolor, fill=forkcolor!15, minimum width=2.5cm, minimum height=1cm, font=\bfseries},
+    arrow/.style={-{Stealth[length=2mm]}, thick}
+]
+
+% Classical Governance (top)
+\node[anchor=west, font=\bfseries] at (-4, 2.5) {Classical:};
+\node[block, fill=governcolor!20] (S1) at (0, 2.5) {Policy $S$};
+\node[block] (D1) at (4, 2.5) {Decision $D$};
+\draw[arrow, governcolor] (S1) -- (D1) node[midway, above, font=\scriptsize] {direct};
+
+% AI-Native Governance (bottom)
+\node[anchor=west, font=\bfseries] at (-4, 0) {AI-Native:};
+\node[block, fill=governcolor!20] (S2) at (-1, 0) {Policy $S$};
+\node[wblock] (W) at (2.5, 0) {Workflow $W$};
+\node[block] (D2) at (6, 0) {Decision $D$};
+
+% Internal to W
+\node[font=\tiny, text=gray] at (2.5, -0.6) {Model $M$ + Data};
+
+\draw[arrow, governcolor] (S2) -- (W);
+\draw[arrow, forkcolor] (W) -- (D2);
+
+% Capture indicator
+\draw[thick, red, dashed] (1, -1.2) rectangle (4, 0.8);
+\node[font=\tiny, text=red!70!black, anchor=north] at (2.5, -1.2) {If $W$ proprietary: FORK fails};
+
+% Legend
+\node[font=\scriptsize, text=gray, align=left] at (2.5, -2) {When $W$ is vendor-controlled, $\Delta S \not\rightarrow \Delta D$};
+
+\end{tikzpicture}
+\caption{\textbf{Workflow Capture.} Classical governance: policy directly determines decisions. AI-native governance: policy is mediated by workflow orchestration. If the workflow is proprietary, policy changes cannot reliably change outcomes.}
+\label{fig:workflow-capture}
+\end{figure}
+
+\subsubsection{The Workflow Capture Coefficient}
+
+To measure the risk of \textbf{Epistemic Delegation}, the framework proposes the \textbf{Workflow Capture Coefficient (WCC)}:
+\begin{equation}
+WCC = f(C_{\text{workflow}}, O_{\text{substitutability}}, M_{\text{portability}})
+\end{equation}
+
+Where $C_{\text{workflow}}$ is the cost of reproducing the orchestration stack and $O_{\text{substitutability}}$ is the ease of altering the underlying ontological schema. A high WCC triggers a failure of the \textbf{FORK} test, regardless of whether the underlying model weights are open. \textbf{Open weights with closed workflows is performative transparency.}
+
+\subsubsection{Fallout Governance: The Velocity Trap Realized}
+
+When decision throughput ($\lambda$) and AI propagation rates ($E_{\text{AI}}$) outrun human legislative correction velocity ($C_{\text{policy}}$), the state enters a condition of \textbf{Fallout Governance}:
+\begin{equation}
+E_{\text{AI}} \gg C_{\text{policy}}
+\end{equation}
+
+In this state, policy ceases to guide behavior in advance; it instead reacts post-hoc to public scandal, litigation, or failure clusters. Governance is no longer anticipatory but becomes an exercise in damage containment. This is the Collingridge Dilemma realized at civilizational scale.
+
+\subsubsection{Implications for the DPI Trilemma}
+
+The DPI Trilemma is most structurally acute for states operating under external platform dominance and capital-intensive scaling constraints. In such contexts, maximizing Sovereignty and Scale typically requires centralized orchestration, which places structural pressure on execution-layer Neutrality. This is not a policy preference but a control-theoretic constraint: centralization reduces governance variety, and reduced variety erodes the system's capacity to treat diverse inputs equitably under Ashby's Law. The constraint is architectural rather than inevitable and may be mitigated through federated implementation, multi-issuer requirements, and protocol-based rather than platform-based infrastructure design.
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -1819,6 +1895,28 @@ The choice is not between chaos and control. It is between \textbf{Open Loop} sy
 \begin{quote}
 \textit{Systems that cannot be corrected by those they affect will eventually be corrected by forces they cannot control.}
 \end{quote}
+
+\subsection{Summary of Topological Risk}
+
+The ``physics'' of digital governance demonstrates that certain architectures structurally increase the risk of capture independent of operator intent. The transition to AI-native states does not eliminate the need for the Rule of Law; it necessitates its translation into the \textbf{Rule of the Workflow}.
+
+\begin{table}[htbp]
+\centering
+\caption{Topological risk summary across infrastructure layers}
+\label{tab:topological-risk}
+\begin{tabular}{llll}
+\toprule
+\textbf{Layer} & \textbf{Primary Failure Mode} & \textbf{Capture Type} & \textbf{Structural Remedy} \\
+\midrule
+Ledger & Dependency & Administrative & FEE / Portability \\
+Model & Stochasticity & Stochastic & Deterministic Guardrails \\
+Ontology & Incontestability & Epistemic & LWD-R Disclosure \\
+Workflow & Lock-In & Interpretive & Workflow Forkability (WCC) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Corrigibility is the structural response to the Collingridge Dilemma: by the time the harms of an incorrigible system become politically undeniable, the system is too technically entrenched to dismantle.
 
 \subsection{Limitations}
 

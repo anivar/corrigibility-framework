@@ -135,7 +135,7 @@ This paper defines corrigibility not as a moral preference, but as a structural 
     \item \textbf{Empirical Vulnerability Assessment}: The framework evaluates major national infrastructures (e.g., Aadhaar, UPI) and extends the tests to learned systems (AI), formalizing the resource barriers to structural accountability.
 \end{enumerate}
 
-\paragraph{Paper Structure.} Section~\ref{sec:problem} diagnoses why current DPI definitions fail. Section~\ref{sec:theory} establishes the theoretical foundations from cybernetics, commons governance, and free software. Section~\ref{sec:tests} derives the five structural tests. Section~\ref{sec:dynamics} analyzes temporal dynamics and the correction velocity inequality. Section~\ref{sec:learned} extends the framework to AI systems. Section~\ref{sec:diagnosis} provides empirical evaluation of existing infrastructure. Section~\ref{sec:discussion} addresses implications, including essential services and agentic scaling. The appendices formalize the control-theoretic proofs and provide machine-readable schemas for automated assessment.
+\paragraph{Paper Structure.} Section~\ref{sec:problem} diagnoses why current DPI definitions fail. Section~\ref{sec:theory} establishes the theoretical foundations from cybernetics, commons governance, and free software. Section~\ref{sec:tests} derives the five structural tests. Section~\ref{sec:diagnosis} immediately grounds these tests in empirical evaluation of existing infrastructure---establishing concrete stakes before proceeding to dynamics. Section~\ref{sec:political-economy} analyzes the political economy of incorrigibility: temporal dynamics, correction velocity, essential services, and the DPI trilemma. Section~\ref{sec:learned} extends the framework to AI and agentic systems as a stress test of the framework's generality. Section~\ref{sec:discussion} addresses methodological foundations and implementation pathways. The appendices formalize the control-theoretic proofs and provide machine-readable schemas for automated assessment.
 
 \paragraph{Key Terms.}
 \begin{description}[style=nextline, leftmargin=1.5em, font=\normalfont\bfseries]
@@ -593,7 +593,310 @@ This propagation rule has a counterintuitive but structurally necessary conseque
 
 This principle prevents a common evasion: claiming corrigibility by publishing peripheral artifacts while retaining control over the layers that determine outcomes. Open-washing (Section~\ref{subsec:openwashing}) typically exploits layer confusion. Releasing SDKs (passing CODE at the interface layer) while keeping core logic proprietary (failing CODE at the execution layer) does not produce partial corrigibility. It produces total failure at the execution layer, which propagates to the system determination.
 
-\section{The Dynamics of Incorrigibility}
+%% ============================================
+%% SECTION 5: EMPIRICAL EVALUATION
+%% ============================================
+
+\section{Empirical Evaluation}
+\label{sec:diagnosis}
+
+The preceding sections established what corrigibility means and why it matters. Theory, however, must confront practice. Before analyzing \textit{why} systems fail these tests (the political economy) or \textit{how} the tests apply to AI (the stress test), we first demonstrate \textit{that} they fail---and document the human consequences. This section applies the five tests to real-world infrastructure, establishing the concrete stakes that motivate the theoretical extensions to follow.
+
+To demonstrate the framework's application, we evaluate systems across three categories: government infrastructure promoted as ``DPI,'' platform infrastructure claiming ``openness,'' and infrastructure that satisfies all five tests.
+
+\paragraph{A Note on Utility.} These evaluations assess structural accountability, not functional utility. A system can be simultaneously useful and incorrigible. Aadhaar may enable efficient service delivery; this does not establish that it permits correction by those it affects. The framework evaluates governance architecture, not operational performance. Utility and accountability are orthogonal dimensions: neither implies the other.
+
+\subsection{Government Infrastructure: The Trap of Partial Compliance}
+
+Government-operated systems currently designated as Digital Public Infrastructure frequently exhibit a dangerous failure mode: they achieve partial compliance on technical tests (EXIT, CODE, AUDIT) while failing structurally on governance tests (GOVERN, FORK). By capturing the monopoly on execution, they render the feedback loop inoperable.
+
+\begin{table}[htbp]
+    \centering
+    \caption{\textbf{Evaluation of Government Infrastructure.} Centralized execution leads to consistent structural failure despite ``open standards'' rhetoric.}
+    \label{tab:govt_infra}
+
+    % --- Subtable A: Aadhaar ---
+    \begin{subtable}{1\textwidth}
+        \centering
+        \caption{Aadhaar (India) -- Mandatory ID}
+        \small
+        \begin{tabular}{@{}llp{8.5cm}@{}}
+            \toprule
+            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
+            \midrule
+            EXIT & $\times$ & Disproportionate penalty: exclusion from PDS, banking, SIM \citep{khera2019}. \\
+            CODE & $\times$ & Execution logic opaque: proprietary matcher, closed algorithms. \\
+            AUDIT & $\times$ & External testing prohibited: independent error measurement illegal. \\
+            GOVERN & $\times$ & No binding constraint: UIDAI is both operator and regulator. \\
+            FORK & $\times$ & No legal/technical/economic means: total centralized capture. \\
+            \bottomrule
+        \end{tabular}
+        \vspace{0.3cm}
+    \end{subtable}
+
+    % --- Subtable B: UPI ---
+    \begin{subtable}{1\textwidth}
+        \centering
+        \caption{UPI (India) -- Payment Rail}
+        \small
+        \begin{tabular}{@{}llp{8.5cm}@{}}
+            \toprule
+            EXIT & \textcolor{orange}{PARTIAL} & Reduced penalty: cash exists but network effects coerce. \\
+            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: protocol specs open, switching logic closed. \\
+            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: regulator audits, public measurement blocked. \\
+            GOVERN & $\times$ & No binding constraint: banks own NPCI, regulate themselves. \\
+            FORK & $\times$ & No economic means: hub-and-spoke requires NPCI cooperation. \\
+            \bottomrule
+        \end{tabular}
+        \vspace{0.3cm}
+    \end{subtable}
+
+    % --- Subtable C: Pix ---
+    \begin{subtable}{1\textwidth}
+        \centering
+        \caption{Pix (Brazil) -- Central Bank Payment}
+        \small
+        \begin{tabular}{@{}llp{8.5cm}@{}}
+            \toprule
+            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
+            \midrule
+            EXIT & \textcolor{orange}{PARTIAL} & Reduced penalty: cash and cards exist; digital-only services coerce adoption. \\
+            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: API specification public; central routing logic closed. \\
+            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: aggregate statistics public; independent error measurement blocked. \\
+            GOVERN & $\times$ & No binding constraint: BCB sets and enforces Pix rules unilaterally. \\
+            FORK & $\times$ & No reproduction means: central switch requires BCB; no independent implementation. \\
+            \bottomrule
+        \end{tabular}
+        \vspace{0.3cm}
+    \end{subtable}
+
+    % --- Subtable D: X-Road ---
+    \begin{subtable}{1\textwidth}
+        \centering
+        \caption{X-Road (Estonia/Nordic) -- Data Exchange Layer}
+        \small
+        \begin{tabular}{@{}llp{8.5cm}@{}}
+            \toprule
+            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
+            \midrule
+            EXIT & $\times$ & Disproportionate penalty: exclusion from government services. \\
+            CODE & $\checkmark$ & Execution logic inspectable: MIT source on GitHub. \\
+            AUDIT & $\checkmark$ & External testing possible: transaction logs, documented APIs. \\
+            GOVERN & $\checkmark$ & Binding constraint: NIIS treaty, MIT license irrevocable. \\
+            FORK & $\checkmark$ & Legal + technical + economic: 25+ country deployments prove feasibility. \\
+            \bottomrule
+        \end{tabular}
+        \vspace{0.3cm}
+    \end{subtable}
+
+    % --- Subtable E: UK Open Banking ---
+    \begin{subtable}{1\textwidth}
+        \centering
+        \caption{UK Open Banking -- Regulated API Standard}
+        \small
+        \begin{tabular}{@{}llp{8.5cm}@{}}
+            \toprule
+            EXIT & \textcolor{orange}{PARTIAL} & Can revoke API consent; cannot exit banking system. \\
+            CODE & $\times$ & Execution logic not inspectable: bank implementations proprietary. \\
+            AUDIT & $\checkmark$ & External testing: FCA oversight, TPP certification. \\
+            GOVERN & $\checkmark$ & Binding constraint: CMA order, PSD2 regulation. \\
+            FORK & \textcolor{orange}{PARTIAL} & Legal rights exist; economic means require regulatory recognition. \\
+            \bottomrule
+        \end{tabular}
+    \end{subtable}
+\end{table}
+
+\textbf{Pattern}: X-Road (4/5) fails only EXIT. UK Open Banking (2/5) passes AUDIT and GOVERN but fails CODE: the API \textit{specification} is public, but the bank \textit{implementations} are proprietary. Specification $\neq$ Code. You can see the interface; you cannot inspect the execution.
+
+\subsection{Platform Infrastructure: The Illusion of Openness}
+
+In the private sector, systems often leverage "open source" branding while retaining centralized control. This decoupling of artifact transparency from governance reality creates a distinct failure pattern: the artifacts are public; the decisions are not.
+
+\begin{table}[htbp]
+    \centering
+    \caption{\textbf{Evaluation of Private/Platform Infrastructure.} Technical openness (Source/Weights) does not guarantee structural accountability.}
+    \label{tab:corp_infra}
+
+    % --- Subtable A: Open Weights AI ---
+    \begin{subtable}{1\textwidth}
+        \centering
+        \caption{Open-Weights AI (Llama, etc.)}
+        \small
+        \begin{tabular}{@{}llp{8.5cm}@{}}
+            \toprule
+            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
+            \midrule
+            EXIT & $\checkmark$ & No disproportionate penalty: can run locally, switch models freely. \\
+            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: weights public; training data and RLHF opaque. \\
+            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: black-box probing possible; lineage unverifiable. \\
+            GOVERN & $\times$ & No binding constraint: firm sets safety/capability trade-offs unilaterally. \\
+            FORK & \textcolor{orange}{PARTIAL} & Partial means: fine-tuning possible; retraining blocked by compute cost. \\
+            \bottomrule
+        \end{tabular}
+        \vspace{0.3cm}
+    \end{subtable}
+
+    % --- Subtable B: Android ---
+    \begin{subtable}{1\textwidth}
+        \centering
+        \caption{Android (AOSP + GMS)}
+        \small
+        \begin{tabular}{@{}llp{8.5cm}@{}}
+            \toprule
+            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
+            \midrule
+            EXIT & \textcolor{orange}{PARTIAL} & Moderate penalty: device portable; ecosystem lock-in creates friction. \\
+            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: AOSP open; Play Services and Identity closed. \\
+            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: OS auditable; Google Services behavior opaque. \\
+            GOVERN & $\times$ & No binding constraint: Google sets roadmap and certification unilaterally. \\
+            FORK & \textcolor{orange}{PARTIAL} & Partial means: LineageOS exists; app ecosystem requires GMS. \\
+            \bottomrule
+        \end{tabular}
+        \vspace{0.3cm}
+    \end{subtable}
+
+    % --- Subtable C: Signal ---
+    \begin{subtable}{1\textwidth}
+        \centering
+        \caption{Signal Protocol}
+        \small
+        \begin{tabular}{@{}llp{8.5cm}@{}}
+            \toprule
+            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
+            \midrule
+            EXIT & $\checkmark$ & No disproportionate penalty: can switch to alternatives freely. \\
+            CODE & $\checkmark$ & Full inspection: client and server source available (GPL/AGPL). \\
+            AUDIT & $\checkmark$ & External testing: cryptographic properties independently verifiable. \\
+            GOVERN & $\times$ & No binding constraint: Foundation board sets direction unilaterally. \\
+            FORK & $\times$ & No economic means: code forkable but no federation locks network effects. \\
+            \bottomrule
+        \end{tabular}
+    \end{subtable}
+\end{table}
+
+\textbf{Pattern: Asymmetric Openness.} These systems deploy strategic openness: releasing artifacts for ecosystem capture while retaining governance. This satisfies CODE (inspection possible) while failing GOVERN (correction blocked). The framework distinguishes artifact transparency (can you see the code?) from governance accountability (can you correct the system?). Open weights, open protocols, and open standards can each mask closed correction loops. ``Open weights'' $\neq$ ``open.'' ``Open source'' $\neq$ ``accountable.'' The artifact is open. The correction loop is closed. Seeing the machine does not govern it.
+
+\subsection{Corrigible Infrastructure}
+
+For contrast, Table~\ref{tab:positive} summarizes eighteen systems that pass all five tests. A striking pattern emerges: these systems are predominantly non-essential infrastructure. No individual's survival depends on accessing Linux or Let's Encrypt. This correlation between corrigibility and non-essentiality is not coincidental; it reflects a structural tension analyzed later in this paper.
+
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}l>{\raggedright}p{3.2cm}>{\centering\arraybackslash}p{1.2cm}p{5.8cm}@{}}
+\toprule
+\rowcolor{gray!15}
+\textbf{System} & \textbf{Steward} & \textbf{Score} & \textbf{Why Corrigible} \\
+\midrule
+\rowcolor{green!8}
+Linux Kernel & Linux Foundation & \textbf{5/5} & Fully reproducible. Full triad (legal, technical, economic) exists. Independent distributions prove forkability. \\
+Let's Encrypt & ISRG & \textbf{5/5} & Open source CA, IETF standards, nonprofit 501(c)(3) \\
+\rowcolor{green!8}
+Wikipedia & Wikimedia Foundation & \textbf{5/5} & CC BY-SA content, public edit history, community RfC governance \\
+Matrix Protocol & Matrix.org Foundation & \textbf{5/5} & Apache 2.0, federated by design, self-hostable \\
+\rowcolor{green!8}
+Bluesky (AT Protocol) & Bluesky PBC & \textbf{5/5} & MIT/Apache, portable DID identity, self-hostable PDS \\
+PostgreSQL & PGDG & \textbf{5/5} & BSD-like license, public mailing lists, major forks exist \\
+\rowcolor{green!8}
+IPFS & Protocol Labs & \textbf{5/5} & MIT/Apache, public IPIP process, no token governance \\
+Bitcoin & Decentralized & \textbf{5/5} & MIT source, public BIP process, proven forks (BCH, BSV) \\
+\rowcolor{green!8}
+Kubernetes & CNCF & \textbf{5/5} & Apache 2.0, KEP process, distributions (OpenShift, k3s) \\
+Firefox & Mozilla Foundation & \textbf{5/5} & MPL 2.0, nonprofit manifesto, forks (LibreWolf, Tor Browser) \\
+\rowcolor{green!8}
+Apache HTTP & Apache Foundation & \textbf{5/5} & Apache 2.0 license, ASF governance, powers 30\% of web \\
+Apache Kafka & Apache Foundation & \textbf{5/5} & Apache 2.0, KIP process public, Fortune 500 standard \\
+\rowcolor{green!8}
+OpenSearch & Linux Foundation & \textbf{5/5} & Forked from Elasticsearch; Apache 2.0, multi-vendor governance \\
+Valkey & Linux Foundation & \textbf{5/5} & Forked from Redis; BSD license, community governance restored \\
+\rowcolor{green!8}
+Hyperledger & LF Decentralized Trust & \textbf{5/5} & Apache 2.0 framework; institutional deployments require separate evaluation \\
+LibreOffice & Document Foundation & \textbf{5/5} & Forked from OpenOffice; LGPL/MPL, nonprofit governance \\
+\rowcolor{green!8}
+MariaDB & MariaDB Foundation & \textbf{5/5} & Forked from MySQL; GPL, foundation governance \\
+Eclipse IDE & Eclipse Foundation & \textbf{5/5} & EPL 2.0, 386 member orgs, committer-led governance \\
+\bottomrule
+\end{tabular}
+\caption{Infrastructure systems satisfying all five corrigibility tests. All systems demonstrate full EXIT, CODE, AUDIT, GOVERN, and FORK compliance.}
+\label{tab:positive}
+\end{table}
+
+\textbf{Fork as Correction}: OpenSearch, Valkey, LibreOffice, and MariaDB demonstrate Ashby's Law in practice. Each emerged when governance variety collapsed: Oracle's Sun acquisition (2010) triggered LibreOffice and MariaDB; unilateral license changes triggered OpenSearch (2021) and Valkey (2024). The ecosystem restored requisite variety through forking.
+
+The framework is governance-agnostic: corporate participation is not disqualifying. Kubernetes (CNCF), Hyperledger, and Let's Encrypt all have significant corporate involvement while passing all tests. The test is whether governance permits correction, not who participates.
+
+\textbf{License vs. Governance}: Redis Ltd. added AGPLv3 in 2025, restoring open licensing. But license is orthogonal to governance. \textit{License} determines what you may do with code; \textit{governance} determines who decides what it becomes. Redis passes one; Valkey passes both.
+
+\subsection{The Taxonomy of Open-Washing}
+\label{subsec:openwashing}
+
+Systems that fail these structural tests frequently employ vocabulary to obscure their closure:
+\begin{enumerate}
+    \item \textbf{Standard-Washing}: Adopting open technical standards (like ISO/W3C) as proxy for governance accountability.
+    \item \textbf{Open-Washing}: Releasing peripheral SDKs while keeping core execution logic proprietary.
+    \item \textbf{Multilateral-Washing}: Using international endorsements (G20, WB) to substitute for technical auditability.
+    \item \textbf{Safety-Washing}: Justifying opacity by claiming inspection poses a security risk.
+    \item \textbf{Consent-Washing}: Obtaining formal consent under conditions of economic coercion.
+    \item \textbf{DID-Washing}: Deploying decentralized identifiers without decentralized governance (see Section~\ref{subsubsec:didwashing}).
+    \item \textbf{Climate-Washing}: Using environmental rhetoric to legitimize structural changes whose primary effects extend beyond genuine climate mitigation (see Section~\ref{subsubsec:climatewashing}).
+\end{enumerate}
+
+\subsubsection{DID-Washing: The Layer Confusion Problem}
+\label{subsubsec:didwashing}
+
+Decentralized Identifiers (DIDs) present a distinct challenge to corrigibility evaluation because they separate technical decentralization from governance decentralization across multiple architectural layers. The W3C DID Core 1.0 specification \citep{w3cdid2022} defines DIDs as ``globally unique identifiers'' that ``do not require a centralized registration authority.'' This technical claim is accurate. However, a system can implement DIDs at the identifier layer while retaining centralized control at every layer that determines actual utility.
+
+Identity infrastructure comprises at least four functional layers, each with independent governance:
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{DID infrastructure layers and typical corrigibility failures}
+\label{tab:did_layers}
+\begin{tabular}{@{}lp{5cm}p{5cm}@{}}
+\toprule
+\textbf{Layer} & \textbf{Function} & \textbf{Common Failure} \\
+\midrule
+Identifier & DID generation, resolution & Often passes CODE (open specs) \\
+Credential & Issuer policies, attribute schemas & Often fails GOVERN (unilateral issuer) \\
+Wallet & Storage, presentation, consent & Often fails FORK (vendor lock-in) \\
+Reliance & Verifier acceptance, trust frameworks & Often fails EXIT (no alternative verifiers) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A system may achieve decentralization at the identifier layer while remaining fully centralized at the credential, wallet, or reliance layers. Evaluating only the DID specification produces a false positive; evaluating the complete stack reveals the actual governance topology.
+
+\paragraph{Example: EU Digital Identity Wallet.} The proposed EU Digital Identity Wallet framework implements DIDs for identifier generation. However, the credential layer is governed by member state authorities with unilateral issuance power; the wallet layer specifies certified applications with vendor approval requirements; and the reliance layer mandates acceptance by specified service providers. At the identifier layer: decentralized. At the governance layer: centralized state control mediated through a federated but non-forkable architecture.
+
+The framework's response: evaluate each layer independently, then apply the Weakest-Layer Principle. A system's corrigibility equals its weakest layer. DID-washing exploits the gap between technical specification and governance reality.
+
+\subsubsection{Climate-Washing: Environmental Rhetoric as Capture Vector}
+\label{subsubsec:climatewashing}
+
+Climate policy has become a vector for infrastructure capture. The rhetorical pattern is consistent: invoke environmental necessity to justify surveillance, mandate digital-only interfaces, or eliminate cash. This section documents specific instances where climate framing masks structural changes that the framework identifies as incorrigibility failures.
+
+\paragraph{15-Minute Cities.} The urban planning concept of ``15-minute cities'' has been weaponized to justify geofencing and movement tracking. The original concept (amenities within 15 minutes of residence) implies no surveillance. The implementation variant (digital permits required to cross neighborhood boundaries, as trialed in Oxford) implies mandatory tracking infrastructure. The climate framing (reduce car trips) obscures the governance change (movement requires permission).
+
+Under the framework: a system that requires digital permission to move fails EXIT (cannot opt out without forfeiting mobility). The climate benefit is orthogonal to the corrigibility failure.
+
+\paragraph{Cash Elimination.} Multiple jurisdictions have proposed eliminating physical currency to ``reduce carbon footprint of money.'' The environmental claim is empirically contested (digital payment infrastructure has significant energy costs). The governance effect is uncontested: elimination of cash creates mandatory digital payment infrastructure with no EXIT option.
+
+\paragraph{Carbon Tracking.} Personal carbon accounting systems propose linking identity infrastructure to consumption tracking. The stated purpose is behavioral nudging for sustainability. The structural effect is comprehensive consumption surveillance with no technical or legal mechanism for opting out while maintaining normal economic participation.
+
+The framework's response: environmental goals do not constitute exemptions from corrigibility requirements. A surveillance system does not become corrigible because its stated purpose is ecological. The tests evaluate architecture, not intentions.
+
+%% ============================================
+%% SECTION 6: POLITICAL ECONOMY OF DIGITAL INFRASTRUCTURE
+%% ============================================
+
+\section{The Political Economy of Digital Infrastructure}
+\label{sec:political-economy}
+
+The empirical evaluation reveals a troubling pattern: systems that serve essential functions consistently fail the five tests, while systems that pass are predominantly non-essential. This section analyzes \textit{why} this pattern exists. The answer lies in the political economy of infrastructure---the temporal dynamics of correction, the structural tension between essentiality and accountability, and the trilemma facing states that attempt to build sovereign digital infrastructure at scale.
+
+\subsection{The Dynamics of Incorrigibility}
 \label{sec:dynamics}
 
 The five tests define the static architecture of a corrigible system. However, infrastructure exists in time. When we apply these structural requirements to dynamic systems, three fundamental implications emerge regarding stability, energy conservation, and the rule of law. These principles explain why centralized grievance redressal mechanisms (the standard answer of bureaucracies to error)are mathematically insufficient to guarantee stability.
@@ -729,6 +1032,170 @@ Digital execution introduces a rival governance paradigm: the \textbf{Rule of th
 Two structural implications follow. First, doctrines that presuppose reversible administrative acts (proportionality, injunctive relief) are ipso facto disabled if the necessary observability and reversal primitives are not present within the technical loop (\textbf{CODE}, \textbf{AUDIT}, \textbf{GOVERN}). Second, legal remedies become performative unless they are accompanied by verifiable, machine-enforceable restraints (signed chains of authority, multi-party escrow of execution privileges, or pre-authorized blocking hooks that operate within the same temporal envelope as the ledger itself).
 
 The Rule of the Ledger therefore reframes the law-infrastructure relationship: courts and regulators cannot simply be invoked later; corrigibility requires embedding evidentiary and counter-majoritarian restraints into the system's operational fabric. This is not a call for ``autonomous legal machines'' but for technical modes of constraint that render legal review materially possible rather than symbolic.
+
+\subsection{The DPI Trilemma}
+\label{subsec:trilemma}
+
+The empirical pattern suggests a structural constraint governing state-backed infrastructure.
+
+\begin{proposition}[The DPI Trilemma]
+\label{prop:trilemma}
+A state-operated Digital Public Infrastructure can strongly realize any two of the following three properties, but not all three simultaneously:
+\begin{enumerate}[noitemsep]
+    \item \textbf{Sovereignty}: local control over standards, execution, and data residency;
+    \item \textbf{Scale}: population-level ubiquity and mandatory integration across essential services;
+    \item \textbf{Neutrality}: non-discriminatory access and competitive fairness at the execution layer, guaranteed by structural corrigibility.
+\end{enumerate}
+\end{proposition}
+
+Formally: under middle-power constraints (limited leverage over global platform incumbents), achieving both Sovereignty and Scale requires centralized enforcement of standards and routing. That centralization tends to compress the governance options available at the execution layer and thus erodes Neutrality. Conversely, systems that safeguard Neutrality (Linux, Bitcoin) typically lack mandatory scale or are provisioned in ways that preserve distributed governance.
+
+India's experience is illustrative: the design choices that delivered an ``Atmanirbhar'' stack and near-universal reach (Sovereignty + Scale) produced a structural dependency on a small set of switching and credentialing authorities, which in turn materially reduced neutrality in execution (see Aadhaar/UPI evaluations, Table~\ref{tab:govt_infra}). The Trilemma reframes these outcomes: the observed failures are not merely implementation mistakes but predictable architectural trade-offs.
+
+Any prescriptive response must therefore treat neutrality as an architectural variable (portability, multi-issuer requirement, anti-exclusive procurement), not an aspirational outcome. The Functional Exit Equivalence remedies in Section~\ref{subsubsec:arch-responses} address precisely this constraint.
+
+\subsection{The Essential Services Problem}
+\label{subsec:essential}
+
+A pattern emerges from the preceding analysis: systems that pass all five tests are disproportionately non-essential infrastructure. Linux, PostgreSQL, Kubernetes, and Let's Encrypt power critical operations, but no individual's survival depends on accessing them. The systems promoted as DPI, which mediate access to food, banking, healthcare, and mobility, consistently fail.
+
+This correlation reflects a structural tension between essentiality and corrigibility.
+
+\begin{proposition}[Essentiality-Corrigibility Tension]
+\label{prop:essentiality}
+For any infrastructure system $S$ where participation is a prerequisite to survival, the EXIT test cannot be satisfied.
+\end{proposition}
+
+\begin{proof}
+EXIT requires that refusal incur no disproportionate penalty (Section~\ref{sec:tests}, Test 1). Let $S$ be essential: participation is required for access to food, shelter, healthcare, or legal identity. Refusal of $S$ therefore entails exclusion from survival necessities. Exclusion from survival necessities is a disproportionate penalty by any reasonable standard. Therefore, EXIT fails. \qed
+\end{proof}
+
+This proposition formalizes the empirical observation: among the systems evaluated, those that pass all five tests are precisely those where participation remains genuinely voluntary.
+
+\begin{corollary}[No Exemptions from Essentiality Tension]
+The following do NOT constitute valid exemptions from Proposition~\ref{prop:essentiality}:
+\begin{enumerate}[noitemsep]
+    \item \textbf{Emergency necessity}: Pandemics, wars, and crises do not suspend the requirement for correction channels. Systems deployed under emergency conditions that block EXIT remain incorrigible; the emergency explains but does not justify the structural failure.
+    \item \textbf{Efficiency gains}: That a mandatory system delivers services faster or cheaper than alternatives does not restore EXIT. Efficiency is orthogonal to corrigibility.
+    \item \textbf{Democratic authorization}: Legislative mandates do not convert incorrigible systems into corrigible ones. A democratically enacted prison is still a prison.
+    \item \textbf{Benevolent intent}: Good-faith operation does not substitute for structural accountability. The framework evaluates architecture, not intentions.
+\end{enumerate}
+\end{corollary}
+
+\subsubsection{The Essentiality Trap}
+
+Essential services create the economic coercion that undermines EXIT. When refusal means exclusion from survival, the feedback loop breaks regardless of other properties. \citet{hirschman1970} observed that exit is effective precisely because it is voluntary. The credible threat of departure disciplines the system. When departure means death (literal or social), exit ceases to function as feedback. It becomes self-exclusion.
+
+The systems in Table~\ref{tab:positive} avoid this trap because alternatives exist. A developer who dislikes the Linux kernel's direction can migrate to BSD without losing the ability to compute. A journalist who distrusts Let's Encrypt can obtain certificates elsewhere. The existence of functional alternatives preserves the error signal.
+
+Aadhaar has been made prerequisite to existence. Documented cases demonstrate the consequence: at least 27 starvation deaths in India between 2015 and 2018 were attributed to Aadhaar-related exclusion from food rations \citep{khera2017}. These deaths are not anomalies; they are the structural prediction of a system that blocks EXIT while governing essential services.
+
+\subsubsection{Functional Exit Equivalence (FEE)}
+\label{subsubsec:fee}
+
+Proposition~\ref{prop:essentiality} establishes that literal exit is impossible for essential services. However, the \textbf{purpose} of EXIT is not departure itself; it is the generation of a high-bandwidth, credible error signal that disciplines the system. This section introduces \textbf{Functional Exit Equivalence (FEE)} as the architectural substitute for literal exit when a service is essential.
+
+\paragraph{Definition.} An essential system $S$ satisfies FEE if compensatory architectural guarantees recreate the same effective error-signal strength that exit provides in non-essential systems.
+
+Let:
+\begin{itemize}[noitemsep]
+    \item $E_{\text{exit}}^{\text{baseline}}$ = effective error-signal strength produced by real exit (non-essential case)
+    \item $E_{\text{alt}}(S)$ = effective error-signal strength produced by compensatory mechanisms (essential case)
+\end{itemize}
+
+\begin{equation}
+\text{FEE}(S) \iff E_{\text{alt}}(S) \geq \theta_E \cdot E_{\text{exit}}^{\text{baseline}}
+\label{eq:fee}
+\end{equation}
+
+where $\theta_E$ is a policy calibration constant (recommended range: $0.8$--$1.0$).
+
+\paragraph{Operationalizing $E$.} The error-signal strength $E$ can be operationalized as a weighted sum:
+
+\begin{equation}
+E = \alpha_1 \cdot \text{effective\_loss} + \alpha_2 \cdot \text{probability\_of\_departure} + \alpha_3 \cdot \text{velocity\_of\_response} + \alpha_4 \cdot \text{legal\_remedy\_speed}
+\label{eq:error-signal}
+\end{equation}
+
+where the weights $\alpha_i$ are calibrated via pilot audits. All variables are operationalized such that higher values indicate greater corrective pressure on the operator: a higher velocity of legal response, for instance, increases $E$, thereby satisfying the FEE condition. This formulation connects back to Ashby's Law: FEE is an engineered mechanism to maintain requisite variety in the controller when the natural market variety (EXIT) is suppressed.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.9, font=\sffamily\small,
+    block/.style={rectangle, rounded corners, draw=gray!70, fill=gray!10, minimum width=2.5cm, minimum height=0.8cm},
+    arrow/.style={-{Stealth[length=2mm]}, thick}
+]
+
+% Non-essential system (top)
+\node[anchor=west, font=\bfseries] at (-4.5, 3) {Non-Essential System:};
+\node[block, fill=exitcolor!20, draw=exitcolor] (exit1) at (0, 2) {EXIT Available};
+\node[block] (system1) at (4, 2) {System $S$};
+\draw[arrow, exitcolor] (exit1) -- (system1) node[midway, above] {$E_{\text{exit}}$};
+\node[font=\scriptsize, gray] at (2, 1.3) {Market departure = strong signal};
+
+% Essential system without FEE (middle)
+\node[anchor=west, font=\bfseries] at (-4.5, 0) {Essential System (No FEE):};
+\node[block, fill=red!20, draw=red] (exit2) at (0, -1) {EXIT Blocked};
+\node[block] (system2) at (4, -1) {System $S$};
+\draw[arrow, red, dashed] (exit2) -- (system2) node[midway, above] {$E = 0$};
+\node[font=\scriptsize, gray] at (2, -1.7) {No error signal = incorrigible};
+
+% Essential system with FEE (bottom)
+\node[anchor=west, font=\bfseries] at (-4.5, -3) {Essential System (with FEE):};
+\node[block, fill=red!20, draw=red] (exit3) at (-1, -4) {EXIT Blocked};
+\node[block, fill=governcolor!20, draw=governcolor] (fee) at (2, -4) {FEE Mechanisms};
+\node[block] (system3) at (6, -4) {System $S$};
+\draw[arrow, red, dashed] (exit3) -- (fee);
+\draw[arrow, governcolor] (fee) -- (system3) node[midway, above] {$E_{\text{alt}} \geq \theta_E$};
+\node[font=\scriptsize, gray] at (2, -4.8) {Compensatory signal = conditionally corrigible};
+
+% FEE components
+\node[font=\tiny, anchor=north, text width=3cm, align=center] at (2, -5.2) {
+Multi-issuer +\\
+Portability +\\
+Fallback +\\
+Federated
+};
+
+\end{tikzpicture}
+\caption{\textbf{Functional Exit Equivalence (FEE).} Top: Non-essential systems generate error signals through market exit. Middle: Essential systems without FEE block error signals entirely. Bottom: Essential systems with FEE use compensatory mechanisms to restore error signal strength.}
+\label{fig:fee}
+\end{figure}
+
+\subsubsection{Design Responses to Proposition~\ref{prop:essentiality}}
+\label{subsubsec:arch-responses}
+
+The tension admits architectural resolutions that achieve FEE:
+
+\paragraph{1. Protected Alternatives (Statutory Fallback).} Essential services can satisfy FEE if law guarantees functional non-digital equivalents. A model statutory clause:
+
+\begin{quote}
+\textit{``No person shall be required as a condition of receiving any essential public benefit to be exclusively dependent on a single digital system; the State shall maintain a legally enforceable analogue alternative and an interoperable credential acceptance guarantee.''}
+\end{quote}
+
+Cash preserves UPI's partial EXIT; eliminating cash would collapse UPI to Aadhaar's structural status. Corrigibility for essential services requires that non-digital pathways remain legally protected, not merely tolerated.
+
+\paragraph{2. Multi-Issuer Requirement.} Procurement and regulation shall require at least two legally independent credential issuers for each region or service class. No single issuer may be sole gatekeeper for eligibility. This creates credible switching alternatives that generate $E_{\text{alt}}$.
+
+\paragraph{3. Credential Acceptance Diversity.} Public services must accept at least three credential classes (state, municipal, NGO/financial) to satisfy eligibility requirements. This prevents single-point-of-failure capture.
+
+\paragraph{4. Binding Multi-Stakeholder Charter.} A legal instrument that locks governance rules, with amendments requiring supermajority approval, judicial review pathway, and defined emergency suspension conditions.
+
+\paragraph{5. Funded Fallback Operations.} Government must fund and staff analogue fallback channels wherever the digital system is primary, not as legacy support but as structural accountability infrastructure.
+
+\paragraph{Federated Implementation.} Rather than a single provider of essential infrastructure, services could be delivered through multiple independent implementations of open protocols. This is analogous to email (SMTP) rather than messaging (proprietary platforms).
+
+Under this model, no single implementation would be essential; the protocol would be. A citizen excluded from one provider could obtain equivalent service from another. Estonian X-Road approaches this architecture: the protocol is open, implementations are distributed across institutions, and the Nordic Institute for Interoperability Solutions (NIIS) provides multi-stakeholder governance.
+
+X-Road demonstrates that scale and corrigibility are compatible. It passes CODE (MIT-licensed), AUDIT (transaction logs, public enforcement against misuse), GOVERN (multi-national NIIS), and FORK (deployed in 25+ countries). It fails full EXIT but achieves FEE through strong performance on the other four tests plus federated implementation.
+
+\subsubsection{The Finding}
+
+The absence of fully corrigible essential services is not a limitation of this framework; it is the framework's central finding. The question ``Can essential DPI be fully corrigible?'' is answered: \textbf{not under architectures that eliminate alternatives, but achievable through FEE-compliant designs}. Proposition~\ref{prop:essentiality} is not a dead end; it is a design specification.
+
+%% ============================================
+%% SECTION 7: CORRIGIBILITY IN AI AND AGENTIC SYSTEMS
+%% ============================================
 
 \section{Corrigibility in Automated and Agentic Systems}
 \label{sec:learned}
@@ -954,604 +1421,6 @@ This is not a security failure but a control-theoretic inevitability. Systems la
 Agentic scaling amplifies the correction velocity inequality. Systems that are marginally stable under human interaction rates become catastrophically unstable under agent interaction rates. The human friction buffer is not a feature; it is a hidden subsidy that masks architectural incorrigibility.
 \end{claim}
 
-\section{Empirical Evaluation}
-\label{sec:diagnosis}
-
-To demonstrate the framework's application, we evaluate systems across three categories: government infrastructure promoted as ``DPI,'' platform infrastructure claiming ``openness,'' and infrastructure that satisfies all five tests.
-
-\paragraph{A Note on Utility.} These evaluations assess structural accountability, not functional utility. A system can be simultaneously useful and incorrigible. Aadhaar may enable efficient service delivery; this does not establish that it permits correction by those it affects. The framework evaluates governance architecture, not operational performance. Utility and accountability are orthogonal dimensions: neither implies the other.
-
-\subsection{Government Infrastructure: The Trap of Partial Compliance}
-
-Government-operated systems currently designated as Digital Public Infrastructure frequently exhibit a dangerous failure mode: they achieve partial compliance on technical tests (EXIT, CODE, AUDIT) while failing structurally on governance tests (GOVERN, FORK). By capturing the monopoly on execution, they render the feedback loop inoperable.
-
-\begin{table}[htbp]
-    \centering
-    \caption{\textbf{Evaluation of Government Infrastructure.} Centralized execution leads to consistent structural failure despite ``open standards'' rhetoric.}
-    \label{tab:govt_infra}
-
-    % --- Subtable A: Aadhaar ---
-    \begin{subtable}{1\textwidth}
-        \centering
-        \caption{Aadhaar (India) -- Mandatory ID}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
-            \toprule
-            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
-            \midrule
-            EXIT & $\times$ & Disproportionate penalty: exclusion from PDS, banking, SIM \citep{khera2019}. \\
-            CODE & $\times$ & Execution logic opaque: proprietary matcher, closed algorithms. \\
-            AUDIT & $\times$ & External testing prohibited: independent error measurement illegal. \\
-            GOVERN & $\times$ & No binding constraint: UIDAI is both operator and regulator. \\
-            FORK & $\times$ & No legal/technical/economic means: total centralized capture. \\
-            \bottomrule
-        \end{tabular}
-        \vspace{0.3cm}
-    \end{subtable}
-
-    % --- Subtable B: UPI ---
-    \begin{subtable}{1\textwidth}
-        \centering
-        \caption{UPI (India) -- Payment Rail}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
-            \toprule
-            EXIT & \textcolor{orange}{PARTIAL} & Reduced penalty: cash exists but network effects coerce. \\
-            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: protocol specs open, switching logic closed. \\
-            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: regulator audits, public measurement blocked. \\
-            GOVERN & $\times$ & No binding constraint: banks own NPCI, regulate themselves. \\
-            FORK & $\times$ & No economic means: hub-and-spoke requires NPCI cooperation. \\
-            \bottomrule
-        \end{tabular}
-        \vspace{0.3cm}
-    \end{subtable}
-
-    % --- Subtable C: Pix ---
-    \begin{subtable}{1\textwidth}
-        \centering
-        \caption{Pix (Brazil) -- Central Bank Payment}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
-            \toprule
-            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
-            \midrule
-            EXIT & \textcolor{orange}{PARTIAL} & Reduced penalty: cash and cards exist; digital-only services coerce adoption. \\
-            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: API specification public; central routing logic closed. \\
-            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: aggregate statistics public; independent error measurement blocked. \\
-            GOVERN & $\times$ & No binding constraint: BCB sets and enforces Pix rules unilaterally. \\
-            FORK & $\times$ & No reproduction means: central switch requires BCB; no independent implementation. \\
-            \bottomrule
-        \end{tabular}
-        \vspace{0.3cm}
-    \end{subtable}
-
-    % --- Subtable D: X-Road ---
-    \begin{subtable}{1\textwidth}
-        \centering
-        \caption{X-Road (Estonia/Nordic) -- Data Exchange Layer}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
-            \toprule
-            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
-            \midrule
-            EXIT & $\times$ & Disproportionate penalty: exclusion from government services. \\
-            CODE & $\checkmark$ & Execution logic inspectable: MIT source on GitHub. \\
-            AUDIT & $\checkmark$ & External testing possible: transaction logs, documented APIs. \\
-            GOVERN & $\checkmark$ & Binding constraint: NIIS treaty, MIT license irrevocable. \\
-            FORK & $\checkmark$ & Legal + technical + economic: 25+ country deployments prove feasibility. \\
-            \bottomrule
-        \end{tabular}
-        \vspace{0.3cm}
-    \end{subtable}
-
-    % --- Subtable E: UK Open Banking ---
-    \begin{subtable}{1\textwidth}
-        \centering
-        \caption{UK Open Banking -- Regulated API Standard}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
-            \toprule
-            EXIT & \textcolor{orange}{PARTIAL} & Can revoke API consent; cannot exit banking system. \\
-            CODE & $\times$ & Execution logic not inspectable: bank implementations proprietary. \\
-            AUDIT & $\checkmark$ & External testing: FCA oversight, TPP certification. \\
-            GOVERN & $\checkmark$ & Binding constraint: CMA order, PSD2 regulation. \\
-            FORK & \textcolor{orange}{PARTIAL} & Legal rights exist; economic means require regulatory recognition. \\
-            \bottomrule
-        \end{tabular}
-    \end{subtable}
-\end{table}
-
-\textbf{Pattern}: X-Road (4/5) fails only EXIT. UK Open Banking (2/5) passes AUDIT and GOVERN but fails CODE: the API \textit{specification} is public, but the bank \textit{implementations} are proprietary. Specification $\neq$ Code. You can see the interface; you cannot inspect the execution.
-
-\subsection{Platform Infrastructure: The Illusion of Openness}
-
-In the private sector, systems often leverage "open source" branding while retaining centralized control. This decoupling of artifact transparency from governance reality creates a distinct failure pattern: the artifacts are public; the decisions are not.
-
-\begin{table}[htbp]
-    \centering
-    \caption{\textbf{Evaluation of Private/Platform Infrastructure.} Technical openness (Source/Weights) does not guarantee structural accountability.}
-    \label{tab:corp_infra}
-
-    % --- Subtable A: Open Weights AI ---
-    \begin{subtable}{1\textwidth}
-        \centering
-        \caption{Open-Weights AI (Llama, etc.)}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
-            \toprule
-            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
-            \midrule
-            EXIT & $\checkmark$ & No disproportionate penalty: can run locally, switch models freely. \\
-            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: weights public; training data and RLHF opaque. \\
-            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: black-box probing possible; lineage unverifiable. \\
-            GOVERN & $\times$ & No binding constraint: firm sets safety/capability trade-offs unilaterally. \\
-            FORK & \textcolor{orange}{PARTIAL} & Partial means: fine-tuning possible; retraining blocked by compute cost. \\
-            \bottomrule
-        \end{tabular}
-        \vspace{0.3cm}
-    \end{subtable}
-
-    % --- Subtable B: Android ---
-    \begin{subtable}{1\textwidth}
-        \centering
-        \caption{Android (AOSP + GMS)}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
-            \toprule
-            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
-            \midrule
-            EXIT & \textcolor{orange}{PARTIAL} & Moderate penalty: device portable; ecosystem lock-in creates friction. \\
-            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: AOSP open; Play Services and Identity closed. \\
-            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: OS auditable; Google Services behavior opaque. \\
-            GOVERN & $\times$ & No binding constraint: Google sets roadmap and certification unilaterally. \\
-            FORK & \textcolor{orange}{PARTIAL} & Partial means: LineageOS exists; app ecosystem requires GMS. \\
-            \bottomrule
-        \end{tabular}
-        \vspace{0.3cm}
-    \end{subtable}
-
-    % --- Subtable C: Signal ---
-    \begin{subtable}{1\textwidth}
-        \centering
-        \caption{Signal Protocol}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
-            \toprule
-            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
-            \midrule
-            EXIT & $\checkmark$ & No disproportionate penalty: can switch to alternatives freely. \\
-            CODE & $\checkmark$ & Full inspection: client and server source available (GPL/AGPL). \\
-            AUDIT & $\checkmark$ & External testing: cryptographic properties independently verifiable. \\
-            GOVERN & $\times$ & No binding constraint: Foundation board sets direction unilaterally. \\
-            FORK & $\times$ & No economic means: code forkable but no federation locks network effects. \\
-            \bottomrule
-        \end{tabular}
-    \end{subtable}
-\end{table}
-
-\textbf{Pattern: Asymmetric Openness.} These systems deploy strategic openness: releasing artifacts for ecosystem capture while retaining governance. This satisfies CODE (inspection possible) while failing GOVERN (correction blocked). The framework distinguishes artifact transparency (can you see the code?) from governance accountability (can you correct the system?). Open weights, open protocols, and open standards can each mask closed correction loops. ``Open weights'' $\neq$ ``open.'' ``Open source'' $\neq$ ``accountable.'' The artifact is open. The correction loop is closed. Seeing the machine does not govern it.
-
-\subsection{Corrigible Infrastructure}
-
-For contrast, Table~\ref{tab:positive} summarizes eighteen systems that pass all five tests. A striking pattern emerges: these systems are predominantly non-essential infrastructure. No individual's survival depends on accessing Linux or Let's Encrypt. This correlation between corrigibility and non-essentiality is not coincidental; it reflects the structural tension analyzed in Section~\ref{subsec:essential}.
-
-\begin{table}[htbp]
-\centering
-\small
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{@{}l>{\raggedright}p{3.2cm}>{\centering\arraybackslash}p{1.2cm}p{5.8cm}@{}}
-\toprule
-\rowcolor{gray!15}
-\textbf{System} & \textbf{Steward} & \textbf{Score} & \textbf{Why Corrigible} \\
-\midrule
-\rowcolor{green!8}
-Linux Kernel & Linux Foundation & \textbf{5/5} & Fully reproducible. Full triad (legal, technical, economic) exists. Independent distributions prove forkability. \\
-Let's Encrypt & ISRG & \textbf{5/5} & Open source CA, IETF standards, nonprofit 501(c)(3) \\
-\rowcolor{green!8}
-Wikipedia & Wikimedia Foundation & \textbf{5/5} & CC BY-SA content, public edit history, community RfC governance \\
-Matrix Protocol & Matrix.org Foundation & \textbf{5/5} & Apache 2.0, federated by design, self-hostable \\
-\rowcolor{green!8}
-Bluesky (AT Protocol) & Bluesky PBC & \textbf{5/5} & MIT/Apache, portable DID identity, self-hostable PDS \\
-PostgreSQL & PGDG & \textbf{5/5} & BSD-like license, public mailing lists, major forks exist \\
-\rowcolor{green!8}
-IPFS & Protocol Labs & \textbf{5/5} & MIT/Apache, public IPIP process, no token governance \\
-Bitcoin & Decentralized & \textbf{5/5} & MIT source, public BIP process, proven forks (BCH, BSV) \\
-\rowcolor{green!8}
-Kubernetes & CNCF & \textbf{5/5} & Apache 2.0, KEP process, distributions (OpenShift, k3s) \\
-Firefox & Mozilla Foundation & \textbf{5/5} & MPL 2.0, nonprofit manifesto, forks (LibreWolf, Tor Browser) \\
-\rowcolor{green!8}
-Apache HTTP & Apache Foundation & \textbf{5/5} & Apache 2.0 license, ASF governance, powers 30\% of web \\
-Apache Kafka & Apache Foundation & \textbf{5/5} & Apache 2.0, KIP process public, Fortune 500 standard \\
-\rowcolor{green!8}
-OpenSearch & Linux Foundation & \textbf{5/5} & Forked from Elasticsearch; Apache 2.0, multi-vendor governance \\
-Valkey & Linux Foundation & \textbf{5/5} & Forked from Redis; BSD license, community governance restored \\
-\rowcolor{green!8}
-Hyperledger & LF Decentralized Trust & \textbf{5/5} & Apache 2.0 framework; institutional deployments require separate evaluation \\
-LibreOffice & Document Foundation & \textbf{5/5} & Forked from OpenOffice; LGPL/MPL, nonprofit governance \\
-\rowcolor{green!8}
-MariaDB & MariaDB Foundation & \textbf{5/5} & Forked from MySQL; GPL, foundation governance \\
-Eclipse IDE & Eclipse Foundation & \textbf{5/5} & EPL 2.0, 386 member orgs, committer-led governance \\
-\bottomrule
-\end{tabular}
-\caption{Infrastructure systems satisfying all five corrigibility tests. All systems demonstrate full EXIT, CODE, AUDIT, GOVERN, and FORK compliance.}
-\label{tab:positive}
-\end{table}
-
-\textbf{Fork as Correction}: OpenSearch, Valkey, LibreOffice, and MariaDB demonstrate Ashby's Law in practice. Each emerged when governance variety collapsed: Oracle's Sun acquisition (2010) triggered LibreOffice and MariaDB; unilateral license changes triggered OpenSearch (2021) and Valkey (2024). The ecosystem restored requisite variety through forking.
-
-The framework is governance-agnostic: corporate participation is not disqualifying. Kubernetes (CNCF), Hyperledger, and Let's Encrypt all have significant corporate involvement while passing all tests. The test is whether governance permits correction, not who participates.
-
-\textbf{License vs. Governance}: Redis Ltd. added AGPLv3 in 2025, restoring open licensing. But license is orthogonal to governance. \textit{License} determines what you may do with code; \textit{governance} determines who decides what it becomes. Redis passes one; Valkey passes both.
-
-\subsection{The Taxonomy of Open-Washing}
-\label{subsec:openwashing}
-
-Systems that fail these structural tests frequently employ vocabulary to obscure their closure:
-\begin{enumerate}
-    \item \textbf{Standard-Washing}: Adopting open technical standards (like ISO/W3C) as proxy for governance accountability.
-    \item \textbf{Open-Washing}: Releasing peripheral SDKs while keeping core execution logic proprietary.
-    \item \textbf{Multilateral-Washing}: Using international endorsements (G20, WB) to substitute for technical auditability.
-    \item \textbf{Safety-Washing}: Justifying opacity by claiming inspection poses a security risk.
-    \item \textbf{Consent-Washing}: Obtaining formal consent under conditions of economic coercion.
-    \item \textbf{DID-Washing}: Deploying decentralized identifiers without decentralized governance (see Section~\ref{subsubsec:didwashing}).
-    \item \textbf{Climate-Washing}: Using environmental rhetoric to legitimize structural changes whose primary effects extend beyond genuine climate mitigation (see Section~\ref{subsubsec:climatewashing}).
-\end{enumerate}
-
-\subsubsection{DID-Washing: The Layer Confusion Problem}
-\label{subsubsec:didwashing}
-
-Decentralized Identifiers (DIDs) present a distinct challenge to corrigibility evaluation because they separate technical decentralization from governance decentralization across multiple architectural layers. The W3C DID Core 1.0 specification \citep{w3cdid2022} defines DIDs as ``globally unique identifiers'' that ``do not require a centralized registration authority.'' This technical claim is accurate. However, a system can implement DIDs at the identifier layer while retaining centralized control at every layer that determines actual utility.
-
-Identity infrastructure comprises at least four functional layers, each with independent governance:
-
-\begin{table}[htbp]
-\centering
-\small
-\begin{tabular}{@{}llp{5cm}@{}}
-\toprule
-\textbf{Layer} & \textbf{Function} & \textbf{DID-Washing Failure Mode} \\
-\midrule
-Identifier & Generate and resolve DIDs & Often decentralized, but meaningless alone \\
-Credential & Issue verifiable claims about the subject & Usually centralized: single issuer dominates \\
-Trust & Determine which credentials are accepted & Controlled by policy, trusted lists, or law \\
-Revocation & Invalidate credentials or identifiers & Often requires issuer cooperation \\
-\bottomrule
-\end{tabular}
-\caption{DID-washing failure modes by layer}
-\label{tab:didwashing}
-\end{table}
-
-A DID that resolves correctly but is not accepted by any relying party is functionally equivalent to no identity at all. The identifier is ``self-sovereign''; the identity utility is not.
-
-\paragraph{Empirical Examples.} The EU Digital Identity Wallet (EUDI) under eIDAS 2.0 \citep{eidas2024} illustrates sophisticated DID-washing. The architecture employs selective disclosure credentials and cryptographic proofs superficially similar to DID/VC ecosystems. However:
-
-\begin{itemize}[noitemsep,topsep=0pt]
-    \item Credential issuance for Person Identification Data is an exclusive government function.
-    \item Trust determination requires registration in Member State Trusted Lists.
-    \item Wallet certification depends on government-approved Qualified Trust Service Providers (QTSPs).
-    \item Trusted Execution Environment dependency hands cryptographic key governance to mobile OS vendors (Google, Apple).
-\end{itemize}
-
-The result: users control their container (the wallet) but not their capability (the credentials). A journalist critical of their government holds a ``decentralized'' identifier that can be rendered useless by a single administrative act: revocation from the trusted list.
-
-\paragraph{Consent-Washing: The DigiLocker Case.} India's DigiLocker exhibits a simpler failure mode. It does not claim to use DIDs; it uses centralized URIs and mandatory Aadhaar linkage. However, promotional language around ``user consent'' and ``digital empowerment'' obscures the structural reality: users cannot register without Aadhaar, cannot store documents outside government-controlled infrastructure, and cannot port their identity to alternative systems. This is not DID-washing but \textit{consent-washing}: the vocabulary of user control applied to a system that offers none.
-
-\paragraph{Implications for Framework Application.} DID-washing exploits a gap in naive corrigibility evaluation. A system may appear to pass CODE (the DID spec is public) and FORK (anyone can implement the spec) while failing at the trust layer where actual power resides.
-
-The framework must be applied layer by layer (see Section~\ref{subsec:layers}). For identity systems:
-
-\begin{itemize}[noitemsep,topsep=0pt]
-    \item CODE must be evaluated at each layer: identifier resolution, credential issuance logic, trust framework rules, and revocation mechanisms.
-    \item GOVERN must ask: who controls the acceptance policy? If a single authority determines which credentials are valid, governance is centralized regardless of identifier architecture.
-    \item FORK must ask: can a community reproduce the trust framework, not merely the identifier scheme? If relying parties are legally required to accept only government-issued credentials, forkability is illusory.
-\end{itemize}
-
-A system passes the DID-washing test only if decentralization extends through the full trust stack: issuance, verification, acceptance policy, and revocation governance. Technical decentralization at the identifier layer with governance centralization at the trust layer is structural theater.
-
-\begin{claim}
-Identifier decentralization is not system decentralization. The corrigibility of an identity system is determined by its weakest layer across any test dimension.
-\end{claim}
-
-\subsubsection{Climate-Washing: Environmental Rhetoric as Deflection}
-\label{subsubsec:climatewashing}
-
-\begin{definition}[Climate Washing]
-The use of climate rhetoric or urgency to legitimize actions, policies, or structural changes whose primary effects extend beyond genuine climate mitigation, whether for reputational, financial, institutional, or governance advantage.
-\end{definition}
-
-A variant of safety-washing has emerged in DPI discourse: claims that digital infrastructure is inherently ``sustainable'' or ``green'' because it replaces paper, reduces travel, or enables ``efficient'' resource allocation. Climate washing deploys environmental rhetoric to deflect accountability critiques.
-
-The structural analysis reveals three problems:
-
-\paragraph{1. Hidden Energy Footprint.} Digital infrastructure has non-trivial energy and material costs: data centers, network equipment, device manufacturing, and e-waste. The claim that ``digital is green'' compares against a paper baseline while ignoring these embodied costs. A proper lifecycle analysis would compare total system footprints, including the rebound effects of increased transaction volume enabled by digital convenience.
-
-\paragraph{2. Transparency Failure.} Climate claims for DPI systems typically fail the CODE test: the energy consumption data, carbon accounting methodology, and lifecycle assumptions are not publicly auditable. When NPCI claims UPI reduces carbon emissions, the underlying calculations are not verifiable. This is precisely the audit-theatre pattern identified in Section~\ref{subsec:active-deception}: a claim of virtue without the evidentiary infrastructure to support it.
-
-\paragraph{3. Deflection Function.} Climate rhetoric serves a political function: it reframes accountability critiques as opposition to environmental progress. The implicit argument is: ``If you criticize Aadhaar's surveillance, you are against paperless government and therefore against the environment.'' This framing collapses distinct concerns (privacy, accountability, environmental impact) into a single axis and positions critics as anti-progress.
-
-The framework's response is structural: environmental claims, like safety claims, must satisfy the five tests. A system cannot claim environmental legitimacy if its energy footprint is not auditable (CODE, AUDIT), if affected communities cannot contest the methodology (GOVERN), or if lock-in prevents migration to more efficient alternatives (EXIT, FORK). ``Green DPI'' that fails these tests is not green infrastructure; it is climate washing.
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    scale=0.85,
-    pass/.style={fill=green!30},
-    fail/.style={fill=red!30},
-    partial/.style={fill=orange!30},
-    header/.style={font=\scriptsize\bfseries},
-    cell/.style={font=\scriptsize, minimum width=0.9cm, minimum height=0.5cm}
-]
-% Headers
-\node[header] at (0,0) {};
-\node[header, text=exitcolor] at (1.2,0) {EXIT};
-\node[header, text=codecolor] at (2.2,0) {CODE};
-\node[header, text=auditcolor] at (3.2,0) {AUDIT};
-\node[header, text=governcolor] at (4.2,0) {GOV};
-\node[header, text=forkcolor] at (5.2,0) {FORK};
-\node[header] at (6.4,0) {Result};
-
-% Aadhaar
-\node[cell, anchor=east] at (-0.2,-0.6) {Aadhaar};
-\node[cell, fail] at (1.2,-0.6) {\texttimes};
-\node[cell, fail] at (2.2,-0.6) {\texttimes};
-\node[cell, fail] at (3.2,-0.6) {\texttimes};
-\node[cell, fail] at (4.2,-0.6) {\texttimes};
-\node[cell, fail] at (5.2,-0.6) {\texttimes};
-\node[cell, font=\scriptsize\bfseries, text=red] at (6.4,-0.6) {0/5};
-
-% UPI
-\node[cell, anchor=east] at (-0.2,-1.2) {UPI};
-\node[cell, partial] at (1.2,-1.2) {\textasciitilde};
-\node[cell, partial] at (2.2,-1.2) {\textasciitilde};
-\node[cell, partial] at (3.2,-1.2) {\textasciitilde};
-\node[cell, fail] at (4.2,-1.2) {\texttimes};
-\node[cell, fail] at (5.2,-1.2) {\texttimes};
-\node[cell, font=\scriptsize\bfseries, text=red] at (6.4,-1.2) {0/5};
-
-% Pix
-\node[cell, anchor=east] at (-0.2,-1.8) {Pix};
-\node[cell, partial] at (1.2,-1.8) {\textasciitilde};
-\node[cell, partial] at (2.2,-1.8) {\textasciitilde};
-\node[cell, partial] at (3.2,-1.8) {\textasciitilde};
-\node[cell, fail] at (4.2,-1.8) {\texttimes};
-\node[cell, fail] at (5.2,-1.8) {\texttimes};
-\node[cell, font=\scriptsize\bfseries, text=red] at (6.4,-1.8) {0/5};
-
-% Open-weights AI
-\node[cell, anchor=east] at (-0.2,-2.4) {Llama etc.};
-\node[cell, pass] at (1.2,-2.4) {\checkmark};
-\node[cell, partial] at (2.2,-2.4) {\textasciitilde};
-\node[cell, partial] at (3.2,-2.4) {\textasciitilde};
-\node[cell, fail] at (4.2,-2.4) {\texttimes};
-\node[cell, partial] at (5.2,-2.4) {\textasciitilde};
-\node[cell, font=\scriptsize\bfseries, text=red] at (6.4,-2.4) {1/5};
-
-% Separator line
-\draw[gray, thick] (-0.8,-2.9) -- (7,-2.9);
-
-% Linux
-\node[cell, anchor=east] at (-0.2,-3.4) {Linux};
-\node[cell, pass] at (1.2,-3.4) {\checkmark};
-\node[cell, pass] at (2.2,-3.4) {\checkmark};
-\node[cell, pass] at (3.2,-3.4) {\checkmark};
-\node[cell, pass] at (4.2,-3.4) {\checkmark};
-\node[cell, pass] at (5.2,-3.4) {\checkmark};
-\node[cell, font=\scriptsize\bfseries, text=green!50!black] at (6.4,-3.4) {5/5};
-
-% Let's Encrypt
-\node[cell, anchor=east] at (-0.2,-4.0) {Let's Enc.};
-\node[cell, pass] at (1.2,-4.0) {\checkmark};
-\node[cell, pass] at (2.2,-4.0) {\checkmark};
-\node[cell, pass] at (3.2,-4.0) {\checkmark};
-\node[cell, pass] at (4.2,-4.0) {\checkmark};
-\node[cell, pass] at (5.2,-4.0) {\checkmark};
-\node[cell, font=\scriptsize\bfseries, text=green!50!black] at (6.4,-4.0) {5/5};
-
-% Kubernetes (CNCF)
-\node[cell, anchor=east] at (-0.2,-4.6) {K8s};
-\node[cell, pass] at (1.2,-4.6) {\checkmark};
-\node[cell, pass] at (2.2,-4.6) {\checkmark};
-\node[cell, pass] at (3.2,-4.6) {\checkmark};
-\node[cell, pass] at (4.2,-4.6) {\checkmark};
-\node[cell, pass] at (5.2,-4.6) {\checkmark};
-\node[cell, font=\scriptsize\bfseries, text=green!50!black] at (6.4,-4.6) {5/5};
-
-% Bitcoin (Decentralized)
-\node[cell, anchor=east] at (-0.2,-5.2) {Bitcoin};
-\node[cell, pass] at (1.2,-5.2) {\checkmark};
-\node[cell, pass] at (2.2,-5.2) {\checkmark};
-\node[cell, pass] at (3.2,-5.2) {\checkmark};
-\node[cell, pass] at (4.2,-5.2) {\checkmark};
-\node[cell, pass] at (5.2,-5.2) {\checkmark};
-\node[cell, font=\scriptsize\bfseries, text=green!50!black] at (6.4,-5.2) {5/5};
-
-% +15 more (reference)
-\node[cell, anchor=east, font=\scriptsize\itshape, text=gray] at (-0.2,-5.8) {+15 more};
-\node[cell, font=\scriptsize, text=gray] at (3.2,-5.8) {See Table~\ref{tab:positive}};
-
-% Legend
-\node[font=\tiny, gray] at (3.2,-6.4) {\checkmark = Pass \quad \textasciitilde\ = Partial \quad \texttimes\ = Fail};
-\end{tikzpicture}
-\caption{Comparative evaluation summary. Systems labeled ``DPI'' (above line) fail structural tests. Corrigible infrastructure (below line) passes all five. See Table~\ref{tab:positive} for complete list.}
-\label{fig:comparison}
-\end{figure}
-
-\subsection{Implications}
-
-The contrast is instructive. Aadhaar and UPI, promoted as model DPI, fail all tests. The eighteen systems in Table~\ref{tab:positive}, rarely described as ``DPI,'' pass all tests.
-
-This suggests the ``public'' in Digital Public Infrastructure often refers to \textit{population-scale deployment} rather than \textit{public accountability}. The framework distinguishes these: scale is not governance.
-
-All systems that pass share common properties:
-\begin{itemize}
-    \item Open source with permissive or copyleft licensing
-    \item Nonprofit or community governance structures
-    \item Protocol standardization through open processes (IETF, LKML)
-    \item No monopoly on essential services
-\end{itemize}
-
-Scale does not require capture. Universality does not require opacity. The choice is architectural.
-
-\subsection{The DPI Trilemma}
-\label{subsec:trilemma}
-
-The empirical pattern suggests a structural constraint governing state-backed infrastructure.
-
-\begin{proposition}[The DPI Trilemma]
-\label{prop:trilemma}
-A state-operated Digital Public Infrastructure can strongly realize any two of the following three properties, but not all three simultaneously:
-\begin{enumerate}[noitemsep]
-    \item \textbf{Sovereignty}: local control over standards, execution, and data residency;
-    \item \textbf{Scale}: population-level ubiquity and mandatory integration across essential services;
-    \item \textbf{Neutrality}: non-discriminatory access and competitive fairness at the execution layer, guaranteed by structural corrigibility.
-\end{enumerate}
-\end{proposition}
-
-Formally: under middle-power constraints (limited leverage over global platform incumbents), achieving both Sovereignty and Scale requires centralized enforcement of standards and routing. That centralization tends to compress the governance options available at the execution layer and thus erodes Neutrality. Conversely, systems that safeguard Neutrality (Linux, Bitcoin) typically lack mandatory scale or are provisioned in ways that preserve distributed governance.
-
-India's experience is illustrative: the design choices that delivered an ``Atmanirbhar'' stack and near-universal reach (Sovereignty + Scale) produced a structural dependency on a small set of switching and credentialing authorities, which in turn materially reduced neutrality in execution (see Aadhaar/UPI evaluations, Table~\ref{tab:govt_infra}). The Trilemma reframes these outcomes: the observed failures are not merely implementation mistakes but predictable architectural trade-offs.
-
-Any prescriptive response must therefore treat neutrality as an architectural variable (portability, multi-issuer requirement, anti-exclusive procurement), not an aspirational outcome. The Functional Exit Equivalence remedies in Section~\ref{subsubsec:arch-responses} address precisely this constraint.
-
-\subsection{The Essential Services Problem}
-\label{subsec:essential}
-
-A pattern emerges from the preceding analysis: systems that pass all five tests are disproportionately non-essential infrastructure. Linux, PostgreSQL, Kubernetes, and Let's Encrypt power critical operations, but no individual's survival depends on accessing them. The systems promoted as DPI, which mediate access to food, banking, healthcare, and mobility, consistently fail.
-
-This correlation reflects a structural tension between essentiality and corrigibility.
-
-\begin{proposition}[Essentiality-Corrigibility Tension]
-\label{prop:essentiality}
-For any infrastructure system $S$ where participation is a prerequisite to survival, the EXIT test cannot be satisfied.
-\end{proposition}
-
-\begin{proof}
-EXIT requires that refusal incur no disproportionate penalty (Section~\ref{sec:tests}, Test 1). Let $S$ be essential: participation is required for access to food, shelter, healthcare, or legal identity. Refusal of $S$ therefore entails exclusion from survival necessities. Exclusion from survival necessities is a disproportionate penalty by any reasonable standard. Therefore, EXIT fails. \qed
-\end{proof}
-
-This proposition formalizes the empirical observation: among the systems evaluated, those that pass all five tests are precisely those where participation remains genuinely voluntary.
-
-\begin{corollary}[No Exemptions from Essentiality Tension]
-The following do NOT constitute valid exemptions from Proposition~\ref{prop:essentiality}:
-\begin{enumerate}[noitemsep]
-    \item \textbf{Emergency necessity}: Pandemics, wars, and crises do not suspend the requirement for correction channels. Systems deployed under emergency conditions that block EXIT remain incorrigible; the emergency explains but does not justify the structural failure.
-    \item \textbf{Efficiency gains}: That a mandatory system delivers services faster or cheaper than alternatives does not restore EXIT. Efficiency is orthogonal to corrigibility.
-    \item \textbf{Democratic authorization}: Legislative mandates do not convert incorrigible systems into corrigible ones. A democratically enacted prison is still a prison.
-    \item \textbf{Benevolent intent}: Good-faith operation does not substitute for structural accountability. The framework evaluates architecture, not intentions.
-\end{enumerate}
-\end{corollary}
-
-\subsubsection{The Essentiality Trap}
-
-Essential services create the economic coercion that undermines EXIT. When refusal means exclusion from survival, the feedback loop breaks regardless of other properties. \citet{hirschman1970} observed that exit is effective precisely because it is voluntary. The credible threat of departure disciplines the system. When departure means death (literal or social), exit ceases to function as feedback. It becomes self-exclusion.
-
-The systems in Table~\ref{tab:positive} avoid this trap because alternatives exist. A developer who dislikes the Linux kernel's direction can migrate to BSD without losing the ability to compute. A journalist who distrusts Let's Encrypt can obtain certificates elsewhere. The existence of functional alternatives preserves the error signal.
-
-Aadhaar has been made prerequisite to existence. Documented cases demonstrate the consequence: at least 27 starvation deaths in India between 2015 and 2018 were attributed to Aadhaar-related exclusion from food rations \citep{khera2017}. These deaths are not anomalies; they are the structural prediction of a system that blocks EXIT while governing essential services.
-
-\subsubsection{Functional Exit Equivalence (FEE)}
-\label{subsubsec:fee}
-
-Proposition~\ref{prop:essentiality} establishes that literal exit is impossible for essential services. However, the \textbf{purpose} of EXIT is not departure itself; it is the generation of a high-bandwidth, credible error signal that disciplines the system. This section introduces \textbf{Functional Exit Equivalence (FEE)} as the architectural substitute for literal exit when a service is essential.
-
-\paragraph{Definition.} An essential system $S$ satisfies FEE if compensatory architectural guarantees recreate the same effective error-signal strength that exit provides in non-essential systems.
-
-Let:
-\begin{itemize}[noitemsep]
-    \item $E_{\text{exit}}^{\text{baseline}}$ = effective error-signal strength produced by real exit (non-essential case)
-    \item $E_{\text{alt}}(S)$ = effective error-signal strength produced by compensatory mechanisms (essential case)
-\end{itemize}
-
-\begin{equation}
-\text{FEE}(S) \iff E_{\text{alt}}(S) \geq \theta_E \cdot E_{\text{exit}}^{\text{baseline}}
-\label{eq:fee}
-\end{equation}
-
-where $\theta_E$ is a policy calibration constant (recommended range: $0.8$--$1.0$).
-
-\paragraph{Operationalizing $E$.} The error-signal strength $E$ can be operationalized as a weighted sum:
-
-\begin{equation}
-E = \alpha_1 \cdot \text{effective\_loss} + \alpha_2 \cdot \text{probability\_of\_departure} + \alpha_3 \cdot \text{velocity\_of\_response} + \alpha_4 \cdot \text{legal\_remedy\_speed}
-\label{eq:error-signal}
-\end{equation}
-
-where the weights $\alpha_i$ are calibrated via pilot audits. All variables are operationalized such that higher values indicate greater corrective pressure on the operator: a higher velocity of legal response, for instance, increases $E$, thereby satisfying the FEE condition. This formulation connects back to Ashby's Law: FEE is an engineered mechanism to maintain requisite variety in the controller when the natural market variety (EXIT) is suppressed.
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=0.9, font=\sffamily\small,
-    block/.style={rectangle, rounded corners, draw=gray!70, fill=gray!10, minimum width=2.5cm, minimum height=0.8cm},
-    arrow/.style={-{Stealth[length=2mm]}, thick}
-]
-
-% Non-essential system (top)
-\node[anchor=west, font=\bfseries] at (-4.5, 3) {Non-Essential System:};
-\node[block, fill=exitcolor!20, draw=exitcolor] (exit1) at (0, 2) {EXIT Available};
-\node[block] (system1) at (4, 2) {System $S$};
-\draw[arrow, exitcolor] (exit1) -- (system1) node[midway, above] {$E_{\text{exit}}$};
-\node[font=\scriptsize, gray] at (2, 1.3) {Market departure = strong signal};
-
-% Essential system without FEE (middle)
-\node[anchor=west, font=\bfseries] at (-4.5, 0) {Essential System (No FEE):};
-\node[block, fill=red!20, draw=red] (exit2) at (0, -1) {EXIT Blocked};
-\node[block] (system2) at (4, -1) {System $S$};
-\draw[arrow, red, dashed] (exit2) -- (system2) node[midway, above] {$E = 0$};
-\node[font=\scriptsize, gray] at (2, -1.7) {No error signal = incorrigible};
-
-% Essential system with FEE (bottom)
-\node[anchor=west, font=\bfseries] at (-4.5, -3) {Essential System (with FEE):};
-\node[block, fill=red!20, draw=red] (exit3) at (-1, -4) {EXIT Blocked};
-\node[block, fill=governcolor!20, draw=governcolor] (fee) at (2, -4) {FEE Mechanisms};
-\node[block] (system3) at (6, -4) {System $S$};
-\draw[arrow, red, dashed] (exit3) -- (fee);
-\draw[arrow, governcolor] (fee) -- (system3) node[midway, above] {$E_{\text{alt}} \geq \theta_E$};
-\node[font=\scriptsize, gray] at (2, -4.8) {Compensatory signal = conditionally corrigible};
-
-% FEE components
-\node[font=\tiny, anchor=north, text width=3cm, align=center] at (2, -5.2) {
-Multi-issuer +\\
-Portability +\\
-Fallback +\\
-Federated
-};
-
-\end{tikzpicture}
-\caption{\textbf{Functional Exit Equivalence (FEE).} Top: Non-essential systems generate error signals through market exit. Middle: Essential systems without FEE block error signals entirely. Bottom: Essential systems with FEE use compensatory mechanisms to restore error signal strength.}
-\label{fig:fee}
-\end{figure}
-
-\subsubsection{Design Responses to Proposition~\ref{prop:essentiality}}
-\label{subsubsec:arch-responses}
-
-The tension admits architectural resolutions that achieve FEE:
-
-\paragraph{1. Protected Alternatives (Statutory Fallback).} Essential services can satisfy FEE if law guarantees functional non-digital equivalents. A model statutory clause:
-
-\begin{quote}
-\textit{``No person shall be required as a condition of receiving any essential public benefit to be exclusively dependent on a single digital system; the State shall maintain a legally enforceable analogue alternative and an interoperable credential acceptance guarantee.''}
-\end{quote}
-
-Cash preserves UPI's partial EXIT; eliminating cash would collapse UPI to Aadhaar's structural status. Corrigibility for essential services requires that non-digital pathways remain legally protected, not merely tolerated.
-
-\paragraph{2. Multi-Issuer Requirement.} Procurement and regulation shall require at least two legally independent credential issuers for each region or service class. No single issuer may be sole gatekeeper for eligibility. This creates credible switching alternatives that generate $E_{\text{alt}}$.
-
-\paragraph{3. Credential Acceptance Diversity.} Public services must accept at least three credential classes (state, municipal, NGO/financial) to satisfy eligibility requirements. This prevents single-point-of-failure capture.
-
-\paragraph{4. Binding Multi-Stakeholder Charter.} A legal instrument that locks governance rules, with amendments requiring supermajority approval, judicial review pathway, and defined emergency suspension conditions.
-
-\paragraph{5. Funded Fallback Operations.} Government must fund and staff analogue fallback channels wherever the digital system is primary, not as legacy support but as structural accountability infrastructure.
-
-\paragraph{Federated Implementation.} Rather than a single provider of essential infrastructure, services could be delivered through multiple independent implementations of open protocols. This is analogous to email (SMTP) rather than messaging (proprietary platforms).
-
-Under this model, no single implementation would be essential; the protocol would be. A citizen excluded from one provider could obtain equivalent service from another. Estonian X-Road approaches this architecture: the protocol is open, implementations are distributed across institutions, and the Nordic Institute for Interoperability Solutions (NIIS) provides multi-stakeholder governance.
-
-X-Road demonstrates that scale and corrigibility are compatible. It passes CODE (MIT-licensed), AUDIT (transaction logs, public enforcement against misuse), GOVERN (multi-national NIIS), and FORK (deployed in 25+ countries). It fails full EXIT but achieves FEE through strong performance on the other four tests plus federated implementation.
-
-\subsubsection{The Finding}
-
-The absence of fully corrigible essential services is not a limitation of this framework; it is the framework's central finding. The question ``Can essential DPI be fully corrigible?'' is answered: \textbf{not under architectures that eliminate alternatives, but achievable through FEE-compliant designs}. Proposition~\ref{prop:essentiality} is not a dead end; it is a design specification.
-
 \section{Discussion}
 \label{sec:discussion}
 
@@ -1708,7 +1577,7 @@ FORK & \texttt{cost\_ratio}: fork cost / community resources & \texttt{legal\_ri
 \end{figure}
 
 \subsection{Political Economy of Accountability}
-\label{subsec:political-economy}
+\label{subsec:political-economy-discussion}
 
 \subsubsection{The Protocol Model of State}
 
@@ -1908,9 +1777,9 @@ This framework has the following limitations:
 
     \item \textbf{No fully corrigible essential services are identified, but corrigible alternatives exist.} The systems in Table~\ref{tab:positive} are non-essential infrastructure. Estonian X-Road approaches corrigibility but fails full EXIT. However, population-scale corrigible infrastructure is not impossible: it is deployed. Email (SMTP) serves billions through federation. Matrix protocol powers government communications in France (Tchap) and Germany (BwMessenger). Bluesky's AT Protocol demonstrates federated social infrastructure at scale with portable identity. Mastodon proves federated social media can grow. Bitcoin demonstrates that even payment infrastructure can operate at population scale without central authority, with proven forks (BCH, BSV) demonstrating FORK in practice. These systems achieve population scale while passing all five tests. The absence of corrigible essential services like identity and payment reflects political choices at system inception, not technical necessity. The research question is not ``Can corrigible DPI exist at scale?'' but ``Why do governments choose incorrigible architectures when corrigible alternatives are proven?''
 
-    \item \textbf{Resource forkability for AI remains unresolved.} Section 6.4 identifies that legal rights without compute access may be permanently unfulfillable for large AI systems. The framework diagnoses this as a structural barrier to FORK but does not resolve the underlying resource asymmetry. Whether ``compute as infrastructure'' could make AI forkability meaningful is an open question.
+    \item \textbf{Resource forkability for AI remains unresolved.} Section~\ref{sec:learned} identifies that legal rights without compute access may be permanently unfulfillable for large AI systems. The framework diagnoses this as a structural barrier to FORK but does not resolve the underlying resource asymmetry. Whether ``compute as infrastructure'' could make AI forkability meaningful is an open question.
 
-    \item \textbf{The timescale argument applies to external remedies.} Section 5.1 argues that bureaucratic correction is structurally too slow for digital-time errors. However, some corrigible systems (Bitcoin's BIP process, Linux's kernel mailing list) operate on human timescales and are accepted as valid governance. The distinction is that these mechanisms are internal to the technical community, not external bureaucracies. The timescale critique applies to external remedies (courts, ombudsmen), not to all deliberative processes.
+    \item \textbf{The timescale argument applies to external remedies.} Section~\ref{subsec:velocity} argues that bureaucratic correction is structurally too slow for digital-time errors. However, some corrigible systems (Bitcoin's BIP process, Linux's kernel mailing list) operate on human timescales and are accepted as valid governance. The distinction is that these mechanisms are internal to the technical community, not external bureaucracies. The timescale critique applies to external remedies (courts, ombudsmen), not to all deliberative processes.
 
     \item \textbf{Network effects are acknowledged but not formally modeled.} The FORK test requires that reproduction be economically feasible, but network effects can make formally forkable systems practically unforkable. Signal's code is fully open; its network is not federated. A Signal fork without users is not a meaningful check on Signal Foundation governance. The framework flags this but does not provide a formal treatment of network-effect capture.
 \end{enumerate}
@@ -1920,7 +1789,7 @@ This framework has the following limitations:
 Several extensions warrant investigation:
 
 \begin{enumerate}
-    \item \textbf{Empirical measurement of correction velocity.} The velocity inequality (Section 5.1) predicts system instability when correction latency exceeds error accumulation rate. Historical case studies (PDS exclusion incidents, payment system outages, identity fraud waves) could quantify the threshold at which systems become ungovernable.
+    \item \textbf{Empirical measurement of correction velocity.} The velocity inequality (Section~\ref{subsec:velocity}) predicts system instability when correction latency exceeds error accumulation rate. Historical case studies (PDS exclusion incidents, payment system outages, identity fraud waves) could quantify the threshold at which systems become ungovernable.
 
     \item \textbf{International comparative analysis.} This paper focuses substantially on India Stack. Systematic comparison with Estonian X-Road, Singapore's National Digital Identity, the EU Digital Identity Wallet, and Brazil's Pix would test the framework's generality across political systems.
 
@@ -1928,13 +1797,13 @@ Several extensions warrant investigation:
 
     \item \textbf{Economic modeling of transition costs.} What does it cost to make an incorrigible system corrigible? Infrastructure-specific cost modeling, particularly for systems with existing vendor lock-in, would inform policy prioritization.
 
-    \item \textbf{AI-specific verification protocols.} The CODE test for learned systems (Section 6.2) requires layered transparency across the training pipeline. Developing standardized, machine-verifiable disclosure formats would enable systematic AI corrigibility assessment.
+    \item \textbf{AI-specific verification protocols.} The CODE test for learned systems (Section~\ref{sec:learned}) requires layered transparency across the training pipeline. Developing standardized, machine-verifiable disclosure formats would enable systematic AI corrigibility assessment.
 
     \item \textbf{Legal doctrine integration.} Constitutional courts increasingly review digital infrastructure. How should such courts operationalize corrigibility? Integration with proportionality analysis, due process doctrine, and administrative law would extend the framework's applicability.
 
     \item \textbf{Network effect formalization.} A formal model of network-effect capture, specifying when a technically forkable system becomes practically unforkable, would sharpen the FORK test's application to platform infrastructure.
 
-    \item \textbf{Agentic system requirements.} Section 8.4.1 sketches how AI agents require corrigible infrastructure. Specifying precise API contracts for agent-compatible infrastructure would translate corrigibility requirements into engineering specifications.
+    \item \textbf{Agentic system requirements.} Section~\ref{subsec:gdos} sketches how AI agents require corrigible infrastructure. Specifying precise API contracts for agent-compatible infrastructure would translate corrigibility requirements into engineering specifications.
 \end{enumerate}
 
 \section*{Acknowledgments}
@@ -2457,7 +2326,7 @@ This appendix addresses the strongest objections to the framework, organized by 
 \paragraph{Objection 1: Binary model ignores continuous feedback dynamics.}
 ``Real control systems have continuous loop gain. Partial observability and partial actuation still provide some regulation. Your binary pass/fail ignores systems that are 'mostly corrigible.'''
 
-\textbf{Response:} The objection conflates physical description with normative threshold. We do not dispute that real systems exhibit continuous variation in feedback quality. The binary model is a \textit{legitimacy threshold}, not a physical claim (Section~\ref{sec:discussion}). A feedback loop with 50\% sensor accuracy transmits some signal; this does not mean the system deserves public trust. The determination function $D$ (Equation in Section 8.1) makes explicit that continuous inputs feed a binary output. The threshold is where we draw the line for public legitimacy, separable from the physics.
+\textbf{Response:} The objection conflates physical description with normative threshold. We do not dispute that real systems exhibit continuous variation in feedback quality. The binary model is a \textit{legitimacy threshold}, not a physical claim (Section~\ref{sec:discussion}). A feedback loop with 50\% sensor accuracy transmits some signal; this does not mean the system deserves public trust. The determination function $D$ (Section~\ref{subsec:methodology}) makes explicit that continuous inputs feed a binary output. The threshold is where we draw the line for public legitimacy, separable from the physics.
 
 \paragraph{Objection 2: Where is the Lyapunov stability proof?}
 ``You claim systems diverge without feedback. Show the Lyapunov function. Without rigorous stability analysis, this is hand-waving.''

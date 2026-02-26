@@ -140,24 +140,7 @@ This paper defines corrigibility not as a moral preference, but as a structural 
     \item \textbf{Empirical Vulnerability Assessment}: The framework evaluates major national infrastructures (e.g., Aadhaar, UPI) and extends the tests to learned systems (AI), formalizing the resource barriers to structural accountability.
 \end{enumerate}
 
-\paragraph{Paper Structure.} Section~\ref{sec:problem} diagnoses why current DPI definitions fail. Section~\ref{sec:theory} establishes the theoretical foundations from cybernetics, commons governance, and free software. Section~\ref{sec:tests} derives the five structural tests. Section~\ref{sec:diagnosis} immediately grounds these tests in empirical evaluation of existing infrastructure---establishing concrete stakes before proceeding to dynamics. Section~\ref{sec:political-economy} analyzes the political economy of incorrigibility: temporal dynamics, correction velocity, essential services, and the DPI trilemma. Section~\ref{sec:learned} extends the framework to AI and agentic systems as a stress test of the framework's generality. Section~\ref{sec:discussion} addresses methodological foundations and implementation pathways. The appendices formalize the control-theoretic proofs and provide machine-readable schemas for automated assessment.
-
-\paragraph{Key Terms.}
-\begin{description}[style=nextline, leftmargin=1.5em, font=\normalfont\bfseries]
-\item[Corrigibility] The structural capacity of those affected by a system to detect error, signal harm, and trigger correction. Not a moral preference but a stability requirement.
-\item[Requisite Variety] Ashby's Law: a controller must have at least as many states as the system it regulates. Applied to DPI: governance mechanisms must match population diversity.
-\item[Learned Systems] Infrastructure where behavior is determined by parameters learned from data (AI/ML) rather than explicit code logic.
-\item[EXIT] Test 1: Reversibility of participation without prohibitive penalty.
-\item[CODE] Test 2: Inspectability of system logic by affected parties.
-\item[AUDIT] Test 3: Independent verification of correct operation.
-\item[GOVERN] Test 4: Binding constraint that users can enforce, not advisory.
-\item[FORK] Test 5: Capacity to reproduce infrastructure independently.
-\item[Correction Velocity] Rate at which errors can be corrected; must exceed error accumulation rate for stability.
-\item[GDoS] Governance Denial of Service: when agent interaction volume exceeds governance capacity.
-\item[Open-washing] Claiming openness through partial compliance while retaining structural control.
-\item[DID-washing] Using decentralized identifiers while maintaining centralized governance.
-\item[Human Friction Buffer] The hidden subsidy where humans absorb system failures through delay and workaround, masking architectural incorrigibility.
-\end{description}
+\paragraph{Paper Structure.} Section~\ref{sec:problem} diagnoses why current DPI definitions fail. Section~\ref{sec:theory} establishes the theoretical foundations from cybernetics, commons governance, and free software. Section~\ref{sec:tests} derives the five structural tests. Section~\ref{sec:diagnosis} immediately grounds these tests in empirical evaluation of existing infrastructure---establishing concrete stakes before proceeding to dynamics. Section~\ref{sec:political-economy} analyzes the political economy of incorrigibility: temporal dynamics, correction velocity, essential services, and the DPI trilemma. Section~\ref{sec:learned} extends the framework to AI and agentic systems as a stress test of the framework's generality. Section~\ref{sec:discussion} addresses methodological foundations and implementation pathways. The appendices formalize the control-theoretic proofs and provide machine-readable schemas for automated assessment. A glossary of key terms appears in Appendix~\ref{appendix:glossary}.
 
 \section{The Problem: Definitions Without Structure}
 \label{sec:problem}
@@ -2602,11 +2585,44 @@ The following sections from this paper are self-contained and suitable for adapt
 
 A condensed ``core'' version of this paper (omitting these sections) is available for venues with stricter length constraints.
 
+\section{Glossary of Key Terms}
+\label{appendix:glossary}
+
+\begin{description}[style=nextline, leftmargin=1.5em, font=\normalfont\bfseries]
+\item[Corrigibility] The structural capacity of those affected by a system to detect error, signal harm, and trigger correction. Not a moral preference but a stability requirement.
+\item[Requisite Variety] Ashby's Law: a controller must have at least as many states as the system it regulates. Applied to DPI: governance mechanisms must match population diversity.
+\item[Learned Systems] Infrastructure where behavior is determined by parameters learned from data (AI/ML) rather than explicit code logic.
+\item[EXIT] Test 1: Reversibility of participation without prohibitive penalty.
+\item[CODE] Test 2: Inspectability of system logic by affected parties.
+\item[AUDIT] Test 3: Independent verification of correct operation.
+\item[GOVERN] Test 4: Binding constraint that users can enforce, not advisory.
+\item[FORK] Test 5: Capacity to reproduce infrastructure independently.
+\item[Correction Velocity] Rate at which errors can be corrected; must exceed error accumulation rate for stability.
+\item[GDoS] Governance Denial of Service: when agent interaction volume exceeds governance capacity.
+\item[Open-washing] Claiming openness through partial compliance while retaining structural control.
+\item[DID-washing] Using decentralized identifiers while maintaining centralized governance.
+\item[Human Friction Buffer] The hidden subsidy where humans absorb system failures through delay and workaround, masking architectural incorrigibility.
+\item[FEE] Functional Exit Equivalence: guarantee that non-digital alternatives achieve equivalent outcomes.
+\item[WCC] Workflow Capture Coefficient: measure of epistemic delegation to proprietary orchestration layers.
+\item[RCR] Representation Capture Risk: dependence on a model's categorical schema without means to contest it.
+\item[LWD-R] Logic, Weights, Data, Representation---the four components required for learned system transparency.
+\end{description}
+
 % ============================================
 % REFERENCES (at end, per academic standard)
 % ============================================
 \bibliographystyle{plainnat}
 \begin{thebibliography}{99}
+
+\bibitem[Wiener(1948)]{wiener1948}
+Wiener, Norbert.
+\newblock {\em Cybernetics: Or Control and Communication in the Animal and the Machine}.
+\newblock MIT Press, 1948.
+
+\bibitem[Beer(1972)]{beer1972}
+Beer, Stafford.
+\newblock {\em Brain of the Firm: The Managerial Cybernetics of Organization}.
+\newblock Allen Lane, 1972.
 
 \bibitem[Ashby(1956)]{ashby1956}
 Ashby, W. Ross.

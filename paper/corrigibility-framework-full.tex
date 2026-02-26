@@ -936,8 +936,10 @@ v_{\min} < v_{\text{correction}} < v_{\max}
 \label{eq:velocity-bounds}
 \end{equation}
 
-\begin{remark}[Velocity Bounds]
-Constitutional democracy \textit{invented} latency: bicameralism, judicial review, amendment supermajorities. Friction is not failure; friction is how minorities survive majorities. The gap between accusation and punishment is where due process lives. \textbf{Instantaneous algorithmic correction bypasses necessary due process.} The framework does not argue for automated, instant, or algorithmic governance. It argues for \textbf{availability of correction channels, not their speed}. Nothing in EXIT, GOVERN, or AUDIT requires immediacy. They require possibility without permission. Courts are a designed correction channel. They satisfy GOVERN (binding authority), AUDIT (independent review), and EXIT (injunctions prevent harm). \textbf{The framework criticizes absence, not latency.}
+\begin{remark}[The Thermodynamics of Due Process]
+The framework does NOT argue for automated, instantaneous, or algorithmic governance. Constitutional democracy invented latency: bicameralism, judicial review, and evidentiary hearings. \textbf{Friction is not failure; friction is how minorities survive majorities.}
+
+However, the timescale mismatch is a thermodynamic constraint, not a jurisdictional preference. A court operating on bureaucratic time ($\frac{dC}{dt} = k$) cannot mathematically regulate an automated system propagating errors at digital speed ($\frac{dE}{dt} \propto e^t$). The framework criticizes the \textit{absence} of native technical constraints, not the \textit{latency} of human justice.
 \end{remark}
 
 $E(t)$ is driven by environmental volatility: identity fraud tactics, software exploits, pandemics, or economic shocks. These phenomena tend to grow exponentially or appear in high-velocity impulse shocks. In contrast, centralized governance operates on \textbf{bureaucratic time}. Legislative changes and judicial reviews are measured in months or years, while technical errors accumulate on \textbf{digital time}, measured in milliseconds. Appendix~\ref{appendix:proofs} provides a formal control-theoretic treatment of these claims; no additional assumptions beyond those stated here are introduced.
@@ -1093,7 +1095,16 @@ Aadhaar has been made prerequisite to existence. Documented cases demonstrate th
 \subsubsection{Functional Exit Equivalence (FEE)}
 \label{subsubsec:fee}
 
-Proposition~\ref{prop:essentiality} establishes that literal exit is impossible for essential services. However, the \textbf{purpose} of EXIT is not departure itself; it is the generation of a high-bandwidth, credible error signal that disciplines the system. This section introduces \textbf{Functional Exit Equivalence (FEE)} as the architectural substitute for literal exit when a service is essential.
+When an infrastructure is essential for survival, literal exit is impossible. However, the cybernetic purpose of EXIT is not departure itself; it is the generation of a credible error signal. Essential systems must therefore implement \textbf{Functional Exit Equivalence (FEE)}---architectural guarantees that recreate the error-signal strength of market exit without requiring citizens to abandon society.
+
+FEE is achieved structurally through three combined mechanisms:
+\begin{enumerate}[noitemsep]
+    \item \textbf{Multi-Issuer Mandates:} Procurement requires at least two legally independent credential issuers (preventing single-point capture).
+    \item \textbf{Acceptance Diversity:} Public services must accept federated credential classes, as demonstrated by the multi-national deployment of X-Road.
+    \item \textbf{Protected Statutory Fallbacks:} The legal guarantee of non-digital analogues.
+\end{enumerate}
+
+The demand for FEE is not a regressive desire to maintain paper ledgers indefinitely; it is a rejection of algorithmic triage. \textbf{State capacity that achieves ``efficiency'' by mathematically guaranteeing that a non-zero percentage of the marginalized population will be incorrectly starved to death without recourse is not a public good.} The debate is ultimately about whose suffering counts.
 
 \paragraph{Definition.} An essential system $S$ satisfies FEE if compensatory architectural guarantees recreate the same effective error-signal strength that exit provides in non-essential systems.
 
@@ -1612,11 +1623,11 @@ The response requires distinguishing two modes of correction:
     \item \textbf{Structural corrigibility} (exit/fork): how \textit{infrastructure} is corrected
 \end{itemize}
 
-States are corrected politically. DPI sits \textit{below} politics; that is the problem. When DPI is captured by executive authority, political correction mechanisms do not reach it.
+States are corrected politically. DPI sits \textit{below} politics; that is the structural crisis. When DPI is captured by executive authority or vendor monopolies, political correction mechanisms do not reach it. \textbf{Aadhaar operated for seven years under executive fiat before receiving parliamentary authorization as a money bill (2009--2016).}
 
-Aadhaar was not passed by Parliament until 2016 (as money bill to avoid Rajya Sabha). UIDAI operated for 7 years on executive authority alone. This is the gap the framework identifies: infrastructure that escapes democratic correction.
+This is not a hypothetical concern---it is the documented history of the system most frequently cited as a DPI success story. The gap the framework identifies is infrastructure that escapes democratic correction entirely.
 
-Democracies have \textit{constitutional} correction mechanisms (elections, courts, amendments). DPI often lacks these. The Constitution can be amended; Aadhaar's architecture cannot be voted on.
+Shifting to the \textbf{Protocol Model of State}---where the government acts as an issuer of trust on an open standard rather than a landlord of a private platform---does not surrender sovereignty to technocrats. It returns sovereignty to the legislature, because open protocols cannot be unilaterally weaponized by the executive branch. The Constitution can be amended through democratic process; Aadhaar's architecture cannot be voted on.
 
 \subsubsection{The Distributional Question}
 \label{subsec:distributional}
@@ -1709,11 +1720,13 @@ The forking paradox presents a genuine limitation: if you can fork the Public In
 
 A ``public'' good (like law or money) derives its value from universality. We all agree on the same truth. If the Identity System is ``forkable,'' and I fork it to create ``Blue-Identity'' while you use ``Red-Identity,'' we have destroyed the common knowledge required for society to function.
 
-\begin{quote}
-\textbf{Concession:} Identity, money, and law may be \textbf{inherently unforkable} coordination goods. The paper does not demand \textit{actual forking}; it demands \textit{credible threat of forking}. But for coordination goods, even the threat may undermine function.
-\end{quote}
+\begin{remark}[Latent Forkability in Coordination Goods]
+Identity, money, and law are coordination goods; their value derives from uniqueness. If the exercise of FORK destroys the society's ability to coordinate, it functions as mutually assured destruction.
 
-This is a genuine tension the framework cannot fully resolve. The stable equilibrium may be: latent forkability + strong coordination incentives. Email works not because everyone forks SMTP, but because anyone \textit{could}. Whether this equilibrium is achievable for identity infrastructure remains an open question.
+The framework resolves this through \textbf{Latent Forkability}. The stable equilibrium is latent forkability combined with strong coordination incentives. Email coordinates globally not because everyone forks SMTP daily, but because the \textit{credible threat} of doing so prevents any single operator from enclosing the system. \textbf{Latent forkability disciplines the center.} The framework penalizes \textit{constructed legal barriers} to reproduction, not the \textit{natural economic friction} of network effects.
+\end{remark}
+
+Whether this equilibrium is achievable for identity infrastructure remains an open question, but the existence of federated identity systems (X-Road, Matrix, AT Protocol) demonstrates that latent forkability is technically achievable even for coordination-sensitive infrastructure.
 
 \subsubsection{Engaging ``Regulate the Loop''}
 \label{subsec:regulate}

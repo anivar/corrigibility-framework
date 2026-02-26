@@ -1015,20 +1015,35 @@ Two structural implications follow. First, doctrines that presuppose reversible 
 
 The Rule of the Ledger therefore reframes the law-infrastructure relationship: courts and regulators cannot simply be invoked later; corrigibility requires embedding evidentiary and counter-majoritarian restraints into the system's operational fabric. This is not a call for ``autonomous legal machines'' but for technical modes of constraint that render legal review materially possible rather than symbolic.
 
-\subsection{The DPI Trilemma}
+\subsection{The Sovereignty--Scale--Neutrality Tension}
 \label{subsec:trilemma}
 
-The empirical pattern suggests a structural constraint governing state-backed infrastructure.
+The empirical pattern identified in Section~\ref{sec:empirical} suggests a recurring structural tension in state-operated digital infrastructure. Systems that achieve population-scale deployment under centralized sovereign control frequently exhibit diminished structural neutrality at the execution layer.
 
-\begin{proposition}[The DPI Trilemma]
+\begin{definition}[System Properties]
+Let a Digital Public Infrastructure system $S$ exhibit the following properties:
+\begin{itemize}[noitemsep]
+    \item \textbf{Sovereignty ($So$)}: The state retains centralized control over standards, execution, routing logic, and data residency.
+    \item \textbf{Scale ($Sc$)}: The system is mandatory or near-mandatory for population-level access to essential services.
+    \item \textbf{Neutrality ($N$)}: The execution layer satisfies structural corrigibility---specifically, that affected parties retain enforceable capacity across EXIT, CODE, AUDIT, GOVERN, and FORK sufficient to prevent discriminatory or unilateral control.
+\end{itemize}
+\end{definition}
+
+Neutrality here is not a moral descriptor. It denotes preservation of governance variety sufficient to prevent structural capture at the execution layer.
+
+\begin{proposition}[Topology-Dependent Tension]
 \label{prop:trilemma}
-A state-operated Digital Public Infrastructure can strongly realize any two of the following three properties, but not all three simultaneously:
-\begin{enumerate}[noitemsep]
-    \item \textbf{Sovereignty}: local control over standards, execution, and data residency;
-    \item \textbf{Scale}: population-level ubiquity and mandatory integration across essential services;
-    \item \textbf{Neutrality}: non-discriminatory access and competitive fairness at the execution layer, guaranteed by structural corrigibility.
-\end{enumerate}
+Under centralized enforcement topology, a system that strongly maximizes both Sovereignty and Scale will experience compression of governance variety sufficient to place Neutrality at structural risk.
 \end{proposition}
+
+\textbf{Control-Theoretic Reasoning.} Under Ashby's Law, stability requires that controller variety meet or exceed environmental variety: $V_{\text{controller}} \geq V_{\text{environment}}$. In large-scale population systems, environmental variety increases with scale ($V_{\text{env}} \propto Sc$). Centralized sovereign control concentrates execution authority into a bounded institutional set, constraining governance variety. When scale increases while governance remains centralized, the ratio of corrective capacity to environmental complexity declines. Under centralized enforcement, governance capacity tends to scale sublinearly relative to environmental complexity (formal proof in Appendix~\ref{appendix:neutrality}).
+
+The neutrality condition can be stated as:
+\begin{equation}
+V_{\text{eff}} \geq \theta \cdot V_{\text{env}}
+\label{eq:neutrality-condition}
+\end{equation}
+where $V_{\text{eff}}$ is effective governance variety and $\theta \in (0,1]$ is a stability sufficiency constant. Neutrality degradation risk emerges when this condition fails.
 
 \begin{figure}[htbp]
 \centering
@@ -1055,15 +1070,34 @@ A state-operated Digital Public Infrastructure can strongly realize any two of t
     \node[font=\scriptsize, text=red!70!black, align=center] at (0,0.3) {Pick\\any two};
 
     % Ashby annotation
-    \node[font=\tiny, text=gray, align=center] at (0,-2.3) {Under Ashby's Law: centralization $\rightarrow$ reduced governance variety $\rightarrow$ Neutrality failure};
+    \node[font=\tiny, text=gray, align=center] at (0,-2.3) {Under Ashby's Law: centralization $\rightarrow$ reduced governance variety $\rightarrow$ Neutrality risk};
 \end{tikzpicture}
-\caption{\textbf{The DPI Trilemma.} States can achieve any two of Sovereignty, Scale, and Neutrality, but not all three. India Stack optimizes for Sovereignty + Scale at the cost of Neutrality. Federated systems (Linux, SMTP) achieve Neutrality + Scale without mandatory Sovereignty.}
+\caption{\textbf{The Sovereignty--Scale--Neutrality Tension.} Under centralized enforcement, states face structural pressure when optimizing for Sovereignty and Scale simultaneously. India Stack optimizes for Sovereignty + Scale with elevated Neutrality risk. Federated systems (Linux, SMTP) achieve Neutrality + Scale through distributed governance.}
 \label{fig:trilemma}
 \end{figure}
 
-This is a control-theoretic constraint, not a policy preference. Achieving both Sovereignty (local control over the controller) and Scale (mandatory population coverage) requires centralized enforcement of standards and routing. That centralization reduces the variety of the governance channel: fewer independent actors can modify system behavior. Under Ashby's Law, reduced governance variety erodes Neutrality (the system's capacity to treat diverse inputs equitably). Conversely, systems that preserve Neutrality through distributed governance (Linux, Bitcoin, SMTP) typically lack mandatory scale or achieve it through federation rather than centralization.
+\textbf{Clarification: This Is Not an Impossibility Theorem.} The proposition does not assert that Sovereignty, Scale, and Neutrality are logically incompatible. It asserts that under centralized enforcement architecture, maximizing Sovereignty and Scale reduces governance variety unless compensatory mechanisms are introduced. The tension is architectural, not metaphysical. Neutrality can be preserved under Scale and Sovereignty if governance variety is restored through structural mechanisms such as federated execution, multi-issuer mandates, Functional Exit Equivalence (Section~\ref{subsubsec:fee}), state portability guarantees, or non-exclusive procurement rules.
 
-India's experience instantiates this constraint: the architectural choices that achieved sovereign control and near-universal coverage produced structural dependency on a small set of switching and credentialing authorities. That dependency compressed the correction channel's bandwidth, manifesting as the GOVERN failures documented in Table~\ref{tab:govt_infra}. The Trilemma reframes these outcomes: the observed failures are not implementation mistakes but predictable consequences of optimizing for two properties at the expense of the third.
+\textbf{Workflow Capture Extension.} Workflow capture reduces effective corrective variety. Formally, effective governance capacity is suppressed as WCC (Workflow Capture Coefficient) increases (see Appendix~\ref{appendix:neutrality}). Thus, even when restoration mechanisms exist, high workflow capture reintroduces neutrality risk.
+
+India's experience instantiates this constraint: the architectural choices that achieved sovereign control and near-universal coverage produced structural dependency on a small set of switching and credentialing authorities. That dependency compressed the correction channel's bandwidth, manifesting as the GOVERN failures documented in Table~\ref{tab:govt_infra}. The tension reframes these outcomes: the observed compression of corrective bandwidth is not an implementation mistake but a predictable consequence of architectural choice.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Comparative topology and neutrality risk}
+\label{tab:topology-risk}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Topology} & \textbf{Sovereignty} & \textbf{Scale} & \textbf{Neutrality Risk} \\
+\midrule
+Centralized Sovereign Stack & High & High & Elevated \\
+Federated Protocol Model & Medium & High & Lower \\
+Market Platform Model & Low (State) & High & Variable \\
+Open Commons Model & Low & Medium & Low \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Any prescriptive response must therefore treat neutrality as an architectural variable (portability, multi-issuer requirement, anti-exclusive procurement), not an aspirational outcome. The Functional Exit Equivalence remedies in Section~\ref{subsubsec:arch-responses} address precisely this constraint.
 
@@ -2429,6 +2463,186 @@ This requires $\dot{C}(t) \geq \dot{E}(t)$ on average. When correction operates 
     \item Network model clarifies why legal forkability may fail in practice and yields policy levers (seeding, subsidies).
     \item Agent automaton demonstrates need for explicit machine-facing EXIT/CODE/AUDIT primitives.
 \end{enumerate}
+
+\section{Neutrality Compression Under Centralized Enforcement}
+\label{appendix:neutrality}
+
+This appendix provides the formal proof supporting Proposition~\ref{prop:trilemma} (Topology-Dependent Tension) and integrates the Workflow Capture Coefficient into the analysis.
+
+\subsection{Definitions}
+
+Let:
+\begin{itemize}[noitemsep]
+    \item $Sc$ = Scale (population-level integration)
+    \item $V_{\text{env}}(Sc)$ = Environmental variety (heterogeneity of governed interactions)
+    \item $V_{\text{gov}}(Sc)$ = Governance corrective variety
+    \item $\text{WCC} \in [0,1)$ = Workflow Capture Coefficient
+    \item $V_{\text{eff}}$ = Effective corrective variety
+\end{itemize}
+
+We assume:
+\begin{enumerate}[noitemsep]
+    \item $V_{\text{env}}(Sc)$ is non-decreasing in $Sc$
+    \item Under centralized enforcement, governance growth is institutionally bounded
+\end{enumerate}
+
+Formally:
+\begin{equation}
+V_{\text{gov}}(Sc) = O(Sc^{\alpha}), \quad \alpha < 1
+\end{equation}
+This states that governance corrective capacity grows sublinearly under centralized topology. No specific functional form (logarithmic, square root, etc.) is required.
+
+\subsection{Effective Governance Under Workflow Capture}
+
+Rather than assume a multiplicative structure, we define a general suppression operator:
+\begin{equation}
+V_{\text{eff}} = \Psi(V_{\text{gov}}, \text{WCC})
+\end{equation}
+Where:
+\begin{itemize}[noitemsep]
+    \item $\Psi$ is increasing in $V_{\text{gov}}$
+    \item $\Psi$ is decreasing in WCC
+    \item $\Psi(V_{\text{gov}}, 0) = V_{\text{gov}}$
+    \item $\Psi(V_{\text{gov}}, \text{WCC}) < V_{\text{gov}}$ for $\text{WCC} > 0$
+\end{itemize}
+This avoids imposing unjustified linearity or proportionality.
+
+\subsection{Neutrality Condition}
+
+Neutrality does not require full dominance of environmental variety. It requires sufficient corrective bandwidth to prevent systematic routing bias.
+
+Define:
+\begin{equation}
+V_{\text{eff}} \geq \theta \cdot V_{\text{env}}
+\end{equation}
+Where $\theta \in (0,1]$ is a stability sufficiency constant.
+
+\textbf{Neutrality degradation risk} emerges when:
+\begin{equation}
+V_{\text{eff}} < \theta \cdot V_{\text{env}}
+\end{equation}
+This avoids equating neutrality with perfect stability.
+
+\subsection{Proposition (Formal Statement)}
+
+Under centralized enforcement topology and non-zero workflow capture, there exists a scale threshold $Sc^*$ beyond which neutrality is at risk unless governance growth becomes at least linear in scale.
+
+\subsection{Proof}
+
+Assume:
+\begin{equation}
+V_{\text{env}}(Sc) = \Omega(Sc)
+\end{equation}
+
+Under centralized enforcement:
+\begin{equation}
+V_{\text{gov}}(Sc) = O(Sc^{\alpha}), \quad \alpha < 1
+\end{equation}
+
+Since $\Psi$ is monotonic increasing in $V_{\text{gov}}$ and decreasing in WCC, and bounded above by $V_{\text{gov}}$:
+\begin{equation}
+V_{\text{eff}}(Sc) \leq V_{\text{gov}}(Sc)
+\end{equation}
+
+Therefore:
+\begin{equation}
+\frac{V_{\text{eff}}(Sc)}{V_{\text{env}}(Sc)} \to 0 \quad \text{as} \quad Sc \to \infty
+\end{equation}
+
+Thus there exists $Sc^*$ such that:
+\begin{equation}
+V_{\text{eff}}(Sc^*) < \theta \cdot V_{\text{env}}(Sc^*)
+\end{equation}
+
+The neutrality condition is violated. \qed
+
+\subsection{Governance Automation Objection}
+
+One may argue that governance capacity scales linearly through AI monitoring. However:
+
+If governance automation is implemented within the same centralized workflow topology, then:
+\begin{itemize}[noitemsep]
+    \item WCC increases
+    \item Ontology substitutability decreases
+    \item External corrective independence does not increase proportionally
+\end{itemize}
+
+Thus governance automation does not automatically imply:
+\begin{equation}
+V_{\text{gov}}(Sc) = \Theta(Sc)
+\end{equation}
+unless corrective mechanisms are externally independent and substitutable.
+
+This preserves the proposition.
+
+\subsection{Falsifiability Clause}
+
+The theory would be falsified if a centralized sovereign DPI:
+\begin{enumerate}[noitemsep]
+    \item Achieves population-scale deployment
+    \item Maintains governance growth $V_{\text{gov}}(Sc) = \Theta(Sc)$
+    \item Exhibits low workflow capture ($\text{WCC} \approx 0$)
+    \item Sustains structural neutrality under high scale
+\end{enumerate}
+\textit{without} federated or multi-operator architecture.
+
+Such a system would contradict the sublinear governance constraint. This condition is empirically testable.
+
+\subsection{Interpretation}
+
+The result does not assert:
+\begin{itemize}[noitemsep]
+    \item That scale is harmful
+    \item That sovereignty is undesirable
+    \item That neutrality is impossible
+\end{itemize}
+
+It asserts:
+\begin{itemize}[noitemsep]
+    \item Under centralized enforcement topology, governance corrective capacity must scale at least linearly with environmental complexity to preserve neutrality.
+    \item If workflow capture suppresses corrective bandwidth, neutrality degradation risk becomes a structural prediction.
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.85]
+    \begin{axis}[
+        xlabel={Scale ($Sc$)},
+        ylabel={Variety},
+        xmin=0, xmax=10,
+        ymin=0, ymax=12,
+        legend pos=north west,
+        axis lines=left,
+        domain=0:10,
+        samples=100,
+        width=11cm,
+        height=7cm,
+        legend style={font=\small}
+    ]
+    % Environmental variety (linear)
+    \addplot[blue, thick] {x};
+    \addlegendentry{$V_{\text{env}}(Sc) = k \cdot Sc$}
+
+    % Centralized governance (constant)
+    \addplot[green!60!black, thick, dashed] {2};
+    \addlegendentry{$V_{\text{central}}$ (bounded)}
+
+    % Restored variety (logarithmic growth)
+    \addplot[orange, thick] {2 + 1.5*ln(x+1)};
+    \addlegendentry{$V_{\text{gov}} = V_{\text{central}} + V_{\text{restored}}$}
+
+    % Effective variety under WCC (suppressed)
+    \addplot[red, thick, dotted] {0.6*(2 + 1.5*ln(x+1))};
+    \addlegendentry{$V_{\text{eff}}$ under WCC $> 0$}
+
+    % Mark critical threshold
+    \node[font=\scriptsize, text=red!70!black] at (axis cs:7,3) {$Sc^*$};
+    \draw[red!70!black, dashed, thin] (axis cs:5.5,0) -- (axis cs:5.5,5.5);
+    \end{axis}
+\end{tikzpicture}
+\caption{\textbf{Governance Variety Compression Under Scale.} As scale increases, environmental variety grows linearly. Under centralized enforcement, governance variety grows sublinearly. Workflow capture further suppresses effective corrective bandwidth. Neutrality degradation risk emerges when effective governance variety falls below environmental complexity (at $Sc^*$).}
+\label{fig:variety-compression}
+\end{figure}
 
 \section{Schema Specifications and Automated Assessment}
 \label{appendix:schema}

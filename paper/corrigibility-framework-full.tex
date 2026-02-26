@@ -730,7 +730,7 @@ Under the framework's cybernetic model, Active Deception constitutes a \textbf{s
 \subsection{The Structural Preconditions of Law}
 \label{subsec:rule-of-ledger}
 
-These dynamics have profound implications for constitutional review. Legal doctrines such as proportionality analysis presuppose that state intrusions can be measured, minimized, and remedied. However, modern digital systems frequently violate the structural assumptions upon which these legal doctrines rest.
+These dynamics have profound implications for constitutional review. Legal doctrines such as proportionality analysis, as established in \textit{Puttaswamy v. Union of India} \citep{puttaswamy2017}, presuppose that state intrusions can be measured, minimized, and remedied. However, as \citet{bhatia2019} argues, modern digital systems frequently violate the structural assumptions upon which these legal doctrines rest.
 
 A court cannot apply proportionality review to a system whose execution is opaque (\textbf{CODE}). A legislature cannot remedy harm if the mechanism of harm is an irreversible digital transaction (\textbf{EXIT}). A regulator cannot oversee a system if they lack the technical capability to inspect it independent of the operator (\textbf{AUDIT}).
 
@@ -1203,6 +1203,7 @@ Systems that fail these structural tests frequently employ vocabulary to obscure
     \item \textbf{Safety-Washing}: Justifying opacity by claiming inspection poses a security risk.
     \item \textbf{Consent-Washing}: Obtaining formal consent under conditions of economic coercion.
     \item \textbf{DID-Washing}: Deploying decentralized identifiers without decentralized governance (see Section~\ref{subsubsec:didwashing}).
+    \item \textbf{Climate-Washing}: Using environmental rhetoric to legitimize structural changes whose primary effects extend beyond genuine climate mitigation (see Section~\ref{subsubsec:climatewashing}).
 \end{enumerate}
 
 \subsubsection{DID-Washing: The Layer Confusion Problem}
@@ -1259,6 +1260,25 @@ A system passes the DID-washing test only if decentralization extends through th
 \begin{claim}
 Identifier decentralization is not system decentralization. The corrigibility of an identity system is determined by its weakest layer across any test dimension.
 \end{claim}
+
+\subsubsection{Climate-Washing: Environmental Rhetoric as Deflection}
+\label{subsubsec:climatewashing}
+
+\begin{definition}[Climate Washing]
+The use of climate rhetoric or urgency to legitimize actions, policies, or structural changes whose primary effects extend beyond genuine climate mitigation, whether for reputational, financial, institutional, or governance advantage.
+\end{definition}
+
+A variant of safety-washing has emerged in DPI discourse: claims that digital infrastructure is inherently ``sustainable'' or ``green'' because it replaces paper, reduces travel, or enables ``efficient'' resource allocation. Climate washing deploys environmental rhetoric to deflect accountability critiques.
+
+The structural analysis reveals three problems:
+
+\paragraph{1. Hidden Energy Footprint.} Digital infrastructure has non-trivial energy and material costs: data centers, network equipment, device manufacturing, and e-waste. The claim that ``digital is green'' compares against a paper baseline while ignoring these embodied costs. A proper lifecycle analysis would compare total system footprints, including the rebound effects of increased transaction volume enabled by digital convenience.
+
+\paragraph{2. Transparency Failure.} Climate claims for DPI systems typically fail the CODE test: the energy consumption data, carbon accounting methodology, and lifecycle assumptions are not publicly auditable. When NPCI claims UPI reduces carbon emissions, the underlying calculations are not verifiable. This is precisely the audit-theatre pattern identified in Section~\ref{subsec:active-deception}: a claim of virtue without the evidentiary infrastructure to support it.
+
+\paragraph{3. Deflection Function.} Climate rhetoric serves a political function: it reframes accountability critiques as opposition to environmental progress. The implicit argument is: ``If you criticize Aadhaar's surveillance, you are against paperless government and therefore against the environment.'' This framing collapses distinct concerns (privacy, accountability, environmental impact) into a single axis and positions critics as anti-progress.
+
+The framework's response is structural: environmental claims, like safety claims, must satisfy the five tests. A system cannot claim environmental legitimacy if its energy footprint is not auditable (CODE, AUDIT), if affected communities cannot contest the methodology (GOVERN), or if lock-in prevents migration to more efficient alternatives (EXIT, FORK). ``Green DPI'' that fails these tests is not green infrastructure; it is climate washing.
 
 \begin{figure}[htbp]
 \centering
@@ -1461,7 +1481,7 @@ E = \alpha_1 \cdot \text{effective\_loss} + \alpha_2 \cdot \text{probability\_of
 \label{eq:error-signal}
 \end{equation}
 
-where the weights $\alpha_i$ are calibrated via pilot audits. This formulation connects back to Ashby's Law: FEE is an engineered mechanism to maintain requisite variety in the controller when the natural market variety (EXIT) is suppressed.
+where the weights $\alpha_i$ are calibrated via pilot audits. All variables are operationalized such that higher values indicate greater corrective pressure on the operator: a higher velocity of legal response, for instance, increases $E$, thereby satisfying the FEE condition. This formulation connects back to Ashby's Law: FEE is an engineered mechanism to maintain requisite variety in the controller when the natural market variety (EXIT) is suppressed.
 
 \begin{figure}[htbp]
 \centering
@@ -1706,9 +1726,6 @@ This distinction mirrors the architecture of the web. Governments do not need to
 \subsubsection{Distributed Assessment Capacity}
 A corollary objection concerns resources: "Who audits?" The framework does not require every citizen to audit source code. It requires that the infrastructure allows \textit{anyone} to audit, thereby enabling civil society, journalists, and specialized firms to perform this function on behalf of the public. Assessment capacity is itself infrastructure. When systems are designed to be inscrutable, this immune system of society withers.
 
-\subsubsection{Structural Preconditions of Law}
-Legal doctrines such as proportionality analysis, as established in \textit{Puttaswamy v. Union of India} \citep{puttaswamy2017},presuppose that state intrusions can be measured, minimized, and remedied. However, as \citet{bhatia2019} argues, when the architecture of a system is opaque or irreversible, these constitutional guarantees become legal fictions. \textbf{Corrigibility} is the evidentiary precondition required for the law to take hold of the machine.
-
 \subsection{Corrigibility in Extremis}
 
 Incorrigibility is often justified by the rhetoric of necessity, such as national security, anti-corruption, or emergency efficiency. This framework explicitly denies such exemptions. Corrigibility does not imply that substantive rules are negotiable; a system may enforce strict, non-negotiable limits (e.g., pandemic travel restrictions or environmental caps). However, the \textit{structural capacity} to detect error, verify correct enforcement, and reverse wrongful harm must remain intact even in high-constraint environments. As safety engineering demonstrates, accidents in complex systems are caused precisely by the lack of appropriate constraints on component interactions \citep{leveson2011}.
@@ -1860,7 +1877,7 @@ This argument has force. UPI moved from 0 to billions of transactions in 7 years
     \item ``Regulate later'' rarely happens: Aadhaar 2009 pilot $\rightarrow$ 2016 mandatory $\rightarrow$ 2018 Supreme Court $\rightarrow$ still no real audit. 15 years. Where's the regulation?
 \end{itemize}
 
-\subsubsection{Utility Does Not Equal Accountability}
+\subsection{Utility Does Not Equal Accountability}
 \label{subsec:utility}
 
 A system can be \textbf{useful AND structurally captured}. Both are true simultaneously.
@@ -1870,25 +1887,6 @@ UPI \textit{has} democratized payments. The framework risks dismissing real-worl
 The answer is no. This is the point.
 
 The framework measures \textbf{accountability structure}, not \textbf{utility}. A system can score 0/5 and still be beneficial. The score indicates \textit{structural risk}, not \textit{current harm}. A house built without fire exits can function perfectly for decades, until there is a fire.
-
-\subsubsection{Climate Washing}
-\label{subsec:climate-washing}
-
-\begin{definition}[Climate Washing]
-The use of climate rhetoric or urgency to legitimize actions, policies, or structural changes whose primary effects extend beyond genuine climate mitigation, whether for reputational, financial, institutional, or governance advantage.
-\end{definition}
-
-A variant of safety-washing has emerged in DPI discourse: claims that digital infrastructure is inherently ``sustainable'' or ``green'' because it replaces paper, reduces travel, or enables ``efficient'' resource allocation. Climate washing deploys environmental rhetoric to deflect accountability critiques.
-
-The structural analysis reveals three problems:
-
-\paragraph{1. Hidden Energy Footprint.} Digital infrastructure has non-trivial energy and material costs: data centers, network equipment, device manufacturing, and e-waste. The claim that ``digital is green'' compares against a paper baseline while ignoring these embodied costs. A proper lifecycle analysis would compare total system footprints, including the rebound effects of increased transaction volume enabled by digital convenience. Such analyses are rarely published; when they are, results are mixed.
-
-\paragraph{2. Transparency Failure.} Climate claims for DPI systems typically fail the CODE test: the energy consumption data, carbon accounting methodology, and lifecycle assumptions are not publicly auditable. When NPCI claims UPI reduces carbon emissions, the underlying calculations are not verifiable. This is precisely the audit-theatre pattern identified in Section~\ref{subsec:active-deception}: a claim of virtue without the evidentiary infrastructure to support it.
-
-\paragraph{3. Deflection Function.} Climate rhetoric serves a political function: it reframes accountability critiques as opposition to environmental progress. The implicit argument is: ``If you criticize Aadhaar's surveillance, you are against paperless government and therefore against the environment.'' This framing collapses distinct concerns (privacy, accountability, environmental impact) into a single axis and positions critics as anti-progress.
-
-The framework's response is structural: environmental claims, like safety claims, must satisfy the five tests. A system cannot claim environmental legitimacy if its energy footprint is not auditable (CODE, AUDIT), if affected communities cannot contest the methodology (GOVERN), or if lock-in prevents migration to more efficient alternatives (EXIT, FORK). ``Green DPI'' that fails these tests is not green infrastructure; it is climate washing.
 
 \section{Conclusion}
 
@@ -2122,6 +2120,8 @@ Corrigibility requires that each component exists and is non-degenerate:
     \item FORK $\Rightarrow$ $P, K, H$ replaceable if convergence fails
 \end{itemize}
 
+\noindent \textbf{Active Deception as Sensor Attack.} The pathologies defined in Section~\ref{subsec:active-deception} (open-washing, safety-washing, audit theatre) fundamentally corrupt the sensor function $H(s)$: they either suppress the true error signal $e(t)$ or inject artificial stability metrics, thereby blinding the controller $K(s)$ to the actual divergence $y(t) - r(t)$. In control-theoretic terms, Active Deception renders $H(s) \to 0$ not by removing the sensor, but by making its output uncorrelated with the true system state.
+
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[node distance=1.8cm, auto, >=latex, thick]
@@ -2159,6 +2159,7 @@ Corrigibility requires that each component exists and is non-degenerate:
 For the system to remain stable not just asymptotically but locally (preventing irreversible harm), the correction rate must dominate the error rate. We formalize this with a friction coefficient.
 
 \begin{condition}[Strict Dynamic Stability]
+\label{cond:friction}
 Let $\epsilon > 0$ represent the ``friction cost'' of correction (e.g., litigation time, protest cost). A system is stable iff:
 \begin{equation}
 \left| \frac{d}{dt} C(t) \right| \ge \left| \frac{d}{dt} E(t) \right| + \epsilon
@@ -2331,7 +2332,7 @@ y_N = y_0 + \sum_{k=0}^{N-1} d_k
 
 For any non-zero mean disturbance $\mathbb{E}[d_k] = \mu > 0$, the expected state grows linearly: $\mathbb{E}[y_N] = y_0 + N\mu \to \infty$. This provides a simple, indisputable demonstration of open-loop divergence.
 
-\textbf{Friction cost in discrete model:} The friction coefficient $\epsilon$ from Condition~1 manifests in this discrete model as a delay or reduction in the correction term. Specifically, if correction requires bureaucratic processing with latency $\tau$ time steps and efficiency loss $\eta < 1$, then:
+\textbf{Friction cost in discrete model:} The friction coefficient $\epsilon$ from Condition~\ref{cond:friction} manifests in this discrete model as a delay or reduction in the correction term. Specifically, if correction requires bureaucratic processing with latency $\tau$ time steps and efficiency loss $\eta < 1$, then:
 \begin{equation}
 u_k = \eta \cdot f(y_{k-\tau}, d_{k-\tau})
 \end{equation}
@@ -2589,7 +2590,7 @@ The following sections from this paper are self-contained and suitable for adapt
 \begin{description}
 \item[Active Deception (Section~\ref{subsec:active-deception})] Defines safety-washing, open-washing, and audit theatre as sensor attacks on accountability infrastructure. Suitable for technology policy audiences.
 
-\item[Climate Washing (Section~\ref{subsec:climate-washing})] Analyzes environmental rhetoric in DPI discourse. Suitable for climate and technology policy intersection.
+\item[Climate Washing (Section~\ref{subsubsec:climatewashing})] Analyzes environmental rhetoric in DPI discourse. Suitable for climate and technology policy intersection.
 
 \item[Engaging ``Regulate the Loop'' (Section~\ref{subsec:regulate})] Responds to the ``regulate later'' objection. Suitable for development economics and policy audiences.
 

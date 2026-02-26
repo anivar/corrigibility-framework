@@ -718,7 +718,7 @@ A severe pathology occurs when systems actively misrepresent their state: \textb
 \subsection{The Structural Preconditions of Law}
 \label{subsec:rule-of-ledger}
 
-These dynamics have profound implications for constitutional review. Legal doctrines such as proportionality analysis presuppose that state intrusions can be measured, minimized, and remedied. However, modern digital systems frequently violate the structural assumptions upon which these legal doctrines rest.
+These dynamics have profound implications for constitutional review. Legal doctrines such as proportionality analysis, as established in \textit{Puttaswamy v. Union of India} \citep{puttaswamy2017}, presuppose that state intrusions can be measured, minimized, and remedied. However, as \citet{bhatia2019} argues, modern digital systems frequently violate the structural assumptions upon which these legal doctrines rest.
 
 A court cannot apply proportionality review to a system whose execution is opaque (\textbf{CODE}). A legislature cannot remedy harm if the mechanism of harm is an irreversible digital transaction (\textbf{EXIT}). A regulator cannot oversee a system if they lack the technical capability to inspect it independent of the operator (\textbf{AUDIT}).
 
@@ -1694,6 +1694,7 @@ Corrigibility requires that each component exists and is non-degenerate:
 For the system to remain stable not just asymptotically but locally (preventing irreversible harm), the correction rate must dominate the error rate. We formalize this with a friction coefficient.
 
 \begin{condition}[Strict Dynamic Stability]
+\label{cond:friction}
 Let $\epsilon > 0$ represent the ``friction cost'' of correction (e.g., litigation time, protest cost). A system is stable iff:
 \begin{equation}
 \left| \frac{d}{dt} C(t) \right| \ge \left| \frac{d}{dt} E(t) \right| + \epsilon
@@ -1866,7 +1867,7 @@ y_N = y_0 + \sum_{k=0}^{N-1} d_k
 
 For any non-zero mean disturbance $\mathbb{E}[d_k] = \mu > 0$, the expected state grows linearly: $\mathbb{E}[y_N] = y_0 + N\mu \to \infty$. This provides a simple, indisputable demonstration of open-loop divergence.
 
-\textbf{Friction cost in discrete model:} The friction coefficient $\epsilon$ from Condition~1 manifests in this discrete model as a delay or reduction in the correction term. Specifically, if correction requires bureaucratic processing with latency $\tau$ time steps and efficiency loss $\eta < 1$, then:
+\textbf{Friction cost in discrete model:} The friction coefficient $\epsilon$ from Condition~\ref{cond:friction} manifests in this discrete model as a delay or reduction in the correction term. Specifically, if correction requires bureaucratic processing with latency $\tau$ time steps and efficiency loss $\eta < 1$, then:
 \begin{equation}
 u_k = \eta \cdot f(y_{k-\tau}, d_{k-\tau})
 \end{equation}

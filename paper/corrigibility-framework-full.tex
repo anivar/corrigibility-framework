@@ -1,23 +1,16 @@
-\documentclass[11pt, letterpaper]{article}
+\documentclass[conference, letterpaper]{IEEEtran}
 
 % ============================================
-% arXiv Preprint Style
+% IEEE Two-Column Conference Style
 % ============================================
 
-% Encoding and fonts
+% Encoding
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{libertinust1math}
 
-% Page layout - arXiv standard
-\usepackage[
-    letterpaper,
-    top=1in,
-    bottom=1in,
-    left=1.25in,
-    right=1.25in
-]{geometry}
+% Math
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools} % Enhanced math display
 
 % Tables and figures
 \usepackage{graphicx}
@@ -32,26 +25,12 @@
 \usepackage{xcolor}
 \usepackage{colortbl}
 
-% URLs and references
+% URLs and citations
 \usepackage{url}
-\usepackage{natbib}
-\setcitestyle{authoryear,round}
+\usepackage{cite}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 
-% Hyperlinks - subtle colors for arXiv
-\usepackage[
-    colorlinks=true,
-    linkcolor=blue!60!black,
-    citecolor=blue!50!black,
-    urlcolor=blue!50!black,
-    bookmarks=true,
-    pdfauthor={Anivar A Aravind},
-    pdftitle={Corrigibility as a Structural Precondition for Digital Public Infrastructure}
-]{hyperref}
-\urlstyle{same}
-
-% Line numbers for review (comment out for final)
-% \usepackage{lineno}
-% \linenumbers
+% Code listings
 \usepackage{listings}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds, shadows.blur, decorations.pathreplacing}
@@ -121,40 +100,35 @@
 \newtheorem{corollary}{Corollary}
 \newtheorem{remark}{Remark}
 
-\title{Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework}
+% ============================================
+% Title and Author (IEEE format)
+% ============================================
+
+\title{Corrigibility as a Structural Precondition for\\Digital Public Infrastructure: A Cybernetic Framework}
 
 \author{
-    Anivar A Aravind\\
-    {\small Independent Researcher}\\
-    {\small \href{mailto:ping@anivar.net}{\texttt{ping@anivar.net}}}\\
-    {\small ORCID: \href{https://orcid.org/0009-0009-8995-0005}{0009-0009-8995-0005}}
+\IEEEauthorblockN{Anivar A Aravind}
+\IEEEauthorblockA{Independent Researcher\\
+Bengaluru, India\\
+ping@anivar.net\\
+ORCID: 0009-0009-8995-0005}
 }
-
-\date{February 2025}
 
 \begin{document}
 
 \maketitle
 
-\vspace{-0.5em}
-\begin{center}
-\small
-\textit{Preprint. Under review.}
-\end{center}
-\vspace{1em}
-
 \begin{abstract}
-\noindent
 Digital Public Infrastructure (DPI) operates at the scale of populations, effectively constituting a new administrative state. While international definitions from the G20 and United Nations articulate normative aspirations---that systems should be open, inclusive, and safe---they largely lack the structural requirements to verify these attributes. This paper proposes a formal evaluation framework based on \textit{corrigibility}: the structural capacity of those affected by a system to detect error, signal harm, and trigger binding correction. By synthesizing necessary conditions from cybernetics (Ashby's Law), commons governance (Ostrom's design principles), and free software (Stallman's four freedoms), this framework identifies five non-negotiable architectural properties: Reversibility, Inspectability, Verification, Constraint, and Reproduction. The analysis demonstrates that a failure in any single dimension breaks the feedback loop required for system stability. Furthermore, this paper extends the framework to stochastic learned systems (AI) and establishes evidentiary standards to distinguish authentic governance from performative compliance. The complete framework is released into the public domain (CC0).
 \end{abstract}
 
 \section{Introduction}
 
-Digital Public Infrastructure is not merely a collection of software stacks; it is the encoding of political arrangements into technical artifacts \citep{winner1980}. Access to essential survival services (food distribution, banking, healthcare, mobility) is increasingly mediated through these systems. Because these systems apply fixed rules to the infinite variety of human life, they will inevitably misclassify, exclude, or fail specific users. This is not a malfunction; it is a mathematical certainty when finite rule sets encounter human diversity.
+Digital Public Infrastructure is not merely a collection of software stacks; it is the encoding of political arrangements into technical artifacts \cite{winner1980}. Access to essential survival services (food distribution, banking, healthcare, mobility) is increasingly mediated through these systems. Because these systems apply fixed rules to the infinite variety of human life, they will inevitably misclassify, exclude, or fail specific users. This is not a malfunction; it is a mathematical certainty when finite rule sets encounter human diversity.
 
 The critical question for a digital polity is not whether errors occur, but whether the architecture permits those affected to \textbf{detect, correct, and reverse} them before harm becomes permanent.
 
-Current policy discourse defines DPI through aspirational language. The G20 New Delhi Declaration (2023) and the UN/UNDP framework \citep{undp} describe systems that ``should be secure'' or ``can be built on open standards.'' These definitions exclude almost nothing. They articulate intent, not condition. Under such broad definitions, a system that traps users in a coercive loop can be labeled ``public infrastructure'' simply because it operates at scale.
+Current policy discourse defines DPI through aspirational language. The G20 New Delhi Declaration (2023) and the UN/UNDP framework \cite{undp} describe systems that ``should be secure'' or ``can be built on open standards.'' These definitions exclude almost nothing. They articulate intent, not condition. Under such broad definitions, a system that traps users in a coercive loop can be labeled ``public infrastructure'' simply because it operates at scale.
 
 This paper defines corrigibility not as a moral preference, but as a structural property essential for stability. The central argument is that \textbf{unverifiable constraint is structurally indistinguishable from absolute operator control.} Therefore, public legitimacy requires more than policy assertions; it requires a cryptographic chain of custody and a verifiable capacity for correction.
 
@@ -194,10 +168,10 @@ The accepted definitions of Digital Public Infrastructure share a common defect:
 The G20 New Delhi Leaders' Declaration (2023) established the international consensus:
 
 \begin{quote}
-``Digital Public Infrastructure (DPI) is a set of shared digital systems that should be secure, interoperable, built on open standards, enabling delivery of services at population scale'' \citep{g20}.
+``Digital Public Infrastructure (DPI) is a set of shared digital systems that should be secure, interoperable, built on open standards, enabling delivery of services at population scale'' \cite{g20}.
 \end{quote}
 
-The UNDP framework \citep{undp} elaborates:
+The UNDP framework \cite{undp} elaborates:
 
 \begin{quote}
 ``DPI refers to digital solutions that enable basic functions essential for public and private service delivery, including digital identity, payments, and data exchange. These solutions can be built as open-source, with open standards and specifications, and should incorporate principles of inclusion, security, and privacy by design.''
@@ -237,7 +211,7 @@ The definitional inadequacy manifests as four distinct capture vectors:
 
 \subsection{The Core Thesis}
 
-Without hard structural requirements, ``Public'' becomes a mere descriptor of scale rather than a mode of accountability. Just as classification systems become invisible as they gain acceptance \citep{bowker1999}, incorrigible infrastructure recedes into the background, becoming unchallengeable precisely as it becomes essential.
+Without hard structural requirements, ``Public'' becomes a mere descriptor of scale rather than a mode of accountability. Just as classification systems become invisible as they gain acceptance \cite{bowker1999}, incorrigible infrastructure recedes into the background, becoming unchallengeable precisely as it becomes essential.
 
 \begin{remark}[The Definitional Problem]
 Current DPI policy specifies \textbf{intent, not conditions}. It articulates what systems \textit{should} achieve without specifying what they \textit{must} structurally provide. Under such definitions, a system that traps users in a coercive loop can be labeled ``public infrastructure'' simply because it operates at scale. The framework proposed in this paper converts aspirational adjectives into verifiable predicates. It asks not ``Is this system described as open?'' but ``Can independent parties inspect its operation?'' Not ``Is this system intended to be accountable?'' but ``Can those it affects trigger correction?''
@@ -249,13 +223,13 @@ This danger is acute in the transition to AI-mediated governance, where ``Infras
 
 The DPI literature spans policy frameworks, technical architectures, and critical analyses, but lacks a unified structural standard for accountability.
 
-\paragraph{Policy Frameworks.} The G20 framework \citep{g20} and UNDP definitions \citep{undp} establish aspirational principles (openness, inclusion, interoperability) without verification criteria. The World Bank's Identification for Development (ID4D) initiative emphasizes functional identity but does not specify architectural requirements for user exit or independent audit. These frameworks describe \textit{what} DPI should achieve without specifying \textit{how} to verify achievement.
+\paragraph{Policy Frameworks.} The G20 framework \cite{g20} and UNDP definitions \cite{undp} establish aspirational principles (openness, inclusion, interoperability) without verification criteria. The World Bank's Identification for Development (ID4D) initiative emphasizes functional identity but does not specify architectural requirements for user exit or independent audit. These frameworks describe \textit{what} DPI should achieve without specifying \textit{how} to verify achievement.
 
-\paragraph{Critical Analyses.} Scholarship on India Stack has documented exclusion harms \citep{khera2019} and constitutional tensions \citep{bhatia2019}. However, these critiques remain case-specific rather than providing generalizable tests applicable across jurisdictions and technologies.
+\paragraph{Critical Analyses.} Scholarship on India Stack has documented exclusion harms \cite{khera2019} and constitutional tensions \cite{bhatia2019}. However, these critiques remain case-specific rather than providing generalizable tests applicable across jurisdictions and technologies.
 
-\paragraph{Control Theory and Governance.} Cybernetic approaches to governance date to Ashby \citep{ashby1956} and Beer's viable systems model, but have not been systematically applied to digital infrastructure accountability. Lessig's ``code is law'' \citep{lessig2006} establishes that architecture constrains behavior, but does not specify which architectural properties are necessary for democratic legitimacy.
+\paragraph{Control Theory and Governance.} Cybernetic approaches to governance date to Ashby \cite{ashby1956} and Beer's viable systems model, but have not been systematically applied to digital infrastructure accountability. Lessig's ``code is law'' \cite{lessig2006} establishes that architecture constrains behavior, but does not specify which architectural properties are necessary for democratic legitimacy.
 
-\paragraph{Software Freedom.} The free software tradition \citep{stallman2002} provides operational tests (inspect, modify, redistribute) but focuses on code artifacts rather than infrastructure systems that include data, compute, and network effects.
+\paragraph{Software Freedom.} The free software tradition \cite{stallman2002} provides operational tests (inspect, modify, redistribute) but focuses on code artifacts rather than infrastructure systems that include data, compute, and network effects.
 
 \paragraph{Gap and Contribution.} No existing framework provides falsifiable, technology-agnostic tests for infrastructure accountability that (1) derive from formal stability theory, (2) apply equally to deterministic and learned systems, and (3) yield machine-verifiable assessments. This paper addresses that gap by synthesizing cybernetics, commons governance, and software freedom into five structural tests with formal proofs and empirical application.
 
@@ -266,7 +240,7 @@ This framework does not invent new ethical categories. Instead, it triangulates 
 
 \subsection{Cybernetics and Requisite Variety}
 
-In cybernetics, the relationship between a controller and its environment is governed by Ashby's Law of Requisite Variety \citep{ashby1956}. The law states that for a system to be stable, the number of control states must meet or exceed the number of environmental states:
+In cybernetics, the relationship between a controller and its environment is governed by Ashby's Law of Requisite Variety \cite{ashby1956}. The law states that for a system to be stable, the number of control states must meet or exceed the number of environmental states:
 
 \begin{equation}
 V(\text{controller}) \geq V(\text{disturbance})
@@ -279,13 +253,13 @@ Human variety includes technical and social edge cases that deterministic rule s
 
 \subsection{The Commons and Constitutional Constraint}
 
-Elinor Ostrom's work on commons governance \citep{ostrom1990} establishes that sustainable systems require monitors who are accountable to the users and collective-choice arrangements that allow users to modify the rules. A system in which rule-making is the exclusive preserve of the operator acts as an enclosure, not a commons.
+Elinor Ostrom's work on commons governance \cite{ostrom1990} establishes that sustainable systems require monitors who are accountable to the users and collective-choice arrangements that allow users to modify the rules. A system in which rule-making is the exclusive preserve of the operator acts as an enclosure, not a commons.
 
 Critically, Ostrom identifies that governance is not merely about access; it is about graduated sanctions and low-cost conflict resolution. Applied to digital infrastructure, this implies that users must possess \textbf{Constitutive Power}: the ability to set binding limits on the system's behavior. If a system's constraints are merely advisory or can be overridden by the operator at will, the system is fundamentally ungoverned.
 
 \subsection{Free Software and the Right to Reproduce}
 
-The Free Software movement \citep{stallman2002} contributes the mechanical means of enforcement. Stallman's ``Four Freedoms'' are often misread as a philosophy of sharing, but they are functionally a philosophy of power. The freedom to study (Inspectability) ensures power is visible; the freedoms to modify and distribute (Reproduction) ensure that power is not a monopoly.
+The Free Software movement \cite{stallman2002} contributes the mechanical means of enforcement. Stallman's ``Four Freedoms'' are often misread as a philosophy of sharing, but they are functionally a philosophy of power. The freedom to study (Inspectability) ensures power is visible; the freedoms to modify and distribute (Reproduction) ensure that power is not a monopoly.
 
 This tradition clarifies that openness is not a passive property (reading code) but an active one (forking infrastructure). Transparency without the power to act on it is functionally inert. The ability to reproduce the system independent of its original steward is the only ultimate check against operator capture.
 
@@ -309,7 +283,7 @@ In practice, many systems operate as a ratchet. They are easy to enter but funct
 
 From a cybernetic perspective, EXIT constitutes the primary negative feedback loop. Blocking this channel silences the user's error signal. This blockade overloads the political layer with demands that the technical layer has suppressed.
 
-This dynamic was formalized by Hirschman \citep{hirschman1970} in his analysis of organizational decline. Hirschman distinguished two correction mechanisms: exit (withdrawal from participation) and voice (attempts to change the system from within). His central finding is that these mechanisms exist in productive tension, not as substitutes.
+This dynamic was formalized by Hirschman \cite{hirschman1970} in his analysis of organizational decline. Hirschman distinguished two correction mechanisms: exit (withdrawal from participation) and voice (attempts to change the system from within). His central finding is that these mechanisms exist in productive tension, not as substitutes.
 
 Exit, in Hirschman's formulation, is ``neat,'' ``impersonal,'' and ``indirect'': one either exits or one does not. This binary quality makes exit a high-bandwidth error signal. When users leave, the system receives unambiguous information that something has failed. Voice, by contrast, is costly and conditioned on the influence and bargaining power that participants can bring to bear. Voice is gradual, political, and requires sustained effort.
 
@@ -324,7 +298,7 @@ This framework illuminates why mandatory enrollment is structurally pathological
 A system $S$ satisfies \textbf{Inspectability of Logic} if, for any decision function $f: X \to Y$ that determines user outcomes, there exists a publicly accessible artifact $A_f$ such that $A_f$ fully specifies the computation of $f(x)$ for all inputs $x \in X$. For learned systems, $A_f$ includes training data provenance, model architecture, and alignment procedures.
 \end{definition}
 
-Users who cannot leave a system must possess the ability to inspect it. \textbf{Inspectability of Logic} requires that the rules determining outcomes are visible to those they govern. Power in a digital system resides in execution. Lessig \citep{lessig2006} established that software architecture functions as regulation: code ``determines what people can or cannot do in the first place,'' unlike legal regulation which sets rules for behavior and retroactively punishes non-compliance. This is regulation without appeal. If the execution path remains hidden, that power is absolute; it is not merely unaccountable but structurally unobservable to those it governs.
+Users who cannot leave a system must possess the ability to inspect it. \textbf{Inspectability of Logic} requires that the rules determining outcomes are visible to those they govern. Power in a digital system resides in execution. Lessig \cite{lessig2006} established that software architecture functions as regulation: code ``determines what people can or cannot do in the first place,'' unlike legal regulation which sets rules for behavior and retroactively punishes non-compliance. This is regulation without appeal. If the execution path remains hidden, that power is absolute; it is not merely unaccountable but structurally unobservable to those it governs.
 
 Transparency specifications or open standards are insufficient if the executing artifact remains a black box. \textbf{Aadhaar's} CIDR (Central Identities Data Repository) is proprietary: the matching algorithm that determines identity cannot be examined. \textbf{UPI} publishes API specifications, but the NPCI switching logic remains closed. \textbf{Let's Encrypt} demonstrates the alternative: its CA software is fully open source, allowing anyone to audit the certificate issuance logic that secures web traffic. For learned systems, the challenge intensifies. \textbf{Llama} publishes inference weights but withholds training data composition and RLHF preferences. This is spec-as-source: you can run the model but cannot understand why it produces specific outputs.
 
@@ -654,7 +628,7 @@ Government-operated systems currently designated as Digital Public Infrastructur
             \toprule
             \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
             \midrule
-            EXIT & $\times$ & Disproportionate penalty: exclusion from PDS, banking, SIM \citep{khera2019}. \\
+            EXIT & $\times$ & Disproportionate penalty: exclusion from PDS, banking, SIM \cite{khera2019}. \\
             CODE & $\times$ & Execution logic opaque: proprietary matcher, closed algorithms. \\
             AUDIT & $\times$ & External testing prohibited: independent error measurement illegal. \\
             GOVERN & $\times$ & No binding constraint: UIDAI is both operator and regulator. \\
@@ -867,7 +841,7 @@ Systems that fail these structural tests frequently employ vocabulary to obscure
 \subsubsection{DID-Washing: The Layer Confusion Problem}
 \label{subsubsec:didwashing}
 
-Decentralized Identifiers (DIDs) present a distinct challenge to corrigibility evaluation because they separate technical decentralization from governance decentralization across multiple architectural layers. The W3C DID Core 1.0 specification \citep{w3cdid2022} defines DIDs as ``globally unique identifiers'' that ``do not require a centralized registration authority.'' This technical claim is accurate. However, a system can implement DIDs at the identifier layer while retaining centralized control at every layer that determines actual utility.
+Decentralized Identifiers (DIDs) present a distinct challenge to corrigibility evaluation because they separate technical decentralization from governance decentralization across multiple architectural layers. The W3C DID Core 1.0 specification \cite{w3cdid2022} defines DIDs as ``globally unique identifiers'' that ``do not require a centralized registration authority.'' This technical claim is accurate. However, a system can implement DIDs at the identifier layer while retaining centralized control at every layer that determines actual utility.
 
 Identity infrastructure comprises at least four functional layers, each with independent governance:
 
@@ -990,7 +964,7 @@ C(t) - E(t) > \delta \quad \text{(robust stability)}
 
 Systems operating at $C(t) \approx E(t)$ are marginally stable; any perturbation tips them into harm accumulation. The margin $\delta$ represents excess correction capacity that absorbs shocks. Empirical calibration of $\delta$ requires measuring error and correction rates during incident windows (see Future Work).
 
-This timescale mismatch is an instance of the Collingridge Dilemma \citep{collingridge1980}: a double-bind in technology governance. Early in a technology's development, change is easy but the need for change cannot be foreseen (the information problem). Later, when impacts become clear, change has become expensive, difficult, and time-consuming because the technology is entrenched (the power problem).
+This timescale mismatch is an instance of the Collingridge Dilemma \cite{collingridge1980}: a double-bind in technology governance. Early in a technology's development, change is easy but the need for change cannot be foreseen (the information problem). Later, when impacts become clear, change has become expensive, difficult, and time-consuming because the technology is entrenched (the power problem).
 
 Digital Public Infrastructure exhibits the Collingridge Dilemma in acute form. By the time exclusion effects are documented (starvation deaths, banking denials, welfare failures), a system may have achieved mandatory status. Correction now requires not merely technical modification but legal amendment, bureaucratic reorganization, and political will. The system's success in achieving scale has made it resistant to correction.
 
@@ -1043,7 +1017,7 @@ Under the framework's cybernetic model, Active Deception constitutes a \textbf{s
 \subsection{The Structural Preconditions of Law}
 \label{subsec:rule-of-ledger}
 
-These dynamics have profound implications for constitutional review. Legal doctrines such as proportionality analysis, as established in \textit{Puttaswamy v. Union of India} \citep{puttaswamy2017}, presuppose that state intrusions can be measured, minimized, and remedied. However, as \citet{bhatia2019} argues, modern digital systems frequently violate the structural assumptions upon which these legal doctrines rest.
+These dynamics have profound implications for constitutional review. Legal doctrines such as proportionality analysis, as established in \textit{Puttaswamy v. Union of India} \cite{puttaswamy2017}, presuppose that state intrusions can be measured, minimized, and remedied. However, as \citet{bhatia2019} argues, modern digital systems frequently violate the structural assumptions upon which these legal doctrines rest.
 
 A court cannot apply proportionality review to a system whose execution is opaque (\textbf{CODE}). A legislature cannot remedy harm if the mechanism of harm is an irreversible digital transaction (\textbf{EXIT}). A regulator cannot oversee a system if they lack the technical capability to inspect it independent of the operator (\textbf{AUDIT}).
 
@@ -1143,7 +1117,7 @@ Essential services create the economic coercion that undermines EXIT. When refus
 
 The systems in Table~\ref{tab:positive} avoid this trap because alternatives exist. A developer who dislikes the Linux kernel's direction can migrate to BSD without losing the ability to compute. A journalist who distrusts Let's Encrypt can obtain certificates elsewhere. The existence of functional alternatives preserves the error signal.
 
-Aadhaar has been made prerequisite to existence. Documented cases demonstrate the consequence: at least 27 starvation deaths in India between 2015 and 2018 were attributed to Aadhaar-related exclusion from food rations \citep{khera2017}. These deaths are not anomalies; they are the structural prediction of a system that blocks EXIT while governing essential services.
+Aadhaar has been made prerequisite to existence. Documented cases demonstrate the consequence: at least 27 starvation deaths in India between 2015 and 2018 were attributed to Aadhaar-related exclusion from food rations \cite{khera2017}. These deaths are not anomalies; they are the structural prediction of a system that blocks EXIT while governing essential services.
 
 \subsubsection{Functional Exit Equivalence (FEE)}
 \label{subsubsec:fee}
@@ -1298,7 +1272,7 @@ FORK & Copy code and deploy & Resource forkability (compute + data) \\
 
 A central challenge in complying with the \textbf{CODE} test is redefining the object of inspection. In a learned system, behavior is distributed across a lineage of distinct artifacts. The inference code is merely the execution engine; the actual behavioral logic is encoded in the weights, which are in turn downstream of the training corpus, filtering decisions, and RLHF preferences.
 
-Therefore, publishing inference code alone does not satisfy the CODE test. It allows an auditor to run the machine, but not to understand why it produces specific outputs. To bridge this gap, compliance requires structured disclosure across the training pipeline, such as \textbf{Data Sheets for Datasets} \citep{gebru2021} and \textbf{Model Cards} \citep{mitchell2019}. These artifacts function as the ``source code'' for structural evaluation; withholding them renders the system a black box.
+Therefore, publishing inference code alone does not satisfy the CODE test. It allows an auditor to run the machine, but not to understand why it produces specific outputs. To bridge this gap, compliance requires structured disclosure across the training pipeline, such as \textbf{Data Sheets for Datasets} \cite{gebru2021} and \textbf{Model Cards} \cite{mitchell2019}. These artifacts function as the ``source code'' for structural evaluation; withholding them renders the system a black box.
 
 \subsubsection{The LWD-R Triad}
 
@@ -1427,7 +1401,7 @@ The formal determination becomes:
 \label{eq:fork-training}
 \end{equation}
 
-where $\mathbf{1}[\cdot]$ is the indicator function and \texttt{data\_manifest\_available} requires Data Sheets for Datasets \citep{gebru2021} with full provenance.
+where $\mathbf{1}[\cdot]$ is the indicator function and \texttt{data\_manifest\_available} requires Data Sheets for Datasets \cite{gebru2021} with full provenance.
 
 \subsubsection{Compute as Governance Infrastructure}
 
@@ -1461,7 +1435,7 @@ To prevent ``FORK fails'' from becoming a rhetorical claim rather than a verifia
 \midrule
 Inference code & Required & Open source license; build reproducibility \\
 Model weights & Required & Public download; hash verification \\
-Training data manifest & Required & Data Sheets \citep{gebru2021} with provenance \\
+Training data manifest & Required & Data Sheets \cite{gebru2021} with provenance \\
 Training checkpoint & Recommended & Enables fine-tuning without full retrain \\
 Training code & Required & Includes preprocessing, hyperparameters \\
 Compute cost estimate & Required & FLOP estimate or cloud cost documentation \\
@@ -1783,7 +1757,7 @@ A corollary objection concerns resources: "Who audits?" The framework does not r
 
 \subsection{Corrigibility in Extremis}
 
-Incorrigibility is often justified by the rhetoric of necessity, such as national security, anti-corruption, or emergency efficiency. This framework explicitly denies such exemptions. Corrigibility does not imply that substantive rules are negotiable; a system may enforce strict, non-negotiable limits (e.g., pandemic travel restrictions or environmental caps). However, the \textit{structural capacity} to detect error, verify correct enforcement, and reverse wrongful harm must remain intact even in high-constraint environments. As safety engineering demonstrates, accidents in complex systems are caused precisely by the lack of appropriate constraints on component interactions \citep{leveson2011}.
+Incorrigibility is often justified by the rhetoric of necessity, such as national security, anti-corruption, or emergency efficiency. This framework explicitly denies such exemptions. Corrigibility does not imply that substantive rules are negotiable; a system may enforce strict, non-negotiable limits (e.g., pandemic travel restrictions or environmental caps). However, the \textit{structural capacity} to detect error, verify correct enforcement, and reverse wrongful harm must remain intact even in high-constraint environments. As safety engineering demonstrates, accidents in complex systems are caused precisely by the lack of appropriate constraints on component interactions \cite{leveson2011}.
 
 \begin{claim}
 No exemption from the five tests is granted on the basis of emergency conditions, planetary constraints, or decentralized architecture.
@@ -1879,7 +1853,7 @@ FORK is typically the least opposed transition because it requires only legal pe
 
 \subsubsection{Cost Considerations}
 
-Transition is not costless. The European Commission \citep{eu2021oss} estimated that public sector open-source adoption yields cost-benefit ratios above 1:4, but this ratio assumes successful implementation. Transition costs include personnel retraining, system compatibility engineering, procurement policy updates, and organizational change.
+Transition is not costless. The European Commission \cite{eu2021oss} estimated that public sector open-source adoption yields cost-benefit ratios above 1:4, but this ratio assumes successful implementation. Transition costs include personnel retraining, system compatibility engineering, procurement policy updates, and organizational change.
 
 However, these costs must be weighed against the costs of continued incorrigibility:
 

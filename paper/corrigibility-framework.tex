@@ -732,224 +732,29 @@ Two structural implications follow. First, doctrines that presuppose reversible 
 
 The Rule of the Ledger therefore reframes the law-infrastructure relationship: courts and regulators cannot simply be invoked later; corrigibility requires embedding evidentiary and counter-majoritarian restraints into the system's operational fabric. This is not a call for ``autonomous legal machines'' but for technical modes of constraint that render legal review materially possible rather than symbolic.
 
-\section{Corrigibility in Automated and Agentic Systems}
+\section{Extension to AI and Agentic Systems}
 \label{sec:learned}
 
-The application of this framework to Artificial Intelligence and autonomous agents requires resolving a fundamental crisis of verification. The five tests, when applied to traditional software, assume a deterministic architecture where source code is the sole arbiter of behavior, inspection reveals logic, and exact reproduction is mechanically trivial. Learned systems (AI and ML models) dismantle these assumptions. In these systems, identical inputs may yield stochastic outputs; behavior is defined by training data rather than logic gates; and opacity is often an inherent property of the representation rather than a contrivance of the operator.
-
-However, the collapse of deterministic transparency does not invalidate the structural necessity of corrigibility. To the contrary, as the system's internal logic becomes less intelligible to human operators, the external capacity for correction becomes more critical. \textbf{The five tests remain invariant; only the evidentiary standard changes.}
-
-\subsection{The Invariance of the Standard}
-
-\begin{proposition}
-The five corrigibility tests remain invariant for learned systems. What changes is the verification method.
-\end{proposition}
-
-The table below illustrates how the mechanical verification of each test adapts to the probabilistic nature of AI without softening the structural requirement.
+The five tests extend to AI and autonomous agents with modified evidentiary standards. The key insight: \textbf{the tests remain invariant; only the verification method changes}.
 
 \begin{table}[htbp]
 \centering
+\small
 \begin{tabular}{@{}lll@{}}
 \toprule
-\textbf{Test} & \textbf{Deterministic Verification} & \textbf{Learned System Verification} \\
+\textbf{Test} & \textbf{Traditional Software} & \textbf{Learned Systems} \\
 \midrule
 EXIT & Can refuse the system & Disclosure + non-AI alternative \\
-CODE & Source code determines behavior & Layered transparency across training pipeline \\
-AUDIT & Inspect logic and outputs & Statistical bounds + continuous monitoring \\
-GOVERN & Maintainer and RFC process & Governance over objectives and value tradeoffs \\
-FORK & Copy code and deploy & Resource forkability (compute + data) \\
+CODE & Source code inspection & Training pipeline transparency \\
+AUDIT & Logic inspection & Statistical bounds + monitoring \\
+GOVERN & Maintainer process & Governance over objectives \\
+FORK & Copy and deploy & Resource forkability (compute + data) \\
 \bottomrule
 \end{tabular}
 \caption{Verification methods for deterministic vs. learned systems}
 \end{table}
 
-\subsection{What Is ``Source'' in a Learned System?}
-
-A central challenge in complying with the \textbf{CODE} test is redefining the object of inspection. In a learned system, behavior is distributed across a lineage of distinct artifacts. The inference code is merely the execution engine; the actual behavioral logic is encoded in the weights, which are in turn downstream of the training corpus, filtering decisions, and RLHF preferences.
-
-Therefore, publishing inference code alone does not satisfy the CODE test. It allows an auditor to run the machine, but not to understand why it produces specific outputs. To bridge this gap, compliance requires structured disclosure across the training pipeline, such as \textbf{Data Sheets for Datasets} \citep{gebru2021} and \textbf{Model Cards} \citep{mitchell2019}. These artifacts function as the ``source code'' for structural evaluation; withholding them renders the system a black box.
-
-\subsection{The Temporal Variety Gap}
-
-Unlike traditional software, which remains static until explicitly patched, learned systems possess a distinct vulnerability related to time. The variety of the controller ($V_c$) is frozen at the moment of training parameterization ($\theta$), while the variety of the world it operates upon ($V_d$) continues to expand.
-
-\begin{equation}
-\Delta(t) = V(\text{disturbance}; t) - V(\text{controller}; \theta)
-\end{equation}
-
-Without mechanisms for retraining or fine-tuning accessible to the community, the variety gap $\Delta(t)$ widens over time. Thus, AI corrigibility is not a deployment property, but a \textit{persistence condition}.
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[x=0.8cm, y=0.5cm, font=\sffamily]
-
-    % Axes
-    \draw[->, thick, gray] (0,0) -- (10,0) node[right] {Time ($t$)};
-    \draw[->, thick, gray] (0,0) -- (0,8) node[above] {Variety ($V$)};
-
-    % Real World Complexity (The Disturbance) - Curving up
-    \draw[thick, forkcolor, smooth] plot coordinates {(0,1) (2,1.8) (4,3.5) (6,4.5) (8,7.5) (9.5, 9)};
-    \node[forkcolor, anchor=west, font=\scriptsize] at (9.5, 9) {$V(\text{Environment})$};
-
-    % AI Model State (The Controller) - Step Function
-    \draw[thick, codecolor] (0,1) -- (4,1);
-    \draw[dashed, gray] (4,1) -- (4,3.5);
-    \draw[thick, codecolor] (4,3.5) -- (8,3.5);
-    \draw[dashed, gray] (8,3.5) -- (8,7.5);
-    \draw[thick, codecolor] (8,7.5) -- (9.5,7.5);
-
-    % Labels for Model
-    \node[codecolor, anchor=north, font=\scriptsize] at (2,1) {Model $\theta_1$};
-    \node[codecolor, anchor=north, font=\scriptsize] at (6,3.5) {Model $\theta_2$};
-
-    % The Gap (Error)
-    \fill[red!10] (0,1) -- (4,1) -- (4,3.5) -- plot[smooth] coordinates {(4,3.5) (2,1.8) (0,1)} -- cycle;
-    \fill[red!20] (4,3.5) -- (8,3.5) -- (8,7.5) -- plot[smooth] coordinates {(8,7.5) (6,4.5) (4,3.5)} -- cycle;
-
-    % Annotations
-    \node[anchor=west, text=red!80!black, font=\scriptsize] at (0.5, 2.5) {$\Delta(t)$};
-    \draw[->, red!80!black] (1.2, 2.3) -- (1.5, 1.5);
-
-    \node[align=center, font=\tiny, gray] at (4, -1) {\textbf{Retraining}\\(FORK)};
-    \draw[->, gray, dotted] (4, -0.3) -- (4, 0.8);
-
-\end{tikzpicture}
-\caption{\textbf{The Temporal Variety Gap.} Environmental variety $V(e)$ evolves continuously (curve). A fixed model $\theta$ (stepped line) diverges from reality. The shaded area represents accumulated error. Only \textbf{FORK} rights allow the gap to be closed via retraining.}
-\label{fig:variety_gap}
-\end{figure}
-
-\subsection{Resource Barriers to Forkability}
-
-The right to \textbf{FORK} a learned system is constrained by physical resources rather than just copyright. In traditional software, the cost to fork is the cost of storage; in AI, the cost to fork is the cost of compute.
-
-\begin{table}[htbp]
-\centering
-\begin{tabular}{@{}lll@{}}
-\toprule
-\textbf{Layer} & \textbf{Cost} & \textbf{Barrier} \\
-\midrule
-Inference code & Minimal & None \\
-Running open weights & Low & Minor \\
-Fine-tuning & Moderate & Economic \\
-Retraining from scratch & Very high & Structural \\
-\bottomrule
-\end{tabular}
-\caption{Resource barriers to forking learned systems}
-\end{table}
-
-If a community has the legal right to fork a model but lacks access to the original training data or the massive compute clusters required to reproduce it, the ``Fork'' is illusory.
-
-\begin{claim}
-Legal permission to fork without access to compute or data is meaningless. This is an infrastructure question, not a licensing question.
-\end{claim}
-
-\subsubsection{The Compute Capture Theorem}
-\label{subsubsec:compute-capture}
-
-The resource barrier to AI forkability can be formalized as a structural constraint:
-
-\begin{theorem}[Compute Capture]
-Let $C_{\text{train}}$ be the compute cost required to retrain a model, and $C_{\text{accessible}}$ be the compute accessible to plausible non-operator actors (academic clusters, government research consortiums, distributed compute pools). Training forkability is functionally impossible when:
-\begin{equation}
-C_{\text{train}} > \kappa \cdot C_{\text{accessible}}
-\label{eq:compute-capture}
-\end{equation}
-where $\kappa$ is an accessibility multiplier (policy constant, typically $1 \leq \kappa \leq 2$).
-\end{theorem}
-
-This theorem formalizes what ``open-weights AI'' obscures: releasing weights while hoarding compute is \textbf{inference forkability without training forkability}. If OpenAI or Meta releases weights but $C_{\text{train}}$ exceeds 100$\times$ the capacity of global academic compute, $\text{FORK}_{\text{training}} = 0$.
-
-The formal determination becomes:
-\begin{equation}
-\text{FORK}_{\text{training}} = \mathbf{1}[C_{\text{train}} \leq \kappa \cdot C_{\text{accessible}}] \land \mathbf{1}[\text{data\_manifest\_available}]
-\label{eq:fork-training}
-\end{equation}
-
-where $\mathbf{1}[\cdot]$ is the indicator function and \texttt{data\_manifest\_available} requires Data Sheets for Datasets \citep{gebru2021} with full provenance.
-
-\subsubsection{Compute as Governance Infrastructure}
-
-The Compute Capture Theorem implies that \textbf{compute is itself DPI}. Legal forkability is insufficient absent practical compute accessibility. This motivates several architectural responses:
-
-\begin{enumerate}[noitemsep]
-    \item \textbf{Public Compute Nodes}: State-sponsored clusters with governance boards (academia + civil society + government), prioritized quotas for public interest retrains and independent audits. These function as research infrastructure analogous to national laboratories.
-
-    \item \textbf{Mandatory Checkpoint \& Cost Disclosure}: Require publication of FLOP estimates, cost-of-train, training checkpoints (or intermediates), and data manifests with privacy protections. These enable evaluation of $C_{\text{train}}$.
-
-    \item \textbf{Federated Training Pools}: Require DPI models affecting essential services to be trained via federated consortiums where multiple independent nodes share shards; no single node holds all data.
-
-    \item \textbf{Compute Vouchers}: Grants for accredited auditors and civic labs to attempt reproduction, establishing practical $C_{\text{accessible}}$.
-\end{enumerate}
-
-The accessibility multiplier $\kappa$ provides regulators a concrete policy lever: if the ratio $C_{\text{train}} / C_{\text{accessible}}$ exceeds the threshold, additional mitigation is required (e.g., mandated lighter-weight models, specialized models, or co-training access).
-
-\subsubsection{Minimum Evidence for Learned System Forkability}
-\label{subsubsec:ai-fork-evidence}
-
-To prevent ``FORK fails'' from becoming a rhetorical claim rather than a verifiable determination, learned systems must satisfy specific evidentiary requirements:
-
-\begin{table}[htbp]
-\centering
-\small
-\caption{Evidence requirements for FORK in learned systems}
-\label{tab:ai-fork-evidence}
-\begin{tabular}{@{}llp{6cm}@{}}
-\toprule
-\textbf{Artifact} & \textbf{Status} & \textbf{Verification} \\
-\midrule
-Inference code & Required & Open source license; build reproducibility \\
-Model weights & Required & Public download; hash verification \\
-Training data manifest & Required & Data Sheets \citep{gebru2021} with provenance \\
-Training checkpoint & Recommended & Enables fine-tuning without full retrain \\
-Training code & Required & Includes preprocessing, hyperparameters \\
-Compute cost estimate & Required & FLOP estimate or cloud cost documentation \\
-Successful reproduction & Decisive & Third-party retrain within 10\% of benchmark \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\paragraph{Forkability Determination.} A learned system passes FORK if:
-\begin{enumerate}[noitemsep]
-    \item All ``Required'' artifacts are publicly available under permissive terms
-    \item The compute cost estimate demonstrates feasibility for at least one non-operator entity (government research consortium, academic cluster, or distributed compute pool)
-    \item Either a successful third-party reproduction exists, OR the training code + data manifest enables reproduction in principle
-\end{enumerate}
-
-Systems that publish weights but withhold training data or code achieve only \textbf{inference forkability}, not \textbf{training forkability}. Inference forkability permits running the model; training forkability permits correcting it. Only the latter satisfies FORK for governance purposes.
-
-\subsection{Agentic Scaling and Governance Denial of Service}
-\label{subsec:gdos}
-
-As DPI transitions to support the ``Agentic Economy,'' corrigibility moves from a moral preference to an engineering requirement. Autonomous agents lack the biological resilience to handle bureaucracy.
-
-We distinguish this from ``AI Alignment.'' Alignment asks: \textit{Can the operator control the system?} Corrigibility asks: \textit{Can the affected subject correct the system?} Structural legitimacy requires the latter.
-
-\subsubsection{Corrigibility as an API Contract for Agents}
-
-\begin{itemize}[noitemsep]
-    \item \textbf{EXIT is Exception Handling}: To an agent, a mandatory system with no exit path appears as a logic deadlock.
-    \item \textbf{CODE is Documentation}: Agents require inspectability of logic to form valid plans.
-    \item \textbf{AUDIT is Observability}: An optimization agent cannot function without a reliable failure signal.
-    \item \textbf{GOVERN is Constraint Discovery}: Advisory guidelines result in undefined behavior for software agents.
-\end{itemize}
-
-\begin{claim}
-Incorrigible infrastructure is structurally incompatible with AI automation.
-\end{claim}
-
-\subsubsection{The Human Friction Buffer}
-
-Incorrigible infrastructures may appear stable under human load because humans absorb friction through delay, compliance, and informal workaround. Autonomous agents remove this buffering layer.
-
-\paragraph{Illustrative Scenario.} Consider an autonomous procurement agent that interacts with a mandatory payment API. On encountering a compliance flag, the agent receives an opaque error code. No machine-readable error taxonomy exists, and dispute resolution is human-mediated. The agent retries, triggering repeated failures and queue saturation. Human agents absorb such friction via manual override and phone calls; fleets of autonomous agents cannot. The result is a governance denial-of-service (GDoS) that cascades across the payment rail.
-
-As agentic interaction scales, centralized governance mechanisms face \textbf{Governance Denial of Service (GDoS)}: the volume, speed, and strategic diversity of agent actions exceeds the system's capacity to audit, interpret, and correct behavior.
-
-This is not a security failure but a control-theoretic inevitability. Systems lacking distributed audit and rapid, binding governance lack the requisite variety to remain stable under agentic scaling. The correction velocity inequality (Section~\ref{subsec:velocity}) predicts precisely this failure mode: when $\frac{dE}{dt} \gg \frac{dC}{dt}$, the system diverges. Agents accelerate $E(t)$; centralized governance cannot accelerate $C(t)$.
-
-\begin{claim}
-Agentic scaling amplifies the correction velocity inequality. Systems that are marginally stable under human interaction rates become catastrophically unstable under agent interaction rates. The human friction buffer is not a feature; it is a hidden subsidy that masks architectural incorrigibility.
-\end{claim}
+For AI, publishing inference code alone does not satisfy CODE; the behavioral logic is encoded in weights, training data, and RLHF preferences. FORK faces resource barriers: legal permission without compute access is meaningless. A full treatment of AI corrigibility, including the Compute Capture Theorem and agentic scaling implications, appears in the extended version of this paper.
 
 \section{Empirical Evaluation}
 \label{sec:diagnosis}
@@ -1190,63 +995,8 @@ Systems that fail these structural tests frequently employ vocabulary to obscure
     \item \textbf{Multilateral-Washing}: Using international endorsements (G20, WB) to substitute for technical auditability.
     \item \textbf{Safety-Washing}: Justifying opacity by claiming inspection poses a security risk.
     \item \textbf{Consent-Washing}: Obtaining formal consent under conditions of economic coercion.
-    \item \textbf{DID-Washing}: Deploying decentralized identifiers without decentralized governance (see Section~\ref{subsubsec:didwashing}).
+    \item \textbf{DID-Washing}: Deploying decentralized identifiers without decentralized governance. Technical decentralization at the identifier layer with governance centralization at the trust layer is structural theater.
 \end{enumerate}
-
-\subsubsection{DID-Washing: The Layer Confusion Problem}
-\label{subsubsec:didwashing}
-
-Decentralized Identifiers (DIDs) present a distinct challenge to corrigibility evaluation because they separate technical decentralization from governance decentralization across multiple architectural layers. The W3C DID Core 1.0 specification \citep{w3cdid2022} defines DIDs as ``globally unique identifiers'' that ``do not require a centralized registration authority.'' This technical claim is accurate. However, a system can implement DIDs at the identifier layer while retaining centralized control at every layer that determines actual utility.
-
-Identity infrastructure comprises at least four functional layers, each with independent governance:
-
-\begin{table}[htbp]
-\centering
-\small
-\begin{tabular}{@{}llp{5cm}@{}}
-\toprule
-\textbf{Layer} & \textbf{Function} & \textbf{DID-Washing Failure Mode} \\
-\midrule
-Identifier & Generate and resolve DIDs & Often decentralized, but meaningless alone \\
-Credential & Issue verifiable claims about the subject & Usually centralized: single issuer dominates \\
-Trust & Determine which credentials are accepted & Controlled by policy, trusted lists, or law \\
-Revocation & Invalidate credentials or identifiers & Often requires issuer cooperation \\
-\bottomrule
-\end{tabular}
-\caption{DID-washing failure modes by layer}
-\label{tab:didwashing}
-\end{table}
-
-A DID that resolves correctly but is not accepted by any relying party is functionally equivalent to no identity at all. The identifier is ``self-sovereign''; the identity utility is not.
-
-\paragraph{Empirical Examples.} The EU Digital Identity Wallet (EUDI) under eIDAS 2.0 \citep{eidas2024} illustrates sophisticated DID-washing. The architecture employs selective disclosure credentials and cryptographic proofs superficially similar to DID/VC ecosystems. However:
-
-\begin{itemize}[noitemsep,topsep=0pt]
-    \item Credential issuance for Person Identification Data is an exclusive government function.
-    \item Trust determination requires registration in Member State Trusted Lists.
-    \item Wallet certification depends on government-approved Qualified Trust Service Providers (QTSPs).
-    \item Trusted Execution Environment dependency hands cryptographic key governance to mobile OS vendors (Google, Apple).
-\end{itemize}
-
-The result: users control their container (the wallet) but not their capability (the credentials). A journalist critical of their government holds a ``decentralized'' identifier that can be rendered useless by a single administrative act: revocation from the trusted list.
-
-\paragraph{Consent-Washing: The DigiLocker Case.} India's DigiLocker exhibits a simpler failure mode. It does not claim to use DIDs; it uses centralized URIs and mandatory Aadhaar linkage. However, promotional language around ``user consent'' and ``digital empowerment'' obscures the structural reality: users cannot register without Aadhaar, cannot store documents outside government-controlled infrastructure, and cannot port their identity to alternative systems. This is not DID-washing but \textit{consent-washing}: the vocabulary of user control applied to a system that offers none.
-
-\paragraph{Implications for Framework Application.} DID-washing exploits a gap in naive corrigibility evaluation. A system may appear to pass CODE (the DID spec is public) and FORK (anyone can implement the spec) while failing at the trust layer where actual power resides.
-
-The framework must be applied layer by layer (see Section~\ref{subsec:layers}). For identity systems:
-
-\begin{itemize}[noitemsep,topsep=0pt]
-    \item CODE must be evaluated at each layer: identifier resolution, credential issuance logic, trust framework rules, and revocation mechanisms.
-    \item GOVERN must ask: who controls the acceptance policy? If a single authority determines which credentials are valid, governance is centralized regardless of identifier architecture.
-    \item FORK must ask: can a community reproduce the trust framework, not merely the identifier scheme? If relying parties are legally required to accept only government-issued credentials, forkability is illusory.
-\end{itemize}
-
-A system passes the DID-washing test only if decentralization extends through the full trust stack: issuance, verification, acceptance policy, and revocation governance. Technical decentralization at the identifier layer with governance centralization at the trust layer is structural theater.
-
-\begin{claim}
-Identifier decentralization is not system decentralization. The corrigibility of an identity system is determined by its weakest layer across any test dimension.
-\end{claim}
 
 \begin{figure}[htbp]
 \centering
@@ -1369,161 +1119,19 @@ All systems that pass share common properties:
 
 Scale does not require capture. Universality does not require opacity. The choice is architectural.
 
-\subsubsection{The DPI Trilemma}
-\label{subsubsec:trilemma}
-
-The empirical pattern suggests a structural constraint we call the \textbf{DPI Trilemma}. A state-operated DPI can strongly realize any two of the following three properties, but not all three simultaneously:
-
-\begin{enumerate}[noitemsep]
-    \item \textbf{Sovereignty}: local control over standards, execution, and data residency;
-    \item \textbf{Scale}: population-level ubiquity and mandatory integration across essential services;
-    \item \textbf{Neutrality}: non-discriminatory access and competitive fairness at the execution layer.
-\end{enumerate}
-
-Formally: under middle-power constraints (limited leverage over global platform incumbents), achieving both Sovereignty and Scale requires centralized enforcement of standards and routing. That centralization tends to compress the governance options available at the execution layer and thus erodes Neutrality. Conversely, systems that safeguard Neutrality (Linux, Bitcoin) typically lack mandatory scale or are provisioned in ways that preserve distributed governance.
-
-India's experience is illustrative: the design choices that delivered an ``Atmanirbhar'' stack and near-universal reach (Sovereignty + Scale) produced a structural dependency on a small set of switching and credentialing authorities, which in turn materially reduced neutrality in execution (see Aadhaar/UPI evaluations, Table~\ref{tab:govt_infra}). The Trilemma reframes these outcomes: the observed failures are not merely implementation mistakes but predictable architectural trade-offs.
-
-Any prescriptive response must therefore treat neutrality as an architectural variable (portability, multi-issuer requirement, anti-exclusive procurement), not an aspirational outcome. The Functional Exit Equivalence remedies in Section~\ref{subsubsec:arch-responses} address precisely this constraint.
-
 \subsection{The Essential Services Problem}
 \label{subsec:essential}
 
-A pattern emerges from the preceding analysis: systems that pass all five tests are disproportionately non-essential infrastructure. Linux, PostgreSQL, Kubernetes, and Let's Encrypt power critical operations, but no individual's survival depends on accessing them. The systems promoted as DPI, which mediate access to food, banking, healthcare, and mobility, consistently fail.
-
-This correlation reflects a structural tension between essentiality and corrigibility.
+Systems that pass all five tests are disproportionately non-essential infrastructure. This reflects a structural tension:
 
 \begin{proposition}[Essentiality-Corrigibility Tension]
 \label{prop:essentiality}
 For any infrastructure system $S$ where participation is a prerequisite to survival, the EXIT test cannot be satisfied.
 \end{proposition}
 
-\begin{proof}
-EXIT requires that refusal incur no disproportionate penalty (Section~\ref{sec:tests}, Test 1). Let $S$ be essential: participation is required for access to food, shelter, healthcare, or legal identity. Refusal of $S$ therefore entails exclusion from survival necessities. Exclusion from survival necessities is a disproportionate penalty by any reasonable standard. Therefore, EXIT fails. \qed
-\end{proof}
+When refusal means exclusion from food, shelter, or identity, exit ceases to function as feedback. The systems in Table~\ref{tab:positive} avoid this trap because alternatives exist; Aadhaar has been made prerequisite to existence.
 
-This proposition formalizes the empirical observation: among the systems evaluated, those that pass all five tests are precisely those where participation remains genuinely voluntary.
-
-\begin{corollary}[No Exemptions from Essentiality Tension]
-The following do NOT constitute valid exemptions from Proposition~\ref{prop:essentiality}:
-\begin{enumerate}[noitemsep]
-    \item \textbf{Emergency necessity}: Pandemics, wars, and crises do not suspend the requirement for correction channels. Systems deployed under emergency conditions that block EXIT remain incorrigible; the emergency explains but does not justify the structural failure.
-    \item \textbf{Efficiency gains}: That a mandatory system delivers services faster or cheaper than alternatives does not restore EXIT. Efficiency is orthogonal to corrigibility.
-    \item \textbf{Democratic authorization}: Legislative mandates do not convert incorrigible systems into corrigible ones. A democratically enacted prison is still a prison.
-    \item \textbf{Benevolent intent}: Good-faith operation does not substitute for structural accountability. The framework evaluates architecture, not intentions.
-\end{enumerate}
-\end{corollary}
-
-\subsubsection{The Essentiality Trap}
-
-Essential services create the economic coercion that undermines EXIT. When refusal means exclusion from survival, the feedback loop breaks regardless of other properties. \citet{hirschman1970} observed that exit is effective precisely because it is voluntary. The credible threat of departure disciplines the system. When departure means death (literal or social), exit ceases to function as feedback. It becomes self-exclusion.
-
-The systems in Table~\ref{tab:positive} avoid this trap because alternatives exist. A developer who dislikes the Linux kernel's direction can migrate to BSD without losing the ability to compute. A journalist who distrusts Let's Encrypt can obtain certificates elsewhere. The existence of functional alternatives preserves the error signal.
-
-Aadhaar has been made prerequisite to existence. Documented cases demonstrate the consequence: at least 27 starvation deaths in India between 2015 and 2018 were attributed to Aadhaar-related exclusion from food rations \citep{khera2017}. These deaths are not anomalies; they are the structural prediction of a system that blocks EXIT while governing essential services.
-
-\subsubsection{Functional Exit Equivalence (FEE)}
-\label{subsubsec:fee}
-
-Proposition~\ref{prop:essentiality} establishes that literal exit is impossible for essential services. However, the \textbf{purpose} of EXIT is not departure itself; it is the generation of a high-bandwidth, credible error signal that disciplines the system. We introduce \textbf{Functional Exit Equivalence (FEE)} as the architectural substitute for literal exit when a service is essential.
-
-\paragraph{Definition.} An essential system $S$ satisfies FEE if compensatory architectural guarantees recreate the same effective error-signal strength that exit provides in non-essential systems.
-
-Let:
-\begin{itemize}[noitemsep]
-    \item $E_{\text{exit}}^{\text{baseline}}$ = effective error-signal strength produced by real exit (non-essential case)
-    \item $E_{\text{alt}}(S)$ = effective error-signal strength produced by compensatory mechanisms (essential case)
-\end{itemize}
-
-\begin{equation}
-\text{FEE}(S) \iff E_{\text{alt}}(S) \geq \theta_E \cdot E_{\text{exit}}^{\text{baseline}}
-\label{eq:fee}
-\end{equation}
-
-where $\theta_E$ is a policy calibration constant (recommended range: $0.8$--$1.0$).
-
-\paragraph{Operationalizing $E$.} The error-signal strength $E$ can be operationalized as a weighted sum:
-
-\begin{equation}
-E = \alpha_1 \cdot \text{effective\_loss} + \alpha_2 \cdot \text{probability\_of\_departure} + \alpha_3 \cdot \text{velocity\_of\_response} + \alpha_4 \cdot \text{legal\_remedy\_speed}
-\label{eq:error-signal}
-\end{equation}
-
-where the weights $\alpha_i$ are calibrated via pilot audits. This formulation connects back to Ashby's Law: FEE is an engineered mechanism to maintain requisite variety in the controller when the natural market variety (EXIT) is suppressed.
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=0.9, font=\sffamily\small,
-    block/.style={rectangle, rounded corners, draw=gray!70, fill=gray!10, minimum width=2.5cm, minimum height=0.8cm},
-    arrow/.style={-{Stealth[length=2mm]}, thick}
-]
-
-% Non-essential system (top)
-\node[anchor=west, font=\bfseries] at (-4.5, 3) {Non-Essential System:};
-\node[block, fill=exitcolor!20, draw=exitcolor] (exit1) at (0, 2) {EXIT Available};
-\node[block] (system1) at (4, 2) {System $S$};
-\draw[arrow, exitcolor] (exit1) -- (system1) node[midway, above] {$E_{\text{exit}}$};
-\node[font=\scriptsize, gray] at (2, 1.3) {Market departure = strong signal};
-
-% Essential system without FEE (middle)
-\node[anchor=west, font=\bfseries] at (-4.5, 0) {Essential System (No FEE):};
-\node[block, fill=red!20, draw=red] (exit2) at (0, -1) {EXIT Blocked};
-\node[block] (system2) at (4, -1) {System $S$};
-\draw[arrow, red, dashed] (exit2) -- (system2) node[midway, above] {$E = 0$};
-\node[font=\scriptsize, gray] at (2, -1.7) {No error signal = incorrigible};
-
-% Essential system with FEE (bottom)
-\node[anchor=west, font=\bfseries] at (-4.5, -3) {Essential System (with FEE):};
-\node[block, fill=red!20, draw=red] (exit3) at (-1, -4) {EXIT Blocked};
-\node[block, fill=governcolor!20, draw=governcolor] (fee) at (2, -4) {FEE Mechanisms};
-\node[block] (system3) at (6, -4) {System $S$};
-\draw[arrow, red, dashed] (exit3) -- (fee);
-\draw[arrow, governcolor] (fee) -- (system3) node[midway, above] {$E_{\text{alt}} \geq \theta_E$};
-\node[font=\scriptsize, gray] at (2, -4.8) {Compensatory signal = conditionally corrigible};
-
-% FEE components
-\node[font=\tiny, anchor=north, text width=3cm, align=center] at (2, -5.2) {
-Multi-issuer +\\
-Portability +\\
-Fallback +\\
-Federated
-};
-
-\end{tikzpicture}
-\caption{\textbf{Functional Exit Equivalence (FEE).} Top: Non-essential systems generate error signals through market exit. Middle: Essential systems without FEE block error signals entirely. Bottom: Essential systems with FEE use compensatory mechanisms to restore error signal strength.}
-\label{fig:fee}
-\end{figure}
-
-\subsubsection{Design Responses to Proposition~\ref{prop:essentiality}}
-\label{subsubsec:arch-responses}
-
-The tension admits architectural resolutions that achieve FEE:
-
-\paragraph{1. Protected Alternatives (Statutory Fallback).} Essential services can satisfy FEE if law guarantees functional non-digital equivalents. A model statutory clause:
-
-\begin{quote}
-\textit{``No person shall be required as a condition of receiving any essential public benefit to be exclusively dependent on a single digital system; the State shall maintain a legally enforceable analogue alternative and an interoperable credential acceptance guarantee.''}
-\end{quote}
-
-Cash preserves UPI's partial EXIT; eliminating cash would collapse UPI to Aadhaar's structural status. Corrigibility for essential services requires that non-digital pathways remain legally protected, not merely tolerated.
-
-\paragraph{2. Multi-Issuer Requirement.} Procurement and regulation shall require at least two legally independent credential issuers for each region or service class. No single issuer may be sole gatekeeper for eligibility. This creates credible switching alternatives that generate $E_{\text{alt}}$.
-
-\paragraph{3. Credential Acceptance Diversity.} Public services must accept at least three credential classes (state, municipal, NGO/financial) to satisfy eligibility requirements. This prevents single-point-of-failure capture.
-
-\paragraph{4. Binding Multi-Stakeholder Charter.} A legal instrument that locks governance rules, with amendments requiring supermajority approval, judicial review pathway, and defined emergency suspension conditions.
-
-\paragraph{5. Funded Fallback Operations.} Government must fund and staff analogue fallback channels wherever the digital system is primary, not as legacy support but as structural accountability infrastructure.
-
-\paragraph{Federated Implementation.} Rather than a single provider of essential infrastructure, services could be delivered through multiple independent implementations of open protocols. This is analogous to email (SMTP) rather than messaging (proprietary platforms).
-
-Under this model, no single implementation would be essential; the protocol would be. A citizen excluded from one provider could obtain equivalent service from another. Estonian X-Road approaches this architecture: the protocol is open, implementations are distributed across institutions, and the Nordic Institute for Interoperability Solutions (NIIS) provides multi-stakeholder governance.
-
-X-Road demonstrates that scale and corrigibility are compatible. It passes CODE (MIT-licensed), AUDIT (transaction logs, public enforcement against misuse), GOVERN (multi-national NIIS), and FORK (deployed in 25+ countries). It fails full EXIT but achieves FEE through strong performance on the other four tests plus federated implementation.
-
-\subsubsection{The Finding}
-
-The absence of fully corrigible essential services is not a limitation of this framework; it is the framework's central finding. The question ``Can essential DPI be fully corrigible?'' is answered: \textbf{not under architectures that eliminate alternatives, but achievable through FEE-compliant designs}. Proposition~\ref{prop:essentiality} is not a dead end; it is a design specification.
+\paragraph{Functional Exit Equivalence.} Essential services can achieve conditional corrigibility through compensatory mechanisms: protected non-digital alternatives, multi-issuer requirements, credential acceptance diversity, and federated implementation. Estonian X-Road demonstrates this approach: open protocol, distributed implementations, multi-stakeholder governance. Full treatment of FEE appears in the extended version.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -2490,7 +2098,7 @@ This appendix addresses the strongest objections to the framework, organized by 
 \paragraph{Objection 4: Proposition 2 proves your framework is useless.}
 ``You prove essential services can never be fully corrigible. This makes your framework irrelevant for the systems that matter most---identity, payments, healthcare.''
 
-\textbf{Response:} The proposition identifies a structural constraint, not a reason to abandon analysis. The architectural responses (Section~\ref{subsubsec:arch-responses}) show two paths: protected alternatives (guarantee non-digital equivalents) or federated implementation (no single provider essential). X-Road demonstrates 4/5 at population scale. The finding that fully corrigible essential services require architectural innovation is the framework's central contribution. Diagnosing why current systems fail is prerequisite to designing better ones.
+\textbf{Response:} The proposition identifies a structural constraint, not a reason to abandon analysis. Architectural responses include protected alternatives (guarantee non-digital equivalents) and federated implementation (no single provider essential). X-Road demonstrates 4/5 at population scale. The finding that fully corrigible essential services require architectural innovation is the framework's central contribution. Full treatment of Functional Exit Equivalence (FEE) appears in the extended version.
 
 \subsection{Empirical Objections}
 
@@ -2502,7 +2110,7 @@ This appendix addresses the strongest objections to the framework, organized by 
 \paragraph{Objection 6: FORK is illusory for AI systems.}
 ``You admit compute costs make AI retraining impractical. If FORK always fails for frontier AI, your framework just says 'all AI is incorrigible'---trivially true and useless.''
 
-\textbf{Response:} Section~\ref{subsubsec:ai-fork-evidence} specifies minimum evidence for learned system forkability. The key distinction is \textit{inference forkability} (running weights) vs \textit{training forkability} (reproducing the model). Only training forkability satisfies FORK for governance purposes. The evidence requirements (Table~\ref{tab:ai-fork-evidence}) are achievable: published training code, data manifests, and compute cost estimates. The claim is not that all AI fails FORK, but that systems withholding these artifacts fail. OLMo, Pythia, and academic models demonstrate that FORK-compliant AI is possible; the question is whether frontier labs choose to comply.
+\textbf{Response:} The key distinction is \textit{inference forkability} (running weights) vs \textit{training forkability} (reproducing the model). Only training forkability satisfies FORK for governance purposes. Evidence requirements include published training code, data manifests, and compute cost estimates. The claim is not that all AI fails FORK, but that systems withholding these artifacts fail. OLMo, Pythia, and academic models demonstrate that FORK-compliant AI is possible. Full AI forkability treatment appears in the extended version.
 
 \subsection{Summary}
 

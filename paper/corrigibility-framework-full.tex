@@ -436,15 +436,15 @@ A system passes the FORK test only if the community possesses the legal rights, 
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{@{}llll@{}}
+\begin{tabular}{@{}lllp{5.5cm}@{}}
 \toprule
 \textbf{System} & \textbf{EXIT} & \textbf{FORK} & \textbf{Structural Reality} \\
 \midrule
-Cloudflare & PASS (Market) & FAIL & Can switch to Fastly (Exit), cannot reproduce (Proprietary) \\
-AWS & PASS (Market) & FAIL & Can migrate to Azure, logic/state locked (Ecosystem capture) \\
-Aadhaar & FAIL (Mandatory) & FAIL & Cannot refuse (Legal), cannot reproduce (Total capture) \\
-Linux & PASS & PASS & Can leave, can reproduce/fork (Corrigible infrastructure) \\
-Llama & PASS & PARTIAL & Can refuse, can run weights, cannot reproduce training \\
+Cloudflare & PASS & FAIL & Can switch to Fastly, cannot reproduce \\
+AWS & PASS & FAIL & Can migrate to Azure, logic/state locked \\
+Aadhaar & FAIL & FAIL & Cannot refuse, cannot reproduce \\
+Linux & PASS & PASS & Can leave, can fork \\
+Llama & PASS & PARTIAL & Can run weights, cannot reproduce training \\
 \bottomrule
 \end{tabular}
 \caption{Differentiation between Exit (Substitution) and Fork (Reproduction)}
@@ -610,8 +610,9 @@ To demonstrate the framework's application, we evaluate systems across three cat
 
 Government-operated systems currently designated as Digital Public Infrastructure frequently exhibit a dangerous failure mode: they achieve partial compliance on technical tests (EXIT, CODE, AUDIT) while failing structurally on governance tests (GOVERN, FORK). By capturing the monopoly on execution, they render the feedback loop inoperable.
 
-\begin{table}[htbp]
+\begin{table}[p]
     \centering
+    \scriptsize
     \caption{\textbf{Evaluation of Government Infrastructure.} Centralized execution leads to consistent structural failure despite ``open standards'' rhetoric.}
     \label{tab:govt_infra}
 
@@ -619,8 +620,7 @@ Government-operated systems currently designated as Digital Public Infrastructur
     \begin{subtable}{1\textwidth}
         \centering
         \caption{Aadhaar (India) -- Mandatory ID}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
+        \begin{tabular}{@{}llp{7cm}@{}}
             \toprule
             \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
             \midrule
@@ -631,76 +631,72 @@ Government-operated systems currently designated as Digital Public Infrastructur
             FORK & $\times$ & No legal/technical/economic means: total centralized capture. \\
             \bottomrule
         \end{tabular}
-        \vspace{0.3cm}
     \end{subtable}
 
     % --- Subtable B: UPI ---
     \begin{subtable}{1\textwidth}
         \centering
         \caption{UPI (India) -- Payment Rail}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
+        \begin{tabular}{@{}llp{7cm}@{}}
             \toprule
-            EXIT & \textcolor{orange}{PARTIAL} & Reduced penalty: cash exists but network effects coerce. \\
-            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: protocol specs open, switching logic closed. \\
-            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: regulator audits, public measurement blocked. \\
-            GOVERN & $\times$ & No binding constraint: banks own NPCI, regulate themselves. \\
-            FORK & $\times$ & No economic means: hub-and-spoke requires NPCI cooperation. \\
+            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
+            \midrule
+            EXIT & \textcolor{orange}{PARTIAL} & Cash exists but network effects coerce. \\
+            CODE & \textcolor{orange}{PARTIAL} & Protocol specs open, switching logic closed. \\
+            AUDIT & \textcolor{orange}{PARTIAL} & Regulator audits, public measurement blocked. \\
+            GOVERN & $\times$ & Banks own NPCI, regulate themselves. \\
+            FORK & $\times$ & Hub-and-spoke requires NPCI cooperation. \\
             \bottomrule
         \end{tabular}
-        \vspace{0.3cm}
     \end{subtable}
 
     % --- Subtable C: Pix ---
     \begin{subtable}{1\textwidth}
         \centering
         \caption{Pix (Brazil) -- Central Bank Payment}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
+        \begin{tabular}{@{}llp{7cm}@{}}
             \toprule
             \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
             \midrule
-            EXIT & \textcolor{orange}{PARTIAL} & Reduced penalty: cash and cards exist; digital-only services coerce adoption. \\
-            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: API specification public; central routing logic closed. \\
-            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: aggregate statistics public; independent error measurement blocked. \\
-            GOVERN & $\times$ & No binding constraint: BCB sets and enforces Pix rules unilaterally. \\
-            FORK & $\times$ & No reproduction means: central switch requires BCB; no independent implementation. \\
+            EXIT & \textcolor{orange}{PARTIAL} & Cash/cards exist; digital-only services coerce. \\
+            CODE & \textcolor{orange}{PARTIAL} & API spec public; central routing closed. \\
+            AUDIT & \textcolor{orange}{PARTIAL} & Stats public; independent measurement blocked. \\
+            GOVERN & $\times$ & BCB sets/enforces rules unilaterally. \\
+            FORK & $\times$ & Central switch requires BCB. \\
             \bottomrule
         \end{tabular}
-        \vspace{0.3cm}
     \end{subtable}
 
     % --- Subtable D: X-Road ---
     \begin{subtable}{1\textwidth}
         \centering
         \caption{X-Road (Estonia/Nordic) -- Data Exchange Layer}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
+        \begin{tabular}{@{}llp{7cm}@{}}
             \toprule
             \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
             \midrule
-            EXIT & $\times$ & Disproportionate penalty: exclusion from government services. \\
-            CODE & $\checkmark$ & Execution logic inspectable: MIT source on GitHub. \\
-            AUDIT & $\checkmark$ & External testing possible: transaction logs, documented APIs. \\
-            GOVERN & $\checkmark$ & Binding constraint: NIIS treaty, MIT license irrevocable. \\
-            FORK & $\checkmark$ & Legal + technical + economic: 25+ country deployments prove feasibility. \\
+            EXIT & $\times$ & Exclusion from government services. \\
+            CODE & $\checkmark$ & MIT source on GitHub. \\
+            AUDIT & $\checkmark$ & Transaction logs, documented APIs. \\
+            GOVERN & $\checkmark$ & NIIS treaty, MIT license irrevocable. \\
+            FORK & $\checkmark$ & 25+ country deployments prove feasibility. \\
             \bottomrule
         \end{tabular}
-        \vspace{0.3cm}
     \end{subtable}
 
     % --- Subtable E: UK Open Banking ---
     \begin{subtable}{1\textwidth}
         \centering
         \caption{UK Open Banking -- Regulated API Standard}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
+        \begin{tabular}{@{}llp{7cm}@{}}
             \toprule
-            EXIT & \textcolor{orange}{PARTIAL} & Can revoke API consent; cannot exit banking system. \\
-            CODE & $\times$ & Execution logic not inspectable: bank implementations proprietary. \\
-            AUDIT & $\checkmark$ & External testing: FCA oversight, TPP certification. \\
-            GOVERN & $\checkmark$ & Binding constraint: CMA order, PSD2 regulation. \\
-            FORK & \textcolor{orange}{PARTIAL} & Legal rights exist; economic means require regulatory recognition. \\
+            \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
+            \midrule
+            EXIT & \textcolor{orange}{PARTIAL} & Can revoke API consent; cannot exit banking. \\
+            CODE & $\times$ & Bank implementations proprietary. \\
+            AUDIT & $\checkmark$ & FCA oversight, TPP certification. \\
+            GOVERN & $\checkmark$ & CMA order, PSD2 regulation. \\
+            FORK & \textcolor{orange}{PARTIAL} & Rights exist; means require regulatory approval. \\
             \bottomrule
         \end{tabular}
     \end{subtable}
@@ -714,6 +710,7 @@ In the private sector, systems often leverage "open source" branding while retai
 
 \begin{table}[htbp]
     \centering
+    \scriptsize
     \caption{\textbf{Evaluation of Private/Platform Infrastructure.} Technical openness (Source/Weights) does not guarantee structural accountability.}
     \label{tab:corp_infra}
 
@@ -721,54 +718,49 @@ In the private sector, systems often leverage "open source" branding while retai
     \begin{subtable}{1\textwidth}
         \centering
         \caption{Open-Weights AI (Llama, etc.)}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
+        \begin{tabular}{@{}llp{7cm}@{}}
             \toprule
             \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
             \midrule
-            EXIT & $\checkmark$ & No disproportionate penalty: can run locally, switch models freely. \\
-            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: weights public; training data and RLHF opaque. \\
-            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: black-box probing possible; lineage unverifiable. \\
-            GOVERN & $\times$ & No binding constraint: firm sets safety/capability trade-offs unilaterally. \\
-            FORK & \textcolor{orange}{PARTIAL} & Partial means: fine-tuning possible; retraining blocked by compute cost. \\
+            EXIT & $\checkmark$ & Can run locally, switch models freely. \\
+            CODE & \textcolor{orange}{PARTIAL} & Weights public; training data/RLHF opaque. \\
+            AUDIT & \textcolor{orange}{PARTIAL} & Black-box probing possible; lineage unverifiable. \\
+            GOVERN & $\times$ & Firm sets safety/capability trade-offs unilaterally. \\
+            FORK & \textcolor{orange}{PARTIAL} & Fine-tuning possible; retraining blocked by compute. \\
             \bottomrule
         \end{tabular}
-        \vspace{0.3cm}
     \end{subtable}
 
     % --- Subtable B: Android ---
     \begin{subtable}{1\textwidth}
         \centering
         \caption{Android (AOSP + GMS)}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
+        \begin{tabular}{@{}llp{7cm}@{}}
             \toprule
             \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
             \midrule
-            EXIT & \textcolor{orange}{PARTIAL} & Moderate penalty: device portable; ecosystem lock-in creates friction. \\
-            CODE & \textcolor{orange}{PARTIAL} & Partial inspection: AOSP open; Play Services and Identity closed. \\
-            AUDIT & \textcolor{orange}{PARTIAL} & Limited testing: OS auditable; Google Services behavior opaque. \\
-            GOVERN & $\times$ & No binding constraint: Google sets roadmap and certification unilaterally. \\
-            FORK & \textcolor{orange}{PARTIAL} & Partial means: LineageOS exists; app ecosystem requires GMS. \\
+            EXIT & \textcolor{orange}{PARTIAL} & Device portable; ecosystem lock-in creates friction. \\
+            CODE & \textcolor{orange}{PARTIAL} & AOSP open; Play Services/Identity closed. \\
+            AUDIT & \textcolor{orange}{PARTIAL} & OS auditable; Google Services opaque. \\
+            GOVERN & $\times$ & Google sets roadmap/certification unilaterally. \\
+            FORK & \textcolor{orange}{PARTIAL} & LineageOS exists; app ecosystem requires GMS. \\
             \bottomrule
         \end{tabular}
-        \vspace{0.3cm}
     \end{subtable}
 
     % --- Subtable C: Signal ---
     \begin{subtable}{1\textwidth}
         \centering
         \caption{Signal Protocol}
-        \small
-        \begin{tabular}{@{}llp{8.5cm}@{}}
+        \begin{tabular}{@{}llp{7cm}@{}}
             \toprule
             \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
             \midrule
-            EXIT & $\checkmark$ & No disproportionate penalty: can switch to alternatives freely. \\
-            CODE & $\checkmark$ & Full inspection: client and server source available (GPL/AGPL). \\
-            AUDIT & $\checkmark$ & External testing: cryptographic properties independently verifiable. \\
-            GOVERN & $\times$ & No binding constraint: Foundation board sets direction unilaterally. \\
-            FORK & $\times$ & No economic means: code forkable but no federation locks network effects. \\
+            EXIT & $\checkmark$ & Can switch to alternatives freely. \\
+            CODE & $\checkmark$ & Client and server source available (GPL/AGPL). \\
+            AUDIT & $\checkmark$ & Cryptographic properties independently verifiable. \\
+            GOVERN & $\times$ & Foundation board sets direction unilaterally. \\
+            FORK & $\times$ & No federation locks network effects. \\
             \bottomrule
         \end{tabular}
     \end{subtable}
@@ -1050,9 +1042,40 @@ A state-operated Digital Public Infrastructure can strongly realize any two of t
 \end{enumerate}
 \end{proposition}
 
-Formally: under middle-power constraints (limited leverage over global platform incumbents), achieving both Sovereignty and Scale requires centralized enforcement of standards and routing. That centralization tends to compress the governance options available at the execution layer and thus erodes Neutrality. Conversely, systems that safeguard Neutrality (Linux, Bitcoin) typically lack mandatory scale or are provisioned in ways that preserve distributed governance.
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1.2, font=\sffamily]
+    % Triangle vertices
+    \coordinate (S) at (0,3);      % Sovereignty (top)
+    \coordinate (Sc) at (-2.6,-1.5);  % Scale (bottom left)
+    \coordinate (N) at (2.6,-1.5);   % Neutrality (bottom right)
 
-India's experience is illustrative: the design choices that delivered an ``Atmanirbhar'' stack and near-universal reach (Sovereignty + Scale) produced a structural dependency on a small set of switching and credentialing authorities, which in turn materially reduced neutrality in execution (see Aadhaar/UPI evaluations, Table~\ref{tab:govt_infra}). The Trilemma reframes these outcomes: the observed failures are not merely implementation mistakes but predictable architectural trade-offs.
+    % Draw triangle edges with labels
+    \draw[thick, gray!60] (S) -- (Sc) -- (N) -- cycle;
+
+    % Vertex labels with boxes
+    \node[rectangle, rounded corners, draw=exitcolor, fill=exitcolor!15, minimum width=2cm, minimum height=0.7cm, font=\small\bfseries] at (S) {Sovereignty};
+    \node[rectangle, rounded corners, draw=governcolor, fill=governcolor!15, minimum width=1.5cm, minimum height=0.7cm, font=\small\bfseries] at (Sc) {Scale};
+    \node[rectangle, rounded corners, draw=auditcolor, fill=auditcolor!15, minimum width=2cm, minimum height=0.7cm, font=\small\bfseries] at (N) {Neutrality};
+
+    % Edge labels showing what you get when you pick two
+    \node[font=\scriptsize, text=gray, rotate=60, anchor=south] at (-1.5,0.9) {Aadhaar, UPI};
+    \node[font=\scriptsize, text=gray, anchor=north] at (0,-1.5) {Linux, SMTP};
+    \node[font=\scriptsize, text=gray, rotate=-60, anchor=south] at (1.5,0.9) {Platform DPI};
+
+    % Center label
+    \node[font=\scriptsize, text=red!70!black, align=center] at (0,0.3) {Pick\\any two};
+
+    % Ashby annotation
+    \node[font=\tiny, text=gray, align=center] at (0,-2.3) {Under Ashby's Law: centralization $\rightarrow$ reduced governance variety $\rightarrow$ Neutrality failure};
+\end{tikzpicture}
+\caption{\textbf{The DPI Trilemma.} States can achieve any two of Sovereignty, Scale, and Neutrality, but not all three. India Stack optimizes for Sovereignty + Scale at the cost of Neutrality. Federated systems (Linux, SMTP) achieve Neutrality + Scale without mandatory Sovereignty.}
+\label{fig:trilemma}
+\end{figure}
+
+This is a control-theoretic constraint, not a policy preference. Achieving both Sovereignty (local control over the controller) and Scale (mandatory population coverage) requires centralized enforcement of standards and routing. That centralization reduces the variety of the governance channel: fewer independent actors can modify system behavior. Under Ashby's Law, reduced governance variety erodes Neutrality (the system's capacity to treat diverse inputs equitably). Conversely, systems that preserve Neutrality through distributed governance (Linux, Bitcoin, SMTP) typically lack mandatory scale or achieve it through federation rather than centralization.
+
+India's experience instantiates this constraint: the architectural choices that achieved sovereign control and near-universal coverage produced structural dependency on a small set of switching and credentialing authorities. That dependency compressed the correction channel's bandwidth, manifesting as the GOVERN failures documented in Table~\ref{tab:govt_infra}. The Trilemma reframes these outcomes: the observed failures are not implementation mistakes but predictable consequences of optimizing for two properties at the expense of the third.
 
 Any prescriptive response must therefore treat neutrality as an architectural variable (portability, multi-issuer requirement, anti-exclusive procurement), not an aspirational outcome. The Functional Exit Equivalence remedies in Section~\ref{subsubsec:arch-responses} address precisely this constraint.
 
@@ -1505,18 +1528,18 @@ FORK & Resource feasibility ratio $r$ & $r \leq 10^{-3}$ \\
 
 \begin{table}[htbp]
 \centering
-\small
+\scriptsize
 \caption{Three-indicator protocol: continuous score, binary flag, and threshold metric for each test.}
 \label{tab:three-indicator-main}
-\begin{tabular}{@{}lp{3.2cm}p{3.2cm}p{3.5cm}@{}}
+\begin{tabular}{@{}lp{2.8cm}p{2.8cm}p{3.2cm}@{}}
 \toprule
-\textbf{Test} & \textbf{Continuous Score} & \textbf{Binary Flag} & \textbf{Threshold Metric} \\
+\textbf{Test} & \textbf{Continuous} & \textbf{Binary} & \textbf{Threshold} \\
 \midrule
-EXIT & \texttt{penalty\_ratio}: cost(exit) / cost(stay) & \texttt{legal\_barrier}: is exit criminalized? & Pass if $p \leq 1.2$ AND \texttt{legal\_barrier} = false \\
-CODE & \texttt{visibility}: public LOC / total critical path LOC & \texttt{build\_reproducible}: deterministic build exists? & Pass if $v \geq 0.95$ AND \texttt{build} = true \\
-AUDIT & \texttt{observability}: \% transactions independently verifiable & \texttt{access\_permitted}: third parties can test? & Pass if $o \geq 0.9$ AND \texttt{access} = true \\
-GOVERN & \texttt{override\_resistance}: historical rate of operator overrules & \texttt{binding\_charter}: irrevocable legal instrument? & Pass if $r = 0$ AND \texttt{charter} = true \\
-FORK & \texttt{cost\_ratio}: fork cost / community resources & \texttt{legal\_rights}: permissive license? & Pass if $c \leq 0.001$ AND \texttt{rights} = true \\
+EXIT & \texttt{penalty\_ratio}: exit cost / stay cost & \texttt{legal\_barrier}: criminalized? & $p \leq 1.2$ AND barrier = false \\
+CODE & \texttt{visibility}: public LOC / critical path LOC & \texttt{build\_repro}: deterministic build? & $v \geq 0.95$ AND build = true \\
+AUDIT & \texttt{observability}: \% verifiable transactions & \texttt{access}: third parties test? & $o \geq 0.9$ AND access = true \\
+GOVERN & \texttt{override\_rate}: operator overrule rate & \texttt{charter}: irrevocable instrument? & $r = 0$ AND charter = true \\
+FORK & \texttt{cost\_ratio}: fork / community resources & \texttt{rights}: permissive license? & $c \leq 0.001$ AND rights = true \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1892,8 +1915,8 @@ This architecture makes contradictions machine-readable. If an operator claims a
 \draw[arrow, codecolor] (operator) -- (infra);
 \draw[arrow, auditcolor] (auditor) -- (corrig);
 \node[compare] (compare) at (3,-0.8) {Compare};
-\draw[arrow, red!70!black, dashed] (infra.south) -- (compare.north west);
-\draw[arrow, red!70!black, dashed] (corrig.south) -- (compare.north east);
+\draw[arrow, red!70!black, dashed] (infra.south) -- (1.5,-0.5) -- (compare.north);
+\draw[arrow, red!70!black, dashed] (corrig.south) -- (4.5,-0.5) -- (compare.north);
 \end{tikzpicture}
 \caption{Adversarial Verification Architecture. Operators declare; Auditors verify. The structural gap constitutes the audit finding.}
 \label{fig:manifests}
@@ -2136,7 +2159,7 @@ Failure of these predicates renders $\mathcal{I}$ a ``Hazmat Environment'' for a
     \draw [->] (call) -- node {\scriptsize 2xx} (success);
     \draw [->] (success) -- node {\scriptsize done} ++(1.5,0);
     \draw [->] (call) -- node[left] {\scriptsize blocked} (blocked);
-    \draw [->] (call) to[bend left=30] node[above] {\scriptsize retry} (call);
+    \draw [->] (call) to[loop above, looseness=5] node {\scriptsize retry} (call);
     \draw [->] (call) -- node {\scriptsize timeout} (error);
     \draw [->] (blocked) -- node[below] {\scriptsize (No Exit)} ++(-2,0);
 \end{tikzpicture}

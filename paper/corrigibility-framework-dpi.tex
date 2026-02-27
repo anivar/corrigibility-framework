@@ -30,6 +30,7 @@
 % URLs and citations (NeurIPS uses natbib)
 \usepackage{url}
 \usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{orcidlink}
 
 % Code listings
 \usepackage{listings}
@@ -112,11 +113,10 @@
 \title{Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework}
 
 \author{
-  Anivar A Aravind \\
+  Anivar A Aravind~\orcidlink{0009-0009-8995-0005} \\
   Independent Researcher\\
   Bengaluru, India \\
-  \texttt{ping@anivar.net} \\
-  ORCID: 0009-0009-8995-0005
+  \texttt{ping@anivar.net}
 }
 
 \begin{document}
@@ -364,7 +364,7 @@ While inspection enables understanding, \textbf{Independent Verification} enable
 The framework does not equate auditability with direct participation. AUDIT $\neq$ ``everyone audits''; AUDIT $=$ ``no one can prevent auditing.'' \textbf{Journalism analogy:} Not everyone investigates corruption. Democracy still depends on the \textit{possibility} of investigation. The problem today is not that auditors exist; operators can legally block them. The tradeoff is contestable expertise over unchallengeable authority, a defensible democratic position.
 \end{remark}
 
-Incorrigible systems typically capture this function. \textbf{UPI} permits RBI regulatory audits, but transaction-level verification requires NPCI authorization; independent researchers cannot measure failure rates or dispute resolution times. \textbf{Open-weights AI models} (Llama, Qwen, DeepSeek) selectively publish red-teaming results while blocking independent adversarial testing at scale. \textbf{Bitcoin} provides the counter-model: every transaction is independently verifiable by any node, and consensus is cryptographic proof. Similarly, \textbf{Let's Encrypt} publishes Certificate Transparency logs, making every issued certificate publicly auditable in real time.
+Incorrigible systems typically capture this function. \textbf{UPI} permits RBI regulatory audits, but transaction-level verification requires NPCI authorization; independent researchers cannot measure failure rates or dispute resolution times. \textbf{Proprietary cloud services} (AWS, Azure, GCP) publish compliance certifications while blocking independent verification of infrastructure behavior at scale. \textbf{Bitcoin} provides the counter-model: every transaction is independently verifiable by any node, and consensus is cryptographic proof. Similarly, \textbf{Let's Encrypt} publishes Certificate Transparency logs, making every issued certificate publicly auditable in real time.
 
 The structural function of opacity is sensor failure. A system whose error rates cannot be independently measured cannot be regulated. The controller receives no signal about divergence from intended behavior. Under Ashby's Law, such a system will drift until external forces impose correction. Those forces, operating outside the technical loop, will impose correction through channels the system cannot anticipate or absorb. \citet{pasquale2015} describes this as a ``one-way mirror'' relationship, but the cybernetic translation is precise: asymmetric observability breaks the feedback loop at the sensing stage.
 
@@ -434,7 +434,7 @@ Open code with locked data produces a hollow fork. The legal right to reproduce 
 
 \paragraph{Technical Requirements for Portability.} To ensure meaningful forkability, DPI systems must implement: (1) standardized export bundles with user-owned credentials, (2) interoperability APIs to accept ported data, and (3) statutory guarantees requiring public services to accept verified portable credentials. This is the lesson of PSD2 in banking: portability mandates made bank-switching economically viable.
 
-A system passes the FORK test only if the community possesses the legal rights, technical artifacts, economic means, \textbf{and state portability guarantees} to spawn a functionally equivalent instance. \textbf{Aadhaar} fails completely: no entity outside UIDAI can reproduce the identity infrastructure. \textbf{OpenSearch} demonstrates what successful forking looks like. When Elastic changed its license, AWS forked Elasticsearch and the community continued development independently. \textbf{Linux} has been forked thousands of times (Android, Chrome OS, countless distributions). \textbf{Llama} presents partial forkability: anyone can run the weights, but reproducing the training requires resources only a handful of companies possess. If Meta abandoned Llama tomorrow, the community could not recreate it.
+A system passes the FORK test only if the community possesses the legal rights, technical artifacts, economic means, \textbf{and state portability guarantees} to spawn a functionally equivalent instance. \textbf{Aadhaar} fails completely: no entity outside UIDAI can reproduce the identity infrastructure. \textbf{OpenSearch} demonstrates what successful forking looks like. When Elastic changed its license, AWS forked Elasticsearch and the community continued development independently. \textbf{Linux} has been forked thousands of times (Android, Chrome OS, countless distributions). \textbf{AWS S3} presents partial forkability: the API specification is public and MinIO provides a compatible implementation, but the operational scale, global infrastructure, and integration ecosystem cannot be reproduced by most organizations.
 
 \begin{table}[htbp]
 \centering
@@ -443,10 +443,10 @@ A system passes the FORK test only if the community possesses the legal rights, 
 \textbf{System} & \textbf{EXIT} & \textbf{FORK} & \textbf{Structural Reality} \\
 \midrule
 Cloudflare & PASS & FAIL & Can switch to Fastly, cannot reproduce \\
-AWS & PASS & FAIL & Can migrate to Azure, logic/state locked \\
+AWS EC2 & PASS & FAIL & Can migrate to Azure, logic/state locked \\
 Aadhaar & FAIL & FAIL & Cannot refuse, cannot reproduce \\
 Linux & PASS & PASS & Can leave, can fork \\
-Llama & PASS & PARTIAL & Can run weights, cannot reproduce training \\
+AWS S3 & PASS & PARTIAL & API open (MinIO), scale unreproducible \\
 \bottomrule
 \end{tabular}
 \caption{Differentiation between Exit (Substitution) and Fork (Reproduction)}
@@ -716,19 +716,19 @@ In the private sector, systems often leverage "open source" branding while retai
     \caption{\textbf{Evaluation of Private/Platform Infrastructure.} Technical openness (Source/Weights) does not guarantee structural accountability.}
     \label{tab:corp_infra}
 
-    % -- Subtable A: Open Weights AI --
+    % -- Subtable A: Cloud Infrastructure (AWS/Azure) --
     \begin{subtable}{1\textwidth}
         \centering
-        \caption{Open-Weights AI (Llama, etc.)}
+        \caption{Cloud Infrastructure (AWS, Azure, GCP)}
         \begin{tabular}{@{}llp{7cm}@{}}
             \toprule
             \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
             \midrule
-            EXIT & $\checkmark$ & Can run locally, switch models freely. \\
-            CODE & \textcolor{orange}{PARTIAL} & Weights public; training data/RLHF opaque. \\
-            AUDIT & \textcolor{orange}{PARTIAL} & Black-box probing possible; lineage unverifiable. \\
-            GOVERN & $\times$ & Firm sets safety/capability trade-offs unilaterally. \\
-            FORK & \textcolor{orange}{PARTIAL} & Fine-tuning possible; retraining blocked by compute. \\
+            EXIT & $\checkmark$ & Can migrate workloads to competing providers. \\
+            CODE & \textcolor{orange}{PARTIAL} & APIs documented; internal routing/pricing opaque. \\
+            AUDIT & \textcolor{orange}{PARTIAL} & Billing auditable; infrastructure logic unverifiable. \\
+            GOVERN & $\times$ & Provider sets terms, regions, compliance unilaterally. \\
+            FORK & $\times$ & Scale, global infrastructure unreproducible by states. \\
             \bottomrule
         \end{tabular}
     \end{subtable}
@@ -1050,8 +1050,6 @@ where $V_{\text{eff}}$ is effective governance variety and $\theta \in (0,1]$ is
 
 \textbf{Clarification: This Is Not an Impossibility Theorem.} The proposition does not assert that Sovereignty, Scale, and Neutrality are logically incompatible. It asserts that under centralized enforcement architecture, maximizing Sovereignty and Scale reduces governance variety unless compensatory mechanisms are introduced. The tension is architectural, not metaphysical. Neutrality can be preserved under Scale and Sovereignty if governance variety is restored through structural mechanisms such as federated execution, multi-issuer mandates, Functional Exit Equivalence (Section~\ref{subsubsec:fee}), state portability guarantees, or non-exclusive procurement rules.
 
-\textbf{Workflow Capture Extension.} Workflow capture reduces effective corrective variety. Formally, effective governance capacity is suppressed as WCC (Workflow Capture Coefficient) increases (see Appendix~\ref{appendix:neutrality}). Thus, even when restoration mechanisms exist, high workflow capture reintroduces neutrality risk.
-
 India's experience instantiates this constraint: the architectural choices that achieved sovereign control and near-universal coverage produced structural dependency on a small set of switching and credentialing authorities. That dependency compressed the correction channel's bandwidth, manifesting as the GOVERN failures documented in Table~\ref{tab:govt_infra}. The tension reframes these outcomes: the observed compression of corrective bandwidth is not an implementation mistake but a predictable consequence of architectural choice.
 
 \begin{table}[htbp]
@@ -1253,7 +1251,6 @@ $\theta_E$ & FEE sufficiency threshold & $0.8$--$1.0$ & \ref{subsubsec:fee} \\
 $\theta$ & Neutrality stability threshold & $(0, 1]$ & \ref{appendix:neutrality} \\
 $\alpha^*$ & Fork adoption critical mass & $0.3$--$0.5$ & \ref{appendix:proofs} \\
 $\epsilon$ & Correction friction cost & Context-dependent & \ref{appendix:proofs} \\
-WCC & Workflow capture threshold & $> 0.7$ triggers FORK fail & \ref{appendix:neutrality} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1586,9 +1583,9 @@ The ``physics'' of digital governance demonstrates that certain architectures st
 \toprule
 \textbf{Layer} & \textbf{Primary Failure Mode} & \textbf{Capture Type} & \textbf{Structural Remedy} \\
 \midrule
-Ledger & Dependency & Administrative & FEE / Portability \\
-Ontology & Incontestability & Epistemic & Open Standards / Contestability \\
-Workflow & Lock-In & Interpretive & Workflow Forkability (WCC) \\
+Identity & Dependency & Administrative & FEE / Portability \\
+Payment & Lock-In & Transactional & Multi-Rail / Interoperability \\
+Data Exchange & Siloing & Coordination & Open Standards / APIs \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1625,7 +1622,7 @@ Corrigibility is the structural response to the Collingridge Dilemma (Section~\r
 
 \subsection{Future Work}
 
-Extensions warranting investigation: (1) \textbf{Empirical velocity measurement}, quantifying when systems become ungovernable; (2) \textbf{International comparison}, testing generality across X-Road, Singapore NDI, EU Digital Identity, Brazil Pix; (3) \textbf{Political economy of architecture choice}, examining why governments choose incorrigible designs when corrigible alternatives exist; (4) \textbf{Transition cost modeling}; (5) \textbf{Legal doctrine integration}, operationalizing corrigibility for courts; (6) \textbf{Network effect formalization}; (7) \textbf{FEE pilot design}, specifying implementable FEE mechanisms for identity infrastructure; (8) \textbf{Extension to AI systems}, applying the framework to learned systems where behavior is determined by training data rather than source code.
+Extensions warranting investigation: (1) \textbf{Empirical velocity measurement}, quantifying when systems become ungovernable; (2) \textbf{International comparison}, testing generality across X-Road, Singapore NDI, EU Digital Identity, Brazil Pix; (3) \textbf{Political economy of architecture choice}, examining why governments choose incorrigible designs when corrigible alternatives exist; (4) \textbf{Transition cost modeling}; (5) \textbf{Legal doctrine integration}, operationalizing corrigibility for courts; (6) \textbf{Network effect formalization}; (7) \textbf{FEE pilot design}, specifying implementable FEE mechanisms for identity infrastructure. A companion paper extends this framework to learned systems (AI/ML) where behavior is determined by training data rather than source code.
 
 \section*{Acknowledgments}
 
@@ -1640,10 +1637,10 @@ This work is released under CC0 1.0 Universal (Public Domain). Use, adapt, trans
 The complete framework, including JSON Schemas for machine-readable disclosure and assessment, is available at:
 
 \begin{itemize}
-    \item Framework documentation: \url{https://indiastack.in/dpi/}
-    \item Infrastructure manifest schema: \url{https://indiastack.in/dpi/schema/infrastructure.json}
-    \item Corrigibility assessment schema: \url{https://indiastack.in/dpi/schema/corrigibility.json}
-    \item Paper source and repository: \url{https://github.com/AnivarAravind/corrigibility-framework}
+    \item Framework documentation: \url{https://anivar.net/corrigibility/dpi/}
+    \item Infrastructure manifest schema: \url{https://anivar.net/corrigibility/dpi/schema/infrastructure.json}
+    \item Corrigibility assessment schema: \url{https://anivar.net/corrigibility/dpi/schema/corrigibility.json}
+    \item Paper source and repository: \url{https://github.com/anivar/corrigibility-framework}
 \end{itemize}
 
 % ============================================
@@ -2082,7 +2079,7 @@ where $\mathcal{A}$ is the set of available alternatives and $\Sigma^*$ is a cal
 \section{Neutrality Compression Under Centralized Enforcement}
 \label{appendix:neutrality}
 
-This appendix provides the formal proof supporting Proposition~\ref{prop:trilemma} (Topology-Dependent Tension) and integrates the Workflow Capture Coefficient into the analysis.
+This appendix provides the formal proof supporting Proposition~\ref{prop:trilemma} (Topology-Dependent Tension).
 
 \subsection{Definitions}
 
@@ -2091,73 +2088,19 @@ Let:
     \item $Sc$ = Scale (population-level integration)
     \item $V_{\text{env}}(Sc)$ = Environmental variety (heterogeneity of governed interactions)
     \item $V_{\text{gov}}(Sc)$ = Governance corrective variety
-    \item $\text{WCC} \in [0,1)$ = Workflow Capture Coefficient
-    \item $V_{\text{eff}}$ = Effective corrective variety
 \end{itemize}
 
 We assume:
 \begin{enumerate}[noitemsep]
-    \item $V_{\text{env}}(Sc)$ is non-decreasing in $Sc$
-    \item Under centralized enforcement, governance growth is institutionally bounded
+    \item $V_{\text{env}}(Sc)$ is non-decreasing in $Sc$ (Ashby's Law: environmental complexity grows with population scale)
+    \item Under centralized enforcement, governance growth is institutionally bounded (bureaucratic capacity constraints)
 \end{enumerate}
 
 Formally:
 \begin{equation}
 V_{\text{gov}}(Sc) = O(Sc^{\alpha}), \quad \alpha < 1
 \end{equation}
-This states that governance corrective capacity grows sublinearly under centralized topology. No specific functional form (logarithmic, square root, etc.) is required.
-
-\subsection{Workflow Capture Coefficient Formalization}
-
-The Workflow Capture Coefficient measures the risk of epistemic delegation to proprietary orchestration layers:
-\begin{equation}
-WCC = f(C_{\text{workflow}}, O_{\text{substitutability}}, M_{\text{portability}})
-\end{equation}
-
-Where:
-\begin{itemize}[noitemsep]
-    \item $C_{\text{workflow}}$ = normalized cost of reproducing the orchestration stack (0 = trivial, 1 = infeasible)
-    \item $O_{\text{substitutability}}$ = ease of altering the underlying ontological schema (0 = locked, 1 = fully substitutable)
-    \item $M_{\text{portability}}$ = data and model portability across implementations (0 = proprietary lock-in, 1 = fully portable)
-\end{itemize}
-
-A simple operationalization uses the weighted harmonic mean:
-\begin{equation}
-WCC = 1 - \frac{3}{\frac{1}{1-C_{\text{workflow}}} + \frac{1}{O_{\text{substitutability}}} + \frac{1}{M_{\text{portability}}}}
-\end{equation}
-
-\paragraph{Why Harmonic Mean?} The choice of harmonic mean over arithmetic or geometric mean is deliberate and mirrors the binary logic of corrigibility. The harmonic mean has a critical property: it is dominated by the smallest input. If any single dimension approaches zero (e.g., portability is near-zero while reproduction cost and substitutability are moderate), the harmonic mean collapses, driving WCC toward 1 (high capture). This matches the framework's core insight that a feedback loop fails if \textit{any} component fails. An arithmetic mean would allow high scores in two dimensions to mask complete failure in a third; the harmonic mean prevents this compensation. Formally, for inputs $x_1, x_2, x_3 \in (0,1]$, if $x_1 \to 0$ while $x_2, x_3$ remain finite, then $H(x_1, x_2, x_3) \to 0$ and $WCC \to 1$.
-
-A high WCC (approaching 1) triggers FORK failure regardless of model weight openness.
-
-\paragraph{Worked Example.} Consider two systems:
-
-\textit{Aadhaar authentication workflow:} $C_{\text{workflow}} = 0.95$ (reproduction requires replicating UIDAI's entire biometric infrastructure), $O_{\text{substitutability}} = 0.1$ (biometric templates are proprietary and non-interoperable), $M_{\text{portability}} = 0.05$ (no data export, no credential portability). Computing:
-\[
-WCC_{\text{Aadhaar}} = 1 - \frac{3}{\frac{1}{0.05} + \frac{1}{0.1} + \frac{1}{0.05}} = 1 - \frac{3}{20 + 10 + 20} = 1 - 0.06 = 0.94
-\]
-
-\textit{X-Road federated workflow:} $C_{\text{workflow}} = 0.3$ (open-source, documented), $O_{\text{substitutability}} = 0.8$ (standard protocols), $M_{\text{portability}} = 0.7$ (data exchange formats are open). Computing:
-\[
-WCC_{\text{X-Road}} = 1 - \frac{3}{\frac{1}{0.7} + \frac{1}{0.8} + \frac{1}{0.7}} = 1 - \frac{3}{1.43 + 1.25 + 1.43} = 1 - 0.73 = 0.27
-\]
-
-Aadhaar's $WCC = 0.94$ indicates near-total workflow capture; X-Road's $WCC = 0.27$ indicates low capture risk. This aligns with the qualitative assessment in Table~\ref{tab:govt_infra}.
-
-\subsection{Effective Governance Under Workflow Capture}
-
-Rather than assume a multiplicative structure, we define a general suppression operator:
-\begin{equation}
-V_{\text{eff}} = \Psi(V_{\text{gov}}, \text{WCC})
-\end{equation}
-Where:
-\begin{itemize}[noitemsep]
-    \item $\Psi$ is increasing in $V_{\text{gov}}$
-    \item $\Psi$ is decreasing in WCC
-    \item $\Psi(V_{\text{gov}}, 0) = V_{\text{gov}}$
-    \item $\Psi(V_{\text{gov}}, \text{WCC}) < V_{\text{gov}}$ for $\text{WCC} > 0$
-\end{itemize}
-This avoids imposing unjustified linearity or proportionality.
+This states that governance corrective capacity grows sublinearly under centralized topology. No specific functional form (logarithmic, square root, etc.) is required. The sublinear constraint reflects institutional reality: adding staff, building appeal mechanisms, and processing edge cases cannot scale linearly with population without structural reform.
 
 \subsection{Neutrality Condition}
 
@@ -2165,23 +2108,23 @@ Neutrality does not require full dominance of environmental variety. It requires
 
 Define:
 \begin{equation}
-V_{\text{eff}} \geq \theta \cdot V_{\text{env}}
+V_{\text{gov}} \geq \theta \cdot V_{\text{env}}
 \end{equation}
 Where $\theta \in (0,1]$ is a stability sufficiency constant.
 
 \textbf{Neutrality degradation risk} emerges when:
 \begin{equation}
-V_{\text{eff}} < \theta \cdot V_{\text{env}}
+V_{\text{gov}} < \theta \cdot V_{\text{env}}
 \end{equation}
 This avoids equating neutrality with perfect stability.
 
 \subsection{Proposition (Formal Statement)}
 
-Under centralized enforcement topology and non-zero workflow capture, there exists a scale threshold $Sc^*$ beyond which neutrality is at risk unless governance growth becomes at least linear in scale.
+Under centralized enforcement topology, there exists a scale threshold $Sc^*$ beyond which neutrality is at risk unless governance growth becomes at least linear in scale.
 
 \subsection{Proof}
 
-Assume:
+Assume environmental variety grows at least linearly with scale:
 \begin{equation}
 V_{\text{env}}(Sc) = \Omega(Sc)
 \end{equation}
@@ -2191,39 +2134,34 @@ Under centralized enforcement:
 V_{\text{gov}}(Sc) = O(Sc^{\alpha}), \quad \alpha < 1
 \end{equation}
 
-Since $\Psi$ is monotonic increasing in $V_{\text{gov}}$ and decreasing in WCC, and bounded above by $V_{\text{gov}}$:
-\begin{equation}
-V_{\text{eff}}(Sc) \leq V_{\text{gov}}(Sc)
-\end{equation}
-
 Therefore:
 \begin{equation}
-\frac{V_{\text{eff}}(Sc)}{V_{\text{env}}(Sc)} \to 0 \quad \text{as} \quad Sc \to \infty
+\frac{V_{\text{gov}}(Sc)}{V_{\text{env}}(Sc)} \to 0 \quad \text{as} \quad Sc \to \infty
 \end{equation}
 
 Thus there exists $Sc^*$ such that:
 \begin{equation}
-V_{\text{eff}}(Sc^*) < \theta \cdot V_{\text{env}}(Sc^*)
+V_{\text{gov}}(Sc^*) < \theta \cdot V_{\text{env}}(Sc^*)
 \end{equation}
 
 The neutrality condition is violated. \qed
 
 \subsection{Governance Automation Objection}
 
-One may argue that governance capacity scales linearly through AI monitoring. However:
+One may argue that governance capacity scales linearly through automated monitoring. However:
 
-If governance automation is implemented within the same centralized workflow topology, then:
+If governance automation is implemented within the same centralized topology, then:
 \begin{itemize}[noitemsep]
-    \item WCC increases
-    \item Ontology substitutability decreases
+    \item The automation itself requires governance oversight
     \item External corrective independence does not increase proportionally
+    \item Appeal mechanisms remain institutionally bounded
 \end{itemize}
 
 Thus governance automation does not automatically imply:
 \begin{equation}
 V_{\text{gov}}(Sc) = \Theta(Sc)
 \end{equation}
-unless corrective mechanisms are externally independent and substitutable.
+unless corrective mechanisms are externally independent and structurally distributed.
 
 This preserves the proposition.
 
@@ -2233,7 +2171,6 @@ The theory would be falsified if a centralized sovereign DPI:
 \begin{enumerate}[noitemsep]
     \item Achieves population-scale deployment
     \item Maintains governance growth $V_{\text{gov}}(Sc) = \Theta(Sc)$
-    \item Exhibits low workflow capture ($\text{WCC} \approx 0$)
     \item Sustains structural neutrality under high scale
 \end{enumerate}
 \textit{without} federated or multi-operator architecture.
@@ -2252,7 +2189,7 @@ The result does not assert:
 It asserts:
 \begin{itemize}[noitemsep]
     \item Under centralized enforcement topology, governance corrective capacity must scale at least linearly with environmental complexity to preserve neutrality.
-    \item If workflow capture suppresses corrective bandwidth, neutrality degradation risk becomes a structural prediction.
+    \item Sublinear governance growth is a structural prediction of centralized architecture; neutrality degradation risk follows mathematically.
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -2283,16 +2220,16 @@ It asserts:
     \addplot[orange, thick] {2 + 1.5*ln(x+1)};
     \addlegendentry{$V_{\text{gov}} = V_{\text{central}} + V_{\text{restored}}$}
 
-    % Effective variety under WCC (suppressed)
-    \addplot[red, thick, dotted] {0.6*(2 + 1.5*ln(x+1))};
-    \addlegendentry{$V_{\text{eff}}$ under WCC $> 0$}
-
     % Mark critical threshold
     \node[font=\scriptsize, text=red!70!black] at (axis cs:7,3) {$Sc^*$};
     \draw[red!70!black, dashed, thin] (axis cs:5.5,0) -- (axis cs:5.5,5.5);
+
+    % Neutrality threshold line
+    \addplot[red, thick, dotted] {0.5*x};
+    \addlegendentry{$\theta \cdot V_{\text{env}}$ (threshold)}
     \end{axis}
 \end{tikzpicture}
-\caption{\textbf{Governance Variety Compression Under Scale.} As scale increases, environmental variety grows linearly. Under centralized enforcement, governance variety grows sublinearly. Workflow capture further suppresses effective corrective bandwidth. Neutrality degradation risk emerges when effective governance variety falls below environmental complexity (at $Sc^*$).}
+\caption{\textbf{Governance Variety Compression Under Scale.} As scale increases, environmental variety grows linearly. Under centralized enforcement, governance variety grows sublinearly (logarithmic here). Neutrality degradation risk emerges when governance variety falls below the threshold $\theta \cdot V_{\text{env}}$ (at $Sc^*$).}
 \label{fig:variety-compression}
 \end{figure}
 
@@ -2328,7 +2265,7 @@ Due to space constraints, the full normative JSON schemas (v1.7) with exhaustive
     \item Cryptographic signing requirements (Ed25519, DID anchoring)
 \end{itemize}
 
-Researchers and auditors may access, validate, and contribute to these schemas via the permanent repository: \url{https://indiastack.in/dpi/schema/}. The framework source code, including validation scripts suitable for CI/CD integration, is available at the GitHub repository listed in the Data and Code Availability section.
+Researchers and auditors may access, validate, and contribute to these schemas via the permanent repository: \url{https://anivar.net/corrigibility/dpi/schema/}. The framework source code, including validation scripts suitable for CI/CD integration, is available at the GitHub repository listed in the Data and Code Availability section.
 
 \section{Verification and Enforcement}
 \label{appendix:rules}
@@ -2462,10 +2399,8 @@ A condensed ``core'' version of this paper (omitting these sections) is availabl
 \item[GOVERN] Test 4: Binding constraint that users can enforce, not advisory.
 \item[FORK] Test 5: Capacity to reproduce infrastructure independently.
 \item[Correction Velocity] Rate at which errors can be corrected; must exceed error accumulation rate for stability.
-\item[GDoS] Governance Denial of Service: when agent interaction volume exceeds governance capacity.
 \item[Open-washing] Claiming openness through partial compliance while retaining structural control.
 \item[DID-washing] Using decentralized identifiers while maintaining centralized governance.
-\item[Human Friction Buffer] The hidden subsidy where humans absorb system failures through delay and workaround, masking architectural incorrigibility.
 \item[FEE] Functional Exit Equivalence: guarantee that non-digital alternatives achieve equivalent outcomes.
 \end{description}
 

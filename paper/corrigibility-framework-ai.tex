@@ -1016,12 +1016,17 @@ The complete framework, including schemas and assessment tooling, is available a
 
 \begin{itemize}
     \item \textbf{Repository}: \url{https://github.com/anivar/corrigibility-framework}
-    \item \textbf{Assessment Skill}: A unified assessment skill (following the Agentic Skills specification \citep{agentskills2025}) that works with both DPI and EPI schemas. The skill classifies target systems, applies appropriate test criteria, and generates machine-readable assessments. Located at \texttt{skills/corrigibility-assessment/}.
+    \item \textbf{Agentic Skills} (following the Agentic Skills specification \citep{agentskills2025}):
+    \begin{itemize}
+        \item \texttt{skills/schema-creator/} --- For operators (infrastructure.json manifests) and auditors (corrigibility.json assessments). Supports both DPI and EPI with role-specific templates.
+        \item \texttt{skills/schema-evaluator/} --- Validates published schemas, verifies score calculations (geometric mean, automatic F conditions), and detects contradictions between operator claims and auditor findings.
+        \item \texttt{skills/corrigibility-assessment/} --- Rules and test definitions including LWD-R transparency criteria, Compute Capture detection, and Action Boundary verification.
+    \end{itemize}
     \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/corrigibility.json}
     \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/corrigibility.json}
 \end{itemize}
 
-The unified skill demonstrates that the five tests remain invariant across DPI and EPI---only the verification method and evidence requirements adapt to the system type.
+The skill architecture demonstrates that the five tests remain invariant across DPI and EPI---only the verification method and evidence requirements adapt to the system type. The separation into creator, evaluator, and assessment components enables independent tooling for operators, auditors, and validators.
 
 \section*{Acknowledgments}
 

@@ -1630,7 +1630,12 @@ The complete framework, including JSON Schemas and assessment tooling, is availa
 
 \begin{itemize}
     \item \textbf{Repository}: \url{https://github.com/anivar/corrigibility-framework}
-    \item \textbf{Assessment Skill}: A unified assessment skill (following the Agentic Skills specification) that works with both DPI and EPI schemas. The skill decomposes systems into architectural layers (identity, credential, payment, data\_exchange, registry), applies the five tests, and generates machine-readable assessments. Located at \texttt{skills/corrigibility-assessment/}.
+    \item \textbf{Agentic Skills} (following the Agentic Skills specification \citep{agentskills2025}):
+    \begin{itemize}
+        \item \texttt{skills/schema-creator/} --- For operators (infrastructure.json manifests) and auditors (corrigibility.json assessments). Supports both DPI and EPI with role-specific templates.
+        \item \texttt{skills/schema-evaluator/} --- Validates published schemas, verifies score calculations, and detects contradictions between operator claims and auditor findings.
+        \item \texttt{skills/corrigibility-assessment/} --- Rules and test definitions. Decomposes systems into architectural layers (identity, credential, payment, data\_exchange, registry) and applies the five tests.
+    \end{itemize}
     \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/corrigibility.json}
     \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/corrigibility.json} (see companion paper)
 \end{itemize}
@@ -2416,6 +2421,11 @@ Beer, Stafford.
 Ashby, W. Ross.
 \newblock {\em An Introduction to Cybernetics}.
 \newblock Chapman \& Hall, 1956.
+
+\bibitem[Agent Skills(2025)]{agentskills2025}
+Agent Skills Specification.
+\newblock The open SKILL.md standard for AI agent capabilities.
+\newblock \url{https://agentskills.io/specification}, 2025.
 
 \bibitem[Ostrom(1990)]{ostrom1990}
 Ostrom, Elinor.

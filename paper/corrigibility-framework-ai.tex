@@ -531,11 +531,47 @@ As infrastructure transitions to the Rule of the Workflow, the fundamental unit 
 If the state cannot govern the neural network's weights, it must govern the \textbf{action boundary}---the deterministic envelope that wraps stochastic inference. The Action Boundary Protocol specifies: (1) hard-coded preconditions, (2) deterministic tool execution, and (3) explicit termination criteria to prevent Governance Denial of Service (GDoS).
 \end{principle}
 
-In agentic systems, learned inference should not directly trigger irreversible action. Instead, inference outputs must pass through a deterministic validation layer that enforces policy constraints and safety rules. Formally:
+In agentic systems, learned inference should not directly trigger irreversible action. Instead, inference outputs must pass through a deterministic validation layer that enforces policy constraints and safety rules.
 
-\begin{center}
-\texttt{LLM Inference} $\to$ \texttt{Proposed Action} $\to$ \texttt{Deterministic Validator} $\to$ \texttt{Execution}
-\end{center}
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=0.8cm,
+    box/.style={rectangle, draw, rounded corners, minimum height=1cm, minimum width=2.2cm, font=\small\sffamily, align=center},
+    stochastic/.style={box, fill=orange!15, draw=orange!60},
+    deterministic/.style={box, fill=green!15, draw=green!60},
+    reject/.style={box, fill=red!15, draw=red!60},
+    arrow/.style={-{Stealth[length=2.5mm]}, thick}
+]
+
+% Main flow
+\node[stochastic] (llm) {LLM\\Inference};
+\node[box, right=of llm] (action) {Proposed\\Action};
+\node[deterministic, right=of action] (validator) {Deterministic\\Validator};
+\node[deterministic, right=of validator] (exec) {Execution};
+
+% Reject path
+\node[reject, below=of validator] (reject) {REJECT\\(Logged)};
+
+% Arrows
+\draw[arrow] (llm) -- (action);
+\draw[arrow] (action) -- (validator);
+\draw[arrow] (validator) -- (exec);
+\draw[arrow, red!60] (validator) -- (reject);
+
+% Labels
+\node[above=0.3cm of llm, font=\tiny\sffamily, text=orange!70!black] {Stochastic};
+\node[above=0.3cm of validator, font=\tiny\sffamily, text=green!50!black] {Deterministic};
+\node[above=0.3cm of exec, font=\tiny\sffamily, text=green!50!black] {Deterministic};
+
+% Boundary annotation
+\draw[dashed, thick, blue!50] ($(action.north west)+(-0.2,0.5)$) -- ($(action.north east)+(0.2,0.5)$);
+\node[above=0.6cm of action, font=\tiny\sffamily\bfseries, text=blue!70] {ACTION BOUNDARY};
+
+\end{tikzpicture}
+\caption{\textbf{Action Boundary Protocol.} Probabilistic inference (orange) produces proposed actions. A deterministic validator (green) enforces hard constraints before execution. Invalid actions are rejected and logged. The action boundary separates epistemic generation from authorized execution.}
+\label{fig:action-boundary}
+\end{figure}
 
 The validator enforces hard constraints independent of probabilistic inference. Corrigibility in agentic systems therefore requires separation between epistemic generation and action authorization.
 

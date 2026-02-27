@@ -491,6 +491,8 @@ The engineering instantiation of this protocol is the \textbf{Agentic Skill}.
 An Agentic Skill is a bounded, machine-readable orchestration protocol that encapsulates stochastic inference within the Action Boundary. It acts as the technical instantiation of the Agentic API Contract.
 \end{definition}
 
+\paragraph{The SBOM Analogy.} For security-minded readers: Agentic Skills function like a \textbf{Software Bill of Materials (SBOM)} for AI actions. Just as SBOMs enumerate software dependencies to enable vulnerability auditing, skill manifests enumerate action boundaries to enable governance auditing. The same transparency that enables correction also creates attack surface---this tradeoff is inherent to all deterministic governance systems (see Limitations, Section~\ref{sec:discussion}).
+
 The open \texttt{SKILL.md} standard (agentskills.io), adopted by 18+ AI agent platforms including OpenAI Codex, GitHub Copilot, and Cursor, provides the concrete specification. A skill is a directory containing a \texttt{SKILL.md} file with YAML frontmatter and Markdown instructions:
 
 \begin{verbatim}
@@ -754,7 +756,7 @@ The framework addresses the transition from cloud-centric ``Platform DPI'' to de
 Edge AI is the primary strategy for restoring EXIT and FORK in population-scale infrastructure:
 
 \begin{itemize}[noitemsep]
-    \item \textbf{Server Edge (Federated Nodes)}: Running infrastructure across multiple independent server nodes (similar to Estonia's X-Road) ensures no single operator maintains execution monopoly. This creates Functional Exit Equivalence (FEE): if one node is captured, system variety is preserved through other federated nodes.
+    \item \textbf{Server Edge (Federated Nodes)}: Running infrastructure across multiple independent server nodes (similar to Estonia's X-Road) ensures no single operator maintains execution monopoly. This creates Functional Exit Equivalence (FEE)\footnote{FEE is defined and formalized in the companion paper (Section 6.7.2). When literal exit is impossible for essential services, FEE provides architectural guarantees that recreate the error-signal strength of market exit without requiring citizens to abandon society.}: if one node is captured, system variety is preserved through other federated nodes.
 
     \item \textbf{Mobile Edge (Local Inference)}: Transitioning to local execution on mobile devices (using Small Language Models) provides the strongest EXIT guarantee. Users perform essential functions without transmitting telemetry to central authority, bypassing Rule of Workflow capture.
 \end{itemize}

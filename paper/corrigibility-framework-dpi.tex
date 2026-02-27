@@ -220,7 +220,7 @@ Without hard structural requirements, ``Public'' becomes a mere descriptor of sc
 Current DPI policy specifies \textbf{intent, not conditions}. It articulates what systems \textit{should} achieve without specifying what they \textit{must} structurally provide. Under such definitions, a system that traps users in a coercive loop can be labeled ``public infrastructure'' simply because it operates at scale. The framework proposed in this paper converts aspirational adjectives into verifiable predicates. It asks not ``Is this system described as open?'' but ``Can independent parties inspect its operation?'' Not ``Is this system intended to be accountable?'' but ``Can those it affects trigger correction?''
 \end{remark}
 
-This danger is acute in the transition to AI-mediated governance, where ``Infrastructure'' begins to make probabilistic judgments rather than deterministic records. When the system itself becomes opaque by design (learned behavior rather than written code), the gap between definitional aspiration and structural reality widens further.
+This danger is acute as digital infrastructure expands from simple databases to complex orchestration layers. When systems become opaque by design---whether through proprietary code, closed APIs, or undocumented decision logic---the gap between definitional aspiration and structural reality widens further. A companion paper extends this framework to learned systems (AI/ML) where additional verification challenges arise.
 
 \subsection{Related Work}
 
@@ -713,7 +713,7 @@ In the private sector, systems often leverage "open source" branding while retai
 \begin{table}[htbp]
     \centering
     \scriptsize
-    \caption{\textbf{Evaluation of Private/Platform Infrastructure.} Technical openness (Source/Weights) does not guarantee structural accountability.}
+    \caption{\textbf{Evaluation of Private/Platform Infrastructure.} Technical openness (Source Code/APIs) does not guarantee structural accountability.}
     \label{tab:corp_infra}
 
     % -- Subtable A: Cloud Infrastructure (AWS/Azure) --
@@ -962,7 +962,7 @@ Active Deception takes three forms:
 
 \paragraph{1. Safety-Washing.} Systems that claim safety certifications, audits, or approvals that do not correspond to verifiable structural properties. A system may publish ``privacy by design'' documents while implementing opaque centralized logging; display compliance badges while blocking independent audit access; or cite ethics board oversight while exempting operational decisions from board review. The deception lies in the gap between representation and verifiable architecture.
 
-\paragraph{2. Open-Washing.} Systems that claim openness while structurally foreclosing the rights that openness implies. Publishing inference code while withholding training data, weights, or RLHF preferences constitutes open-washing: it mimics CODE compliance while preventing meaningful reproduction (FORK). The term ``open'' has been systematically degraded through this practice, requiring the framework to specify \textit{structural} rather than \textit{nominal} criteria.
+\paragraph{2. Open-Washing.} Systems that claim openness while structurally foreclosing the rights that openness implies. Publishing peripheral SDKs while withholding core execution logic, or releasing API documentation while keeping routing algorithms proprietary, constitutes open-washing: it mimics CODE compliance while preventing meaningful reproduction (FORK). The term ``open'' has been systematically degraded through this practice, requiring the framework to specify \textit{structural} rather than \textit{nominal} criteria.
 
 \paragraph{3. Audit Theatre.} Systems that permit nominal inspection while structurally preventing the inspector from detecting errors. This includes: providing read access to sanitized logs rather than raw execution traces; permitting audits only at pre-announced times; or granting access to components that do not determine actual behavior. The auditor observes a Potemkin system; the production system operates under different logic.
 
@@ -1297,7 +1297,7 @@ $\epsilon$ & Correction friction cost & Context-dependent & \ref{appendix:proofs
 
 % -- ROW 3: OPAQUE (No Inspection) --
 \node[font=\bfseries\sffamily, align=left] at (-3, -4) {3. OPAQUE\\(No Insight)};
-\node[box, fill=gray!20] (op3) at (0,-4) {AI Model};
+\node[box, fill=gray!20] (op3) at (0,-4) {Black Box};
 \node[box] (us3) at (4,-4) {Public};
 
 \draw[->, thick, codecolor, dashed] (op3) -- node[above, font=\tiny] {????} (us3);
@@ -1549,15 +1549,7 @@ Digital Public Infrastructure is not a specific technology; it is a claim of pol
 
 This paper argues that such legitimacy cannot be derived from self-declarations, "open standards" labeling, or multilateral endorsements. It relies on a specific cybernetic property: \textbf{Corrigibility}. The capacity of the governed to observe the rules, verify their execution, limit their reach, and, if necessary, reproduce the infrastructure to escape its capture.
 
-This paper has proposed five rigorous tests to verify this capacity. The analysis demonstrates that systems currently touted as DPI models (Aadhaar, UPI, and proprietary AI) fail these tests, revealing them to be administrative enclosures rather than public goods. Conversely, the systems which actually run the world (Linux, Kubernetes, the Web) pass them structurally.
-
-\subsection{The Asymmetry of Intelligence}
-
-The problem of AI-DPI governance is not a problem of intelligence, but a problem of \textbf{infrastructural asymmetry}. Corrigibility declines not because models are powerful, but because centralized scaling concentrates compute, ontology, and routing control into fewer hands. The five tests diagnose this concentration; they do not measure capability.
-
-A world model running on distributed edge devices with open weights, published representation schemas, and federated governance would pass all five tests regardless of its intelligence. A narrow classifier running on centralized infrastructure with opaque logic and mandatory participation would fail regardless of its simplicity. The framework is architecture-sensitive, not capability-sensitive.
-
-This reframing matters for policy. The discourse of ``AI risk'' often conflates capability with capture. Corrigibility separates these concerns: a system can be simultaneously powerful and accountable, or weak and authoritarian. The question is not ``How smart is it?'' but ``Can those it affects correct it?'' As Section~\ref{subsec:institutional} establishes, corrigibility requires institutional capacity to translate structural safeguards into practical accountability.
+This paper has proposed five rigorous tests to verify this capacity. The analysis demonstrates that systems currently touted as DPI models (Aadhaar, UPI) fail these tests, revealing them to be administrative enclosures rather than public goods. Conversely, the systems which actually run the world (Linux, Kubernetes, the Web) pass them structurally.
 
 \subsection{The Roadmap Out}
 

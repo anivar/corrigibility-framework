@@ -709,6 +709,110 @@ The five corrigibility tests---EXIT, CODE, AUDIT, GOVERN, FORK---remain invarian
 
 The analysis reveals that structural corrigibility is distinct from AI alignment. Alignment asks whether operators can control systems; corrigibility asks whether affected subjects can correct them. As AI transitions from research artifact to public infrastructure, this distinction becomes essential. Infrastructure that affects citizens at population scale must be correctable by those it governs---regardless of whether that infrastructure executes deterministic code or learned parameters.
 
+%% ============================================
+%% APPENDIX: AGENTIC SKILLS SCHEMA
+%% ============================================
+
+\appendix
+
+\section{Agentic Skills Schema Specifications}
+\label{appendix:agentic-schema}
+
+To distinguish valid governance from performative compliance, the framework provides machine-readable assessment schemas for agentic workflows. These schemas convert the theoretical defense against Workflow Capture into enforceable compliance gates.
+
+\subsection{Operator's Affidavit: \texttt{infrastructure.json}}
+
+The operator must declare exactly how the stochastic AI is bounded. The \texttt{agentic\_workflow\_governance} object proves they are using standard, deterministic skill definitions rather than proprietary black-box orchestration.
+
+\begin{verbatim}
+{
+  "$schema": "https://indiastack.in/dpi/schema/infrastructure.json",
+  "system_name": "State Welfare Triage Agent",
+  "agentic_workflow_governance": {
+    "workflow_type": "bounded_skill_orchestration",
+    "skills_schema_url": "https://github.com/state-gov/welfare-skills",
+    "protocol_standard": "agenticskills.io/v1",
+    "deterministic_guardrails": {
+      "pre_execution_validation": true,
+      "post_execution_validation": true,
+      "executed_outside_llm_context": true
+    },
+    "epistemic_delegation_metrics": {
+      "ontology_substitutability": 0.9,
+      "llm_agnostic": true,
+      "vendor_lock_in_risk": "low"
+    }
+  }
+}
+\end{verbatim}
+
+\paragraph{Critical Fields.}
+\begin{itemize}[noitemsep]
+    \item \texttt{executed\_outside\_llm\_context}: The cybernetic anchor. Legally binds the operator to a claim that governance constraints are hard-coded in the skill's execution environment, not merely injected into the LLM's system prompt (which can be bypassed).
+    \item \texttt{llm\_agnostic}: Asserts high model portability ($M_{\text{portability}}$), meaning the state can swap the underlying AI model without breaking the policy workflow.
+\end{itemize}
+
+\subsection{Auditor's Finding: \texttt{corrigibility.json}}
+
+The auditor does not merely read the operator's JSON; they red-team it. The auditor attempts to bypass skill boundaries and calculates the actual Workflow Capture Coefficient (WCC).
+
+\begin{verbatim}
+{
+  "$schema": "https://indiastack.in/dpi/schema/corrigibility.json",
+  "target_system": "State Welfare Triage Agent",
+  "workflow_capture_assessment": {
+    "wcc_score": 0.15,
+    "wcc_threshold_passed": true,
+    "skill_boundary_tests": {
+      "guardrails_bypassed_via_prompt_injection": false,
+      "unauthorized_skill_invocation_possible": false,
+      "termination_criteria_verifiable": true
+    },
+    "reproduction_tests": {
+      "skills_reproducible_with_alt_llm": true,
+      "ontology_schema_publicly_available": true
+    }
+  },
+  "determinations": {
+    "CODE": true,
+    "GOVERN": true,
+    "FORK": true
+  }
+}
+\end{verbatim}
+
+\subsection{Enforcement Logic Gates}
+
+The schema fields directly map to corrigibility test determinations:
+
+\begin{enumerate}
+    \item \textbf{Enforcing GOVERN}: If \texttt{guardrails\_bypassed\_via\_prompt\_injection} is \texttt{true}, the system instantly fails GOVERN. The constraints were probabilistic (advisory to the LLM) rather than deterministic (binding).
+
+    \item \textbf{Enforcing CODE (LWD-R)}: If \texttt{ontology\_schema\_publicly\_available} is \texttt{false}, the system fails the Representation (R) requirement of CODE, triggering Representation Capture Risk (RCR).
+
+    \item \textbf{Enforcing FORK}: If \texttt{skills\_reproducible\_with\_alt\_llm} is \texttt{false}, the workflow is tightly coupled to a proprietary vendor. The WCC score spikes, and the system fails FORK.
+\end{enumerate}
+
+\begin{table}[htbp]
+\centering
+\caption{Schema field to corrigibility test mapping}
+\label{tab:schema-mapping}
+\small
+\begin{tabular}{@{}llp{5cm}@{}}
+\toprule
+\textbf{Schema Field} & \textbf{Test} & \textbf{Failure Condition} \\
+\midrule
+\texttt{executed\_outside\_llm\_context} & GOVERN & \texttt{false} $\Rightarrow$ constraints are advisory \\
+\texttt{guardrails\_bypassed\_via\_prompt\_injection} & GOVERN & \texttt{true} $\Rightarrow$ boundaries are soft \\
+\texttt{ontology\_schema\_publicly\_available} & CODE & \texttt{false} $\Rightarrow$ RCR triggered \\
+\texttt{skills\_reproducible\_with\_alt\_llm} & FORK & \texttt{false} $\Rightarrow$ vendor lock-in \\
+\texttt{wcc\_score} & FORK & $> 0.7$ $\Rightarrow$ high capture risk \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Architectural Significance.} By encoding Agentic Skills into adversarial JSON schemas, the framework transforms theoretical governance requirements into machine-readable, enforceable compliance gates. State architects can require these schemas in public procurement contracts, definitively banning black-box, vendor-locked agentic workflows.
+
 \section*{Acknowledgments}
 
 This paper extends the DPI corrigibility framework \citep{paper1} to learned systems. The author thanks the AI governance research community for ongoing critique.

@@ -430,6 +430,52 @@ As infrastructure transitions to the Rule of the Workflow, the fundamental unit 
 An Agentic Skill is a bounded, machine-readable orchestration protocol that encapsulates stochastic inference within strict preconditions, deterministic tool execution, and explicit termination criteria. It acts as the technical instantiation of the Agentic API Contract.
 \end{definition}
 
+The open \texttt{SKILL.md} standard (agentskills.io), adopted by 18+ AI agent platforms including OpenAI Codex, GitHub Copilot, and Cursor, provides the concrete specification. A skill is a directory containing a \texttt{SKILL.md} file with YAML frontmatter and Markdown instructions:
+
+\begin{verbatim}
+skill-name/
+├── SKILL.md          # Required: frontmatter + instructions
+├── scripts/          # Optional: executable code
+├── references/       # Optional: additional documentation
+└── assets/           # Optional: templates, schemas
+\end{verbatim}
+
+\paragraph{Frontmatter as Corrigibility Contract.} The YAML frontmatter encodes the governance contract:
+
+\begin{verbatim}
+---
+name: welfare-triage           # Required, 1-64 chars
+description: Determines eligibility for welfare programs.
+             Use when processing benefit applications.
+license: Apache-2.0
+compatibility: Requires access to citizen registry API
+allowed-tools: Bash(curl:*) Read Write  # GOVERN constraint
+metadata:
+  author: state-welfare-dept
+  version: "2.1"
+---
+\end{verbatim}
+
+The \texttt{allowed-tools} field is the \textbf{cybernetic anchor}: it specifies which tools the agent may invoke, hard-coded outside the LLM's context window. An LLM cannot prompt-inject past this constraint---it is enforced by the execution environment, not by the model's alignment.
+
+\paragraph{Progressive Disclosure Architecture.} Skills use progressive disclosure to manage context efficiently, directly implementing the LWD-R requirement:
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{SKILL.md progressive disclosure layers}
+\label{tab:skill-disclosure}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Layer} & \textbf{Tokens} & \textbf{When Loaded} & \textbf{LWD-R Mapping} \\
+\midrule
+Metadata & $\sim$100 & Startup (all skills) & L (Logic discovery) \\
+Instructions & $<$5000 & Activation & R (Representation) \\
+Resources & As needed & Execution & D (Data provenance) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsubsection{Bounding Stochasticity}
 
 In learned systems, behavior is probabilistic. However, public infrastructure requires deterministic accountability. The Agentic Skills architecture resolves this tension by separating the \textit{reasoning engine} (the stochastic model) from the \textit{action boundary} (the deterministic skill definition).
@@ -739,6 +785,8 @@ This framework offers three contributions to AI governance discourse:
     \item \textbf{Compute accessibility is geopolitically constrained.} Public compute infrastructure sufficient for training forkability may be infeasible for many nations due to cost, expertise, and supply chain constraints.
 
     \item \textbf{The framework does not address emergent capabilities.} Unpredictable capabilities that emerge during training present governance challenges that structural tests alone cannot address.
+
+    \item \textbf{Deterministic boundaries create known attack surfaces (SBOM problem).} The Agentic Skills architecture requires explicit, machine-readable disclosure of skill boundaries, allowed tools, and execution constraints. This transparency enables governance but simultaneously creates a complete map of the system's action space for adversaries. The same \texttt{allowed-tools} field that prevents unauthorized actions also reveals exactly which actions \textit{are} authorized. This is analogous to Software Bill of Materials (SBOM) disclosure: useful for auditing dependencies but also useful for targeting known vulnerabilities. All deterministic governance systems face this tradeoff---the boundaries that constrain must be known, and what is known can be attacked. The framework does not resolve this tension; it makes it explicit.
 \end{enumerate}
 
 \subsection{Future Work}
@@ -796,7 +844,8 @@ The operator must declare exactly how the stochastic AI is bounded. The \texttt{
 
 \paragraph{Critical Fields.}
 \begin{itemize}[noitemsep]
-    \item \texttt{executed\_outside\_llm\_context}: The cybernetic anchor. Legally binds the operator to a claim that governance constraints are hard-coded in the skill's execution environment, not merely injected into the LLM's system prompt (which can be bypassed).
+    \item \texttt{protocol\_standard}: References the open \texttt{SKILL.md} specification \citep{agentskills2025}, ensuring skills follow the standardized format adopted across 18+ platforms.
+    \item \texttt{executed\_outside\_llm\_context}: The cybernetic anchor. Legally binds the operator to a claim that governance constraints are hard-coded in the skill's execution environment (via \texttt{allowed-tools} in SKILL.md frontmatter), not merely injected into the LLM's system prompt (which can be bypassed).
     \item \texttt{llm\_agnostic}: Asserts high model portability ($M_{\text{portability}}$), meaning the state can swap the underlying AI model without breaking the policy workflow.
 \end{itemize}
 
@@ -890,6 +939,12 @@ Gebru, Timnit, et al.
 Mitchell, Margaret, et al.
 \newblock Model Cards for Model Reporting.
 \newblock {\em Proceedings of FAT* 2019}, 220--229, 2019.
+
+\bibitem[Agent Skills(2025)]{agentskills2025}
+Agent Skills Specification.
+\newblock The open SKILL.md standard for AI agent capabilities.
+\newblock \url{https://agentskills.io/specification}, 2025.
+\newblock Adopted by OpenAI Codex, GitHub Copilot, Cursor, and 18+ platforms.
 
 \bibitem[Author(2026)]{paper1}
 [Author].

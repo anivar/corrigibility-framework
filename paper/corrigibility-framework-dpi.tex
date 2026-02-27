@@ -338,37 +338,44 @@ Together, these conditions form a closed-loop structure. Removal of any one cond
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    layer/.style={rectangle, draw, rounded corners, minimum width=8cm, minimum height=0.9cm, font=\sffamily\small, align=center},
+    layer/.style={rectangle, draw, rounded corners, minimum width=6.5cm, minimum height=0.9cm, font=\sffamily\small, align=center},
     test/.style={rectangle, rounded corners, draw=#1, fill=#1!20, minimum width=1.2cm, minimum height=0.5cm, font=\tiny\bfseries},
-    arrow/.style={-{Stealth[length=2mm]}, thick, gray}
+    arrow/.style={-{Stealth[length=2mm]}, thick, gray},
+    failure/.style={font=\tiny\sffamily, text=red!70!black, align=left}
 ]
+
+% Title
+\node[font=\sffamily\bfseries, text=gray] at (0, 5) {CLOSED-LOOP CORRIGIBILITY STRUCTURE};
 
 % Layers (bottom to top)
 \node[layer, fill=forkcolor!10] (replacement) at (0, 0) {\textbf{Replacement Layer}};
-\node[layer, fill=governcolor!10] (constraint) at (0, 1.2) {\textbf{Constraint Layer}};
-\node[layer, fill=exitcolor!10] (participation) at (0, 2.4) {\textbf{Participation Layer}};
-\node[layer, fill=auditcolor!10] (observability) at (0, 3.6) {\textbf{Observability Layer}};
+\node[layer, fill=governcolor!10] (constraint) at (0, 1.3) {\textbf{Constraint Layer}};
+\node[layer, fill=exitcolor!10] (participation) at (0, 2.6) {\textbf{Participation Layer}};
+\node[layer, fill=auditcolor!10] (observability) at (0, 3.9) {\textbf{Observability Layer}};
 
 % Tests
-\node[test=forkcolor, right=0.3cm of replacement.east, anchor=west] {FORK};
-\node[test=governcolor, right=0.3cm of constraint.east, anchor=west] {GOVERN};
-\node[test=exitcolor, right=0.3cm of participation.east, anchor=west] {EXIT};
-\node[test=codecolor, right=0.3cm of observability.east, anchor=west] (code) {CODE};
-\node[test=auditcolor, right=0.15cm of code.east, anchor=west] {AUDIT};
+\node[test=forkcolor, right=0.2cm of replacement.east, anchor=west] {FORK};
+\node[test=governcolor, right=0.2cm of constraint.east, anchor=west] {GOVERN};
+\node[test=exitcolor, right=0.2cm of participation.east, anchor=west] {EXIT};
+\node[test=codecolor, right=0.2cm of observability.east, anchor=west] (code) {CODE};
+\node[test=auditcolor, right=0.1cm of code.east, anchor=west] {AUDIT};
 
-% Failure descriptions
-\node[font=\tiny\sffamily, text=gray, left=0.3cm of replacement.west, anchor=east, align=right] {Can system be\\reproduced?};
-\node[font=\tiny\sffamily, text=gray, left=0.3cm of constraint.west, anchor=east, align=right] {Can rules be\\changed?};
-\node[font=\tiny\sffamily, text=gray, left=0.3cm of participation.west, anchor=east, align=right] {Can users\\withdraw?};
-\node[font=\tiny\sffamily, text=gray, left=0.3cm of observability.west, anchor=east, align=right] {Can errors be\\detected?};
+% Failure consequences (right side)
+\node[failure, right=2.8cm of replacement.east, anchor=west] {If removed: \textbf{Permanent capture}\\(no alternative exists)};
+\node[failure, right=2.8cm of constraint.east, anchor=west] {If removed: \textbf{Arbitrary power}\\(correction is discretionary)};
+\node[failure, right=2.8cm of participation.east, anchor=west] {If removed: \textbf{Coercive lock-in}\\(no error signal)};
+\node[failure, right=2.8cm of observability.east, anchor=west] {If removed: \textbf{Opaque drift}\\(errors undetectable)};
 
 % Arrows showing dependency
 \draw[arrow] (replacement.north) -- (constraint.south);
 \draw[arrow] (constraint.north) -- (participation.south);
 \draw[arrow] (participation.north) -- (observability.south);
 
+% Open-loop warning
+\node[font=\scriptsize\sffamily, text=red!60!black, align=center] at (0, -0.8) {Removal of any layer $\rightarrow$ \textbf{Open-loop system}};
+
 \end{tikzpicture}
-\caption{\textbf{Four Control Layers of Corrigibility.} Each layer addresses a distinct failure mode. Observability enables error detection; Participation enables error signaling; Constraint enables correction; Replacement ensures corrective capacity cannot be permanently blocked. Failure at any layer propagates upward.}
+\caption{\textbf{Closed-Loop Corrigibility Structure.} Each layer addresses a distinct failure mode, with specific power asymmetries that emerge when removed. Observability enables error detection; Participation enables error signaling; Constraint enables correction; Replacement ensures corrective capacity cannot be permanently blocked. \textbf{Removal of any layer converts the system to open-loop}, where error accumulation is unbounded.}
 \label{fig:four-layers}
 \end{figure}
 

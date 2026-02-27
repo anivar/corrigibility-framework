@@ -536,8 +536,8 @@ In agentic systems, learned inference should not directly trigger irreversible a
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    node distance=0.8cm,
-    box/.style={rectangle, draw, rounded corners, minimum height=1cm, minimum width=2.2cm, font=\small\sffamily, align=center},
+    node distance=0.9cm,
+    box/.style={rectangle, draw, rounded corners, minimum height=1cm, minimum width=2.4cm, font=\small\sffamily, align=center},
     stochastic/.style={box, fill=orange!15, draw=orange!60},
     deterministic/.style={box, fill=green!15, draw=green!60},
     reject/.style={box, fill=red!15, draw=red!60},
@@ -546,30 +546,36 @@ In agentic systems, learned inference should not directly trigger irreversible a
 
 % Main flow
 \node[stochastic] (llm) {LLM\\Inference};
-\node[box, right=of llm] (action) {Proposed\\Action};
+\node[box, right=of llm] (action) {Proposed Action\\Envelope};
 \node[deterministic, right=of action] (validator) {Deterministic\\Validator};
 \node[deterministic, right=of validator] (exec) {Execution};
 
 % Reject path
-\node[reject, below=of validator] (reject) {REJECT\\(Logged)};
+\node[reject, below=1.2cm of validator] (reject) {REJECT\\(Logged)};
 
-% Arrows
+% Arrows - main flow
 \draw[arrow] (llm) -- (action);
 \draw[arrow] (action) -- (validator);
 \draw[arrow] (validator) -- (exec);
 \draw[arrow, red!60] (validator) -- (reject);
 
-% Labels
-\node[above=0.3cm of llm, font=\tiny\sffamily, text=orange!70!black] {Stochastic};
-\node[above=0.3cm of validator, font=\tiny\sffamily, text=green!50!black] {Deterministic};
-\node[above=0.3cm of exec, font=\tiny\sffamily, text=green!50!black] {Deterministic};
+% Feedback arrow from reject to llm
+\draw[arrow, dashed, blue!60] (reject.west) -- ++(-3.5,0) |- (llm.south);
+\node[font=\tiny\sffamily, text=blue!60, below=0.1cm of llm] {Learning feedback};
 
-% Boundary annotation
-\draw[dashed, thick, blue!50] ($(action.north west)+(-0.2,0.5)$) -- ($(action.north east)+(0.2,0.5)$);
-\node[above=0.6cm of action, font=\tiny\sffamily\bfseries, text=blue!70] {ACTION BOUNDARY};
+% Domain labels
+\node[above=0.4cm of llm, font=\scriptsize\sffamily\bfseries, text=orange!70!black] {INFERENCE DOMAIN};
+\node[above=0.4cm of exec, font=\scriptsize\sffamily\bfseries, text=green!50!black] {EXECUTION DOMAIN};
+
+% Action Boundary - vertical separator
+\draw[dashed, very thick, blue!70] ($(action.east)+(0.45,1.2)$) -- ($(action.east)+(0.45,-2.0)$);
+\node[font=\scriptsize\sffamily\bfseries, text=blue!70, rotate=90, anchor=south] at ($(action.east)+(0.7,-0.4)$) {ACTION BOUNDARY};
+
+% GOVERN label
+\node[below=0.1cm of validator, font=\tiny\sffamily, text=green!50!black] {(GOVERN)};
 
 \end{tikzpicture}
-\caption{\textbf{Action Boundary Protocol.} Probabilistic inference (orange) produces proposed actions. A deterministic validator (green) enforces hard constraints before execution. Invalid actions are rejected and logged. The action boundary separates epistemic generation from authorized execution.}
+\caption{\textbf{Action Boundary Protocol.} Probabilistic inference (orange) produces proposed action envelopes. A deterministic validator (green, implementing GOVERN) enforces hard constraints before execution. Invalid actions are rejected, logged, and fed back for learning. The vertical \textbf{Action Boundary} separates the inference domain from the execution domain---the architectural instantiation of corrigibility in agentic systems.}
 \label{fig:action-boundary}
 \end{figure}
 

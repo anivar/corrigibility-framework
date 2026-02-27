@@ -139,7 +139,7 @@ Corrigibility, Digital Public Infrastructure, Cybernetics, Feedback Control, Req
 
 Digital Public Infrastructure (DPI) is often evaluated using aspirational criteria such as openness, interoperability, inclusion, or scale. However, these descriptors do not answer a more fundamental question: can the system be corrected when it goes wrong?
 
-This paper argues that the defining feature of legitimate public infrastructure is \textbf{corrigibility}---the structural ability of affected participants to detect, contest, and override systemic error. Without this property, digital infrastructure becomes an open-loop system: errors may be acknowledged, but correction remains discretionary rather than guaranteed.
+This paper argues that the defining feature of legitimate public infrastructure is \textbf{corrigibility}: the structural ability of affected participants to detect, contest, and override systemic error. Without this property, digital infrastructure becomes an open-loop system: errors may be acknowledged, but correction remains discretionary rather than guaranteed.
 
 The paper identifies five structural conditions required for corrigibility:
 
@@ -253,7 +253,7 @@ Without hard structural requirements, ``Public'' becomes a mere descriptor of sc
 Current DPI policy specifies \textbf{intent, not conditions}. It articulates what systems \textit{should} achieve without specifying what they \textit{must} structurally provide. Under such definitions, a system that traps users in a coercive loop can be labeled ``public infrastructure'' simply because it operates at scale. The framework proposed in this paper converts aspirational adjectives into verifiable predicates. It asks not ``Is this system described as open?'' but ``Can independent parties inspect its operation?'' Not ``Is this system intended to be accountable?'' but ``Can those it affects trigger correction?''
 \end{remark}
 
-This danger is acute as digital infrastructure expands from simple databases to complex orchestration layers. When systems become opaque by design---whether through proprietary code, closed APIs, or undocumented decision logic---the gap between definitional aspiration and structural reality widens further. A companion paper extends this framework to learned systems (AI/ML) where additional verification challenges arise.
+This danger is acute as digital infrastructure expands from simple databases to complex orchestration layers. When systems become opaque by design (whether through proprietary code, closed APIs, or undocumented decision logic), the gap between definitional aspiration and structural reality widens further. A companion paper extends this framework to learned systems (AI/ML) where additional verification challenges arise.
 
 \subsection{Related Work}
 
@@ -363,13 +363,20 @@ Together, these conditions form a closed-loop structure. Removal of any one cond
 % Failure consequences (right side)
 \node[failure, right=2.8cm of replacement.east, anchor=west] {If removed: \textbf{Permanent capture}\\(no alternative exists)};
 \node[failure, right=2.8cm of constraint.east, anchor=west] {If removed: \textbf{Arbitrary power}\\(correction is discretionary)};
-\node[failure, right=2.8cm of participation.east, anchor=west] {If removed: \textbf{Coercive lock-in}\\(no error signal)};
-\node[failure, right=2.8cm of observability.east, anchor=west] {If removed: \textbf{Opaque drift}\\(errors undetectable)};
+\node[failure, right=2.8cm of participation.east, anchor=west] {If removed: \textbf{Coercive participation}\\(no exit signal)};
+\node[failure, right=2.8cm of observability.east, anchor=west] {If removed: \textbf{Opaque error accumulation}\\(drift undetectable)};
 
-% Arrows showing dependency
+% Arrows showing dependency (upward flow)
 \draw[arrow] (replacement.north) -- (constraint.south);
 \draw[arrow] (constraint.north) -- (participation.south);
 \draw[arrow] (participation.north) -- (observability.south);
+
+% Closed-loop arrow (feedback from top back to bottom)
+\draw[arrow, gray!60, dashed, thick]
+    (observability.east) -- ++(0.8,0)
+    arc[start angle=90, end angle=-90, radius=2.6cm]
+    -- (replacement.east);
+\node[font=\tiny\sffamily, text=gray!70, rotate=-90, anchor=south] at (4.3, 2.0) {Feedback loop};
 
 % Open-loop warning
 \node[font=\scriptsize\sffamily, text=red!60!black, align=center] at (0, -0.8) {Removal of any layer $\rightarrow$ \textbf{Open-loop system}};
@@ -1744,9 +1751,9 @@ The complete framework, including JSON Schemas and assessment tooling, is availa
     \item \textbf{Repository}: \url{https://github.com/anivar/corrigibility-framework}
     \item \textbf{Agentic Skills} (following the Agentic Skills specification \citep{agentskills2025}):
     \begin{itemize}
-        \item \texttt{skills/schema-creator/} --- For operators (infrastructure.json manifests) and auditors (corrigibility.json assessments). Supports both DPI and EPI with role-specific templates.
-        \item \texttt{skills/schema-evaluator/} --- Validates published schemas, verifies score calculations, and detects contradictions between operator claims and auditor findings.
-        \item \texttt{skills/corrigibility-assessment/} --- Rules and test definitions. Decomposes systems into architectural layers (identity, credential, payment, data\_exchange, registry) and applies the five tests.
+        \item \texttt{skills/schema-creator/}: For operators (infrastructure.json manifests) and auditors (corrigibility.json assessments). Supports both DPI and EPI with role-specific templates.
+        \item \texttt{skills/schema-evaluator/}: Validates published schemas, verifies score calculations, and detects contradictions between operator claims and auditor findings.
+        \item \texttt{skills/corrigibility-assessment/}: Rules and test definitions. Decomposes systems into architectural layers (identity, credential, payment, data\_exchange, registry) and applies the five tests.
     \end{itemize}
     \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/corrigibility.json}
     \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/corrigibility.json} (see companion paper)

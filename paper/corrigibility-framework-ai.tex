@@ -55,7 +55,7 @@
   Bengaluru, India \\
   \texttt{ping@anivar.net}
 }
-\date{February 2026 --- Working Draft}
+\date{February 2026 (Working Draft)}
 
 % ============================================
 % KEYWORDS ENVIRONMENT
@@ -83,7 +83,7 @@ Epistemic Public Infrastructure, AI Governance, Corrigibility, Action Boundary P
 
 \section*{Executive Summary}
 
-As digital systems increasingly rely on machine learning, infrastructure no longer merely processes transactions---it generates classifications and claims about reality. This shift creates \textbf{epistemic public infrastructure (EPI)}, where decision-making authority is embedded in learned models.
+As digital systems increasingly rely on machine learning, infrastructure no longer merely processes transactions. It generates classifications and claims about reality. This shift creates \textbf{epistemic public infrastructure (EPI)}, where decision-making authority is embedded in learned models.
 
 Extending a structural theory of corrigibility to learned systems, this paper argues that traditional transparency measures are insufficient. Meaningful reconstruction of model behavior requires disclosure of logic, weights, data provenance, and representational schema (\textbf{LWD-R}). Even when transparency is present, practical forkability may be constrained by compute asymmetry (``\textbf{compute capture}''), and performance may degrade over time under distributional shift (``\textbf{variety drift}'').
 
@@ -94,7 +94,7 @@ Corrigibility ensures that learned infrastructure can be contested and corrected
 \section{Introduction}
 \label{sec:intro}
 
-The companion paper \citep{paper1} establishes a corrigibility framework for Digital Public Infrastructure (DPI), deriving five structural tests from cybernetics, commons governance, and free software. That framework addresses \textbf{deterministic} infrastructure: ledgers, registries, and payment rails where source code is the arbiter of behavior. This paper extends the framework to \textbf{stochastic} infrastructure---what we term \textbf{Epistemic Public Infrastructure (EPI)}: systems where state decisions emerge from learned parameters rather than explicit logic.
+The companion paper \citep{paper1} establishes a corrigibility framework for Digital Public Infrastructure (DPI), deriving five structural tests from cybernetics, commons governance, and free software. That framework addresses \textbf{deterministic} infrastructure: ledgers, registries, and payment rails where source code is the arbiter of behavior. This paper extends the framework to \textbf{stochastic} infrastructure, what we term \textbf{Epistemic Public Infrastructure (EPI)}: systems where state decisions emerge from learned parameters rather than explicit logic.
 
 \begin{definition}[Epistemic Public Infrastructure]
 \label{def:epi}
@@ -124,7 +124,7 @@ Static certification possible & Performance degrades under distribution shift \\
 
 Corrigibility in EPI therefore requires additional structural conditions beyond those sufficient for deterministic systems.
 
-\paragraph{Why ``Epistemic''?} The term is structurally precise. In deterministic DPI, infrastructure manages \textit{what happened}---the \textbf{Ledger State} (a payment was made, an identity was verified). In learned systems, infrastructure manages \textit{what is true}---the \textbf{Inference State} (a person is ``eligible,'' a transaction is ``fraudulent,'' a citizen is a ``risk''). This shift from transactional facts to administrative knowledge constitutes a transfer of \textbf{epistemic sovereignty}.
+\paragraph{Why ``Epistemic''?} The term is structurally precise. In deterministic DPI, infrastructure manages \textit{what happened}: the \textbf{Ledger State} (a payment was made, an identity was verified). In learned systems, infrastructure manages \textit{what is true}: the \textbf{Inference State} (a person is ``eligible,'' a transaction is ``fraudulent,'' a citizen is a ``risk''). This shift from transactional facts to administrative knowledge constitutes a transfer of \textbf{epistemic sovereignty}.
 
 When a state uses a model to determine eligibility, it is no longer merely processing data; it is producing a \textit{claim to knowledge}. If that claim is hidden in a latent space, the infrastructure has captured the state's ability to know or contest the truth. The ``R'' in the LWD-R Triad (Representation, Section~\ref{sec:code-ai}) is the epistemic anchor: if the categories through which the state ``sees'' the world are proprietary and non-contestable, the state has delegated its interpretive sovereignty. Citizens are not merely locked out of a database; they are locked into a reality they cannot define.
 
@@ -144,15 +144,15 @@ The five structural tests are:
 
 \paragraph{The Cybernetic Foundation.} These tests are not arbitrary normative preferences but derive from control theory. Ashby's Law of Requisite Variety \citep{ashby1956} establishes that a controller must possess at least as many response states as the system it governs. Applied to infrastructure: governance mechanisms must match the variety of harms a system can produce. The five tests operationalize this requirement as a closed feedback loop: EXIT provides the error signal (affected parties can refuse), AUDIT acts as the sensor (errors are detectable), CODE ensures transmission clarity (logic is inspectable), GOVERN serves as the actuator (correction is binding), and FORK provides selection pressure over the entire loop (the system can be reproduced if operators refuse correction).
 
-\paragraph{The Open-Loop Instability Theorem.} When any test fails, the feedback loop opens. Open-loop systems inevitably drift toward instability because errors accumulate without correction. The companion paper proves formally that partial compliance---meeting some tests while failing others---is functionally equivalent to complete failure. A system with EXIT but no GOVERN allows users to detect harm but not correct it; a system with CODE but no FORK allows inspection but not competition. The five tests form an \textit{irreducible} set: removing any one collapses the corrective apparatus.
+\paragraph{The Open-Loop Instability Theorem.} When any test fails, the feedback loop opens. Open-loop systems inevitably drift toward instability because errors accumulate without correction. The companion paper proves formally that partial compliance (meeting some tests while failing others) is functionally equivalent to complete failure. A system with EXIT but no GOVERN allows users to detect harm but not correct it; a system with CODE but no FORK allows inspection but not competition. The five tests form an \textit{irreducible} set: removing any one collapses the corrective apparatus.
 
-This paper stress-tests the framework against learned systems---infrastructure where behavior is determined by parameters learned from data (AI/ML) rather than explicit code logic. If the five tests are truly fundamental, they must apply not only to deterministic infrastructure but also to stochastic systems where traditional verification assumptions collapse.
+This paper stress-tests the framework against learned systems: infrastructure where behavior is determined by parameters learned from data (AI/ML) rather than explicit code logic. If the five tests are truly fundamental, they must apply not only to deterministic infrastructure but also to stochastic systems where traditional verification assumptions collapse.
 
 \paragraph{The Challenge.} Learned systems dismantle the assumption that source code is the sole arbiter of behavior. In AI, identical inputs may yield stochastic outputs; behavior is defined by training data; and opacity is often inherent rather than contrived. Yet the collapse of deterministic transparency does not invalidate corrigibility's structural necessity. As systems become less intelligible, external correction becomes \textit{more} critical.
 
 \paragraph{Thesis.} The five corrigibility tests remain invariant for learned systems. What changes is the verification method and the resource barriers to compliance.
 
-\paragraph{Scope.} This paper addresses Epistemic Public Infrastructure (Definition~\ref{def:epi})---AI systems deployed at population scale with administrative authority. It does not address consumer AI products where exit is trivial, nor research systems without deployment impact.
+\paragraph{Scope.} This paper addresses Epistemic Public Infrastructure (Definition~\ref{def:epi}): AI systems deployed at population scale with administrative authority. It does not address consumer AI products where exit is trivial, nor research systems without deployment impact.
 
 \paragraph{Paper Structure.} Section~\ref{sec:invariance} establishes that the five tests remain invariant. Section~\ref{sec:code-ai} extends the CODE test via LWD-R disclosure. Section~\ref{sec:temporal} introduces Variety Drift. Section~\ref{sec:fork-ai} analyzes Compute Capture. Section~\ref{sec:agentic} examines agentic scaling and GDoS. Section~\ref{sec:workflow} addresses workflow sovereignty and WCC. Section~\ref{sec:architecture} provides architecture-specific risk analysis. Section~\ref{sec:discussion} discusses implications and limitations.
 
@@ -237,10 +237,10 @@ For world models and agentic systems, the traditional transparency requirements 
 \label{def:lwdr}
 A learned system satisfies LWD-R disclosure if the following artifacts are publicly available:
 \begin{itemize}[noitemsep]
-    \item \textbf{L (Logic)}: Model architecture and inference code---\textit{how} predictions are computed
-    \item \textbf{W (Weights)}: Trained parameters---the learned patterns that produce outputs
-    \item \textbf{D (Data)}: Training corpus with provenance---\textit{what} the model learned from
-    \item \textbf{R (Representation)}: The categorical schema---\textit{how the model sees the world}
+    \item \textbf{L (Logic)}: Model architecture and inference code (\textit{how} predictions are computed)
+    \item \textbf{W (Weights)}: Trained parameters (the learned patterns that produce outputs)
+    \item \textbf{D (Data)}: Training corpus with provenance (\textit{what} the model learned from)
+    \item \textbf{R (Representation)}: The categorical schema (\textit{how the model sees the world})
 \end{itemize}
 \end{definition}
 
@@ -248,21 +248,21 @@ A learned system satisfies LWD-R disclosure if the following artifacts are publi
 
 \paragraph{Why ``R'' Is the Novel Contribution.} Existing ``open AI'' frameworks focus on L, W, and D. The Representation layer addresses a distinct failure mode: a model may publish weights, code, and data manifests while encoding \textit{non-contestable categories} in its latent space. When an eligibility model classifies citizens as ``high-risk,'' that category becomes an administrative fact. If the category itself cannot be challenged, the model has captured the state's interpretive sovereignty.
 
-\textbf{R} is not transparency about \textit{how} the model works; it is transparency about \textit{how the model sees the world}. These categories---the model's ontology---are often hidden in the latent space, undocumented and non-contestable. Failure to disclose \textbf{R} means the model's worldview is structurally opaque, even if weights are published.
+\textbf{R} is not transparency about \textit{how} the model works; it is transparency about \textit{how the model sees the world}. These categories (the model's ontology) are often hidden in the latent space, undocumented and non-contestable. Failure to disclose \textbf{R} means the model's worldview is structurally opaque, even if weights are published.
 
 \subsection{Ontological Capture}
 \label{subsec:rcr}
 
 When a society becomes dependent on a model's categorical schema without structural means to contest those categories, we call this \textbf{Ontological Capture}.
 
-\paragraph{The Problem.} A welfare eligibility model classifies applicants into ``low-risk'' and ``high-risk.'' A fraud detection system labels transactions as ``suspicious'' or ``normal.'' A world model parses geopolitical actors into ``threat'' categories. These classifications are not neutral descriptions; they are \textit{definitional acts} that shape administrative reality. If the categories themselves cannot be challenged---if no one outside the vendor can ask ``why is this person high-risk?'' and receive a contestable answer---then the state has surrendered its interpretive sovereignty.
+\paragraph{The Problem.} A welfare eligibility model classifies applicants into ``low-risk'' and ``high-risk.'' A fraud detection system labels transactions as ``suspicious'' or ``normal.'' A world model parses geopolitical actors into ``threat'' categories. These classifications are not neutral descriptions; they are \textit{definitional acts} that shape administrative reality. If the categories themselves cannot be challenged (if no one outside the vendor can ask ``why is this person high-risk?'' and receive a contestable answer), the state has surrendered its interpretive sovereignty.
 
 \begin{definition}[Ontological Capture]
 \label{def:ontological-capture}
-Let $\Delta O$ represent the \textbf{ontological contestability} of a system: the degree to which affected parties can challenge, modify, or replace the representation schema. Ontological Capture occurs when $\Delta O \to 0$---when the model's categories become non-contestable administrative facts.
+Let $\Delta O$ represent the \textbf{ontological contestability} of a system: the degree to which affected parties can challenge, modify, or replace the representation schema. Ontological Capture occurs when $\Delta O \to 0$: when the model's categories become non-contestable administrative facts.
 \end{definition}
 
-\paragraph{Implication for CODE.} Under Ontological Capture, the system fails CODE not because the weights are hidden, but because the \textit{meaning structure} is opaque. Compliance requires not merely weight publication but \textbf{representation schema disclosure}---machine-readable specifications of the categories the model employs, with documented justification for category boundaries.
+\paragraph{Implication for CODE.} Under Ontological Capture, the system fails CODE not because the weights are hidden, but because the \textit{meaning structure} is opaque. Compliance requires not merely weight publication but \textbf{representation schema disclosure}: machine-readable specifications of the categories the model employs, with documented justification for category boundaries.
 
 %% ============================================
 %% SECTION 4: TEMPORAL VARIETY GAP
@@ -273,7 +273,7 @@ Let $\Delta O$ represent the \textbf{ontological contestability} of a system: th
 
 Traditional software remains static until explicitly patched. A tax calculation program written in 2020 will compute the same result in 2030, unless someone changes the code. Learned systems are different: they are \textit{frozen snapshots} of a world that keeps moving.
 
-\paragraph{The Problem.} An AI model trained on 2024 data encodes 2024 patterns. By 2026, the world has changed: new fraud techniques emerge, economic conditions shift, language evolves. The model's ``variety''---its capacity to handle diverse situations---was fixed at training. The world's variety keeps expanding. The gap between them grows over time.
+\paragraph{The Problem.} An AI model trained on 2024 data encodes 2024 patterns. By 2026, the world has changed: new fraud techniques emerge, economic conditions shift, language evolves. The model's ``variety'' (its capacity to handle diverse situations) was fixed at training. The world's variety keeps expanding. The gap between them grows over time.
 
 \begin{definition}[Variety Drift]
 \label{def:variety-drift}
@@ -284,7 +284,7 @@ Let $V_{\text{world}}(t)$ be the variety of situations the environment presents 
 \end{equation}
 \end{definition}
 
-\paragraph{Why This Matters.} Without mechanisms for retraining accessible to the community, variety drift widens indefinitely. A model that passed all five corrigibility tests at deployment may fail them two years later---not because anyone changed anything, but because the world moved and the model didn't. \textbf{AI corrigibility is not a deployment certification; it is a persistence condition.}
+\paragraph{Why This Matters.} Without mechanisms for retraining accessible to the community, variety drift widens indefinitely. A model that passed all five corrigibility tests at deployment may fail them two years later. Not because anyone changed anything, but because the world moved and the model did not. \textbf{AI corrigibility is not a deployment certification; it is a persistence condition.}
 
 \begin{figure}[htbp]
 \centering
@@ -336,9 +336,9 @@ A learned system that passes all five corrigibility tests at deployment may fail
 \section{Resource Barriers to Forkability}
 \label{sec:fork-ai}
 
-In traditional software, forking is cheap: copy the code, set up a server, deploy. The cost is measured in storage and labor. In AI, forking is expensive: the cost is measured in \textit{compute}---the GPU-hours required to retrain a model from scratch.
+In traditional software, forking is cheap: copy the code, set up a server, deploy. The cost is measured in storage and labor. In AI, forking is expensive: the cost is measured in \textit{compute}, the GPU-hours required to retrain a model from scratch.
 
-\paragraph{The Structural Difference.} When Elastic changed its license, AWS forked Elasticsearch and the community continued development. This was possible because the resource barrier was low. When Meta releases Llama weights, can the community ``fork'' Llama in the same sense? They can \textit{run} it (inference). They can \textit{adapt} it (fine-tuning). But can they \textit{reproduce} it from scratch if Meta's training data turns out to be problematic? For frontier models, the answer is no---the compute cost exceeds what any non-corporate actor can access.
+\paragraph{The Structural Difference.} When Elastic changed its license, AWS forked Elasticsearch and the community continued development. This was possible because the resource barrier was low. When Meta releases Llama weights, can the community ``fork'' Llama in the same sense? They can \textit{run} it (inference). They can \textit{adapt} it (fine-tuning). But can they \textit{reproduce} it from scratch if Meta's training data turns out to be problematic? For frontier models, the answer is no: the compute cost exceeds what any non-corporate actor can access.
 
 \begin{table}[htbp]
 \centering
@@ -450,7 +450,7 @@ The distinction matters: when Llama or Gemma exhibit unexpected behavior, the co
 The preceding sections establish that learned systems face unique barriers to corrigibility: opaque training pipelines (violating CODE), frozen variety (the Temporal Variety Gap), and compute-gated reproduction (violating FORK). These challenges intensify as AI moves from isolated models to autonomous agents operating within infrastructure. As DPI transitions to support the ``Agentic Economy,'' corrigibility moves from a moral preference to an engineering requirement. Autonomous agents lack the biological resilience to handle bureaucracy.
 
 \begin{principle}[Structural vs. Alignment Distinction]
-This framework distinguishes structural corrigibility from ``AI Alignment.'' The AI safety literature has extensively studied alignment---ensuring systems pursue operator-intended goals \citep{soares2017}---and the ``off-switch'' problem \citep{hadfield2017}. These framings center on \textit{operator control}. Alignment asks: \textit{Can the operator control the system?} Corrigibility asks: \textit{Can the affected subject correct the system?} Structural legitimacy requires the latter.
+This framework distinguishes structural corrigibility from ``AI Alignment.'' The AI safety literature has extensively studied alignment (ensuring systems pursue operator-intended goals) \citep{soares2017} and the ``off-switch'' problem \citep{hadfield2017}. These framings center on \textit{operator control}. Alignment asks: \textit{Can the operator control the system?} Corrigibility asks: \textit{Can the affected subject correct the system?} Structural legitimacy requires the latter.
 \end{principle}
 
 \subsection{Corrigibility as an API Contract for Agents}
@@ -474,7 +474,7 @@ Incorrigible infrastructures may appear stable under human load because humans a
 
 \subsection{Governance Denial of Service (GDoS)}
 
-\paragraph{The Problem.} A human user encounters a bureaucratic error and waits on hold for 45 minutes. Frustrating, but the system survives. Now imagine 10,000 autonomous agents encountering the same error simultaneously. They don't wait patiently; they retry. They don't call a human; they escalate programmatically. The governance mechanism---designed for human patience---collapses under machine speed.
+\paragraph{The Problem.} A human user encounters a bureaucratic error and waits on hold for 45 minutes. Frustrating, but the system survives. Now imagine 10,000 autonomous agents encountering the same error simultaneously. They don't wait patiently; they retry. They don't call a human; they escalate programmatically. The governance mechanism, designed for human patience, collapses under machine speed.
 
 \begin{definition}[Governance Denial of Service]
 \label{def:gdos}
@@ -528,7 +528,7 @@ Failure of these predicates renders $\mathcal{I}$ a ``Hazmat Environment'' for a
 As infrastructure transitions to the Rule of the Workflow, the fundamental unit of governance can no longer be the static database record, nor can it be the stochastic model weight. To subject autonomous systems to democratic constraint, the architecture must adopt a new structural primitive: the \textbf{Action Boundary}.
 
 \begin{principle}[Action Boundary Protocol]
-If the state cannot govern the neural network's weights, it must govern the \textbf{action boundary}---the deterministic envelope that wraps stochastic inference. The Action Boundary Protocol specifies: (1) hard-coded preconditions, (2) deterministic tool execution, and (3) explicit termination criteria to prevent Governance Denial of Service (GDoS).
+If the state cannot govern the neural network's weights, it must govern the \textbf{action boundary}: the deterministic envelope that wraps stochastic inference. The Action Boundary Protocol specifies: (1) hard-coded preconditions, (2) deterministic tool execution, and (3) explicit termination criteria to prevent Governance Denial of Service (GDoS).
 \end{principle}
 
 In agentic systems, learned inference should not directly trigger irreversible action. Instead, inference outputs must pass through a deterministic validation layer that enforces policy constraints and safety rules.
@@ -546,7 +546,7 @@ In agentic systems, learned inference should not directly trigger irreversible a
 
 % Main flow
 \node[stochastic] (llm) {LLM\\Inference};
-\node[box, right=of llm] (action) {Proposed Action\\Envelope};
+\node[box, right=of llm] (action) {Action\\Proposal};
 \node[deterministic, right=of action] (validator) {Deterministic\\Validator};
 \node[deterministic, right=of validator] (exec) {Execution};
 
@@ -567,15 +567,16 @@ In agentic systems, learned inference should not directly trigger irreversible a
 \node[above=0.4cm of llm, font=\scriptsize\sffamily\bfseries, text=orange!70!black] {INFERENCE DOMAIN};
 \node[above=0.4cm of exec, font=\scriptsize\sffamily\bfseries, text=green!50!black] {EXECUTION DOMAIN};
 
-% Action Boundary - vertical separator
-\draw[dashed, very thick, blue!70] ($(action.east)+(0.45,1.2)$) -- ($(action.east)+(0.45,-2.0)$);
-\node[font=\scriptsize\sffamily\bfseries, text=blue!70, rotate=90, anchor=south] at ($(action.east)+(0.7,-0.4)$) {ACTION BOUNDARY};
+% Action Boundary - vertical separator (visually strong)
+\draw[line width=2pt, blue!80] ($(action.east)+(0.45,1.4)$) -- ($(action.east)+(0.45,-2.2)$);
+\node[font=\scriptsize\sffamily\bfseries, text=blue!80, rotate=90, anchor=south] at ($(action.east)+(0.75,-0.4)$) {ACTION BOUNDARY};
 
-% GOVERN label
+% GOVERN label and deterministic policy note
 \node[below=0.1cm of validator, font=\tiny\sffamily, text=green!50!black] {(GOVERN)};
+\node[above=0.15cm of validator, font=\tiny\sffamily\itshape, text=green!50!black] {Deterministic policy layer};
 
 \end{tikzpicture}
-\caption{\textbf{Action Boundary Protocol.} Probabilistic inference (orange) produces proposed action envelopes. A deterministic validator (green, implementing GOVERN) enforces hard constraints before execution. Invalid actions are rejected, logged, and fed back for learning. The vertical \textbf{Action Boundary} separates the inference domain from the execution domain---the architectural instantiation of corrigibility in agentic systems.}
+\caption{\textbf{Action Boundary Protocol.} Probabilistic inference (orange) produces action proposals. The \textbf{deterministic policy layer} (green, implementing GOVERN) enforces hard constraints before execution. Invalid actions are rejected, logged, and fed back for learning. The vertical \textbf{Action Boundary} separates the inference domain from the execution domain: the architectural instantiation of corrigibility in agentic systems.}
 \label{fig:action-boundary}
 \end{figure}
 
@@ -585,7 +586,7 @@ The engineering instantiation of this protocol already exists: the \textbf{Agent
 
 \paragraph{Agentic Skills (agentskills.io).} The open \texttt{SKILL.md} specification defines a bounded, machine-readable orchestration protocol that encapsulates stochastic inference within deterministic action boundaries. Adopted by 18+ AI agent platforms (OpenAI Codex, GitHub Copilot, Cursor, and others), this standard provides exactly the governance primitive required for the Action Boundary Protocol. We adopt it here as the technical instantiation of our theoretical framework.
 
-\paragraph{The SBOM Analogy.} For security-minded readers: Agentic Skills function like a \textbf{Software Bill of Materials (SBOM)} for AI actions. Just as SBOMs enumerate software dependencies to enable vulnerability auditing, skill manifests enumerate action boundaries to enable governance auditing. The same transparency that enables correction also creates attack surface---this tradeoff is inherent to all deterministic governance systems (see Limitations, Section~\ref{sec:discussion}).
+\paragraph{The SBOM Analogy.} For security-minded readers: Agentic Skills function like a \textbf{Software Bill of Materials (SBOM)} for AI actions. Just as SBOMs enumerate software dependencies to enable vulnerability auditing, skill manifests enumerate action boundaries to enable governance auditing. The same transparency that enables correction also creates attack surface. This tradeoff is inherent to all deterministic governance systems (see Limitations, Section~\ref{sec:discussion}).
 
 A skill is a directory containing a \texttt{SKILL.md} file with YAML frontmatter and Markdown instructions:
 
@@ -613,7 +614,7 @@ metadata:
 ---
 \end{verbatim}
 
-The \texttt{allowed-tools} field is the \textbf{cybernetic anchor}: it specifies which tools the agent may invoke, hard-coded outside the LLM's context window. An LLM cannot prompt-inject past this constraint---it is enforced by the execution environment, not by the model's alignment.
+The \texttt{allowed-tools} field is the \textbf{cybernetic anchor}: it specifies which tools the agent may invoke, hard-coded outside the LLM's context window. An LLM cannot prompt-inject past this constraint. It is enforced by the execution environment, not by the model's alignment.
 
 \paragraph{Progressive Disclosure Architecture.} Skills use progressive disclosure to manage context efficiently, directly implementing the LWD-R requirement:
 
@@ -671,7 +672,7 @@ You don't govern the AI; you govern the Skills the AI is allowed to use. This is
 \paragraph{Critical Limitation: Action Boundary Is Containment, Not Cure.} The Action Boundary Protocol is a \textit{necessary but not sufficient} condition for EPI corrigibility. It bounds the ``act'' but does not resolve deeper structural deficits:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Inference-layer opacity persists.} The model's internal representation---the categories it uses to \textit{interpret} inputs before selecting a skill---remains hidden. You govern what the model \textit{does}, not what it \textit{thinks}. Representation Capture Risk (RCR) operates upstream of the Action Boundary.
+    \item \textbf{Inference-layer opacity persists.} The model's internal representation (the categories it uses to \textit{interpret} inputs before selecting a skill) remains hidden. You govern what the model \textit{does}, not what it \textit{thinks}. Representation Capture Risk (RCR) operates upstream of the Action Boundary.
 
     \item \textbf{Compute capture blocks training forkability.} Skill portability enables swapping orchestration logic, but the underlying model remains compute-gated. If the LLM itself cannot be retrained by non-operators, the Action Boundary governs a black box.
 
@@ -680,7 +681,7 @@ You don't govern the AI; you govern the Skills the AI is allowed to use. This is
     \item \textbf{Skill definitions encode ontological choices.} The categories embedded in skill schemas (``eligible,'' ``fraudulent,'' ``risk'') are themselves epistemic commitments. Open skill protocols shift capture from the LLM to the skill author; they do not eliminate it.
 \end{enumerate}
 
-The Action Boundary is therefore a \textbf{governance floor}, not a governance ceiling. It prevents the worst failure modes (GDoS, prompt injection, unbounded action) while leaving the deeper problem of epistemic sovereignty partially unresolved. Full EPI corrigibility requires the Action Boundary \textit{plus} LWD-R disclosure \textit{plus} training forkability---the complete stack, not any single layer.
+The Action Boundary is therefore a \textbf{governance floor}, not a governance ceiling. It prevents the worst failure modes (GDoS, prompt injection, unbounded action) while leaving the deeper problem of epistemic sovereignty partially unresolved. Full EPI corrigibility requires the Action Boundary \textit{plus} LWD-R disclosure \textit{plus} training forkability: the complete stack, not any single layer.
 
 %% ============================================
 %% SECTION 7: WORKFLOW SOVEREIGNTY
@@ -742,13 +743,13 @@ If $W$ is proprietary and non-forkable, the state's ability to alter policy ($\D
 
 \subsection{Measuring Epistemic Delegation: The Workflow Capture Coefficient}
 
-\paragraph{The Problem.} A government adopts a proprietary AI platform for welfare administration. The platform works well. Two years later, the government wants to change eligibility criteria. But the change requires modifying the vendor's workflow logic---logic the government cannot inspect, cannot reproduce, and cannot port to an alternative provider. The state can pass new laws, but the laws cannot be implemented without vendor cooperation. Policy sovereignty has been delegated to a private actor.
+\paragraph{The Problem.} A government adopts a proprietary AI platform for welfare administration. The platform works well. Two years later, the government wants to change eligibility criteria. But the change requires modifying the vendor's workflow logic, logic the government cannot inspect, cannot reproduce, and cannot port to an alternative provider. The state can pass new laws, but the laws cannot be implemented without vendor cooperation. Policy sovereignty has been delegated to a private actor.
 
 How do we measure this risk \textit{before} it becomes irreversible?
 
 \begin{definition}[Workflow Capture Coefficient (WCC)]
 \label{def:wcc}
-The \textbf{WCC} quantifies the risk of epistemic delegation---the loss of state interpretive sovereignty to proprietary orchestration layers. A WCC approaching 1 indicates near-total capture; a WCC approaching 0 indicates high sovereignty.
+The \textbf{WCC} quantifies the risk of epistemic delegation: the loss of state interpretive sovereignty to proprietary orchestration layers. A WCC approaching 1 indicates near-total capture; a WCC approaching 0 indicates high sovereignty.
 \end{definition}
 
 \subsubsection{The Three Variables of Capture}
@@ -902,14 +903,14 @@ Before discussing implications, we address two fundamental objections that chall
 
 A natural critique holds that applying rigid, deterministic structural tests to systems that are inherently stochastic constitutes a category error. How can tests designed for inspectable code apply to systems where identical inputs yield probabilistic outputs and ``logic'' is encoded in billions of weights?
 
-\paragraph{Response: Verification Methods Evolve, Standards Remain.} The framework acknowledges that learned systems dismantle the assumption that source code is the sole arbiter of behavior. However, this does not invalidate structural corrigibility---it \textit{strengthens} its necessity. As systems become less intelligible, external correction mechanisms become more critical, not less.
+\paragraph{Response: Verification Methods Evolve, Standards Remain.} The framework acknowledges that learned systems dismantle the assumption that source code is the sole arbiter of behavior. However, this does not invalidate structural corrigibility. It \textit{strengthens} its necessity. As systems become less intelligible, external correction mechanisms become more critical, not less.
 
 The key insight is that the \textbf{standard remains invariant} while the \textbf{verification method adapts}:
 
 \begin{itemize}[noitemsep]
     \item \textbf{CODE} shifts from reading source code to requiring the \textbf{LWD-R Triad}: Logic (architecture), Weights (parameters), Data (provenance), and Representation (ontological categories).
     \item \textbf{AUDIT} shifts from discrete logic inspection to statistical bounds and continuous monitoring.
-    \item \textbf{FORK} shifts from file copying to resource forkability---measured by access to compute and training data, not just open weights.
+    \item \textbf{FORK} shifts from file copying to resource forkability, measured by access to compute and training data, not just open weights.
     \item \textbf{GOVERN} requires deterministic guardrails \textit{around} the stochastic model, governing objectives and value tradeoffs at the infrastructure layer.
 \end{itemize}
 
@@ -926,13 +927,13 @@ The key insight is that the \textbf{standard remains invariant} while the \textb
 
 \subsection{Objection: Compute Capture Makes FORK Trivially Impossible}
 
-If frontier model training costs exceed global academic compute capacity by orders of magnitude, doesn't the framework simply conclude ``all frontier AI fails FORK''---a trivially true and useless finding?
+If frontier model training costs exceed global academic compute capacity by orders of magnitude, doesn't the framework simply conclude ``all frontier AI fails FORK,'' a trivially true and useless finding?
 
 \paragraph{Response: The Distinction Is Training vs. Inference Forkability.} The framework distinguishes \textit{inference forkability} (running weights) from \textit{training forkability} (reproducing the model). Only training forkability satisfies FORK for governance purposes. The evidence requirements in Table~\ref{tab:ai-fork-evidence} are achievable: published training code, data manifests, and compute cost estimates.
 
 The claim is not that all AI fails FORK, but that systems \textit{withholding these artifacts} fail. OLMo, Pythia, and academic models demonstrate that FORK-compliant AI is possible. The question is whether frontier labs \textit{choose} to comply.
 
-Furthermore, the framework implies that \textbf{compute is itself DPI}. If legal forkability is insufficient without practical compute accessibility, then public compute infrastructure becomes a governance requirement---not a reason to abandon the standard.
+Furthermore, the framework implies that \textbf{compute is itself DPI}. If legal forkability is insufficient without practical compute accessibility, then public compute infrastructure becomes a governance requirement, not a reason to abandon the standard.
 
 %% ============================================
 %% SECTION: EPISTEMIC CONSTRAINT
@@ -941,7 +942,7 @@ Furthermore, the framework implies that \textbf{compute is itself DPI}. If legal
 \section{Epistemic Constraint Infrastructure}
 \label{sec:epistemic-constraint}
 
-Corrigibility ensures that systemic error can be contested and corrected. It does not guarantee epistemic rigor within system operation. In verifiable domains such as software development, symbolic constraint systems---compilers, type systems, unit tests---provide hard pass/fail validation of outputs. These mechanisms enforce epistemic discipline through execution.
+Corrigibility ensures that systemic error can be contested and corrected. It does not guarantee epistemic rigor within system operation. In verifiable domains such as software development, symbolic constraint systems (compilers, type systems, unit tests) provide hard pass/fail validation of outputs. These mechanisms enforce epistemic discipline through execution.
 
 In learned or research-driven domains, comparable constraint infrastructure is often absent. Validation loss improvements, heuristic metrics, or informal review processes may not provide sufficient structural enforcement to prevent spurious inference.
 
@@ -951,10 +952,10 @@ Corrigible epistemic infrastructure therefore requires not only transparency and
 
 Consider a multi-agent research organization attempting to optimize a model parameter. The organization may satisfy structural corrigibility conditions: independent branches (FORK), transparent code (CODE), internal review (AUDIT), and supervisory governance (GOVERN). Yet if experimental protocols do not enforce baseline normalization, compute accounting, or ablation requirements, agents may report spurious improvements.
 
-The system remains corrigible---errors can be contested---but epistemic progress is not guaranteed. This distinction clarifies the boundary between structural legitimacy and scientific competence.
+The system remains corrigible (errors can be contested), but epistemic progress is not guaranteed. This distinction clarifies the boundary between structural legitimacy and scientific competence.
 
 \begin{principle}[Corrigibility vs. Competence]
-Structural corrigibility ensures that claims can be challenged and systems can be corrected. It does not ensure that claims are true or that systems perform optimally. Epistemic quality requires additional constraint mechanisms that function as ``compilers for reality''---rejecting outputs that fail verification.
+Structural corrigibility ensures that claims can be challenged and systems can be corrected. It does not ensure that claims are true or that systems perform optimally. Epistemic quality requires additional constraint mechanisms that function as ``compilers for reality,'' rejecting outputs that fail verification.
 \end{principle}
 
 %% ============================================
@@ -971,7 +972,7 @@ This framework offers three contributions to AI governance discourse:
 \begin{enumerate}
     \item \textbf{Structural vs. Behavioral Focus.} Most AI governance frameworks focus on behavioral outcomes (bias, accuracy, harm). This framework focuses on structural preconditions: can affected parties correct the system regardless of what harms emerge? Structural corrigibility is necessary for any behavioral governance to function.
 
-    \item \textbf{Distinguishing Open-washing.} The LWD-R requirement and compute capture analysis provide falsifiable tests for ``open AI'' claims. Systems publishing weights without training data, code, or accessible compute achieve only inference forkability---performative transparency without correction capacity.
+    \item \textbf{Distinguishing Open-washing.} The LWD-R requirement and compute capture analysis provide falsifiable tests for ``open AI'' claims. Systems publishing weights without training data, code, or accessible compute achieve only inference forkability: performative transparency without correction capacity.
 
     \item \textbf{Agentic Economy Readiness.} As autonomous agents proliferate, infrastructure must become machine-readable. The five tests, reinterpreted as API contracts, specify the minimum requirements for agentic interoperability. Incorrigible infrastructure blocks the agentic economy.
 \end{enumerate}
@@ -989,7 +990,7 @@ This framework offers three contributions to AI governance discourse:
 
     \item \textbf{The framework does not address emergent capabilities.} Unpredictable capabilities that emerge during training present governance challenges that structural tests alone cannot address.
 
-    \item \textbf{Deterministic boundaries create known attack surfaces (SBOM problem).} The Agentic Skills architecture requires explicit, machine-readable disclosure of skill boundaries, allowed tools, and execution constraints. This transparency enables governance but simultaneously creates a complete map of the system's action space for adversaries. The same \texttt{allowed-tools} field that prevents unauthorized actions also reveals exactly which actions \textit{are} authorized. This is analogous to Software Bill of Materials (SBOM) disclosure: useful for auditing dependencies but also useful for targeting known vulnerabilities. All deterministic governance systems face this tradeoff---the boundaries that constrain must be known, and what is known can be attacked. The framework does not resolve this tension; it makes it explicit.
+    \item \textbf{Deterministic boundaries create known attack surfaces (SBOM problem).} The Agentic Skills architecture requires explicit, machine-readable disclosure of skill boundaries, allowed tools, and execution constraints. This transparency enables governance but simultaneously creates a complete map of the system's action space for adversaries. The same \texttt{allowed-tools} field that prevents unauthorized actions also reveals exactly which actions \textit{are} authorized. This is analogous to Software Bill of Materials (SBOM) disclosure: useful for auditing dependencies but also useful for targeting known vulnerabilities. All deterministic governance systems face this tradeoff. The boundaries that constrain must be known, and what is known can be attacked. The framework does not resolve this tension; it makes it explicit.
 \end{enumerate}
 
 \subsection{Future Work}
@@ -1004,9 +1005,9 @@ This framework offers three contributions to AI governance discourse:
 
 \section{Conclusion}
 
-The five corrigibility tests---EXIT, CODE, AUDIT, GOVERN, FORK---remain invariant for learned systems. What changes is the verification method and the resource barriers to compliance. This paper extends the framework through three contributions: (1) LWD-R disclosure requirements that extend CODE to training pipelines, (2) the Temporal Variety Gap explaining why AI corrigibility requires ongoing governance, and (3) Compute Capture as a resource barrier that transforms ``open weights'' into performative transparency.
+The five corrigibility tests (EXIT, CODE, AUDIT, GOVERN, FORK) remain invariant for learned systems. What changes is the verification method and the resource barriers to compliance. This paper extends the framework through three contributions: (1) LWD-R disclosure requirements that extend CODE to training pipelines, (2) the Temporal Variety Gap explaining why AI corrigibility requires ongoing governance, and (3) Compute Capture as a resource barrier that transforms ``open weights'' into performative transparency.
 
-Two additional contributions address the governance architecture for the agentic era. The \textbf{Workflow Capture Coefficient (WCC)} provides a quantitative measure of epistemic delegation risk, using harmonic mean formulation to ensure that weakness in any single dimension (reproduction cost, ontological substitutability, or portability) cannot be hidden by strength in others. The worked examples---Aadhaar at $\text{WCC} = 0.94$ versus X-Road at $\text{WCC} = 0.27$---demonstrate that the metric distinguishes genuinely open systems from those with performative transparency.
+Two additional contributions address the governance architecture for the agentic era. The \textbf{Workflow Capture Coefficient (WCC)} provides a quantitative measure of epistemic delegation risk, using harmonic mean formulation to ensure that weakness in any single dimension (reproduction cost, ontological substitutability, or portability) cannot be hidden by strength in others. The worked examples (Aadhaar at $\text{WCC} = 0.94$ versus X-Road at $\text{WCC} = 0.27$) demonstrate that the metric distinguishes genuinely open systems from those with performative transparency.
 
 The \textbf{Agentic Skills} standard \citep{agentskills2025} provides the engineering translation of corrigibility into the agentic domain. By separating stochastic inference (the LLM) from deterministic action boundaries (the skill definition), the framework enables governance of autonomous systems without requiring governance of neural weights. The critical insight: \textit{you don't govern the AI; you govern the Skills the AI is allowed to use}.
 
@@ -1019,7 +1020,7 @@ Three implications follow:
 
     \item \textbf{For technologists}: The Agentic Skills standard \citep{agentskills2025} offers a practical architecture for building corrigible AI systems. The \texttt{allowed-tools} constraint and reproducible skill definitions satisfy GOVERN without requiring interpretability of model internals.
 
-    \item \textbf{For citizens}: The framework operationalizes the right to correction. Infrastructure that affects populations at scale must be structurally correctable by those it governs---regardless of whether it executes deterministic code or learned parameters.
+    \item \textbf{For citizens}: The framework operationalizes the right to correction. Infrastructure that affects populations at scale must be structurally correctable by those it governs, regardless of whether it executes deterministic code or learned parameters.
 \end{enumerate}
 
 The human friction buffer that currently masks architectural incorrigibility will not survive agentic scaling. Systems designed for human patience will fail under autonomous agent load. The choice is not whether to make infrastructure corrigible, but whether to do so proactively or through crisis response after Governance Denial of Service reveals the structural deficit.
@@ -1137,15 +1138,15 @@ The complete framework, including schemas and assessment tooling, is available a
     \item \textbf{Repository}: \url{https://github.com/anivar/corrigibility-framework}
     \item \textbf{Agentic Skills} (following the Agentic Skills specification \citep{agentskills2025}):
     \begin{itemize}
-        \item \texttt{skills/schema-creator/} --- For operators (infrastructure.json manifests) and auditors (corrigibility.json assessments). Supports both DPI and EPI with role-specific templates.
-        \item \texttt{skills/schema-evaluator/} --- Validates published schemas, verifies score calculations (geometric mean, automatic F conditions), and detects contradictions between operator claims and auditor findings.
-        \item \texttt{skills/corrigibility-assessment/} --- Rules and test definitions including LWD-R transparency criteria, Compute Capture detection, and Action Boundary verification.
+        \item \texttt{skills/schema-creator/}: For operators (infrastructure.json manifests) and auditors (corrigibility.json assessments). Supports both DPI and EPI with role-specific templates.
+        \item \texttt{skills/schema-evaluator/}: Validates published schemas, verifies score calculations (geometric mean, automatic F conditions), and detects contradictions between operator claims and auditor findings.
+        \item \texttt{skills/corrigibility-assessment/}: Rules and test definitions including LWD-R transparency criteria, Compute Capture detection, and Action Boundary verification.
     \end{itemize}
     \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/corrigibility.json}
     \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/corrigibility.json}
 \end{itemize}
 
-The skill architecture demonstrates that the five tests remain invariant across DPI and EPI---only the verification method and evidence requirements adapt to the system type. The separation into creator, evaluator, and assessment components enables independent tooling for operators, auditors, and validators.
+The skill architecture demonstrates that the five tests remain invariant across DPI and EPI. Only the verification method and evidence requirements adapt to the system type. The separation into creator, evaluator, and assessment components enables independent tooling for operators, auditors, and validators.
 
 \section*{Acknowledgments}
 

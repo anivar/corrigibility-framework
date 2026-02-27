@@ -70,18 +70,26 @@
 \maketitle
 
 \begin{abstract}
-While deterministic infrastructure is governed by the Rule of the Code, AI-mediated administration is governed by the \textbf{Rule of the Workflow}. This paper establishes structural requirements for \textbf{Epistemic Public Infrastructure (EPI)}---systems where state decisions emerge from learned parameters rather than explicit logic.
+As digital infrastructure increasingly incorporates machine learning and agentic systems, deterministic rule execution is replaced by probabilistic inference. This shift transforms digital public infrastructure into epistemic public infrastructure (EPI), where system outputs constitute claims about reality rather than mere transactional processing. Corrigibility in such systems requires additional structural guarantees beyond those sufficient for deterministic architectures.
 
-We demonstrate that ``AI Alignment'' (operator control) is insufficient for public legitimacy; what is required is structural \textbf{corrigibility} (affected-subject correction). The companion paper's five tests remain invariant; verification methods adapt.
+This paper extends a structural theory of corrigibility to learned and agentic systems. It argues that transparency in EPI must encompass logic, weights, data provenance, and representational schema (LWD-R) to enable meaningful reconstruction of decision boundaries. It further identifies compute capture as a structural constraint on practical forkability, variety drift as a temporal degradation of epistemic adequacy under distributional shift, and the action boundary protocol as a necessary separation between probabilistic inference and deterministic execution.
 
-\textbf{Key concepts}: (1) \textbf{LWD-R}---four-layer transparency extending CODE to training pipelines; (2) \textbf{Variety Drift}---why AI corrigibility is a persistence condition; (3) \textbf{Compute Capture}---when ``open weights'' fails FORK; (4) \textbf{WCC}---quantifying epistemic delegation risk; (5) \textbf{Action Boundary}---deterministic envelope around stochastic inference.
-
-By enforcing the Action Boundary, we ensure that while the ``thought'' remains probabilistic, the ``act'' remains legally corrigible. The framework moves AI governance from ethics to engineering.
+The analysis distinguishes structural corrigibility from epistemic competence: while corrigibility ensures that systemic error can be contested and corrected, it does not guarantee scientific or predictive optimality absent engineered constraint mechanisms. The paper proposes a layered architecture for bounding epistemic power in agentic systems and clarifies the structural conditions under which learned infrastructure remains publicly corrigible.
 \end{abstract}
 
 \begin{keywords}
 Epistemic Public Infrastructure, AI Governance, Corrigibility, Action Boundary Protocol, Compute Capture, LWD-R, Workflow Capture, Agentic Skills
 \end{keywords}
+
+\section*{Executive Summary}
+
+As digital systems increasingly rely on machine learning, infrastructure no longer merely processes transactions---it generates classifications and claims about reality. This shift creates \textbf{epistemic public infrastructure (EPI)}, where decision-making authority is embedded in learned models.
+
+Extending a structural theory of corrigibility to learned systems, this paper argues that traditional transparency measures are insufficient. Meaningful reconstruction of model behavior requires disclosure of logic, weights, data provenance, and representational schema (\textbf{LWD-R}). Even when transparency is present, practical forkability may be constrained by compute asymmetry (``\textbf{compute capture}''), and performance may degrade over time under distributional shift (``\textbf{variety drift}'').
+
+The paper introduces the \textbf{action boundary protocol}: probabilistic inference must be separated from deterministic execution through enforceable validation layers. Without such boundaries, agentic systems can exercise unbounded epistemic power.
+
+Corrigibility ensures that learned infrastructure can be contested and corrected. It does not guarantee epistemic competence. Sustainable governance of AI-mediated infrastructure requires both structural feedback mechanisms and engineered constraint systems that function as ``compilers for reality.''
 
 \section{Introduction}
 \label{sec:intro}
@@ -92,6 +100,29 @@ The companion paper \citep{paper1} establishes a corrigibility framework for Dig
 \label{def:epi}
 EPI comprises AI systems that determine citizen outcomes at population scale, including: identity verification models, welfare eligibility systems, public-facing chatbots with administrative authority, and autonomous agents operating within mandatory infrastructure.
 \end{definition}
+
+\subsection{DPI and EPI: Structural Contrast}
+\label{subsec:dpi-epi-contrast}
+
+Digital Public Infrastructure (DPI) processes transactions through deterministic logic. Epistemic Public Infrastructure (EPI) produces classifications, predictions, or inferences through learned parameters.
+
+\begin{table}[htbp]
+\centering
+\caption{Structural contrast between DPI and EPI}
+\label{tab:dpi-epi-contrast}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{DPI} & \textbf{EPI} \\
+\midrule
+Deterministic rule execution & Stochastic learned inference \\
+Logic transparency sufficient & Weights, data, and representations matter \\
+Forkability tied to software & Forkability tied to compute capacity \\
+Static certification possible & Performance degrades under distribution shift \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Corrigibility in EPI therefore requires additional structural conditions beyond those sufficient for deterministic systems.
 
 \paragraph{Why ``Epistemic''?} The term is structurally precise. In deterministic DPI, infrastructure manages \textit{what happened}---the \textbf{Ledger State} (a payment was made, an identity was verified). In learned systems, infrastructure manages \textit{what is true}---the \textbf{Inference State} (a person is ``eligible,'' a transaction is ``fraudulent,'' a citizen is a ``risk''). This shift from transactional facts to administrative knowledge constitutes a transfer of \textbf{epistemic sovereignty}.
 
@@ -176,14 +207,25 @@ FORK & Copy code and deploy & Resource forkability: compute + data + training pi
 %% SECTION 3: CODE FOR AI (LWD-R)
 %% ============================================
 
-\section{What Is ``Source'' in a Learned System?}
+\section{Transparency Failure in Learned Systems}
 \label{sec:code-ai}
 
-A central challenge in complying with the \textbf{CODE} test is redefining the object of inspection. In a learned system, behavior is distributed across a lineage of distinct artifacts. The inference code is merely the execution engine; the actual behavioral logic is encoded in the weights, which are in turn downstream of the training corpus, filtering decisions, and RLHF preferences.
+In deterministic infrastructure, disclosure of operative logic is sufficient to enable inspection. In learned systems, logic is distributed across architecture, parameters, training data, and representational schemas. Disclosure of source code alone does not reveal the operative decision boundary.
 
 \begin{principle}[Source Distribution]
 Publishing inference code alone does not satisfy the CODE test. It allows an auditor to run the machine, but not to understand why it produces specific outputs.
 \end{principle}
+
+To satisfy the CODE condition in learned systems, four components must be disclosed:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Logic (L)}: Model architecture and inference procedures
+    \item \textbf{Weights (W)}: Learned parameters
+    \item \textbf{Data (D)}: Training datasets with provenance
+    \item \textbf{Representation (R)}: Ontological categories and label schemas
+\end{itemize}
+
+We refer to this as \textbf{LWD-R transparency}. Omission of any component prevents meaningful external reconstruction of epistemic behavior.
 
 To bridge this gap, compliance requires structured disclosure across the training pipeline, such as \textbf{Data Sheets for Datasets} \citep{gebru2021} and \textbf{Model Cards} \citep{mitchell2019}. These artifacts function as the ``source code'' for structural evaluation; withholding them renders the system a black box.
 
@@ -202,7 +244,11 @@ A learned system satisfies LWD-R disclosure if the following artifacts are publi
 \end{itemize}
 \end{definition}
 
-\paragraph{Why Four Layers?} The first three (L, W, D) are familiar from ``open source AI'' discourse. The fourth, \textbf{Representation (R)}, is this framework's contribution. When an AI system classifies citizens as ``eligible'' or ``risky,'' it instantiates categories that become administrative facts. These categories---the model's ontology---are often hidden in the latent space, undocumented and non-contestable. Failure to disclose \textbf{R} means the model's worldview is structurally opaque, even if weights are published.
+\paragraph{Why Four Layers?} The first three (L, W, D) are familiar from ``open source AI'' discourse. The fourth, \textbf{Representation (R)}, is this framework's principal contribution to AI transparency discourse.
+
+\paragraph{Why ``R'' Is the Novel Contribution.} Existing ``open AI'' frameworks focus on L, W, and D. The Representation layer addresses a distinct failure mode: a model may publish weights, code, and data manifests while encoding \textit{non-contestable categories} in its latent space. When an eligibility model classifies citizens as ``high-risk,'' that category becomes an administrative fact. If the category itself cannot be challenged, the model has captured the state's interpretive sovereignty.
+
+\textbf{R} is not transparency about \textit{how} the model works; it is transparency about \textit{how the model sees the world}. These categories---the model's ontology---are often hidden in the latent space, undocumented and non-contestable. Failure to disclose \textbf{R} means the model's worldview is structurally opaque, even if weights are published.
 
 \subsection{Ontological Capture}
 \label{subsec:rcr}
@@ -484,6 +530,14 @@ As infrastructure transitions to the Rule of the Workflow, the fundamental unit 
 \begin{principle}[Action Boundary Protocol]
 If the state cannot govern the neural network's weights, it must govern the \textbf{action boundary}---the deterministic envelope that wraps stochastic inference. The Action Boundary Protocol specifies: (1) hard-coded preconditions, (2) deterministic tool execution, and (3) explicit termination criteria to prevent Governance Denial of Service (GDoS).
 \end{principle}
+
+In agentic systems, learned inference should not directly trigger irreversible action. Instead, inference outputs must pass through a deterministic validation layer that enforces policy constraints and safety rules. Formally:
+
+\begin{center}
+\texttt{LLM Inference} $\to$ \texttt{Proposed Action} $\to$ \texttt{Deterministic Validator} $\to$ \texttt{Execution}
+\end{center}
+
+The validator enforces hard constraints independent of probabilistic inference. Corrigibility in agentic systems therefore requires separation between epistemic generation and action authorization.
 
 The engineering instantiation of this protocol already exists: the \textbf{Agentic Skills} standard \citep{agentskills2025}.
 
@@ -837,6 +891,29 @@ If frontier model training costs exceed global academic compute capacity by orde
 The claim is not that all AI fails FORK, but that systems \textit{withholding these artifacts} fail. OLMo, Pythia, and academic models demonstrate that FORK-compliant AI is possible. The question is whether frontier labs \textit{choose} to comply.
 
 Furthermore, the framework implies that \textbf{compute is itself DPI}. If legal forkability is insufficient without practical compute accessibility, then public compute infrastructure becomes a governance requirement---not a reason to abandon the standard.
+
+%% ============================================
+%% SECTION: EPISTEMIC CONSTRAINT
+%% ============================================
+
+\section{Epistemic Constraint Infrastructure}
+\label{sec:epistemic-constraint}
+
+Corrigibility ensures that systemic error can be contested and corrected. It does not guarantee epistemic rigor within system operation. In verifiable domains such as software development, symbolic constraint systems---compilers, type systems, unit tests---provide hard pass/fail validation of outputs. These mechanisms enforce epistemic discipline through execution.
+
+In learned or research-driven domains, comparable constraint infrastructure is often absent. Validation loss improvements, heuristic metrics, or informal review processes may not provide sufficient structural enforcement to prevent spurious inference.
+
+Corrigible epistemic infrastructure therefore requires not only transparency and forkability, but engineered constraint mechanisms that reject inadequately controlled claims. Without such constraint, systems may remain structurally corrigible yet epistemically unstable.
+
+\subsection{Illustrative Example: Multi-Agent Research Organization}
+
+Consider a multi-agent research organization attempting to optimize a model parameter. The organization may satisfy structural corrigibility conditions: independent branches (FORK), transparent code (CODE), internal review (AUDIT), and supervisory governance (GOVERN). Yet if experimental protocols do not enforce baseline normalization, compute accounting, or ablation requirements, agents may report spurious improvements.
+
+The system remains corrigible---errors can be contested---but epistemic progress is not guaranteed. This distinction clarifies the boundary between structural legitimacy and scientific competence.
+
+\begin{principle}[Corrigibility vs. Competence]
+Structural corrigibility ensures that claims can be challenged and systems can be corrected. It does not ensure that claims are true or that systems perform optimally. Epistemic quality requires additional constraint mechanisms that function as ``compilers for reality''---rejecting outputs that fail verification.
+\end{principle}
 
 %% ============================================
 %% SECTION 10: DISCUSSION

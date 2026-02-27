@@ -1012,15 +1012,16 @@ The schema fields directly map to corrigibility test determinations:
 
 \section*{Data and Code Availability}
 
-The EPI extension framework, including JSON schemas for agentic workflow assessment, is available at:
+The complete framework, including schemas and assessment tooling, is available at:
 
 \begin{itemize}
-    \item EPI framework documentation: \url{https://anivar.net/corrigibility/epi/}
-    \item Infrastructure manifest schema (EPI): \url{https://anivar.net/corrigibility/epi/schema/infrastructure.json}
-    \item Corrigibility assessment schema (EPI): \url{https://anivar.net/corrigibility/epi/schema/corrigibility.json}
-    \item Companion DPI framework: \url{https://anivar.net/corrigibility/dpi/}
-    \item Paper source and repository: \url{https://github.com/anivar/corrigibility-framework}
+    \item \textbf{Repository}: \url{https://github.com/anivar/corrigibility-framework}
+    \item \textbf{Assessment Skill}: A unified assessment skill (following the Agentic Skills specification \citep{agentskills2025}) that works with both DPI and EPI schemas. The skill classifies target systems, applies appropriate test criteria, and generates machine-readable assessments. Located at \texttt{skills/corrigibility-assessment/}.
+    \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/corrigibility.json}
+    \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/corrigibility.json}
 \end{itemize}
+
+The unified skill demonstrates that the five tests remain invariant across DPI and EPI---only the verification method and evidence requirements adapt to the system type.
 
 \section*{Acknowledgments}
 

@@ -1626,13 +1626,13 @@ This work is released under CC0 1.0 Universal (Public Domain). Use, adapt, trans
 
 \section*{Data and Code Availability}
 
-The complete framework, including JSON Schemas for machine-readable disclosure and assessment, is available at:
+The complete framework, including JSON Schemas and assessment tooling, is available at:
 
 \begin{itemize}
-    \item Framework documentation: \url{https://anivar.net/corrigibility/dpi/}
-    \item Infrastructure manifest schema: \url{https://anivar.net/corrigibility/dpi/schema/infrastructure.json}
-    \item Corrigibility assessment schema: \url{https://anivar.net/corrigibility/dpi/schema/corrigibility.json}
-    \item Paper source and repository: \url{https://github.com/anivar/corrigibility-framework}
+    \item \textbf{Repository}: \url{https://github.com/anivar/corrigibility-framework}
+    \item \textbf{Assessment Skill}: A unified assessment skill (following the Agentic Skills specification) that works with both DPI and EPI schemas. The skill decomposes systems into architectural layers (identity, credential, payment, data\_exchange, registry), applies the five tests, and generates machine-readable assessments. Located at \texttt{skills/corrigibility-assessment/}.
+    \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/corrigibility.json}
+    \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/corrigibility.json} (see companion paper)
 \end{itemize}
 
 % ============================================

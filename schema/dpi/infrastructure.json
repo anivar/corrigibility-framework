@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anivar.net/corrigibility/dpi/schema/infrastructure.json",
+  "title": "DPI Infrastructure Manifest",
+  "description": "Operator disclosure for Digital Public Infrastructure corrigibility assessment (v1.7)",
+  "type": "object",
+  "required": ["system_name", "operator", "layers"],
+  "properties": {
+    "system_name": {
+      "type": "string",
+      "description": "Official name of the infrastructure system"
+    },
+    "operator": {
+      "type": "object",
+      "required": ["name", "jurisdiction"],
+      "properties": {
+        "name": { "type": "string" },
+        "jurisdiction": { "type": "string" },
+        "contact": { "type": "string", "format": "email" }
+      }
+    },
+    "layers": {
+      "type": "array",
+      "description": "Decomposed architectural layers for evaluation",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["identity", "credential", "payment", "data_exchange", "registry"]
+          }
+        }
+      }
+    },
+    "exit": {
+      "type": "object",
+      "properties": {
+        "mandatory": { "type": "boolean" },
+        "offline_equivalent": { "type": "boolean" },
+        "penalty_for_refusal": {
+          "type": "object",
+          "properties": {
+            "exists": { "type": "boolean" },
+            "severity": { "type": "string", "enum": ["none", "inconvenience", "economic", "essential_service_denial"] }
+          }
+        }
+      }
+    },
+    "code": {
+      "type": "object",
+      "properties": {
+        "source_available": { "type": "boolean" },
+        "source_url": { "type": "string", "format": "uri" },
+        "license": { "type": "string" },
+        "build_reproducible": { "type": "boolean" }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "independent_audit_permitted": { "type": "boolean" },
+        "audit_reports_public": { "type": "boolean" }
+      }
+    },
+    "govern": {
+      "type": "object",
+      "properties": {
+        "governance_body": { "type": "string" },
+        "user_representation": { "type": "boolean" },
+        "binding_constraints": { "type": "boolean" }
+      }
+    },
+    "fork": {
+      "type": "object",
+      "properties": {
+        "legal_right_to_fork": { "type": "boolean" },
+        "technical_artifacts_available": { "type": "boolean" },
+        "data_portability": { "type": "boolean" }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "schema_version": { "type": "string", "const": "1.7" },
+        "last_updated": { "type": "string", "format": "date" }
+      }
+    }
+  }
+}

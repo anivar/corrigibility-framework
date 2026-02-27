@@ -20,7 +20,7 @@ A structural framework for evaluating **Digital Public Infrastructure (DPI)** an
 
 | Paper | Focus | Pages |
 |-------|-------|-------|
-| **Paper 1: DPI** | Deterministic infrastructure (ledgers, registries, payment rails) | 47 |
+| **Paper 1: DPI** | Deterministic infrastructure (ledgers, registries, payment rails) | 49 |
 | **Paper 2: EPI** | Learned/agentic systems (AI, ML models) | 22 |
 
 ## Schemas
@@ -48,6 +48,16 @@ A structural framework for evaluating **Digital Public Infrastructure (DPI)** an
 - **Action Boundary Protocol**: Deterministic envelope around stochastic inference
 - **GDoS (Governance Denial of Service)**: Governance collapse under agentic scaling
 
+## Agentic Skills
+
+Machine-readable skills following [agentskills.io](https://agentskills.io) specification.
+
+| Skill | Purpose | User |
+|-------|---------|------|
+| [schema-creator](skills/schema-creator/) | Create infrastructure.json or corrigibility.json | Operators, Auditors |
+| [schema-evaluator](skills/schema-evaluator/) | Validate schemas, verify scores, detect contradictions | Validators |
+| [corrigibility-assessment](skills/corrigibility-assessment/) | Rules and test definitions for five tests | Reference |
+
 ## Repository Structure
 
 ```
@@ -64,6 +74,10 @@ corrigibility-framework/
 │   └── epi/                # EPI schemas
 │       ├── infrastructure.json
 │       └── corrigibility.json
+├── skills/
+│   ├── schema-creator/     # Create schemas (operators/auditors)
+│   ├── schema-evaluator/   # Validate and evaluate schemas
+│   └── corrigibility-assessment/  # Rules and test definitions
 └── docs/                   # Additional documentation
 ```
 

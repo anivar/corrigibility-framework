@@ -135,4 +135,7 @@ Score = (EXIT × CODE × AUDIT × GOVERN × FORK)^(1/5)
 - Paper 1 (DPI): Deterministic infrastructure framework
 - Paper 2 (EPI): Learned/agentic systems extensions
 - Schemas: `schema/dpi/` and `schema/epi/`
+- Related skills:
+  - `skills/schema-creator/` — Create infrastructure.json or corrigibility.json
+  - `skills/schema-evaluator/` — Validate and evaluate published schemas
 - Skill spec: [agentskills.io](https://agentskills.io)

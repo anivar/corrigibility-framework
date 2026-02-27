@@ -485,15 +485,13 @@ As infrastructure transitions to the Rule of the Workflow, the fundamental unit 
 If the state cannot govern the neural network's weights, it must govern the \textbf{action boundary}---the deterministic envelope that wraps stochastic inference. The Action Boundary Protocol specifies: (1) hard-coded preconditions, (2) deterministic tool execution, and (3) explicit termination criteria to prevent Governance Denial of Service (GDoS).
 \end{principle}
 
-The engineering instantiation of this protocol is the \textbf{Agentic Skill}.
+The engineering instantiation of this protocol already exists: the \textbf{Agentic Skills} standard \citep{agentskills2025}.
 
-\begin{definition}[Agentic Skill]
-An Agentic Skill is a bounded, machine-readable orchestration protocol that encapsulates stochastic inference within the Action Boundary. It acts as the technical instantiation of the Agentic API Contract.
-\end{definition}
+\paragraph{Agentic Skills (agentskills.io).} The open \texttt{SKILL.md} specification defines a bounded, machine-readable orchestration protocol that encapsulates stochastic inference within deterministic action boundaries. Adopted by 18+ AI agent platforms (OpenAI Codex, GitHub Copilot, Cursor, and others), this standard provides exactly the governance primitive required for the Action Boundary Protocol. We adopt it here as the technical instantiation of our theoretical framework.
 
 \paragraph{The SBOM Analogy.} For security-minded readers: Agentic Skills function like a \textbf{Software Bill of Materials (SBOM)} for AI actions. Just as SBOMs enumerate software dependencies to enable vulnerability auditing, skill manifests enumerate action boundaries to enable governance auditing. The same transparency that enables correction also creates attack surface---this tradeoff is inherent to all deterministic governance systems (see Limitations, Section~\ref{sec:discussion}).
 
-The open \texttt{SKILL.md} standard (agentskills.io), adopted by 18+ AI agent platforms including OpenAI Codex, GitHub Copilot, and Cursor, provides the concrete specification. A skill is a directory containing a \texttt{SKILL.md} file with YAML frontmatter and Markdown instructions:
+A skill is a directory containing a \texttt{SKILL.md} file with YAML frontmatter and Markdown instructions:
 
 \begin{verbatim}
 skill-name/
@@ -891,7 +889,7 @@ The five corrigibility tests---EXIT, CODE, AUDIT, GOVERN, FORK---remain invarian
 
 Two additional contributions address the governance architecture for the agentic era. The \textbf{Workflow Capture Coefficient (WCC)} provides a quantitative measure of epistemic delegation risk, using harmonic mean formulation to ensure that weakness in any single dimension (reproduction cost, ontological substitutability, or portability) cannot be hidden by strength in others. The worked examples---Aadhaar at $\text{WCC} = 0.94$ versus X-Road at $\text{WCC} = 0.27$---demonstrate that the metric distinguishes genuinely open systems from those with performative transparency.
 
-The \textbf{Agentic Skills} architecture provides the engineering translation of corrigibility into the agentic domain. By separating stochastic inference (the LLM) from deterministic action boundaries (the skill definition), the framework enables governance of autonomous systems without requiring governance of neural weights. The critical insight: \textit{you don't govern the AI; you govern the Skills the AI is allowed to use}.
+The \textbf{Agentic Skills} standard \citep{agentskills2025} provides the engineering translation of corrigibility into the agentic domain. By separating stochastic inference (the LLM) from deterministic action boundaries (the skill definition), the framework enables governance of autonomous systems without requiring governance of neural weights. The critical insight: \textit{you don't govern the AI; you govern the Skills the AI is allowed to use}.
 
 The analysis reveals that structural corrigibility is distinct from AI alignment. Alignment asks whether operators can control systems; corrigibility asks whether affected subjects can correct them. As AI transitions from research artifact to public infrastructure, this distinction becomes essential.
 
@@ -900,7 +898,7 @@ Three implications follow:
 \begin{enumerate}[noitemsep]
     \item \textbf{For policymakers}: The framework provides falsifiable tests for AI infrastructure procurement. Systems failing LWD-R, exhibiting high WCC, or lacking training forkability should trigger governance scrutiny regardless of ``open'' marketing claims.
 
-    \item \textbf{For technologists}: Agentic Skills offer a practical architecture for building corrigible AI systems. The \texttt{allowed-tools} constraint and reproducible skill definitions satisfy GOVERN without requiring interpretability of model internals.
+    \item \textbf{For technologists}: The Agentic Skills standard \citep{agentskills2025} offers a practical architecture for building corrigible AI systems. The \texttt{allowed-tools} constraint and reproducible skill definitions satisfy GOVERN without requiring interpretability of model internals.
 
     \item \textbf{For citizens}: The framework operationalizes the right to correction. Infrastructure that affects populations at scale must be structurally correctable by those it governs---regardless of whether it executes deterministic code or learned parameters.
 \end{enumerate}

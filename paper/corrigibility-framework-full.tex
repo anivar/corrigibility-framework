@@ -187,7 +187,7 @@ The definitional inadequacy manifests as four distinct capture vectors:
 
 \textbf{First, Open Standards are not Open Execution.} A proprietary system can speak a standard language while remaining entirely opaque in its internal logic. (Addressed by the \textbf{CODE} test, Section~\ref{sec:tests}.)
 
-\textbf{Second, Legal Frameworks do not guarantee Technical Rights.} A system that requires a court order to correct a database error effectively denies correction to the majority of its users. Legal remedy operates on bureaucratic time; infrastructure operates on digital time. (Addressed by the correction velocity inequality, Section~\ref{sec:dynamics}.)
+\textbf{Second, Legal Frameworks do not guarantee Technical Rights.} A system that requires a court order to correct a database error effectively denies correction to the majority of its users. Legal remedy operates on bureaucratic timescales that cannot match infrastructure execution speed. (Addressed by the correction velocity inequality, Section~\ref{sec:dynamics}.)
 
 \textbf{Third, Aspiration is not Compliance.} Definitions that rely on what a system ``can'' do or ``should'' be offer no resistance to authoritarian drift. Modal language creates no enforceable constraint. Every term in the G20 definition is advisory (``should be secure,'' ``can be built on open standards''). Advisory language excludes nothing. (Addressed by the \textbf{GOVERN} test, Section~\ref{sec:tests}.)
 
@@ -376,11 +376,9 @@ Consequently, claims of governance must be evidentiary rather than declarative. 
 
 \subsubsection{Strategic Openness vs Structural Accountability}
 
-Open artifacts do not guarantee open governance. Both market-gardener and state-architect doctrines deploy openness instrumentally: releasing code or weights for adoption while retaining control over training, direction, and future development. Llama's weights are public; Meta controls alignment decisions. Android's AOSP is open; Google controls Play Services. This pattern (asymmetric openness) releases the artifact while closing the correction loop.
+Open artifacts do not guarantee open governance. Systems can deploy \textit{asymmetric openness}: releasing code or weights for ecosystem adoption while retaining governance control. This pattern (detailed in Section~\ref{sec:diagnosis}) satisfies CODE while failing GOVERN. The GOVERN test requires bidirectional accountability: not merely that citizens can observe the system, but that they can correct it. A system that publishes its code while reserving all governance decisions to the operator has satisfied CODE but failed GOVERN.
 
-The GOVERN test requires bidirectional accountability: not merely that citizens can observe the system, but that they can correct it. Openness can be weaponized. Strategic openness maximizes visibility into users while minimizing user power over the system. This is the inverse of corrigibility: surveillance, not governance. True corrigibility requires the correction loop be open, not merely the artifacts. A system that publishes its code while reserving all governance decisions to the operator has satisfied CODE but failed GOVERN.
-
-A related confusion conflates governing one's own data in a system with governing the system itself. Data protection frameworks (GDPR, CCPA) grant users rights to access, correct, delete, and port their data. These rights are necessary but insufficient. They allow users to manage information within rules the operator defines. They do not allow users to change those rules. Privacy dashboards that grant data control while withholding system control are structural theatre. The GOVERN test asks: can affected parties change the rules, not merely operate within them?
+A related confusion conflates governing one's own data with governing the system itself. Data protection frameworks (GDPR, CCPA) grant users rights to access, correct, delete, and port their data. These rights are necessary but insufficient---they allow users to manage information within rules the operator defines, not to change those rules. The GOVERN test asks: can affected parties change the rules, not merely operate within them?
 
 \subsection{Test 5: FORK (Independent Reproduction)}
 
@@ -473,7 +471,7 @@ where $\mathcal{A}$ is the set of available alternatives and $\Sigma^*$ is a cal
     \item \textbf{Statutory acceptance guarantee}: regulation requiring public services to accept verified ported credentials if cryptographic lineage checks pass
 \end{enumerate}
 
-This is the lesson of PSD2 (Payment Services Directive 2) in banking: portability mandates reduced $c_{\text{data}}$ and $c_{\text{legal}}$, making bank-switching economically viable. Similar mandates are required for identity and data infrastructure.
+This is the lesson of PSD2 in banking: portability mandates reduced $c_{\text{data}}$ and $c_{\text{legal}}$, making bank-switching economically viable (see also Section~\ref{subsubsec:fee}).
 
 A system passes the FORK test only if the community possesses the legal rights, technical artifacts, economic means, \textbf{and state portability guarantees} to spawn a functionally equivalent instance. \textbf{Aadhaar} fails completely: no entity outside UIDAI can reproduce the identity infrastructure. \textbf{OpenSearch} demonstrates what successful forking looks like. When Elastic changed its license, AWS forked Elasticsearch and the community continued development independently. \textbf{Linux} has been forked thousands of times (Android, Chrome OS, countless distributions). \textbf{Llama} presents partial forkability: anyone can run the weights, but reproducing the training requires resources only a handful of companies possess. If Meta abandoned Llama tomorrow, the community could not recreate it.
 
@@ -1075,7 +1073,7 @@ The Rule of the Ledger therefore reframes the law-infrastructure relationship: c
 \subsection{The Sovereignty--Scale--Neutrality Tension}
 \label{subsec:trilemma}
 
-The empirical pattern identified in Section~\ref{sec:empirical} suggests a recurring structural tension in state-operated digital infrastructure. Systems that achieve population-scale deployment under centralized sovereign control frequently exhibit diminished structural neutrality at the execution layer.
+The empirical pattern identified in Section~\ref{sec:diagnosis} suggests a recurring structural tension in state-operated digital infrastructure. Systems that achieve population-scale deployment under centralized sovereign control frequently exhibit diminished structural neutrality at the execution layer.
 
 \begin{definition}[System Properties]
 Let a Digital Public Infrastructure system $S$ exhibit the following properties:
@@ -1300,9 +1298,7 @@ Cash preserves UPI's partial EXIT; eliminating cash would collapse UPI to Aadhaa
 
 \paragraph{Federated Implementation.} Rather than a single provider of essential infrastructure, services could be delivered through multiple independent implementations of open protocols. This is analogous to email (SMTP) rather than messaging (proprietary platforms).
 
-Under this model, no single implementation would be essential; the protocol would be. A citizen excluded from one provider could obtain equivalent service from another. Estonian X-Road approaches this architecture: the protocol is open, implementations are distributed across institutions, and the Nordic Institute for Interoperability Solutions (NIIS) provides multi-stakeholder governance.
-
-X-Road demonstrates that scale and corrigibility are compatible. It passes CODE (MIT-licensed), AUDIT (transaction logs, public enforcement against misuse), GOVERN (multi-national NIIS), and FORK (deployed in 25+ countries). It fails full EXIT but achieves FEE through strong performance on the other four tests plus federated implementation.
+Under this model, no single implementation would be essential; the protocol would be. A citizen excluded from one provider could obtain equivalent service from another. Estonian X-Road demonstrates this architecture (Section~\ref{sec:diagnosis}): passing CODE, AUDIT, GOVERN, and FORK while achieving FEE through federated implementation despite limited EXIT.
 
 \subsubsection{The Finding}
 
@@ -2054,27 +2050,11 @@ The problem of AI-DPI governance is not a problem of intelligence, but a problem
 
 A world model running on distributed edge devices with open weights, published representation schemas, and federated governance would pass all five tests regardless of its intelligence. A narrow classifier running on centralized infrastructure with opaque logic and mandatory participation would fail regardless of its simplicity. The framework is architecture-sensitive, not capability-sensitive.
 
-This reframing matters for policy. The discourse of ``AI risk'' often conflates capability with capture. Corrigibility separates these concerns: a system can be simultaneously powerful and accountable, or weak and authoritarian. The question is not ``How smart is it?'' but ``Can those it affects correct it?''
-
-\begin{remark}[Necessary but Not Sufficient]
-Corrigibility is a necessary, but not sufficient, condition for a good society. It does not guarantee fairness, eliminate bias, or produce just outcomes. It merely preserves the \textit{structural possibility} of contestation. A corrigible system can still encode unjust policies---but those policies can be challenged, measured, and changed. An incorrigible system forecloses even that possibility.
-\end{remark}
+This reframing matters for policy. The discourse of ``AI risk'' often conflates capability with capture. Corrigibility separates these concerns: a system can be simultaneously powerful and accountable, or weak and authoritarian. The question is not ``How smart is it?'' but ``Can those it affects correct it?'' As established in Section~\ref{subsec:institutional}, corrigibility is necessary but not sufficient---institutional capacity determines whether structural safeguards translate into practical accountability.
 
 \subsection{The Roadmap Out}
 
-The structure of the five tests implies an ordering for transition: certain tests are prerequisites for others, and certain interventions have higher leverage.
-
-\begin{enumerate}
-    \item \textbf{EXIT first.} Restore exit before other tests. Without exit, no other reform creates genuine feedback. This requires either eliminating mandatory linkage laws or guaranteeing functional non-digital alternatives. EXIT is the error signal; without it, the system cannot sense its own failures.
-
-    \item \textbf{CODE before AUDIT.} Transparency must precede verification. Independent testing is meaningful only if the testing target is observable. Publishing audit results for a black box proves nothing about the box.
-
-    \item \textbf{AUDIT before GOVERN.} Verified error data creates political pressure for governance reform. Governance without measurement is arbitrary. The sensor must function before the actuator can be calibrated.
-
-    \item \textbf{GOVERN enables FORK.} Structural governance can mandate open licensing, data portability, and interoperability requirements that enable eventual forkability. GOVERN without FORK leaves the system captive to its current steward; FORK without GOVERN may produce fragmentation without accountability.
-\end{enumerate}
-
-This sequence reflects the causal structure of the feedback loop: signal, sensing, transmission, actuation, selection. Interventions at later stages are ineffective if earlier stages are broken.
+The structure of the five tests implies an ordering for transition (detailed in Section~\ref{subsec:pathways}): EXIT $\to$ CODE $\to$ AUDIT $\to$ GOVERN $\to$ FORK. This sequence reflects the causal structure of the feedback loop. Interventions at later stages are ineffective if earlier stages are broken.
 
 \subsection{The Core Finding}
 
@@ -2104,7 +2084,7 @@ Workflow & Lock-In & Interpretive & Workflow Forkability (WCC) \\
 \end{tabular}
 \end{table}
 
-Corrigibility is the structural response to the Collingridge Dilemma: by the time the harms of an incorrigible system become politically undeniable, the system is too technically entrenched to dismantle.
+Corrigibility is the structural response to the Collingridge Dilemma (Section~\ref{subsec:velocity}): architectural constraints must be established before entrenchment makes correction impossible.
 
 \subsection{Limitations}
 

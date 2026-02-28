@@ -270,7 +270,7 @@ A learned system satisfies LWD-R disclosure if the following artifacts are publi
 \subsection{Machine-Verifiable Legitimacy}
 \label{subsec:machine-verifiable}
 
-For learned and agentic systems, corrigibility must be paired with machine-verifiable legitimacy: (a) \textit{authority encoding}---delegation and scope expressed as machine-interpretable credentials; (b) \textit{revocation propagation}---immediate, observable revocation states that downstream execution environments respect; (c) \textit{evidence standards}---tamper-evident execution traces and evaluation artifacts that meet defined admissibility criteria; and (d) \textit{incident-triggered mitigation}---automated mitigation gating and mandatory rollback protocols when thresholds breach. These are operational requirements; without them, architectural constraints remain unproven. Existing governance artifact specifications \citep{abadie2026} begin to address these requirements through decision receipts, governance triggers, and evidence bundles.
+For learned and agentic systems, corrigibility must be paired with machine-verifiable legitimacy: (a) \textit{authority encoding}---delegation and scope expressed as machine-interpretable credentials; (b) \textit{revocation propagation}---immediate, observable revocation states that downstream execution environments respect; (c) \textit{evidence standards}---tamper-evident execution traces and evaluation artifacts that meet defined admissibility criteria; and (d) \textit{incident-triggered mitigation}---automated mitigation gating and mandatory rollback protocols when thresholds breach. These are operational requirements; without them, architectural constraints remain unproven. Existing governance frameworks such as \citep{abadie2026} provide workflow orchestration but lack these machine-verifiable legitimacy requirements.
 
 %% ============================================
 %% SECTION 4: TEMPORAL VARIETY GAP
@@ -687,6 +687,11 @@ You don't govern the AI; you govern the Skills the AI is allowed to use. This is
 The Action Boundary is therefore a \textbf{governance floor}, not a governance ceiling. It prevents the worst failure modes (GDoS, prompt injection, unbounded action) while leaving the deeper problem of epistemic sovereignty partially unresolved. Full EPI corrigibility requires the Action Boundary \textit{plus} LWD-R disclosure \textit{plus} training forkability: the complete stack, not any single layer.
 
 \paragraph{Epistemic Constraint Boundary.} Corrigibility preserves structural contestability but does not guarantee epistemic rigor, scientific discipline, or optimization efficiency. A system may satisfy corrigibility conditions and yet generate poorly designed experiments or unstable inferences. Corrigibility bounds structural error propagation; it does not ensure epistemic excellence.
+
+\subsubsection{Structural Gaps in Current Frameworks}
+\label{subsec:cdpi-critique}
+
+Existing DPI-AI frameworks such as \citep{abadie2026} correctly identify composability and workflow orchestration as central challenges. However, they optimize for state capacity (efficient AI deployment) without addressing citizen capacity (structural correction rights). Specifically: no EXIT mechanism for refusing AI-mediated determinations; no LWD-R requirement for training transparency; no compute capture analysis; no citizen-corrective loop (GOVERN exists for operators, not subjects); and no FORK provision for training reproducibility. These gaps replicate the architectural failures documented in deterministic DPI.
 
 %% ============================================
 %% SECTION 7: WORKFLOW SOVEREIGNTY

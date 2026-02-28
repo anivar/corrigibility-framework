@@ -260,6 +260,8 @@ The DPI literature spans policy frameworks, technical architectures, and critica
 
 \paragraph{Policy Frameworks.} The G20 framework \citep{g20} and UNDP definitions \citep{undp} establish aspirational principles (openness, inclusion, interoperability) without verification criteria. The World Bank's Identification for Development (ID4D) initiative emphasizes functional identity but does not specify architectural requirements for user exit or independent audit. These frameworks describe \textit{what} DPI should achieve without specifying \textit{how} to verify achievement.
 
+\paragraph{Measurement Frameworks.} The most comprehensive global assessment, covering 210 countries across digital identity, payments, and data exchange systems \citep{ucl2025}, measures six attributes: interoperability, oversight, privacy, inclusion, adoption, and coordination. Yet the framework explicitly acknowledges that ``governance measurements identify the prevalence of legal frameworks and oversight bodies but cannot assess enforcement capacity.'' The variables measure \textit{presence}: does an oversight body exist, does a data protection act exist, does an interoperability policy exist. They do not measure \textit{function}: can citizens invoke these mechanisms to correct systemic error? The findings are stark: only 3\% of payment systems meet privacy-related variables; only 12\% meet inclusion variables; only 50\% of digital identity systems meet interoperability requirements. Even these low figures overstate structural accountability, because presence of a legal framework does not establish citizen capacity to activate it. A system may have an ``audit mechanism'' (UCL variable) while failing AUDIT (this framework) because no independent party can verify execution. A system may have ``participation conditions'' while failing EXIT because no functional alternative exists. Terminological alignment masks structural divergence.
+
 \paragraph{Critical Analyses.} Scholarship on India Stack has documented exclusion harms \citep{khera2019} and constitutional tensions \citep{bhatia2019}. However, these critiques remain case-specific rather than providing generalizable tests applicable across jurisdictions and technologies.
 
 \paragraph{Control Theory and Governance.} Cybernetic approaches to governance date to Ashby \citep{ashby1956} and Beer's viable systems model, but have not been systematically applied to digital infrastructure accountability. Lessig's ``code is law'' \citep{lessig2006} establishes that architecture constrains behavior, but does not specify which architectural properties are necessary for democratic legitimacy.
@@ -803,7 +805,9 @@ Government-operated systems currently designated as Digital Public Infrastructur
     \end{subtable}
 \end{table}
 
-\textbf{Pattern}: X-Road (4/5) fails only EXIT \citep{xroad2026}. UK Open Banking (2/5) passes AUDIT and GOVERN but fails CODE: the API \textit{specification} is public, but the bank \textit{implementations} are proprietary. Specification $\neq$ Code. You can see the interface; you cannot inspect the execution.
+\textbf{Pattern}: Pix (Brazil) illustrates how measurement frameworks mask structural failure. Global DPI assessments score Pix as the highest-aligned payment system in Latin America, meeting all eight measured variables \citep{ucl2025}. Yet Pix fails both GOVERN (Banco Central do Brasil sets and enforces rules unilaterally, with no binding citizen-corrective mechanism) and FORK (the central switch cannot be reproduced without BCB authorization). The variables measured---interoperability policy, participation conditions, oversight body---capture \textit{presence}, not \textit{function}. A citizen wrongly excluded from Pix has no structural path to correction beyond petitioning the same authority that excluded them. High measurement scores coexist with closed corrective loops.
+
+Other government systems exhibit different failure patterns. X-Road (4/5) fails only EXIT: citizens cannot opt out of government data exchange, but the system passes CODE, AUDIT, GOVERN, and FORK \citep{xroad2026}. UK Open Banking (2/5) passes AUDIT and GOVERN but fails CODE: the API \textit{specification} is public, but the bank \textit{implementations} are proprietary. Specification $\neq$ Code. You can see the interface; you cannot inspect the execution.
 
 \subsection{Platform Infrastructure: The Illusion of Openness}
 
@@ -2575,6 +2579,12 @@ G20.
 United Nations Development Programme.
 \newblock Digital Public Infrastructure: Definitions and Core Concepts.
 \newblock UNDP Digital Strategy Office, 2024.
+
+\bibitem[Fetter et al.(2025)]{ucl2025}
+Fetter, Jordyn, Rao, Krisstina, and Eaves, David.
+\newblock 2025 State of Digital Public Infrastructure Report: A Look at Measurement and Prevalence as DPI Transitions from Experiment to Scale.
+\newblock UCL Institute for Innovation and Public Purpose, IIPP Policy Report 2025/06, October 2025.
+\newblock \url{https://www.ucl.ac.uk/bartlett/publications/2025/nov/2025-state-digital-public-infrastructure-report}
 
 \bibitem[Gebru et al.(2021)]{gebru2021}
 Gebru, Timnit, Morgenstern, Jamie, Vecchione, Briana, et al.

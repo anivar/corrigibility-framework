@@ -124,24 +124,23 @@
 \maketitle
 
 \begin{abstract}
-Digital Public Infrastructure (DPI) is frequently described in terms of openness, interoperability, inclusion, or scale. These descriptors, while normatively appealing, do not specify structural conditions under which systemic error can be detected and corrected by affected participants. This paper proposes corrigibility as a necessary structural precondition for legitimate digital public infrastructure.
-
-Corrigibility is defined as the property of a system in which affected participants possess guaranteed mechanisms to detect, contest, and override systemic error. Drawing on control theory, commons governance, and distributed systems design, the paper formalizes five jointly necessary conditions for structural corrigibility: inspectable logic (CODE), independent verifiability (AUDIT), reversible participation (EXIT), binding participatory constraint (GOVERN), and independent reproducibility (FORK). These conditions operate across observability, participation, constraint, and replacement layers. The absence of any single condition converts the infrastructure into an open-loop system in which error accumulation cannot be structurally bounded.
-
-The framework distinguishes structural corrigibility from transparency, accountability, or advisory governance in isolation, and provides a testable basis for evaluating real-world DPI systems. Corrigibility does not guarantee optimal performance or fairness; rather, it establishes the minimal feedback architecture required for sustained systemic correction at population scale.
+Digital Public Infrastructure is evaluated using aspirational criteria: interoperability, inclusion, openness, scale. These criteria do not establish whether systemic errors can be corrected by affected participants. This paper defines corrigibility as the minimal structural precondition for reversible public infrastructure. Five jointly necessary conditions form a closed corrective loop: EXIT, CODE, AUDIT, GOVERN, FORK. Failure of any condition opens the loop, rendering correction discretionary. Using control-topology mapping grounded in Ashby's Law of Requisite Variety, the paper proves corrigibility is an architectural invariant. Applied analysis demonstrates discriminative power against existing infrastructures. Corrigibility does not guarantee fairness. It guarantees reversibility.
 \end{abstract}
 
 \begin{keywords}
 Corrigibility, Digital Public Infrastructure, Cybernetics, Feedback Control, Requisite Variety, Infrastructure Accountability, India Stack
 \end{keywords}
 
+\paragraph{How to Read This Paper.}
+The argument proceeds in three parts: public systems require bounded error propagation (the invariant); five conditions close the corrective loop (the architecture); these conditions discriminate between real systems (the evaluation). Case studies illustrate discriminative power, not exhaustive institutional assessment.
+
 \section*{Executive Summary}
 
-Digital Public Infrastructure (DPI) is often evaluated using aspirational criteria such as openness, interoperability, inclusion, or scale. However, these descriptors do not answer a more fundamental question: can the system be corrected when it goes wrong?
+Digital Public Infrastructure (DPI) is evaluated using aspirational criteria: openness, interoperability, inclusion, scale. These descriptors do not answer a fundamental question: can the system be corrected when it goes wrong?
 
-This paper argues that the defining feature of legitimate public infrastructure is \textbf{corrigibility}: the structural ability of affected participants to detect, contest, and override systemic error. Without this property, digital infrastructure becomes an open-loop system: errors may be acknowledged, but correction remains discretionary rather than guaranteed.
+\textbf{Corrigibility} is the structural ability of affected participants to detect, contest, and override systemic error. Without this property, digital infrastructure operates in open-loop: errors may be acknowledged, but correction remains discretionary.
 
-The paper identifies five structural conditions required for corrigibility:
+Five architectural constraints are required for corrigibility:
 
 \begin{enumerate}[noitemsep]
     \item Inspectable logic (\textbf{CODE})
@@ -151,9 +150,7 @@ The paper identifies five structural conditions required for corrigibility:
     \item Independent reproducibility (\textbf{FORK})
 \end{enumerate}
 
-These conditions operate across observability, participation, governance, and replacement layers. The absence of any one condition creates structural asymmetry and permits unbounded error accumulation.
-
-Corrigibility does not guarantee fairness, efficiency, or optimal design. It establishes the minimal feedback architecture required for sustained public control. The framework provides a testable basis for evaluating real-world DPI systems and distinguishes structural accountability from transparency or advisory governance alone.
+These constraints operate across observability, participation, governance, and replacement layers. The absence of any one constraint creates structural asymmetry. The framework provides testable criteria for evaluating real-world DPI systems.
 
 \section{Introduction}
 
@@ -182,6 +179,8 @@ Corrigibility is the property of a system in which affected participants can det
 Formally, a digital public infrastructure is structurally corrigible if and only if it satisfies five jointly necessary and collectively sufficient conditions that together close the feedback loop between system behavior and participant correction. These conditions operate across distinct control layers: observability, participation, constraint, and replacement. The failure of any one condition converts the system into an open-loop structure in which error may accumulate without guaranteed structural correction.
 
 The remainder of this paper defines these conditions and demonstrates their necessity.
+
+\paragraph{Verification Tiers.} Corrigibility can be assessed at three operational tiers: (1) \textit{Presence}: laws, bodies, and policies exist on paper; (2) \textit{Behavior}: controls execute under stress, audits produce consequences; (3) \textit{Proof}: trust is continuously testable, authority is scoped and revocable, claims are machine-verifiable, failures are bounded. Most DPI deployments satisfy Presence. Few reach Behavior. Almost none achieve Proof. The five conditions define what must be verified. The tiers define how rigorously.
 
 \section{The Problem: Definitions Without Structure}
 \label{sec:problem}
@@ -313,7 +312,7 @@ Corrigibility requires closing this loop.
 \section{The Structural Conditions of Corrigibility}
 \label{sec:tests}
 
-Corrigibility operates across four control layers. Each layer addresses a distinct failure mode. Figure~\ref{fig:control-loop} illustrates this architecture as a standard feedback control system.
+Five architectural constraints are required for structural corrigibility. These conditions operate across distinct control layers and form a weakest-link system: the failure of any one condition collapses corrective authority from guaranteed to discretionary. Figure~\ref{fig:control-loop} illustrates this architecture.
 
 \subsection{Observability Layer: CODE and AUDIT}
 
@@ -333,56 +332,41 @@ Without CODE, internal rule structure is opaque. Without AUDIT, error detection 
 
 \textbf{FORK} requires that a functionally equivalent system can be independently reproduced. Forkability ensures that corrective governance cannot be permanently blocked by centralized control.
 
-Together, these conditions form a closed-loop structure. Removal of any one condition reintroduces structural asymmetry and permits unbounded error accumulation.
+Together, these conditions form a closed-loop structure. The five conditions are jointly necessary for structural corrigibility. They are sufficient in a narrow architectural sense: if satisfied, corrective mechanisms remain structurally accessible to affected participants. This sufficiency concerns structural access to correction, not optimal outcomes, fairness, or epistemic quality.
+
+\textit{Note}: Satisfying these architectural conditions is necessary but not complete. Durable legitimacy requires machine-verifiable proof: cryptographic attestations, anchored logs, revocation state and change histories. Claims about authority, constraints, and remedial actions must be demonstrably true at decision time.
 
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    layer/.style={rectangle, draw, rounded corners, minimum width=6.5cm, minimum height=0.9cm, font=\sffamily\small, align=center},
-    test/.style={rectangle, rounded corners, draw=#1, fill=#1!20, minimum width=1.2cm, minimum height=0.5cm, font=\tiny\bfseries},
-    arrow/.style={-{Stealth[length=2mm]}, thick, gray},
-    failure/.style={font=\tiny\sffamily, text=red!70!black, align=left}
+    layer/.style={rectangle, draw=gray!40, fill=gray!5, rounded corners=3pt, minimum width=6cm, minimum height=0.85cm, font=\sffamily\small},
+    testlabel/.style={font=\ttfamily\scriptsize, text=gray!70},
+    arrow/.style={-{Stealth[length=2mm]}, thick, gray!50}
 ]
 
-% Title
-\node[font=\sffamily\bfseries, text=gray] at (0, 5) {CLOSED-LOOP CORRIGIBILITY STRUCTURE};
+% Four layers (top to bottom, matching SVG order)
+\node[layer] (obs) at (0, 3.3) {Observability};
+\node[layer] (part) at (0, 2.2) {Participation};
+\node[layer] (cons) at (0, 1.1) {Constraint};
+\node[layer] (repl) at (0, 0) {Replacement};
 
-% Layers (bottom to top)
-\node[layer, fill=forkcolor!10] (replacement) at (0, 0) {\textbf{Replacement Layer}};
-\node[layer, fill=governcolor!10] (constraint) at (0, 1.3) {\textbf{Constraint Layer}};
-\node[layer, fill=exitcolor!10] (participation) at (0, 2.6) {\textbf{Participation Layer}};
-\node[layer, fill=auditcolor!10] (observability) at (0, 3.9) {\textbf{Observability Layer}};
+% Test labels (right side, monospace)
+\node[testlabel, right=0.4cm of obs.east, anchor=west] {CODE \textperiodcentered{} AUDIT};
+\node[testlabel, right=0.4cm of part.east, anchor=west] {EXIT};
+\node[testlabel, right=0.4cm of cons.east, anchor=west] {GOVERN};
+\node[testlabel, right=0.4cm of repl.east, anchor=west] {FORK};
 
-% Tests
-\node[test=forkcolor, right=0.2cm of replacement.east, anchor=west] {FORK};
-\node[test=governcolor, right=0.2cm of constraint.east, anchor=west] {GOVERN};
-\node[test=exitcolor, right=0.2cm of participation.east, anchor=west] {EXIT};
-\node[test=codecolor, right=0.2cm of observability.east, anchor=west] (code) {CODE};
-\node[test=auditcolor, right=0.1cm of code.east, anchor=west] {AUDIT};
+% Upward arrows between layers
+\draw[arrow] (repl.north) -- (cons.south);
+\draw[arrow] (cons.north) -- (part.south);
+\draw[arrow] (part.north) -- (obs.south);
 
-% Failure consequences (right side)
-\node[failure, right=2.8cm of replacement.east, anchor=west] {If removed: \textbf{Permanent capture}\\(no alternative exists)};
-\node[failure, right=2.8cm of constraint.east, anchor=west] {If removed: \textbf{Arbitrary power}\\(correction is discretionary)};
-\node[failure, right=2.8cm of participation.east, anchor=west] {If removed: \textbf{Coercive participation}\\(no exit signal)};
-\node[failure, right=2.8cm of observability.east, anchor=west] {If removed: \textbf{Opaque error accumulation}\\(drift undetectable)};
-
-% Arrows showing dependency (upward flow)
-\draw[arrow] (replacement.north) -- (constraint.south);
-\draw[arrow] (constraint.north) -- (participation.south);
-\draw[arrow] (participation.north) -- (observability.south);
-
-% Closed-loop arrow (feedback from top back to bottom)
-\draw[arrow, gray!60, dashed, thick]
-    (observability.east) -- ++(0.8,0)
-    arc[start angle=90, end angle=-90, radius=2.6cm]
-    -- (replacement.east);
-\node[font=\tiny\sffamily, text=gray!70, rotate=-90, anchor=south] at (4.3, 2.0) {Feedback loop};
-
-% Open-loop warning
-\node[font=\scriptsize\sffamily, text=red!60!black, align=center] at (0, -0.8) {Removal of any layer $\rightarrow$ \textbf{Open-loop system}};
+% Curved feedback loop (right side, dashed)
+\draw[gray!50, thick, dashed]
+    (4.2, 3.3) arc[start angle=90, end angle=-90, x radius=0.6cm, y radius=1.65cm];
 
 \end{tikzpicture}
-\caption{\textbf{Closed-Loop Corrigibility Structure.} Each layer addresses a distinct failure mode, with specific power asymmetries that emerge when removed. Observability enables error detection; Participation enables error signaling; Constraint enables correction; Replacement ensures corrective capacity cannot be permanently blocked. \textbf{Removal of any layer converts the system to open-loop}, where error accumulation is unbounded.}
+\caption{\textbf{Closed-Loop Corrigibility Architecture.} Four control layers form a closed feedback loop. Removal of any layer converts the system to open-loop, permitting unbounded error accumulation.}
 \label{fig:four-layers}
 \end{figure}
 
@@ -581,9 +565,9 @@ Five tests describe the anatomy of a stable control loop rather than a random as
 
 Failure in any single dimension breaks the control loop at a specific physical point. The result is not partial infrastructure but \textbf{Open Loop Control}. An open-loop system executes directives without the capacity to sense deviation, interpret error, or apply corrective force.
 
-Under conditions of human variety and environmental change, open-loop control is structurally unstable. Error accumulates without bound. Misalignment compounds. The system drifts toward failure.
+\paragraph{Failure-Dominated Structure.} Corrigibility is failure-dominated. If any single constraint collapses, corrective authority becomes contingent rather than guaranteed. This weakest-link structure mirrors distributed systems reliability: system safety is bounded by the least reliable component. Under human variety and environmental change, open-loop control drifts toward failure.
 
-Corrigibility is the structural precondition that closes the loop. Only when all five tests are satisfied does a system possess a complete feedback topology capable of detecting divergence, transmitting intelligible signals, executing correction, and replacing failed control logic when necessary. Without this closure, stability is mathematically and operationally impossible.
+Corrigibility closes the loop. Only when all five tests are satisfied does a system possess a complete feedback topology capable of detecting divergence, transmitting intelligible signals, executing correction, and replacing failed control logic when necessary. Without this closure, stability is mathematically and operationally impossible.
 
 \begin{figure}[H]
 \centering
@@ -1240,6 +1224,12 @@ The demand for FEE is not a regressive desire to maintain paper ledgers indefini
 An essential system $S$ satisfies FEE if compensatory architectural guarantees recreate error-signal strength comparable to market exit in non-essential systems. FEE is an engineered mechanism to maintain requisite variety in the controller when the natural market variety (EXIT) is suppressed. The formal operationalization appears in Appendix~\ref{appendix:proofs}.
 \end{principle}
 
+\paragraph{Operationalization.} FEE requires:
+\begin{equation}
+E_{\text{alt}} \geq \theta \times E_{\text{baseline}}
+\end{equation}
+where $\theta$ is domain-specific (healthcare: 0.95; payments: 0.90; social benefits: 0.85). Example: if the Public Distribution System delivers food at $E_{\text{baseline}} = 0.80$ coverage, and $\theta = 0.90$, then any alternative must achieve $E_{\text{alt}} \geq 0.72$ to preserve functional exit. FEE operationalizes EXIT. Without it, ``opt-out'' is administrative theater.
+
 \paragraph{Real-World Analogues.} A partial real-world analogue of Protected Alternatives can be observed in telecommunications number portability regimes and in Open Banking interoperability mandates (e.g., PSD2 in the European Union). These frameworks preserve service continuity while enabling institutional exit at the provider layer. While not fully satisfying EXIT in existential services such as identity, they demonstrate that architectural separation between infrastructure rails and service operators is technically feasible. Corrigibility does not demand regression to analog systems; it demands layered modularity that prevents existential lock-in.
 
 \subsubsection{Design Responses to Proposition~\ref{prop:essentiality}}
@@ -1660,11 +1650,9 @@ In this sense, \textbf{corrigibility is necessary but not sufficient for equitab
 
 \section{Conclusion and Transition Paths}
 
-Digital Public Infrastructure is not a specific technology; it is a claim of political legitimacy. It asserts that a system is sufficiently foundational, accessible, and accountable to serve as the substrate of civic life.
+Digital Public Infrastructure is a claim of political legitimacy. Such legitimacy cannot be derived from self-declarations, ``open standards'' labeling, or multilateral endorsements. It requires \textbf{Corrigibility}: the capacity of the governed to observe the rules, verify their execution, limit their reach, and reproduce the infrastructure to escape its capture.
 
-This paper argues that such legitimacy cannot be derived from self-declarations, "open standards" labeling, or multilateral endorsements. It relies on a specific cybernetic property: \textbf{Corrigibility}. The capacity of the governed to observe the rules, verify their execution, limit their reach, and, if necessary, reproduce the infrastructure to escape its capture.
-
-This paper has proposed five rigorous tests to verify this capacity. The analysis demonstrates that systems currently touted as DPI models (Aadhaar, UPI) fail these tests, revealing them to be administrative enclosures rather than public goods. Conversely, the systems which actually run the world (Linux, Kubernetes, the Web) pass them structurally.
+Five architectural constraints verify this capacity. The analysis demonstrates that systems currently touted as DPI models (Aadhaar, UPI) fail these tests, revealing them to be administrative enclosures rather than public goods. Conversely, the systems which actually run the world (Linux, Kubernetes, the Web) pass them structurally.
 
 \subsection{The Roadmap Out}
 
@@ -1731,9 +1719,11 @@ Corrigibility is the structural response to the Collingridge Dilemma (Section~\r
 
 Extensions warranting investigation: (1) \textbf{Empirical velocity measurement}, quantifying when systems become ungovernable; (2) \textbf{International comparison}, testing generality across X-Road, Singapore NDI, EU Digital Identity, Brazil Pix; (3) \textbf{Political economy of architecture choice}, examining why governments choose incorrigible designs when corrigible alternatives exist; (4) \textbf{Transition cost modeling}; (5) \textbf{Legal doctrine integration}, operationalizing corrigibility for courts; (6) \textbf{Network effect formalization}; (7) \textbf{FEE pilot design}, specifying implementable FEE mechanisms for identity infrastructure. A companion paper extends this framework to learned systems (AI/ML) where behavior is determined by training data rather than source code.
 
-\subsection{Scope Clarification}
+\paragraph{Liability and Enforcement.} Architectural corrigibility must be complemented by clear liability and enforcement semantics: for any failure mode, supply-chain roles (principal, integrator, operator, trustee, as distinguished in EU AI Act Article 25 et seq.) must be mappable to legal responsibility and to mandated mitigation steps, so that evidence produces enforceable consequences rather than forensic narrative alone.
 
-This paper argues that corrigibility is a necessary structural condition for public legitimacy in digital infrastructure. It does not claim that corrigibility guarantees optimal performance, fairness, or efficiency. Corrigibility bounds systemic error; it does not eliminate epistemic or operational imperfection. The absence of corrigibility, however, renders sustained correction structurally impossible.
+\paragraph{Adversarial Robustness.} This framework assumes good-faith actors operating within institutional constraints. It does not address adversarial manipulation: coordinated gaming of audit mechanisms, governance capture through procedural compliance, or fork-and-poison attacks. Extension to adversarial settings requires additional machinery beyond this paper's scope.
+
+\paragraph{Core Thesis.} Corrigibility defines the boundary between reversible and irreversible infrastructure. It does not guarantee justice. It does not optimize administration. It guarantees that corrective authority remains structurally available to those the system governs. Digital infrastructure aspires to durability. Corrigibility ensures durability does not become capture. Public systems are either structurally reversible or structurally irreversible. Corrigibility marks that boundary.
 
 \section*{Acknowledgments}
 

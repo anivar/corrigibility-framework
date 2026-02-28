@@ -3,564 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corrigibility Framework — Structural Accountability for Public Infrastructure</title>
-    <meta name="description" content="A formal framework for evaluating whether digital and AI-mediated infrastructure permits correction by affected participants.">
-
+    <title>Corrigibility Framework</title>
     <style>
-        :root {
-            --bg: #fafafa;
-            --fg: #1a1a1a;
-            --muted: #666;
-            --border: #ddd;
-            --accent: #2563eb;
-            --accent-light: #dbeafe;
-            --card-bg: #fff;
-            --code-bg: #f3f4f6;
-
-            /* Test colors */
-            --exit: #dc2626;
-            --code: #2563eb;
-            --audit: #7c3aed;
-            --govern: #059669;
-            --fork: #d97706;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #0f0f0f;
-                --fg: #e5e5e5;
-                --muted: #a3a3a3;
-                --border: #333;
-                --accent: #60a5fa;
-                --accent-light: #1e3a5f;
-                --card-bg: #1a1a1a;
-                --code-bg: #262626;
-            }
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Charter', 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
-            background: var(--bg);
-            color: var(--fg);
+            font-family: Georgia, 'Times New Roman', serif;
+            background: #f7f7f5;
+            color: #1a1a1a;
             line-height: 1.7;
-            font-size: 17px;
-        }
-
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
         }
 
         /* Header */
-        header {
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 2rem;
-            margin-bottom: 3rem;
+        .header {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 3.5rem 1.5rem 3rem;
         }
 
-        header h1 {
-            font-size: 2.25rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-        }
-
-        header .subtitle {
-            font-size: 1.1rem;
-            color: var(--muted);
-            font-style: italic;
-        }
-
-        header .preprint-notice {
-            margin-top: 1.5rem;
-            padding: 0.75rem 1rem;
-            background: #fef3c7;
-            border-left: 3px solid #d97706;
-            font-size: 0.9rem;
-            color: #92400e;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            header .preprint-notice {
-                background: #422006;
-                color: #fcd34d;
-            }
-        }
-
-        /* Sections */
-        section {
-            margin-bottom: 3rem;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: var(--fg);
-        }
-
-        p {
-            margin-bottom: 1rem;
-        }
-
-        /* Five Tests Banner */
-        .five-tests {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin: 2rem 0;
-        }
-
-        .five-tests .test {
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-        }
-
-        .test-exit { background: #fecaca; color: #991b1b; }
-        .test-code { background: #dbeafe; color: #1e40af; }
-        .test-audit { background: #ede9fe; color: #5b21b6; }
-        .test-govern { background: #d1fae5; color: #065f46; }
-        .test-fork { background: #fed7aa; color: #9a3412; }
-
-        @media (prefers-color-scheme: dark) {
-            .test-exit { background: #7f1d1d; color: #fecaca; }
-            .test-code { background: #1e3a8a; color: #bfdbfe; }
-            .test-audit { background: #4c1d95; color: #ddd6fe; }
-            .test-govern { background: #064e3b; color: #a7f3d0; }
-            .test-fork { background: #7c2d12; color: #fed7aa; }
-        }
-
-        /* Architecture Diagram */
-        .architecture {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .architecture svg {
-            width: 100%;
-            max-width: 700px;
-            display: block;
+        .header-inner {
+            max-width: 760px;
             margin: 0 auto;
         }
 
-        .architecture svg text {
-            fill: var(--fg);
-        }
-
-        .architecture svg .box {
-            fill: var(--card-bg);
-            stroke: var(--border);
-        }
-
-        .architecture svg .arrow {
-            stroke: var(--muted);
-        }
-
-        .architecture svg .arrow-head {
-            fill: var(--muted);
-        }
-
-        /* Cards Grid */
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-        }
-
-        .card h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card .version {
-            font-size: 0.75rem;
-            font-weight: 500;
-            padding: 0.15rem 0.5rem;
-            background: var(--accent-light);
-            color: var(--accent);
-            border-radius: 12px;
-        }
-
-        .card .description {
-            font-size: 0.95rem;
-            color: var(--muted);
-            margin-bottom: 1rem;
-        }
-
-        .card ul {
-            list-style: none;
-            margin-bottom: 1rem;
-        }
-
-        .card li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .card li:last-child {
-            border-bottom: none;
-        }
-
-        .card a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .card a:hover {
-            text-decoration: underline;
-        }
-
-        .card code {
-            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-            font-size: 0.9em;
-            background: var(--code-bg);
-            padding: 0.1rem 0.3rem;
-            border-radius: 3px;
-        }
-
-        .card .meta {
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: var(--fg);
-            color: var(--bg);
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-            text-decoration: none;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .skill {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 1rem 1.25rem;
-        }
-
-        .skill h4 {
-            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-            font-size: 0.95rem;
+        h1 {
+            font-size: 2rem;
+            font-weight: normal;
+            letter-spacing: -0.01em;
             margin-bottom: 0.5rem;
         }
 
-        .skill p {
-            font-size: 0.9rem;
-            color: var(--muted);
-            margin-bottom: 0.75rem;
+        .author {
+            color: #999;
+            font-size: 1rem;
         }
 
-        .skill a {
-            font-size: 0.85rem;
-            color: var(--accent);
+        /* Main */
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 4rem;
+        }
+
+        .abstract {
+            font-size: 1.125rem;
+            color: #333;
+            margin-bottom: 2.5rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        /* Section */
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #888;
+            margin-bottom: 1rem;
+            font-family: -apple-system, sans-serif;
+        }
+
+        /* Figure */
+        .figure {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .figure svg {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+
+        .caption {
+            font-size: 0.875rem;
+            color: #555;
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .caption strong {
+            color: #333;
+        }
+
+        /* Table */
+        .table-wrap {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9375rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 0.875rem 1rem;
+            background: #fafafa;
+            font-weight: 600;
+            font-family: -apple-system, sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #666;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:first-child {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            width: 80px;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .card {
+            display: block;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
             text-decoration: none;
+            color: inherit;
+            transition: box-shadow 0.2s, border-color 0.2s;
         }
 
-        .skill a:hover {
-            text-decoration: underline;
+        .card:hover {
+            border-color: #ccc;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
 
-        /* Definition Box */
-        .definition {
-            background: var(--code-bg);
-            border-left: 3px solid var(--accent);
+        .card-label {
+            font-family: -apple-system, sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.0625rem;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-desc {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .card-sm {
             padding: 1rem 1.25rem;
-            margin: 1.5rem 0;
-            font-size: 0.95rem;
         }
 
-        .definition strong {
-            color: var(--accent);
+        .card-sm .card-title {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 0.875rem;
+        }
+
+        .card-sm .card-desc {
+            font-size: 0.8125rem;
         }
 
         /* Footer */
         footer {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            font-size: 0.9rem;
-            color: var(--muted);
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            border-top: 1px solid #e5e5e5;
+            font-size: 0.8125rem;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+            font-family: -apple-system, sans-serif;
         }
 
         footer a {
-            color: var(--accent);
+            color: #555;
             text-decoration: none;
         }
 
         footer a:hover {
-            text-decoration: underline;
+            color: #1a1a1a;
         }
 
-        .footer-grid {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        /* Responsive */
         @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.75rem;
-            }
-
-            .five-tests {
-                gap: 0.4rem;
-            }
-
-            .five-tests .test {
-                padding: 0.3rem 0.6rem;
-                font-size: 0.75rem;
-            }
+            .header { padding: 2.5rem 1.25rem 2rem; }
+            main { padding: 2rem 1.25rem 3rem; }
+            .figure { padding: 1.25rem; }
+            .grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 0.5rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-
-        <header>
+    <div class="header">
+        <div class="header-inner">
             <h1>Corrigibility Framework</h1>
-            <p class="subtitle">Structural Accountability for Digital and Epistemic Public Infrastructure</p>
+            <p class="author">Anivar A Aravind</p>
+        </div>
+    </div>
 
-            <div class="preprint-notice">
-                <strong>Working Papers:</strong> These are preprints shared for community feedback. Not yet peer-reviewed.
-            </div>
-        </header>
-
-        <section>
-            <div class="definition">
-                <strong>Corrigibility</strong> is the structural property of a system in which affected participants can detect, contest, and override systemic error. A system is corrigible if and only if it satisfies five jointly necessary conditions that close the feedback loop between system behavior and participant correction.
-            </div>
-
-            <div class="five-tests">
-                <span class="test test-exit">EXIT</span>
-                <span class="test test-code">CODE</span>
-                <span class="test test-audit">AUDIT</span>
-                <span class="test test-govern">GOVERN</span>
-                <span class="test test-fork">FORK</span>
-            </div>
-
-            <p style="text-align: center; color: var(--muted); font-size: 0.9rem;">
-                Reversibility · Inspectability · Verifiability · Constraint · Reproducibility
-            </p>
-        </section>
+    <main>
+        <p class="abstract">
+            A structural framework for evaluating whether digital and AI-mediated public infrastructure permits correction by affected participants. Corrigibility is the property of a system in which affected participants possess guaranteed mechanisms to detect, contest, and override systemic error.
+        </p>
 
         <section>
             <h2>Architecture</h2>
+            <div class="figure">
+                <svg viewBox="0 0 460 195" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="12" width="260" height="38" rx="4" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+                    <text x="180" y="36" text-anchor="middle" font-family="Georgia" font-size="13">Observability</text>
+                    <text x="325" y="36" font-family="Consolas, monospace" font-size="10" fill="#666">CODE · AUDIT</text>
 
-            <p>
-                The framework operates across four layers: foundational theory, domain-specific schemas,
-                evaluation tooling, and programmable institutional skills.
-            </p>
+                    <rect x="50" y="56" width="260" height="38" rx="4" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+                    <text x="180" y="80" text-anchor="middle" font-family="Georgia" font-size="13">Participation</text>
+                    <text x="325" y="80" font-family="Consolas, monospace" font-size="10" fill="#666">EXIT</text>
 
-            <div class="architecture">
-                <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="100" width="260" height="38" rx="4" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+                    <text x="180" y="124" text-anchor="middle" font-family="Georgia" font-size="13">Constraint</text>
+                    <text x="325" y="124" font-family="Consolas, monospace" font-size="10" fill="#666">GOVERN</text>
+
+                    <rect x="50" y="144" width="260" height="38" rx="4" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+                    <text x="180" y="168" text-anchor="middle" font-family="Georgia" font-size="13">Replacement</text>
+                    <text x="325" y="168" font-family="Consolas, monospace" font-size="10" fill="#666">FORK</text>
+
+                    <line x1="180" y1="144" x2="180" y2="140" stroke="#999" stroke-width="1.5" marker-end="url(#arr)"/>
+                    <line x1="180" y1="100" x2="180" y2="96" stroke="#999" stroke-width="1.5" marker-end="url(#arr)"/>
+                    <line x1="180" y1="56" x2="180" y2="52" stroke="#999" stroke-width="1.5" marker-end="url(#arr)"/>
+
+                    <path d="M310 31 Q 420 31, 420 100 Q 420 163, 310 163" stroke="#bbb" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+
                     <defs>
-                        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                            <polygon points="0 0, 8 3, 0 6" class="arrow-head"/>
+                        <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                            <path d="M0,0 L6,3 L0,6 Z" fill="#999"/>
                         </marker>
                     </defs>
-
-                    <!-- Theory -->
-                    <rect x="200" y="20" width="300" height="50" rx="4" class="box" stroke-width="2"/>
-                    <text x="350" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="600">
-                        Corrigibility Theory
-                    </text>
-
-                    <!-- DPI -->
-                    <rect x="40" y="110" width="280" height="70" rx="4" class="box" stroke-width="2"/>
-                    <text x="180" y="140" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="600">
-                        DPI Schemas
-                    </text>
-                    <text x="180" y="162" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#666">
-                        Deterministic Infrastructure
-                    </text>
-
-                    <!-- EPI -->
-                    <rect x="380" y="110" width="280" height="70" rx="4" class="box" stroke-width="2"/>
-                    <text x="520" y="140" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="600">
-                        EPI Schemas
-                    </text>
-                    <text x="520" y="162" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#666">
-                        Learned / Agentic Systems
-                    </text>
-
-                    <!-- Evaluation -->
-                    <rect x="200" y="220" width="300" height="50" rx="4" class="box" stroke-width="2"/>
-                    <text x="350" y="250" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="600">
-                        Schema Evaluation
-                    </text>
-
-                    <!-- Skills -->
-                    <rect x="200" y="310" width="300" height="50" rx="4" class="box" stroke-width="2"/>
-                    <text x="350" y="340" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="600">
-                        Agentic Skills
-                    </text>
-
-                    <!-- Arrows -->
-                    <line x1="350" y1="70" x2="180" y2="110" class="arrow" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-                    <line x1="350" y1="70" x2="520" y2="110" class="arrow" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-                    <line x1="180" y1="180" x2="350" y2="220" class="arrow" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-                    <line x1="520" y1="180" x2="350" y2="220" class="arrow" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-                    <line x1="350" y1="270" x2="350" y2="310" class="arrow" stroke-width="1.5" marker-end="url(#arrowhead)"/>
                 </svg>
+                <p class="caption"><strong>Figure 1.</strong> Four control layers forming a closed feedback loop. Removal of any layer converts the system to open-loop, permitting unbounded error accumulation.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Five Tests</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>DPI (Deterministic)</th>
+                            <th>EPI (Learned Systems)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>EXIT</td><td>Can refuse system</td><td>Human fallback guaranteed</td></tr>
+                        <tr><td>CODE</td><td>Source code inspection</td><td>LWD-R: Logic, Weights, Data, Representation</td></tr>
+                        <tr><td>AUDIT</td><td>Logic and output inspection</td><td>Statistical bounds, drift tracking</td></tr>
+                        <tr><td>GOVERN</td><td>Binding RFC process</td><td>Action boundary protocol</td></tr>
+                        <tr><td>FORK</td><td>Copy and deploy</td><td>Compute, data, training pipeline access</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Papers</h2>
+            <div class="cards">
+                <a href="dpi/corrigibility-framework-dpi.pdf" class="card">
+                    <div class="card-label">Paper I · DPI</div>
+                    <div class="card-title">Corrigibility as a Structural Precondition for Digital Public Infrastructure</div>
+                    <div class="card-desc">Deterministic systems: ledgers, registries, payment rails</div>
+                </a>
+                <a href="epi/corrigibility-framework-ai.pdf" class="card">
+                    <div class="card-label">Paper II · EPI</div>
+                    <div class="card-title">Epistemic Capture and the Action Boundary</div>
+                    <div class="card-desc">Learned and agentic systems: AI, ML models</div>
+                </a>
             </div>
         </section>
 
         <section>
             <h2>Schemas</h2>
-
-            <div class="cards">
-                <div class="card">
-                    <h3>DPI Schemas <span class="version">v1.7</span></h3>
-                    <p class="description">
-                        <strong>Digital Public Infrastructure</strong> — deterministic systems: ledgers, registries, payment rails
-                    </p>
-                    <ul>
-                        <li>
-                            <a href="dpi/schema/infrastructure.json"><code>infrastructure.json</code></a>
-                            <div class="meta">Operator disclosure manifest</div>
-                        </li>
-                        <li>
-                            <a href="dpi/schema/corrigibility.json"><code>corrigibility.json</code></a>
-                            <div class="meta">Five-test structural assessment</div>
-                        </li>
-                    </ul>
-                    <a href="dpi/paper.pdf" class="btn">Preprint (PDF) — 50 pages</a>
-                </div>
-
-                <div class="card">
-                    <h3>EPI Schemas <span class="version">v1.7</span></h3>
-                    <p class="description">
-                        <strong>Epistemic Public Infrastructure</strong> — learned/agentic systems: AI, ML models
-                    </p>
-                    <ul>
-                        <li>
-                            <a href="epi/schema/infrastructure.json"><code>infrastructure.json</code></a>
-                            <div class="meta">LWD-R transparency manifest</div>
-                        </li>
-                        <li>
-                            <a href="epi/schema/corrigibility.json"><code>corrigibility.json</code></a>
-                            <div class="meta">Five-test + EPI metrics</div>
-                        </li>
-                    </ul>
-                    <a href="epi/paper.pdf" class="btn">Preprint (PDF) — 24 pages</a>
-                </div>
+            <div class="grid">
+                <a href="schema/dpi/infrastructure.json" class="card card-sm">
+                    <div class="card-label">DPI</div>
+                    <div class="card-title">infrastructure.json</div>
+                    <div class="card-desc">Operator disclosure manifest</div>
+                </a>
+                <a href="schema/dpi/corrigibility.json" class="card card-sm">
+                    <div class="card-label">DPI</div>
+                    <div class="card-title">corrigibility.json</div>
+                    <div class="card-desc">Five-test assessment</div>
+                </a>
+                <a href="schema/epi/infrastructure.json" class="card card-sm">
+                    <div class="card-label">EPI</div>
+                    <div class="card-title">infrastructure.json</div>
+                    <div class="card-desc">LWD-R transparency manifest</div>
+                </a>
+                <a href="schema/epi/corrigibility.json" class="card card-sm">
+                    <div class="card-label">EPI</div>
+                    <div class="card-title">corrigibility.json</div>
+                    <div class="card-desc">Five-test + EPI metrics</div>
+                </a>
             </div>
         </section>
 
         <section>
             <h2>Agentic Skills</h2>
-
-            <p>
-                Machine-readable institutional competencies following the
-                <a href="https://agentskills.io">agentskills.io</a> specification.
-                These skills enable structured generation, auditing, and validation
-                of corrigibility manifests.
-            </p>
-
-            <div class="skills-grid">
-                <div class="skill">
-                    <h4>schema-creator</h4>
-                    <p>Create <code>infrastructure.json</code> (operators) or <code>corrigibility.json</code> (auditors) for DPI/EPI systems</p>
-                    <a href="https://github.com/anivar/corrigibility-framework/tree/main/skills/schema-creator">View on GitHub →</a>
-                </div>
-
-                <div class="skill">
-                    <h4>schema-evaluator</h4>
-                    <p>Validate schemas, verify score calculations, detect contradictions between claims and findings</p>
-                    <a href="https://github.com/anivar/corrigibility-framework/tree/main/skills/schema-evaluator">View on GitHub →</a>
-                </div>
-
-                <div class="skill">
-                    <h4>corrigibility-assessment</h4>
-                    <p>Rules and test definitions for the five structural tests across DPI and EPI domains</p>
-                    <a href="https://github.com/anivar/corrigibility-framework/tree/main/skills/corrigibility-assessment">View on GitHub →</a>
-                </div>
+            <div class="grid">
+                <a href="skills/schema-creator/SKILL.md" class="card card-sm">
+                    <div class="card-title">schema-creator</div>
+                    <div class="card-desc">Generate infrastructure and corrigibility manifests</div>
+                </a>
+                <a href="skills/schema-evaluator/SKILL.md" class="card card-sm">
+                    <div class="card-title">schema-evaluator</div>
+                    <div class="card-desc">Validate schemas and verify scores</div>
+                </a>
+                <a href="skills/corrigibility-assessment/SKILL.md" class="card card-sm">
+                    <div class="card-title">corrigibility-assessment</div>
+                    <div class="card-desc">Rules and test definitions</div>
+                </a>
             </div>
         </section>
+    </main>
 
-        <section>
-            <h2>Core Thesis</h2>
-
-            <p>
-                Corrigibility is a <strong>structural precondition</strong> for public legitimacy in digital infrastructure.
-                It is not equivalent to transparency, accountability, or openness in isolation. A system may publish
-                documentation, provide APIs, or maintain oversight boards and yet remain structurally incorrigible
-                if participants lack binding corrective leverage.
-            </p>
-
-            <p>
-                The five tests form an <strong>irreducible set</strong>. Failure of any single condition converts the
-                infrastructure into an <em>open-loop system</em> where error accumulation cannot be structurally bounded.
-                Partial compliance is functionally equivalent to total failure.
-            </p>
-
-            <p>
-                The framework does not guarantee fairness, efficiency, or optimal design. It establishes the
-                <strong>minimal feedback architecture</strong> required for sustained systemic correction at population scale.
-            </p>
-        </section>
-
-        <footer>
-            <div class="footer-grid">
-                <div>
-                    <strong>Source:</strong>
-                    <a href="https://github.com/anivar/corrigibility-framework">github.com/anivar/corrigibility-framework</a>
-                </div>
-                <div>
-                    <strong>License:</strong> CC0 1.0 (Public Domain)
-                </div>
-            </div>
-        </footer>
-
-    </div>
+    <footer>
+        <span>CC0 Public Domain</span>
+        <a href="https://github.com/anivar/corrigibility-framework">View source on GitHub</a>
+    </footer>
 </body>
 </html>

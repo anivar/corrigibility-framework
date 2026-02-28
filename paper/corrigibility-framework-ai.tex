@@ -451,6 +451,8 @@ Systems that publish weights but withhold training data or code achieve only \te
 
 The distinction matters: when Llama or Gemma exhibit unexpected behavior, the community can observe symptoms but cannot diagnose root causes in training data. When OLMo exhibits unexpected behavior, researchers can trace the issue to specific training examples. \textbf{Open weights with closed training pipelines is inference transparency without correction capacity.}
 
+Systems claiming ``sovereign'' or ``indigenous'' status through fine-tuning foreign base models achieve inference forkability only; the base model remains opaque and unmodifiable. Such claims are structurally hollow: the fine-tuned layer is correctable, but the foundational model on which it depends is not.
+
 \paragraph{Alignment with OSI Definition.} The Open Source Initiative's Open Source AI Definition 1.0 \citep{osi2024} codifies this distinction, requiring: (1) data information sufficient for recreation, (2) complete training code, and (3) model parameters. By this standard, Llama, Gemma, DeepSeek, and Mistral do not qualify as open source AI despite marketing claims. The EU AI Act \citep{euaiact2024} similarly distinguishes between models with varying transparency obligations. This framework's FORK test operationalizes the same principle: without training forkability, governance correction is structurally impossible.
 
 %% ============================================
@@ -957,6 +959,7 @@ This framework offers three contributions to AI governance discourse:
     \item \textbf{GDoS simulation}: Modeling governance failure under agentic scaling
     \item \textbf{LWD-R schema standardization}: Machine-readable formats for disclosure requirements
     \item \textbf{Regulatory integration}: Mapping framework tests to emerging AI regulations (EU AI Act, etc.)
+    \item \textbf{Centralized vs edge architecture}: Analyzing corrigibility trade-offs between centralized compute (more auditable, more capturable) and edge deployment (capture-resistant, audit-complex)
 \end{enumerate}
 
 \section{Conclusion}

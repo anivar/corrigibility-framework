@@ -4,6 +4,15 @@ A structural framework for evaluating **Digital Public Infrastructure (DPI)** an
 
 **Corrigibility**: The structural capacity of those affected by a system to detect error, signal harm, and trigger correction—without incurring material loss or irreversible consequence.
 
+## Downloads
+
+[![Release](https://img.shields.io/github/v/release/anivar/corrigibility-framework)](https://github.com/anivar/corrigibility-framework/releases/latest)
+
+| Paper | Focus | Download |
+|-------|-------|----------|
+| **Paper I: DPI** | Deterministic infrastructure (ledgers, registries, payment rails) | [PDF](https://github.com/anivar/corrigibility-framework/releases/latest/download/corrigibility-framework-dpi.pdf) |
+| **Paper II: EPI** | Learned/agentic systems (AI, ML models) | [PDF](https://github.com/anivar/corrigibility-framework/releases/latest/download/corrigibility-framework-ai.pdf) |
+
 ## The Five Tests
 
 | Test | Question | DPI Focus | EPI Focus |
@@ -11,27 +20,22 @@ A structural framework for evaluating **Digital Public Infrastructure (DPI)** an
 | **EXIT** | Can users refuse participation without penalty? | Non-digital alternative | Human fallback guaranteed |
 | **CODE** | Is the system's execution observable? | Source code | LWD-R (Logic, Weights, Data, Representation) |
 | **AUDIT** | Can independent parties verify behavior? | Transaction logs | Statistical bounds + drift monitoring |
-| **GOVERN** | Do affected populations have binding authority? | RFC/charter process | Ontology governance |
+| **GOVERN** | Do affected populations have binding authority? | RFC/charter process | Action boundary protocol |
 | **FORK** | Can the system be replaced without permission? | Code + data portability | Compute accessibility |
 
 **Fatal Failure Property**: Failure of any single test disqualifies a system from designation as public infrastructure.
 
-## Two Papers
-
-| Paper | Focus | Pages |
-|-------|-------|-------|
-| **Paper 1: DPI** | Deterministic infrastructure (ledgers, registries, payment rails) | 49 |
-| **Paper 2: EPI** | Learned/agentic systems (AI, ML models) | 22 |
-
 ## Schemas
 
+Schemas and assessment skills are maintained in the [corrigibility-schema](https://github.com/anivar/corrigibility-schema) repository.
+
 ### DPI Schemas
-- [infrastructure.json](schema/dpi/infrastructure.json) - Operator disclosure manifest
-- [corrigibility.json](schema/dpi/corrigibility.json) - Five-test assessment
+- [infrastructure.json](https://github.com/anivar/corrigibility-schema/blob/main/schema/dpi/infrastructure.json) - Operator disclosure manifest
+- [audit.json](https://github.com/anivar/corrigibility-schema/blob/main/schema/dpi/audit.json) - Five-test assessment
 
 ### EPI Schemas
-- [infrastructure.json](schema/epi/infrastructure.json) - LWD-R transparency manifest
-- [corrigibility.json](schema/epi/corrigibility.json) - Five-test + EPI metrics
+- [infrastructure.json](https://github.com/anivar/corrigibility-schema/blob/main/schema/epi/infrastructure.json) - LWD-R transparency manifest
+- [audit.json](https://github.com/anivar/corrigibility-schema/blob/main/schema/epi/audit.json) - Five-test + EPI metrics
 
 ## Key Concepts
 
@@ -48,37 +52,38 @@ A structural framework for evaluating **Digital Public Infrastructure (DPI)** an
 - **Action Boundary Protocol**: Deterministic envelope around stochastic inference
 - **GDoS (Governance Denial of Service)**: Governance collapse under agentic scaling
 
-## Agentic Skills
+## Assessment Skills
 
-Machine-readable skills following [agentskills.io](https://agentskills.io) specification.
+Machine-readable skills for evaluating infrastructure corrigibility are in the [corrigibility-schema](https://github.com/anivar/corrigibility-schema) repository.
 
-| Skill | Purpose | User |
-|-------|---------|------|
-| [schema-creator](skills/schema-creator/) | Create infrastructure.json or corrigibility.json | Operators, Auditors |
-| [schema-evaluator](skills/schema-evaluator/) | Validate schemas, verify scores, detect contradictions | Validators |
-| [corrigibility-assessment](skills/corrigibility-assessment/) | Rules and test definitions for five tests | Reference |
+| Skill | Purpose |
+|-------|---------|
+| [assess](https://github.com/anivar/corrigibility-schema/blob/main/skills/assess/SKILL.md) | Evaluate infrastructure against five corrigibility tests |
+| [rules/](https://github.com/anivar/corrigibility-schema/tree/main/skills/assess/rules) | Test definitions: EXIT, CODE, AUDIT, GOVERN, FORK |
 
 ## Repository Structure
 
 ```
-corrigibility-framework/
-├── paper/                  # LaTeX source and PDFs
+corrigibility-framework/          # This repo - Papers
+├── paper/
 │   ├── corrigibility-framework-dpi.tex
 │   ├── corrigibility-framework-dpi.pdf
 │   ├── corrigibility-framework-ai.tex
 │   └── corrigibility-framework-ai.pdf
+└── website/
+
+corrigibility-schema/             # Separate repo - Schemas & Skills
 ├── schema/
-│   ├── dpi/                # DPI schemas
+│   ├── dpi/
 │   │   ├── infrastructure.json
-│   │   └── corrigibility.json
-│   └── epi/                # EPI schemas
+│   │   └── audit.json
+│   └── epi/
 │       ├── infrastructure.json
-│       └── corrigibility.json
-├── skills/
-│   ├── schema-creator/     # Create schemas (operators/auditors)
-│   ├── schema-evaluator/   # Validate and evaluate schemas
-│   └── corrigibility-assessment/  # Rules and test definitions
-└── docs/                   # Additional documentation
+│       └── audit.json
+├── skills/assess/
+│   ├── SKILL.md
+│   └── rules/
+└── examples/
 ```
 
 ## Citation

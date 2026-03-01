@@ -1,12 +1,14 @@
 # Corrigibility Framework
 
+[![Release](https://img.shields.io/github/v/release/anivar/corrigibility-framework)](https://github.com/anivar/corrigibility-framework/releases/latest)
+[![License: CC0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0009--8995--0005-green.svg)](https://orcid.org/0009-0009-8995-0005)
+
 A structural framework for evaluating **Digital Public Infrastructure (DPI)** and **Epistemic Public Infrastructure (EPI)**.
 
 **Corrigibility**: The structural capacity of those affected by a system to detect error, signal harm, and trigger correction—without incurring material loss or irreversible consequence.
 
 ## Downloads
-
-[![Release](https://img.shields.io/github/v/release/anivar/corrigibility-framework)](https://github.com/anivar/corrigibility-framework/releases/latest)
 
 | Paper | Focus | Download |
 |-------|-------|----------|

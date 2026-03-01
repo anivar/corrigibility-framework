@@ -1744,15 +1744,15 @@ This work is released under CC0 1.0 Universal (Public Domain). Use, adapt, trans
 The complete framework, including JSON Schemas and assessment tooling, is available at:
 
 \begin{itemize}
-    \item \textbf{Repository}: \url{https://github.com/anivar/corrigibility-framework}
-    \item \textbf{Agentic Skills} (following the Agentic Skills specification \citep{agentskills2025}):
+    \item \textbf{Schema Repository}: \url{https://github.com/anivar/corrigibility-schema}
+    \item \textbf{Assessment Skills}: \texttt{skills/assess/} --- Rules and test definitions including:
     \begin{itemize}
-        \item \texttt{skills/schema-creator/}: For operators (infrastructure.json manifests) and auditors (corrigibility.json assessments). Supports both DPI and EPI with role-specific templates.
-        \item \texttt{skills/schema-evaluator/}: Validates published schemas, verifies score calculations, and detects contradictions between operator claims and auditor findings.
-        \item \texttt{skills/corrigibility-assessment/}: Rules and test definitions. Decomposes systems into architectural layers (identity, credential, payment, data\_exchange, registry) and applies the five tests.
+        \item Test rules: EXIT, CODE, AUDIT, GOVERN, FORK
+        \item Analysis rules: Layer decomposition, variety drift, action boundaries
+        \item Output: \texttt{audit.json} following Protocol 2.0
     \end{itemize}
-    \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/corrigibility.json}
-    \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/corrigibility.json} (see companion paper)
+    \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/audit.json}
+    \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/audit.json} (see companion paper)
 \end{itemize}
 
 % ============================================
@@ -1771,7 +1771,7 @@ The architecture relies on a separation of concerns mirroring the adversarial le
 
 \begin{enumerate}
     \item \textbf{infrastructure.json (The Operator's Affidavit):} A signed declaration by the system operator asserting specific operational properties, governance commitments, and functional limitations.
-    \item \textbf{corrigibility.json (The Auditor's Finding):} An independent, cryptographically signed evaluation that tests the operator's claims against observable reality.
+    \item \textbf{audit.json (The Auditor's Finding):} An independent, cryptographically signed evaluation that tests the operator's claims against observable reality.
 \end{enumerate}
 
 This architecture makes contradictions machine-readable. If an operator claims a governance mechanism is "binding" in their affidavit, but the auditor's observation marks the \texttt{user\_authority} field as "advisory," the mismatch serves as mathematically verifiable proof of governance failure.
@@ -1787,7 +1787,7 @@ This architecture makes contradictions machine-readable. If an operator claims a
 \node[actor] (operator) at (0,2.5) {Operator};
 \node[actor] (auditor) at (6,2.5) {Auditor};
 \node[manifest=codecolor] (infra) at (0,0.8) {infrastructure.json\\{\scriptsize claims}};
-\node[manifest=auditcolor] (corrig) at (6,0.8) {corrigibility.json\\{\scriptsize findings}};
+\node[manifest=auditcolor] (corrig) at (6,0.8) {audit.json\\{\scriptsize findings}};
 \draw[arrow, codecolor] (operator) -- (infra);
 \draw[arrow, auditcolor] (auditor) -- (corrig);
 \node[compare] (compare) at (3,-0.8) {Compare};
@@ -1803,7 +1803,7 @@ This architecture makes contradictions machine-readable. If an operator claims a
 A critical logic gate in this framework is the derivation of status.
 
 \begin{claim}
-The \texttt{determination} object in \texttt{corrigibility.json} is a derived convenience field. It is \textbf{not authoritative}.
+The \texttt{determination} object in \texttt{audit.json} is a derived convenience field. It is \textbf{not authoritative}.
 \end{claim}
 
 Any value asserted in \texttt{determination} MUST be mechanically recomputed from the \texttt{tests} object by evaluators or courts. If an auditor asserts \texttt{corrigible: true} but the \texttt{tests} object contains a failure, the manifest is strictly invalid. This rule ensures that no actor (operator, auditor, or regulator) can "declare" a system corrigible by fiat; status exists only as the computed sum of observable structural properties.
@@ -2353,7 +2353,7 @@ This appendix provides illustrative JSON schemas demonstrating how corrigibility
 
 \medskip
 
-To move beyond qualitative debate, this framework establishes a machine-readable logic for accountability via two JSON schemas: the \texttt{infrastructure.json} (Operator Disclosure) and the \texttt{corrigibility.json} (Auditor Assessment). By enforcing specific data structures, policy rhetoric is converted into falsifiable assertions of system state.
+To move beyond qualitative debate, this framework establishes a machine-readable logic for accountability via two JSON schemas: the \texttt{infrastructure.json} (Operator Disclosure) and the \texttt{audit.json} (Auditor Assessment). By enforcing specific data structures, policy rhetoric is converted into falsifiable assertions of system state.
 
 \subsection{Architecture}
 
@@ -2362,7 +2362,7 @@ The architecture relies on a separation of concerns mirroring the adversarial le
 \begin{enumerate}[noitemsep]
     \item \textbf{infrastructure.json (Operator's Affidavit):} A signed declaration by the system operator asserting specific operational properties, governance commitments, and functional limitations. Key fields include \texttt{offline\_equivalent} (tracking EXIT), \texttt{when\_uncertain} (tracking AI safety failures), and \texttt{layers} (enabling decomposed evaluation).
 
-    \item \textbf{corrigibility.json (Auditor's Finding):} An independent, cryptographically signed evaluation that tests the operator's claims against observable reality. Key fields include \texttt{penalty\_ratio} (quantifying coerciveness), \texttt{visibility} (CODE inspection level), and \texttt{user\_authority} (GOVERN binding status).
+    \item \textbf{audit.json (Auditor's Finding):} An independent, cryptographically signed evaluation that tests the operator's claims against observable reality. Key fields include \texttt{penalty\_ratio} (quantifying coerciveness), \texttt{visibility} (CODE inspection level), and \texttt{user\_authority} (GOVERN binding status).
 \end{enumerate}
 
 This architecture makes contradictions machine-readable. If an operator claims a governance mechanism is ``binding'' in their affidavit, but the auditor's observation marks the \texttt{user\_authority} field as ``advisory,'' the mismatch serves as mathematically verifiable proof of governance failure.
@@ -2377,7 +2377,7 @@ Due to space constraints, the full normative JSON schemas (v1.7) with exhaustive
     \item Cryptographic signing requirements (Ed25519, DID anchoring)
 \end{itemize}
 
-Researchers and auditors may access, validate, and contribute to these schemas via the permanent repository: \url{https://anivar.net/corrigibility/dpi/schema/}. The framework source code, including validation scripts suitable for CI/CD integration, is available at the GitHub repository listed in the Data and Code Availability section.
+Researchers and auditors may access, validate, and contribute to these schemas via the permanent repository: \url{https://github.com/anivar/corrigibility-schema}. The framework source code, including validation scripts suitable for CI/CD integration, is available at the GitHub repository listed in the Data and Code Availability section.
 
 \section{Verification and Enforcement}
 \label{appendix:rules}

@@ -1677,9 +1677,9 @@ This work is released under CC0 1.0 Universal (Public Domain). Use, adapt, trans
 The complete framework, including JSON Schemas for machine-readable disclosure and assessment, is available at:
 
 \begin{itemize}
-    \item Framework documentation: \url{https://indiastack.in/dpi/}
-    \item Infrastructure manifest schema: \url{https://indiastack.in/dpi/schema/infrastructure.json}
-    \item Corrigibility assessment schema: \url{https://indiastack.in/dpi/schema/corrigibility.json}
+    \item Framework documentation: \url{https://github.com/anivar/corrigibility-schema}
+    \item Infrastructure manifest schema: \url{https://github.com/anivar/corrigibility-schema/blob/main/schema/dpi/infrastructure.json}
+    \item Corrigibility assessment schema: \url{https://github.com/anivar/corrigibility-schema/blob/main/schema/dpi/audit.json}
     \item Paper source and repository: \url{https://github.com/AnivarAravind/corrigibility-framework}
 \end{itemize}
 
@@ -1699,7 +1699,7 @@ The architecture relies on a separation of concerns mirroring the adversarial le
 
 \begin{enumerate}
     \item \textbf{infrastructure.json (The Operator's Affidavit):} A signed declaration by the system operator asserting specific operational properties, governance commitments, and functional limitations.
-    \item \textbf{corrigibility.json (The Auditor's Finding):} An independent, cryptographically signed evaluation that tests the operator's claims against observable reality.
+    \item \textbf{audit.json (The Auditor's Finding):} An independent, cryptographically signed evaluation that tests the operator's claims against observable reality.
 \end{enumerate}
 
 This architecture makes contradictions machine-readable. If an operator claims a governance mechanism is "binding" in their affidavit, but the auditor's observation marks the \texttt{user\_authority} field as "advisory," the mismatch serves as mathematically verifiable proof of governance failure.
@@ -1715,7 +1715,7 @@ This architecture makes contradictions machine-readable. If an operator claims a
 \node[actor] (operator) at (0,2.5) {Operator};
 \node[actor] (auditor) at (6,2.5) {Auditor};
 \node[manifest=codecolor] (infra) at (0,0.8) {infrastructure.json\\{\scriptsize claims}};
-\node[manifest=auditcolor] (corrig) at (6,0.8) {corrigibility.json\\{\scriptsize findings}};
+\node[manifest=auditcolor] (corrig) at (6,0.8) {audit.json\\{\scriptsize findings}};
 \draw[arrow, codecolor] (operator) -- (infra);
 \draw[arrow, auditcolor] (auditor) -- (corrig);
 \node[compare] (compare) at (3,-0.8) {Compare};
@@ -1731,7 +1731,7 @@ This architecture makes contradictions machine-readable. If an operator claims a
 A critical logic gate in this framework is the derivation of status.
 
 \begin{claim}
-The \texttt{determination} object in \texttt{corrigibility.json} is a derived convenience field. It is \textbf{not authoritative}.
+The \texttt{determination} object in \texttt{audit.json} is a derived convenience field. It is \textbf{not authoritative}.
 \end{claim}
 
 Any value asserted in \texttt{determination} MUST be mechanically recomputed from the \texttt{tests} object by evaluators or courts. If an auditor asserts \texttt{corrigible: true} but the \texttt{tests} object contains a failure, the manifest is strictly invalid. This rule ensures that no actor (operator, auditor, or regulator) can "declare" a system corrigible by fiat; status exists only as the computed sum of observable structural properties.
@@ -1961,7 +1961,7 @@ This schema forces operators to make definitive commitments. Note the specific i
 
 \begin{lstlisting}[language=json,caption={Operator Disclosure Schema (condensed)}]
 {
-  "$id": "https://indiastack.in/dpi/schema/infrastructure.json",
+  "$id": "https://github.com/anivar/corrigibility-schema/blob/main/schema/dpi/infrastructure.json",
   "title": "DPI Operational Manifest v1.7",
   "required": ["schema_version", "meta", "access", "governance"],
   "properties": {
@@ -2021,7 +2021,7 @@ The auditor schema replaces subjective grading with hard observational measureme
 
 \begin{lstlisting}[language=json,caption={Auditor Assessment Schema (condensed)}]
 {
-  "$id": "https://indiastack.in/dpi/schema/corrigibility.json",
+  "$id": "https://github.com/anivar/corrigibility-schema/blob/main/schema/dpi/audit.json",
   "title": "Corrigibility Assessment v1.7",
   "required": ["target","assessed_by","assessed_at","tests","determination"],
   "properties": {

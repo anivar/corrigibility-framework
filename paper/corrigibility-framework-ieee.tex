@@ -1674,14 +1674,24 @@ This work is released under CC0 1.0 Universal (Public Domain). Use, adapt, trans
 
 \section*{Data and Code Availability}
 
-The complete framework, including JSON Schemas for machine-readable disclosure and assessment, is available at:
+The complete framework is available across two repositories:
 
 \begin{itemize}
-    \item Framework documentation: \url{https://indiastack.in/dpi/}
-    \item Infrastructure manifest schema: \url{https://indiastack.in/dpi/schema/infrastructure.json}
-    \item Corrigibility assessment schema: \url{https://indiastack.in/dpi/schema/corrigibility.json}
-    \item Paper source and repository: \url{https://github.com/AnivarAravind/corrigibility-framework}
+    \item \textbf{Paper Repository}: \url{https://github.com/anivar/corrigibility-framework}
+    \begin{itemize}
+        \item Theoretical framework and proofs
+        \item Case studies and empirical analysis
+    \end{itemize}
+    \item \textbf{Schema Repository}: \url{https://github.com/anivar/corrigibility-schema}
+    \begin{itemize}
+        \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/audit.json}
+        \item \textbf{Assessment Skills}: \texttt{skills/assess/} --- Rules and test definitions
+        \item \textbf{Protocol}: Versioning, canonicalization, signature standards
+        \item \textbf{Examples}: Fictional reference implementations
+    \end{itemize}
 \end{itemize}
+
+The schema repository is versioned independently from the theoretical papers to allow schema evolution as DPI systems mature.
 
 % ============================================
 % APPENDICES
@@ -1699,7 +1709,7 @@ The architecture relies on a separation of concerns mirroring the adversarial le
 
 \begin{enumerate}
     \item \textbf{infrastructure.json (The Operator's Affidavit):} A signed declaration by the system operator asserting specific operational properties, governance commitments, and functional limitations.
-    \item \textbf{corrigibility.json (The Auditor's Finding):} An independent, cryptographically signed evaluation that tests the operator's claims against observable reality.
+    \item \textbf{audit.json (The Auditor's Finding):} An independent, cryptographically signed evaluation that tests the operator's claims against observable reality.
 \end{enumerate}
 
 This architecture makes contradictions machine-readable. If an operator claims a governance mechanism is "binding" in their affidavit, but the auditor's observation marks the \texttt{user\_authority} field as "advisory," the mismatch serves as mathematically verifiable proof of governance failure.
@@ -1715,7 +1725,7 @@ This architecture makes contradictions machine-readable. If an operator claims a
 \node[actor] (operator) at (0,2.5) {Operator};
 \node[actor] (auditor) at (6,2.5) {Auditor};
 \node[manifest=codecolor] (infra) at (0,0.8) {infrastructure.json\\{\scriptsize claims}};
-\node[manifest=auditcolor] (corrig) at (6,0.8) {corrigibility.json\\{\scriptsize findings}};
+\node[manifest=auditcolor] (corrig) at (6,0.8) {audit.json\\{\scriptsize findings}};
 \draw[arrow, codecolor] (operator) -- (infra);
 \draw[arrow, auditcolor] (auditor) -- (corrig);
 \node[compare] (compare) at (3,-0.8) {Compare};
@@ -1731,7 +1741,7 @@ This architecture makes contradictions machine-readable. If an operator claims a
 A critical logic gate in this framework is the derivation of status.
 
 \begin{claim}
-The \texttt{determination} object in \texttt{corrigibility.json} is a derived convenience field. It is \textbf{not authoritative}.
+The \texttt{determination} object in \texttt{audit.json} is a derived convenience field. It is \textbf{not authoritative}.
 \end{claim}
 
 Any value asserted in \texttt{determination} MUST be mechanically recomputed from the \texttt{tests} object by evaluators or courts. If an auditor asserts \texttt{corrigible: true} but the \texttt{tests} object contains a failure, the manifest is strictly invalid. This rule ensures that no actor (operator, auditor, or regulator) can "declare" a system corrigible by fiat; status exists only as the computed sum of observable structural properties.
@@ -1950,120 +1960,50 @@ This requires $\dot{C}(t) \geq \dot{E}(t)$ on average. When correction operates 
     \item Agent automaton demonstrates need for explicit machine-facing EXIT/CODE/AUDIT primitives.
 \end{enumerate}
 
-\section{Schema Specifications (v1.7)}
+\section{Schema Specifications (v2.0)}
 \label{appendix:schema}
 
-The current schemas are normative. Implementations must validate against these structures to generate valid proofs of corrigibility.
+The normative schemas are maintained in a separate repository to enable independent evolution:
+
+\begin{center}
+\url{https://github.com/anivar/corrigibility-schema}
+\end{center}
+
+This appendix provides a conceptual overview. For implementation, use the canonical schemas from the repository.
 
 \subsection{Infrastructure Manifest (Operator Disclosure)}
 
-This schema forces operators to make definitive commitments. Note the specific inclusion of \texttt{offline\_equivalent} to track the \textbf{EXIT} test and \texttt{when\_uncertain} to track AI safety failures.
+The \texttt{infrastructure.json} schema forces operators to make definitive commitments:
 
-\begin{lstlisting}[language=json,caption={Operator Disclosure Schema (condensed)}]
-{
-  "$id": "https://indiastack.in/dpi/schema/infrastructure.json",
-  "title": "DPI Operational Manifest v1.7",
-  "required": ["schema_version", "meta", "access", "governance"],
-  "properties": {
-    "schema_version": {
-      "const": "1.7",
-      "description": "Schema version for forward compatibility"
-    },
-    "meta": {
-      "required": ["system_id", "deployment", "lifecycle"],
-      "properties": {
-        "system_id": { "type": "string" },
-        "deployment": { "enum": ["production","staging","pilot"] },
-        "lifecycle": { "enum": ["active","deprecated","archived"] }
-      }
-    },
-    "governance": {
-      "required": ["model", "escalation_paths"],
-      "properties": {
-        "model": { "enum": ["community","foundation","corporate",
-                           "government","closed"] },
-        "escalation_paths": [{
-          "required": ["level","url","binding"],
-          "binding": { "type": "boolean" }
-        }]
-      }
-    },
-    "layers": {
-      "type": "array",
-      "description": "Architectural layers for decomposed evaluation",
-      "items": {
-        "required": ["layer_name", "controller", "transparency"],
-        "properties": {
-          "layer_name": { "type": "string" },
-          "controller": { "type": "string",
-            "description": "Entity with governance authority" },
-          "transparency": { "enum": ["full","partial","none"] },
-          "forkable": { "type": "boolean" }
-        }
-      }
-    },
-    "learned_components": [{
-      "role": { "enum": ["advisory","decision","enforcement"] },
-      "when_uncertain": { "enum": ["escalates","fails_open",
-                                   "fails_closed","silent"] }
-    }],
-    "access": {
-      "required": ["offline_equivalent"],
-      "offline_equivalent": { "type": "boolean" }
-    }
-  }
-}
-\end{lstlisting}
+\begin{itemize}[noitemsep]
+    \item \textbf{layers}: Architectural layers for decomposed evaluation (per Section~\ref{subsec:layers})
+    \item \textbf{exit}: EXIT test details---data portability, deletion, alternatives, penalties
+    \item \textbf{governance}: GOVERN test---grievance channels vs binding mechanisms
+    \item \textbf{fork}: FORK test---legally permitted, artifacts available, constructed barriers
+    \item \textbf{escalation}: Human oversight linkage with trigger conditions
+    \item \textbf{corrigibility\_claim}: Boolean assertions for all five tests
+    \item \textbf{operator\_signature}: Cryptographic commitment
+\end{itemize}
 
-\subsection{Corrigibility Assessment (Auditor Assessment)}
+\paragraph{Canonical Schema:} \url{https://github.com/anivar/corrigibility-schema/blob/main/schema/dpi/infrastructure.json}
 
-The auditor schema replaces subjective grading with hard observational measurements. Note the \texttt{penalty\_ratio}, which quantifies the coerciveness of the system (the cost difference between digital and manual access).
+\subsection{Audit Assessment (Auditor Finding)}
 
-\begin{lstlisting}[language=json,caption={Auditor Assessment Schema (condensed)}]
-{
-  "$id": "https://indiastack.in/dpi/schema/corrigibility.json",
-  "title": "Corrigibility Assessment v1.7",
-  "required": ["target","assessed_by","assessed_at","tests","determination"],
-  "properties": {
-    "target": { "type": "string" },
-    "assessed_by": { "type": "string" },
-    "assessed_at": { "type": "string", "format": "date-time" },
-    "assessment_validity_period": {
-      "type": "string", "format": "duration",
-      "description": "ISO 8601 duration (e.g., P6M for 6 months)"
-    },
-    "tests": {
-      "required": ["exit","code","audit","govern","fork"],
-      "exit": { "pass": "boolean", "penalty_ratio": "number" },
-      "code": { "pass": "boolean",
-                "visibility": { "enum": ["full","partial","none"] } },
-      "audit": { "pass": "boolean", "fix_latency_observed": "string" },
-      "govern": { "pass": "boolean",
-                  "user_authority": { "enum": ["binding","veto",
-                                               "advisory","none"] } },
-      "fork": { "pass": "boolean", "barriers": ["string"] }
-    },
-    "layer_assessments": {
-      "type": "array",
-      "description": "Per-layer test results for decomposed evaluation",
-      "items": {
-        "required": ["layer_name", "tests"],
-        "properties": {
-          "layer_name": { "type": "string" },
-          "tests": { "$ref": "#/properties/tests" }
-        }
-      }
-    },
-    "determination": {
-      "description": "Derived outcome. MUST be recomputed by evaluators.",
-      "required": ["corrigible","tests_passed"],
-      "corrigible": { "type": "boolean",
-                      "description": "TRUE iff tests_passed == 5" },
-      "tests_passed": { "type": "integer", "minimum": 0, "maximum": 5 }
-    }
-  }
-}
-\end{lstlisting}
+The \texttt{audit.json} schema replaces subjective grading with hard observational measurements:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{results}: Boolean pass/fail for all five tests
+    \item \textbf{verification\_tier}: Depth of verification (presence, behavior, proof)
+    \item \textbf{layer\_verification}: Per-layer spec vs implementation gap analysis
+    \item \textbf{governance\_verification}: Distinguishes grievance from binding governance
+    \item \textbf{fork\_verification}: Constructed barriers, reproduction attempts
+    \item \textbf{valid\_until}: Audit expiration (max 12 months)
+    \item \textbf{contestation}: Status if operator disputes findings
+    \item \textbf{revocation}: If auditor revokes the audit
+    \item \textbf{auditor\_signature}: Cryptographic attestation
+\end{itemize}
+
+\paragraph{Canonical Schema:} \url{https://github.com/anivar/corrigibility-schema/blob/main/schema/dpi/audit.json}
 
 \section{Verification and Enforcement}
 \label{appendix:rules}
@@ -2121,6 +2061,9 @@ Established the baseline thesis: Corrigibility is a structural precondition, dis
 
 \item[\textbf{Version 1.7 (Layering)}]
 \textbf{Closed the DID-Washing Loophole.} Added layer-decomposed evaluation requiring analysis at each architectural stratum. Systems claiming corrigibility through identifier decentralization while retaining centralized governance at higher layers are now explicitly diagnosed. Introduced the propagation rule: $T_{\text{system}} = \bigwedge T(L_i)$.
+
+\item[\textbf{Version 2.0 (Separation)}]
+\textbf{Separated Schemas from Papers.} Moved normative schemas to independent repository (\url{https://github.com/anivar/corrigibility-schema}) to enable schema evolution independent of paper publication cycles. Added: verification tiers (presence/behavior/proof), audit validity periods (12-month max), contestation and revocation mechanisms, observatory model for delegated verification, human escalation triggers, FORK verification fields (constructed vs natural barriers). Extended for EPI: LWD-R structure, tiered adoption, action boundaries, variety drift monitoring, compute capture assessment, swapability metrics.
 
 \end{description}
 

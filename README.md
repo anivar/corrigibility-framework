@@ -25,79 +25,38 @@ A structural framework for evaluating **Digital Public Infrastructure (DPI)** an
 
 **Fatal Failure Property**: Failure of any single test disqualifies a system from designation as public infrastructure.
 
-## Schemas
+## Schemas & Skills
 
-Schemas and assessment skills are maintained in the [corrigibility-schema](https://github.com/anivar/corrigibility-schema) repository.
+See [corrigibility-schema](https://github.com/anivar/corrigibility-schema) repository for:
 
-### DPI Schemas
-- [infrastructure.json](https://github.com/anivar/corrigibility-schema/blob/main/schema/dpi/infrastructure.json) - Operator disclosure manifest
-- [audit.json](https://github.com/anivar/corrigibility-schema/blob/main/schema/dpi/audit.json) - Five-test assessment
-
-### EPI Schemas
-- [infrastructure.json](https://github.com/anivar/corrigibility-schema/blob/main/schema/epi/infrastructure.json) - LWD-R transparency manifest
-- [audit.json](https://github.com/anivar/corrigibility-schema/blob/main/schema/epi/audit.json) - Five-test + EPI metrics
+- **Schemas**: `infrastructure.json` and `audit.json` for DPI/EPI
+- **Assessment Skills**: `skills/assess/` with test rules (EXIT, CODE, AUDIT, GOVERN, FORK)
+- **Examples**: Reference implementations
 
 ## Key Concepts
 
-### DPI (Paper 1)
+### DPI (Paper I)
 - **Functional Exit Equivalence (FEE)**: Architectural guarantees that recreate error-signal strength when literal exit is impossible
 - **Rule of the Ledger**: When authority is exerted through synchronized, self-executing artifacts
-- **Sovereignty-Scale-Neutrality Tension**: Under centralized enforcement, maximizing sovereignty and scale compresses governance variety
 
-### EPI (Paper 2)
+### EPI (Paper II)
 - **LWD-R**: Four-layer transparency (Logic, Weights, Data, Representation)
-- **Ontological Capture**: When a model's categories become non-contestable administrative facts
+- **Action Boundary Protocol**: Deterministic envelope around stochastic inference
 - **Variety Drift**: The growing gap between frozen model variety and evolving environmental variety
 - **Compute Capture**: When "open weights" fails FORK due to prohibitive retraining costs
-- **Action Boundary Protocol**: Deterministic envelope around stochastic inference
-- **GDoS (Governance Denial of Service)**: Governance collapse under agentic scaling
-
-## Assessment Skills
-
-Machine-readable skills for evaluating infrastructure corrigibility are in the [corrigibility-schema](https://github.com/anivar/corrigibility-schema) repository.
-
-| Skill | Purpose |
-|-------|---------|
-| [assess](https://github.com/anivar/corrigibility-schema/blob/main/skills/assess/SKILL.md) | Evaluate infrastructure against five corrigibility tests |
-| [rules/](https://github.com/anivar/corrigibility-schema/tree/main/skills/assess/rules) | Test definitions: EXIT, CODE, AUDIT, GOVERN, FORK |
-
-## Repository Structure
-
-```
-corrigibility-framework/          # This repo - Papers
-├── paper/
-│   ├── corrigibility-framework-dpi.tex
-│   ├── corrigibility-framework-dpi.pdf
-│   ├── corrigibility-framework-ai.tex
-│   └── corrigibility-framework-ai.pdf
-└── website/
-
-corrigibility-schema/             # Separate repo - Schemas & Skills
-├── schema/
-│   ├── dpi/
-│   │   ├── infrastructure.json
-│   │   └── audit.json
-│   └── epi/
-│       ├── infrastructure.json
-│       └── audit.json
-├── skills/assess/
-│   ├── SKILL.md
-│   └── rules/
-└── examples/
-```
 
 ## Citation
 
 ```bibtex
 @article{aravind2026corrigibility-dpi,
   author = {Aravind, Anivar A},
-  title = {Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework},
+  title = {Corrigibility as a Structural Precondition for Digital Public Infrastructure},
   year = {2026}
 }
 
 @article{aravind2026corrigibility-epi,
   author = {Aravind, Anivar A},
-  title = {Epistemic Capture and the Action Boundary: Corrigibility for Learned and Agentic Systems},
+  title = {Epistemic Capture and the Action Boundary},
   year = {2026}
 }
 ```
@@ -108,5 +67,4 @@ corrigibility-schema/             # Separate repo - Schemas & Skills
 
 ## Author
 
-**Anivar A Aravind**
-[ORCID: 0009-0009-8995-0005](https://orcid.org/0009-0009-8995-0005)
+**Anivar A Aravind** · [ORCID: 0009-0009-8995-0005](https://orcid.org/0009-0009-8995-0005)

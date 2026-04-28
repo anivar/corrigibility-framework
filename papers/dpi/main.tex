@@ -557,6 +557,30 @@ AWS S3 & PASS & PARTIAL & API open (MinIO), scale unreproducible \\
 \caption{Differentiation between Exit (Substitution) and Fork (Reproduction)}
 \end{table}
 
+\subsection{Contestation of Representational Categories in AI-Mediated DPI}
+\label{subsec:contestation}
+
+The five tests presented above were derived for deterministic infrastructure: ledgers, registries, and rule-based engines. As DPI increasingly incorporates learned components, the GOVERN test acquires a second contestation surface that the deterministic case does not require. This subsection identifies that surface; the formal constraints on the learned-system side are developed in the companion paper~\citep{aravind2026epi}.
+
+When learned systems are deployed within DPI, the categories they use to classify citizens (``eligibility,'' ``risk,'' ``fraud,'' ``vulnerability,'' ``priority'') cease to be mere statistical properties of a model. They become \textbf{consequential administrative determinations}. A citizen flagged as ``high-risk'' by an AI-mediated welfare system experiences that label as legal fact: payments suspended, services revoked, additional verification demanded. The label has the same operational force as a determination from a deterministic registry, even though it emerged from a probabilistic computation over an undisclosed feature space.
+
+The structural problem is that affected communities must possess the capacity to \emph{review and contest the representational categories themselves}, not just dispute individual execution decisions. Representation in AI-mediated DPI differs fundamentally from representation in deterministic administrative systems: the categories are \textbf{emergent rather than deliberately designed}. In a deterministic registry, ``eligibility'' is defined by a rule the legislature wrote; the contestation surface is the rule's text. In a learned system, ``eligibility'' is defined by the joint distribution of training data, loss function, and inference pipeline; the contestation surface is the schema, the data, and the model's operative representation simultaneously.
+
+Three structural consequences follow:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Per-decision appeal is necessary but insufficient.} A citizen who successfully appeals one classification has not contested the category that produced it. The next million decisions will be drawn from the same category. Adequate contestation requires standing to challenge the schema, not just the application of the rule.
+    \item \textbf{Disclosure obligations extend to the operative representation.} Publishing model weights does not satisfy GOVERN if the categorical structure that emerges at inference time is undisclosed. The state retains nominal authority over the rule but loses substantive authority over the categories that animate it.
+    \item \textbf{Standing must include the affected class, not only the operator.} Because the schema captures the population's classification surface, contestation rights cannot be confined to procurement disputes between the state and the vendor. Affected populations must hold standing to challenge the representational schema directly.
+\end{enumerate}
+
+\begin{remark}[Extension of GOVERN to Ontological Choices]
+\label{rem:govern-ontological}
+The GOVERN test extends to ontological choices when those choices produce binding classifications. An AI-mediated DPI deployment satisfies GOVERN only if affected populations can challenge the categorical schema, not merely dispute individual outputs. The formal constraints required to render this contestation operative (LWD-R disclosure, operative-representation transparency, action-boundary auditability) are developed in the companion paper's analysis of learned-system corrigibility~\citep{aravind2026epi}.
+\end{remark}
+
+This bridge clause completes the deterministic framework's account of the GOVERN test for the AI era: the test does not change, but its evidentiary burden does. The companion paper takes up the verification machinery in detail.
+
 \subsection{The Topology of Necessity}
 
 Five tests describe the anatomy of a stable control loop rather than a random assortment of normative virtues (see Figure~\ref{fig:topology}).

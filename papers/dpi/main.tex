@@ -1,14 +1,13 @@
 \documentclass{article}
 
 % ============================================
-% NeurIPS 2024 Conference Style
+% arXiv preprint style (shared with companion paper)
 % ============================================
 
-\usepackage[preprint]{neurips_2024}
+\usepackage{arxiv}
 
 % Encoding
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 
 % Math
 \usepackage{amsmath,amssymb,amsthm}
@@ -27,8 +26,9 @@
 \usepackage{xcolor}
 \usepackage{colortbl}
 
-% URLs and citations (NeurIPS uses natbib)
+% URLs and citations
 \usepackage{url}
+\usepackage{natbib}
 \usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 \usepackage{orcidlink}
 
@@ -94,20 +94,22 @@
 \definecolor{forkcolor}{HTML}{F472B6}
 
 % Theorem environments
-\newtheorem{definition}{Definition}
-\newtheorem{proposition}{Proposition}
-\newtheorem{claim}{Claim}
-\newtheorem{theorem}{Theorem}
-\newtheorem{condition}{Condition}
-\newtheorem{corollary}{Corollary}
-\newtheorem{remark}{Remark}
-\newtheorem{principle}{Principle}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{claim}{Claim}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{condition}{Condition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{principle}{Principle}[section]
 
-% Keywords environment
-\newenvironment{keywords}{\noindent\textbf{Keywords:} }{\par\medskip}
+% (arxiv.sty provides \keywords{...})
+
+% cleveref for navigable cross-references
+\usepackage{cleveref}
 
 % ============================================
-% Title and Author (NeurIPS format)
+% Title and Author
 % ============================================
 
 \title{Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework}
@@ -119,6 +121,8 @@
   \texttt{ping@anivar.net}
 }
 
+\date{April 2026}
+
 \begin{document}
 
 \maketitle
@@ -127,9 +131,7 @@
 Digital Public Infrastructure is evaluated using aspirational criteria: interoperability, inclusion, openness, scale. These criteria do not establish whether systemic errors can be corrected by affected participants. This paper defines corrigibility as the minimal structural precondition for reversible public infrastructure. Five jointly necessary conditions form a closed corrective loop: EXIT, CODE, AUDIT, GOVERN, FORK. Failure of any condition opens the loop, rendering correction discretionary. Using control-topology mapping grounded in Ashby's Law of Requisite Variety, the paper proves corrigibility is an architectural invariant. Applied analysis demonstrates discriminative power against existing infrastructures. Corrigibility does not guarantee fairness. It guarantees reversibility.
 \end{abstract}
 
-\begin{keywords}
-Corrigibility, Digital Public Infrastructure, Cybernetics, Feedback Control, Requisite Variety, Infrastructure Accountability, India Stack
-\end{keywords}
+\keywords{Corrigibility \and Digital Public Infrastructure \and Cybernetics \and Feedback Control \and Requisite Variety \and Infrastructure Accountability \and India Stack}
 
 \paragraph{How to Read This Paper.}
 The argument proceeds in three parts: public systems require bounded error propagation (the invariant); five conditions close the corrective loop (the architecture); these conditions discriminate between real systems (the evaluation). Case studies illustrate discriminative power, not exhaustive institutional assessment.
@@ -2477,27 +2479,6 @@ This appendix addresses the strongest objections to the framework, organized by 
 \subsection{Summary}
 
 The framework withstands scrutiny from control theory (binary is threshold, not physics), political science (mandates can coexist with corrigibility on other dimensions), and empirical methodology (reproducible metrics exist). The strongest residual objection (network effects making FORK practically impossible even when legally permitted) is acknowledged in Limitations and proposed for formal treatment in Future Work.
-
-\section{Sections Suitable for Standalone Publication}
-\label{appendix:opeds}
-
-The following sections from this paper are self-contained and suitable for adaptation as op-eds, policy briefs, or standalone essays:
-
-\begin{description}
-\item[Active Deception (Section~\ref{subsec:active-deception})] Defines safety-washing, open-washing, and audit theatre as sensor attacks on accountability infrastructure. Suitable for technology policy audiences.
-
-\item[Climate Washing (Section~\ref{subsubsec:climatewashing})] Analyzes environmental rhetoric in DPI discourse. Suitable for climate and technology policy intersection.
-
-\item[Engaging ``Regulate the Loop'' (Section~\ref{subsec:regulate})] Responds to the ``regulate later'' objection. Suitable for development economics and policy audiences.
-
-\item[The Distributional Question (Section~\ref{subsec:distributional})] Frames corrigibility as a question of whose suffering counts. Suitable for social justice and equity audiences.
-
-\item[Utility Does Not Equal Accountability (Section~\ref{subsec:utility})] Clarifies that useful systems can still be structurally captured. Suitable for general technology audiences.
-
-\item[The DPI Trilemma (Section~\ref{subsec:trilemma})] Sovereignty + Scale + Neutrality constraint. Suitable for international development and governance audiences.
-\end{description}
-
-A condensed ``core'' version of this paper (omitting these sections) is available for venues with stricter length constraints.
 
 \section{Glossary of Key Terms}
 \label{appendix:glossary}

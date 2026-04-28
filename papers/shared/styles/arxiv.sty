@@ -2,9 +2,13 @@
 
 \ProcessOptions\relax
 
-% fonts - Libertinus (modern, elegant serif with matching math)
+% fonts - prefer Libertinus when available, fall back to Latin Modern
 \usepackage[T1]{fontenc}             % Better glyph coverage
-\usepackage{libertinus-type1}        % Libertinus text fonts
+\IfFileExists{libertinus-type1.sty}{%
+  \usepackage{libertinus-type1}      % Libertinus text fonts (preferred)
+}{%
+  \usepackage{lmodern}               % Latin Modern fallback (TeX Live default)
+}
 \usepackage{microtype}               % Microtypographic improvements
 \renewcommand{\sfdefault}{lmss}      % Latin Modern sans for contrast
 

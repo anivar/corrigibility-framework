@@ -162,7 +162,7 @@ The critical question for a digital polity is not whether errors occur, but whet
 
 Current policy discourse defines DPI through aspirational language. The G20 New Delhi Declaration (2023) and the UN/UNDP framework \citep{undp} describe systems that ``should be secure'' or ``can be built on open standards.'' These definitions exclude almost nothing. They articulate intent, not condition. Under such broad definitions, a system that traps users in a coercive loop can be labeled ``public infrastructure'' simply because it operates at scale.
 
-This paper defines corrigibility not as a moral preference, but as a structural property essential for stability. The central argument is that \textbf{unverifiable constraint is structurally indistinguishable from absolute operator control.} Therefore, public legitimacy requires more than policy assertions; it requires a cryptographic chain of custody and a verifiable capacity for correction.
+This paper defines corrigibility not as a moral preference, but as a structural property essential for stability. The central argument is that \textbf{unverifiable constraint is structurally indistinguishable from absolute operator control.} Therefore, public legitimacy requires more than policy assertions; it requires a cryptographic chain of custody and a verifiable capacity for correction. The normative grounding for this structural definition --- non-domination as the criterion for legitimate public infrastructure --- is developed at the opening of Section~\ref{sec:theory}.
 
 \paragraph{Contributions.} This paper formalizes the structural preconditions for public digital infrastructure, transitioning the discourse from normative aspirations to falsifiable engineering constraints. Specifically, the contributions are threefold:
 \begin{enumerate}[noitemsep]
@@ -275,7 +275,9 @@ The DPI literature spans policy frameworks, technical architectures, and critica
 \section{Theoretical Foundations}
 \label{sec:theory}
 
-This framework does not invent new ethical categories. Instead, it triangulates a single structural requirement from three independent intellectual traditions. Whether viewed through physics, political economy, or code, the stability of a system depends on the capacity of its subjects to provide corrective feedback.
+\paragraph{Normative Anchor.} This framework adopts \textit{non-domination} --- the structural absence of arbitrary power --- as the normative criterion for legitimate public infrastructure, drawing on the analytical core of Pettit's republican tradition \citep{pettit1997}. Alternative frameworks reach similar conclusions through different routes: Habermas's deliberative theory \citep{habermas1996} centers communicative legitimacy; Sen's capability approach \citep{sen1999} centers substantive freedoms; Mouffe's agonistic democracy \citep{mouffe2000} centers the productive maintenance of conflict. We center non-domination because its focus on structural protection provides the most exact isomorphism with system architecture: a digital system is public to the extent that those it governs possess the structural capacity to override its arbitrary application. The five corrigibility tests operationalize the engineering conditions under which this arbitrariness is bounded. While the framework's mechanics are compatible with overlapping democratic traditions, its foundational metric is the structural distribution of power rather than the optimization of administrative utility.
+
+To operationalize this defense against arbitrary power, we do not invent new ethical categories. Instead, we triangulate the mechanical requirements of non-domination from three independent operational traditions: Cybernetics (to map the necessary feedback loops), Commons Governance (to structure the constraint), and Free Software (to legally guarantee the right to inspect and reproduce). Whether viewed through physics, political economy, or code, the stability of a system depends on the capacity of its subjects to provide corrective feedback.
 
 \subsection{Cybernetics and Requisite Variety}
 
@@ -580,7 +582,7 @@ Three structural consequences follow:
 The GOVERN test extends to ontological choices when those choices produce binding classifications. An AI-mediated DPI deployment satisfies GOVERN only if affected populations can challenge the categorical schema, not merely dispute individual outputs. The formal constraints required to render this contestation operative (LWD-R disclosure, operative-representation transparency, action-boundary auditability) are developed in the companion paper's analysis of learned-system corrigibility~\citep{aravind2026epi}.
 \end{remark}
 
-This bridge clause completes the deterministic framework's account of the GOVERN test for the AI era: the test does not change, but its evidentiary burden does. The companion paper takes up the verification machinery in detail.
+This bridge clause completes the deterministic framework's account of the GOVERN test for the AI era: the test does not change, but its evidentiary burden does. The companion paper takes up the verification machinery in detail and develops a strict-interpretability firewall: when the operative representation of a learned component cannot be disclosed to the standard required for auditable reproduction, the system fails CODE for high-stakes deployments and should not, consistent with this framework's legitimacy criteria, be adopted as Epistemic Public Infrastructure in rights-affecting tiers \citep{aravind2026epi}.
 
 \subsection{The Topology of Necessity}
 
@@ -1307,11 +1309,16 @@ A system that allows \textbf{AUDIT} but blocks \textbf{GOVERN} is an \textbf{Ope
 
 For diagnostic purposes, gradation remains useful. Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main} specify continuous measurements. The binary determination is the output; continuous measurements are inputs. Evaluators can examine inputs to prioritize interventions.
 
-\subsubsection{Legitimacy Threshold vs Physical Claim}
+\subsubsection{Legitimacy Threshold vs Physical Claim: A Two-Pronged Argument}
+\label{subsubsec:two-pronged}
 
-A critical clarification: the binary model is a \textbf{legitimacy threshold}, not a physical claim about feedback dynamics. Control theorists correctly observe that real systems exhibit continuous variation in loop gain, observability, and actuation authority. A sensor with 50\% accuracy transmits \textit{some} signal; partial actuation produces \textit{some} correction.
+The binarity of corrigibility rests on two converging arguments that must be distinguished. Neither alone forces the conclusion; together they overdetermine it from independent grounds.
 
-The framework does not dispute this physical reality. It makes a normative claim: \textbf{below a threshold of feedback quality, a system forfeits the right to claim public legitimacy}. The threshold is binary because legitimacy is binary. A prison that permits appeals 10\% of the time is still a prison.
+\paragraph{The Control-Theoretic (Mechanism) Argument.} Open-loop feedback yields divergent dynamics under persistent disturbance. Proposition~\ref{thm:null-feedback} formalizes this as a structural analogy. The mechanism claim is: when any feedback component is severed, the loop opens, and error accumulates without correction. Real systems exhibit continuous variation in loop gain, observability, and actuation authority --- a sensor with 50\% accuracy transmits \textit{some} signal --- so the mechanism argument alone yields divergence-rate claims, not legitimacy claims.
+
+\paragraph{The Political-Theoretic (Legitimacy) Argument.} Partial contestation creates \textit{sham governance}: cosmetic accountability without corrective leverage. A system that admits 10\% of grievances, or that admits all grievances but resolves them only after harm has accumulated past reversibility, is institutionally distinct from a system with no contestation only in appearance. Beyond a threshold of feedback quality, additional gradations in compliance produce \textit{non-monotonic} legitimacy gains: increases in nominal contestation procedures may decrease real correction capacity by absorbing political pressure into procedure rather than outcome. Below this threshold, a system forfeits the right to claim public legitimacy under any non-domination criterion (Section~\ref{sec:theory}, Normative Anchor). The threshold is binary because legitimacy is binary: a prison that permits appeals 10\% of the time is still a prison.
+
+\paragraph{Why Both Arguments Are Needed.} The control-theoretic argument tells us that partial corrigibility cannot stabilize a system; the political-theoretic argument tells us that partial corrigibility cannot legitimize one. The conjunction yields the framework's binarity claim. Critics who reject the political-theoretic grounding can still accept the mechanism conclusion; critics who reject the control-theoretic abstraction can still accept the legitimacy conclusion. The framework is robust to either critique because it does not depend on either argument alone.
 
 \paragraph{Sensitivity Analysis.} Let continuous inputs be $\{p, v, \tau, b, r\}$ (penalty ratio, visibility, latency, bindingness, resource ratio) as defined in Table~\ref{tab:operational-proxies-main}. The binary determination function $D$ is:
 
@@ -1833,7 +1840,7 @@ This appendix formalizes two core claims of the paper using control theory as a 
     \item \textbf{Null-Feedback Instability:} If any component of the feedback path is structurally severed, the system operates as open-loop and will diverge under persistent disturbance.
     \item \textbf{Correction Velocity Inequality:} If the rate of digital error propagation exceeds the rate of institutional correction, post-hoc remedies are insufficient to prevent systemic failure.
 \end{enumerate}
-This formalization illustrates structural relationships between the five tests and feedback system properties. It does not claim that DPI literally behaves as a linear time-invariant system; the model is pedagogical, clarifying why partial compliance represents structural failure rather than partial success.
+This formalization illustrates structural relationships between the five tests and feedback system properties. It does not claim that DPI literally behaves as a linear time-invariant system; the model is pedagogical, clarifying \textit{one half} of why partial compliance represents structural failure rather than partial success. The other half is the political-theoretic argument developed in Section~\ref{subsubsec:two-pronged}: even where partial feedback transmits \textit{some} corrective signal, partial contestation produces sham governance under a non-domination criterion. The binarity of corrigibility rests on the conjunction of the control-theoretic and political-theoretic arguments; this appendix supplies only the former.
 
 \medskip
 
@@ -1880,11 +1887,11 @@ Given that environmental variety $d(t)$ is stochastic and non-zero (Ashby's Law)
 Thus, structural stability is unattainable without the closure of the feedback loop. ``Partial'' corrigibility (where $K=0$ or $H=0$) yields the same asymptotic divergence profile as fully open-loop operation.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}[Binarity of Corrigibility]
 Corrigibility is a binary structural property. If any one of the five tests (EXIT, CODE, AUDIT, GOVERN, FORK) fails, systemic error cannot be structurally bounded, and corrective authority becomes discretionary rather than guaranteed.
 \end{corollary}
 
-\textit{Justification}: Each test corresponds to a necessary component of the feedback loop. Partial compliance does not preserve loop closure. This follows directly from Proposition~\ref{thm:null-feedback}: since $L(s) = K(s) \cdot P(s) \cdot H(s)$, if any multiplicative term is zero, the entire loop gain vanishes.
+\textit{Justification}: Each test corresponds to a necessary component of the corrective apparatus. The corollary rests on the conjunction of two independent arguments developed in Section~\ref{subsubsec:two-pronged}. \textit{Mechanism (this appendix):} from Proposition~\ref{thm:null-feedback}, since $L(s) = K(s) \cdot P(s) \cdot H(s)$, if any multiplicative term is zero the loop gain vanishes and partial compliance does not preserve closure. \textit{Legitimacy (main text):} partial contestation produces \textit{sham governance} --- accountability with non-monotonic returns where additional procedural gestures may absorb political pressure without yielding correction --- so even where partial feedback transmits some signal, the system fails the non-domination criterion (Section~\ref{sec:theory}, Normative Anchor). The mechanism argument alone yields divergence-rate claims; the legitimacy argument alone yields institutional-status claims; the conjunction yields binarity.
 
 \begin{figure}[htbp]
 \centering

@@ -1,8 +1,103 @@
 # Revision Changelog
 
-Tracks the three-priority revision pass for the v3.0.0 ArXiv submission.
-Organized by priority tier and paper. P0 is complete; P1 and P2 are
-in-progress.
+Tracks the three-priority revision pass for the v3.0.0 ArXiv submission
+and the P3 consensus revisions in v3.1.0. Organized by priority tier and
+paper.
+
+## P3 — Consensus Revisions (v3.1.0-rc.1)
+
+Five decision-points (DP1–DP5) addressed across both papers on branch
+`revise/p3-consensus`.
+
+### DP5 — Normative grounding (both papers)
+
+- New `\paragraph{Normative Anchor.}` introduces non-domination (Pettit
+  primary; Habermas / Sen / Mouffe alternatives) as the framework's
+  legitimacy criterion, with explicit "analytical convenience, not
+  commitment to a full republican political program" hedge.
+- DPI: anchor placed at the head of §3 *Theoretical Foundations*
+  (sec:theory) and merged with the existing triangulation paragraph
+  (Cybernetics / Commons Governance / Free Software). §1 retains a
+  one-sentence forward reference. New bib entries: `pettit1997`,
+  `habermas1996`, `sen1999`, `mouffe2000`.
+- EPI: anchor placed in §1 (no parallel §3 *Theoretical Foundations*
+  exists in EPI).
+
+### DP1 — Binary corrigibility, two-pronged argument
+
+- DPI §1 Introduction reframed: "Open-Loop Instability Theorem" →
+  "Open-Loop Instability Argument" with explicit two-pronged structure
+  (control-theoretic mechanism + political-theoretic legitimacy). DPI
+  §7.1.2 renamed *Legitimacy Threshold vs Physical Claim: A Two-Pronged
+  Argument* (`subsubsec:two-pronged`); three named paragraphs distinguish
+  the mechanism argument, the legitimacy argument (sham governance,
+  non-monotonic returns), and why both are needed ("Neither alone forces
+  the conclusion; together they overdetermine it from independent
+  grounds").
+- DPI appendix Executive Summary updated to call the formalization "one
+  half" of the argument with cross-ref to §7.1.2.
+- DPI corollary "Binarity of Corrigibility" justification revised: rests
+  on the conjunction of mechanism (Proposition~\ref{thm:null-feedback})
+  and legitimacy (sham governance) arguments.
+- EPI §1 *Open-Loop Instability Argument* paragraph carries the parallel
+  two-pronged framing.
+
+### DP2 — Strict Interpretability Firewall (EPI §3.2 + DPI cross-ref)
+
+- New EPI §3.2 *Strict Interpretability Firewall* (`subsec:firewall`)
+  with Principle (`prin:firewall`): when operative R cannot be disclosed
+  to the standard of Proposition~\ref{prop:operative-r-test}, the system
+  fails CODE for high-stakes deployments and "should not, consistent
+  with this framework's legitimacy criteria, be adopted as Epistemic
+  Public Infrastructure" in rights-affecting tiers.
+- Wording chosen deliberately: structural-criteria language, not
+  jurisdiction-specific lawfulness language.
+- *Why strict, not graduated* paragraph: graduated regimes ratchet to
+  permanent partial compliance via the same political-economy mechanism
+  that converts "proportionate" contestation into sham governance.
+- *Human-Discretion Objection* and response: bias-plus-corrigibility
+  beats bias-minus-corrigibility; the asymmetry is structural (appeal,
+  retraining, replacement, institutional memory) rather than rhetorical.
+- *Cost of the Strict Position* paragraph: every current frontier
+  high-stakes deployment fails CODE under this framework; the diagnostic
+  instrument is calibrated to surface this failure rather than ratify
+  current systems.
+- DPI §4.10 bridge clause extended with one-sentence cross-reference to
+  the firewall.
+
+### DP4 — Citizen-Side GOVERN: Mechanism Families (EPI §6.8)
+
+- New EPI §6.8 (`subsec:govern-mechanisms`) identifies five
+  non-exclusive mechanism families: juridical, administrative/executive,
+  distributed/class-action, deliberative, federation-based.
+- Composition requirement at high-stakes tier: at least two of
+  {juridical, distributed/class-action, deliberative}, with structural
+  justification (each covers a failure mode the others cannot:
+  individual remedy vs systemic patterns vs categorical-schema
+  contestation).
+- Footnote on informal complements (journalism, scholarly criticism,
+  market reputation, public pressure) as necessary but non-substitutive.
+
+### DP3 — Scope and Open Problems (new EPI §12)
+
+- New EPI §12 *Scope and Open Problems* (`sec:open-problems`) with one
+  paragraph per open regime: federated learning, continuous learning,
+  multi-tenant deployments, international/jurisdictional layer, political
+  economy of $\kappa$ calibration. Strict per-paragraph length
+  discipline.
+- §1 paper-structure paragraph updated to reference the new section.
+
+### Build Verification (v3.1.0-rc.1)
+
+| Paper | Pages | Size   |
+|-------|-------|--------|
+| DPI   | 51    | 943 KB |
+| EPI   | 29    | 690 KB |
+
+Latexmk completes without errors (one harmless `T1/lmr/bx/sc undefined`
+font-shape warning persists from arxiv.sty + Latin Modern interaction).
+
+
 
 ## P0 — Blocking Edits (complete in v3.0.0-alpha.1)
 

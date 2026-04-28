@@ -8,13 +8,16 @@ authors:
     orcid: "https://orcid.org/0009-0009-8995-0005"
     email: "ping@anivar.net"
     website: "https://anivar.net"
-version: "2.1.0"
-date-released: "2026-04-28"
+version: "3.0.0"
+date-released: "2026-04-29"
 identifiers:
+  - type: doi
+    value: "10.2139/ssrn.6059075"
+    description: "SSRN DOI (DPI paper)"
   - type: doi
     value: "10.5281/zenodo.18215327"
     description: "Zenodo concept DOI (resolves to latest version)"
-url: "https://indiastack.in/dpi/"
+url: "https://anivar.net/corrigibility"
 repository-code: "https://github.com/anivar/corrigibility-framework"
 license: "CC0-1.0"
 keywords:

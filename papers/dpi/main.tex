@@ -418,7 +418,7 @@ Figure~\ref{fig:control-loop} illustrates the complete feedback architecture.
     % Annotations
     \node[font=\tiny, text=red!70!black, align=center] at (3, -3.2) {Failure of any component $\rightarrow$ open-loop divergence};
 \end{tikzpicture}
-\caption{\textbf{Corrigibility as a Closed-Loop Control Architecture.} Digital Public Infrastructure is modeled as a feedback control system subject to continuous human and environmental disturbance. Corrigibility requires that error signals (EXIT) remain detectable, that system behavior be intelligible (CODE), that sensing mechanisms be transparent (AUDIT), that binding corrective authority exist (GOVERN), and that structural reproduction be feasible (FORK). Failure of any single component collapses the loop into open-loop operation. Under non-zero integrating disturbance, error diverges unboundedly (Null-Feedback Instability Theorem, Appendix~\ref{appendix:proofs}). Corrigibility is therefore a structural property of loop integrity, not a matter of operator intent.}
+\caption{\textbf{Corrigibility as a Closed-Loop Control Architecture.} Digital Public Infrastructure is modeled as a feedback control system subject to continuous human and environmental disturbance. Corrigibility requires that error signals (EXIT) remain detectable, that system behavior be intelligible (CODE), that sensing mechanisms be transparent (AUDIT), that binding corrective authority exist (GOVERN), and that structural reproduction be feasible (FORK). Failure of any single component collapses the loop into open-loop operation. Under non-zero integrating disturbance, error diverges unboundedly (Null-Feedback Instability, Proposition~\ref{thm:null-feedback}; Appendix~\ref{appendix:proofs}). Corrigibility is therefore a structural property of loop integrity, not a matter of operator intent.}
 \label{fig:control-loop}
 \end{figure}
 
@@ -959,15 +959,12 @@ The framework is governance-agnostic: corporate participation is not disqualifyi
 \subsection{The Taxonomy of Open-Washing}
 \label{subsec:openwashing}
 
-Systems that fail these structural tests frequently employ vocabulary to obscure their closure:
+Systems that fail these structural tests frequently employ vocabulary to obscure their closure. The recurring patterns reduce to three strategic categories, each instantiated by several named tactics:
+
 \begin{enumerate}
-    \item \textbf{Standard-Washing}: Adopting open technical standards (like ISO/W3C) as proxy for governance accountability.
-    \item \textbf{Open-Washing}: Releasing peripheral SDKs while keeping core execution logic proprietary.
-    \item \textbf{Multilateral-Washing}: Using international endorsements (G20, WB) to substitute for technical auditability.
-    \item \textbf{Safety-Washing}: Justifying opacity by claiming inspection poses a security risk.
-    \item \textbf{Consent-Washing}: Obtaining formal consent under conditions of economic coercion.
-    \item \textbf{DID-Washing}: Deploying decentralized identifiers without decentralized governance (see Section~\ref{subsubsec:didwashing}).
-    \item \textbf{Climate-Washing}: Using environmental rhetoric to legitimize structural changes whose primary effects extend beyond genuine climate mitigation (see Section~\ref{subsubsec:climatewashing}).
+    \item \textbf{Symbolic-openness washing.} Substituting technical or diplomatic markers for governance accountability. Instances include \textit{Standard-Washing} (adopting open technical standards such as ISO/W3C as proxy for governance accountability), \textit{Open-Washing} (releasing peripheral SDKs while keeping core execution logic proprietary), \textit{Multilateral-Washing} (using G20/World Bank endorsements to substitute for technical auditability), and \textit{DID-Washing} (deploying decentralized identifiers without decentralized governance; see Section~\ref{subsubsec:didwashing}).
+    \item \textbf{Coerced-legitimacy washing.} Grounding legitimacy in security narratives or coerced consent. Instances include \textit{Safety-Washing} (justifying opacity by claiming inspection poses a security risk) and \textit{Consent-Washing} (obtaining formal consent under conditions of economic coercion).
+    \item \textbf{Substantive-substitution washing.} Invoking orthogonal public goods to legitimize structural changes that extend beyond the stated purpose. The principal instance is \textit{Climate-Washing} (using environmental rhetoric to legitimize movement, payment, or surveillance changes; see Section~\ref{subsubsec:climatewashing}).
 \end{enumerate}
 
 \subsubsection{DID-Washing: The Layer Confusion Problem}
@@ -1727,29 +1724,17 @@ Corrigibility is the structural response to the Collingridge Dilemma (Section~\r
 \subsection{Limitations}
 
 \begin{enumerate}
-    \item \textbf{Binary classification serves legitimacy thresholds, not diagnostic prioritization.} The binary determination answers ``Does this system merit the claim of public infrastructure?'' It does not answer ``Which constraint should reformers address first?'' For diagnostic prioritization, the continuous metrics in Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main} are more useful. A system scoring 4/5 has better structural properties than one scoring 0/5, even though both fail the legitimacy threshold.
+    \item \textbf{Methodological scope: binary determinations.} The binary determination answers ``Does this system merit the claim of public infrastructure?'' rather than ``Which constraint should reformers address first?''; the continuous metrics in Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main} serve diagnostic prioritization, while the binary output serves the legitimacy threshold. The control-theoretic formalization (Proposition~\ref{thm:null-feedback}) is labeled in-text as a structural analogy rather than a predictive dynamics claim, and the framework evaluates legitimacy rather than stability: incorrigible systems may persist indefinitely without being legitimate.
 
-    \item \textbf{FORK may be structurally unachievable for essential state infrastructure.} Even with open code, essential state infrastructure faces barriers that technical openness cannot overcome: legal monopoly (the state grants one system validity), network effects (a fork accepted by no one is worthless), data non-portability (identity records do not come with the code), and trust bootstrapping (institutional trust takes decades). The framework provides no demonstrated example of essential state identity infrastructure disciplined by fork threat. For such systems, the framework's value is diagnostic (identifying structural capture) rather than prescriptive (enabling actual forking). Latent forkability may create pressure, but this remains undemonstrated.
+    \item \textbf{Solution validation gaps: FORK, FEE, and prescriptive limits.} FORK may be structurally unachievable for essential state infrastructure: legal monopoly, network effects, data non-portability, and decade-long trust bootstrapping are barriers technical openness alone cannot overcome, and the framework provides no demonstrated example of essential state identity infrastructure disciplined by an actually executed fork. Functional Exit Equivalence (FEE) is proposed as the resolution for the essentiality-corrigibility tension, but no essential identity infrastructure has implemented full FEE; partial analogues (telecom number portability, PSD2 banking APIs) operate in domains with weaker network effects. The framework is therefore primarily diagnostic; the prescriptive elements (FEE, open licensing, multi-stakeholder governance) remain theoretical constructs requiring empirical validation.
 
-    \item \textbf{Functional Exit Equivalence (FEE) is unvalidated.} FEE is proposed as the resolution for the essentiality-corrigibility tension, but no essential identity infrastructure has implemented full FEE. Partial analogues exist (telecom number portability, PSD2 banking APIs), but these operate in domains with weaker network effects than identity. Whether FEE can provide accountability equivalent to true forkability for identity infrastructure remains an open empirical question.
+    \item \textbf{Evaluation interpretive limits.} GOVERN requires historical evidence of enforcement and is therefore more interpretation-dependent than the technical tests. The correction-velocity critique targets external bureaucracies (courts, ombudsmen) rather than all deliberative processes; Bitcoin's BIP process and other community-paced governance remain valid governance under the framework.
 
-    \item \textbf{The control theory formalization is illustrative, not predictive.} The mapping of GOVERN to $K(s)$ and AUDIT to $H(s)$ illustrates structural relationships; it does not claim that DPI literally behaves as a linear time-invariant system. The insight (broken feedback degrades accountability) is valid as structural analogy. The mathematical formalism should be understood as pedagogical model, not physical prediction. Incorrigible systems may be stable indefinitely; the framework evaluates legitimacy, not stability.
+    \item \textbf{Network effects are not formally modeled.} Network effects can make formally forkable systems practically unforkable (e.g., Signal's open code but unfederated network). The framework treats this as natural economic friction rather than constructed legal barrier, but does not provide a quantitative model for when network friction crosses into capture.
 
-    \item \textbf{The framework is primarily diagnostic, not prescriptive.} This paper provides rigorous criteria for evaluating infrastructure accountability. It does not provide validated prescriptions for building corrigible essential services. The proposed solutions (FEE, open licensing, multi-stakeholder governance) are theoretical constructs requiring empirical validation. The contribution is diagnosis of a possibly fundamental tension, not its resolution.
+    \item \textbf{Empirical scope limitations.} The primary case studies (Aadhaar, UPI) derive from India Stack; systematic validation across other national DPI implementations (Brazil Pix, Singapore NDI, Kenya M-Pesa) is required before universal claims are established. The paper also does not analyze the political economy of why governments choose incorrigible designs when corrigible alternatives exist (efficiency gains, control preferences, vendor capture, path dependence), nor does it establish a comparative baseline for documented exclusion mortality against pre-digital PDS dysfunction; the structural argument concerns accountability mechanisms, not comparative death rates.
 
-    \item \textbf{Governance evaluation is judgment-dependent.} GOVERN requires historical evidence of enforcement, making it more interpretation-dependent than technical tests.
-
-    \item \textbf{Timescale argument applies to external remedies.} The critique targets external bureaucracies (courts, ombudsmen), not all deliberative processes. Bitcoin's BIP process operates on human timescales and remains valid governance.
-
-    \item \textbf{Network effects are not formally modeled.} Network effects can make formally forkable systems practically unforkable (e.g., Signal's open code but unfederated network).
-
-    \item \textbf{Empirical analysis centers on India.} The primary case studies (Aadhaar, UPI) derive from India Stack. While the theoretical framework generalizes, systematic validation across other national DPI implementations (Brazil Pix, Singapore NDI, Kenya M-Pesa) is required before universal claims are established.
-
-    \item \textbf{Political economy is not analyzed.} The paper diagnoses structural failures but does not explain why governments choose incorrigible designs when corrigible alternatives exist. Understanding these incentives (efficiency gains, control preferences, vendor capture, path dependence) is essential for policy reform and remains outside this paper's scope.
-
-    \item \textbf{The framework encodes specific values.} This framework prioritizes structural accountability through exit mechanisms (the capacity to leave or reproduce) over voice mechanisms (political participation, democratic oversight). This reflects a specific intellectual tradition (Hirschman's exit/voice distinction, Stallman's free software principles, commons governance theory). Alternative frameworks prioritizing voice have independent value. The framework is not ideologically neutral; it makes explicit what it values.
-
-    \item \textbf{Baseline mortality comparison is not established.} Deaths from Aadhaar-related exclusion are documented. Comparison to pre-Aadhaar baseline mortality from PDS dysfunction (leakage, corruption, exclusion) is not provided in this paper. The structural argument concerns accountability mechanisms (paper systems permitted human override; biometric systems do not), not comparative death rates.
+    \item \textbf{The framework encodes specific values.} This framework prioritizes structural accountability through exit mechanisms (the capacity to leave or reproduce) over voice mechanisms (political participation, democratic oversight), reflecting a specific intellectual tradition (Hirschman's exit/voice distinction, Stallman's free software principles, commons governance theory). Alternative frameworks prioritizing voice have independent value. The framework is not ideologically neutral; it makes explicit what it values.
 \end{enumerate}
 
 \subsection{Future Work}
@@ -1776,7 +1761,7 @@ The complete framework, including JSON Schemas and assessment tooling, is availa
 
 \begin{itemize}
     \item \textbf{Schema Repository}: \url{https://github.com/anivar/corrigibility-schema}
-    \item \textbf{Assessment Skills}: \texttt{skills/assess/} --- Rules and test definitions including:
+    \item \textbf{Assessment Rules}: \texttt{rules/assess/} --- Rules and test definitions including:
     \begin{itemize}
         \item Test rules: EXIT, CODE, AUDIT, GOVERN, FORK
         \item Analysis rules: Layer decomposition, variety drift, action boundaries
@@ -1873,12 +1858,14 @@ The plant dynamics (DPI operation) are given by:
 \dot{y}(t) = u(t) + d(t)
 \end{equation}
 
-\begin{theorem}[Null-Feedback Instability]
+\begin{proposition}[Null-Feedback Instability --- Structural Analogy]
 \label{thm:null-feedback}
 If any component of the feedback path is structurally broken, specifically if Sensor Transparency $H=0$ (Failed AUDIT) or Actuator Coupling $K=0$ (Failed GOVERN), the system effectively operates as Open Loop. Under Open Loop conditions with non-zero integrating disturbance $d(t)$, the error $e(t)$ diverges unboundedly.
-\end{theorem}
+\end{proposition}
 
 \begin{proof}
+We treat this as a structural analogy rather than a stability theorem for any specified DPI implementation; the formal apparatus illustrates the consequence of broken loop closure under generic disturbance, not the predicted dynamics of a particular system.
+
 If tests \textbf{AUDIT} or \textbf{EXIT} fail, $H=0$.
 If test \textbf{GOVERN} fails, $K=0$.
 In either case, the effective corrective feedback is $u_{fb} = 0$.
@@ -1890,14 +1877,14 @@ Given that environmental variety $d(t)$ is stochastic and non-zero (Ashby's Law)
 \begin{equation}
 \lim_{t \to \infty} |r(t) - y(t)| \to \infty
 \end{equation}
-Thus, stability is impossible without the closure of the feedback loop. ``Partial'' corrigibility (where $K=0$ or $H=0$) yields the same asymptotic stability profile as total authoritarianism.
+Thus, structural stability is unattainable without the closure of the feedback loop. ``Partial'' corrigibility (where $K=0$ or $H=0$) yields the same asymptotic divergence profile as fully open-loop operation.
 \end{proof}
 
 \begin{corollary}
 Corrigibility is a binary structural property. If any one of the five tests (EXIT, CODE, AUDIT, GOVERN, FORK) fails, systemic error cannot be structurally bounded, and corrective authority becomes discretionary rather than guaranteed.
 \end{corollary}
 
-\textit{Justification}: Each test corresponds to a necessary component of the feedback loop. Partial compliance does not preserve loop closure. This follows directly from Theorem~\ref{thm:null-feedback}: since $L(s) = K(s) \cdot P(s) \cdot H(s)$, if any multiplicative term is zero, the entire loop gain vanishes.
+\textit{Justification}: Each test corresponds to a necessary component of the feedback loop. Partial compliance does not preserve loop closure. This follows directly from Proposition~\ref{thm:null-feedback}: since $L(s) = K(s) \cdot P(s) \cdot H(s)$, if any multiplicative term is zero, the entire loop gain vanishes.
 
 \begin{figure}[htbp]
 \centering
@@ -2486,7 +2473,7 @@ This appendix addresses the strongest objections to the framework, organized by 
 \paragraph{Objection 2: Where is the Lyapunov stability proof?}
 ``You claim systems diverge without feedback. Show the Lyapunov function. Without rigorous stability analysis, this is hand-waving.''
 
-\textbf{Response:} Appendix~\ref{appendix:proofs} provides the formal treatment. Theorem~\ref{thm:null-feedback} (Null-Feedback Instability) proves that when $H=0$ or $K=0$, the system operates open-loop and diverges under non-zero disturbance. The discrete integrator example (Section~\ref{subsec:discrete-integrator}) provides an elementary proof: $y_N = y_0 + \sum d_k \to \infty$ for any non-zero mean disturbance. A full Lyapunov treatment would require specifying the state space for a particular DPI implementation; the framework operates at the architectural level, where the key insight (that open loops diverge) is mathematically trivial.
+\textbf{Response:} Appendix~\ref{appendix:proofs} provides the formal treatment. Proposition~\ref{thm:null-feedback} (Null-Feedback Instability --- Structural Analogy) shows that when $H=0$ or $K=0$, the system operates open-loop and diverges under non-zero disturbance. The discrete integrator example (Section~\ref{subsec:discrete-integrator}) provides an elementary proof: $y_N = y_0 + \sum d_k \to \infty$ for any non-zero mean disturbance. A full Lyapunov treatment would require specifying the state space for a particular DPI implementation; the framework operates at the architectural level, where the key insight (that open loops diverge) is mathematically trivial.
 
 \subsection{Political Science Objections}
 

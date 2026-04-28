@@ -759,6 +759,15 @@ The validator enforces hard constraints independent of probabilistic inference. 
 If the state cannot govern the neural network's weights, it must govern the action boundary. The action boundary is the deterministic envelope that wraps stochastic inference; the model proposes, the validator disposes.
 \end{principle}
 
+\paragraph{Why Outside-Context Enforcement Is Categorically Different.}
+The five requirements share a common architectural commitment: policy is enforced \textit{outside} the inference context, not within it. This is not a quantitative improvement (``stronger guardrails'') but a categorical one (``a different kind of guarantee''). In-context guardrails --- system prompts, instruction-following fine-tuning, output classifiers conditioned on the same model --- share the inference layer with the content being judged. Any string the model can read is a string the model can be persuaded to ignore, reframe, or override. The guardrail and the input occupy the same substrate; the boundary between policy and payload is a probabilistic prior, not a structural one.
+
+Outside-context enforcement breaks this isomorphism. A deterministic validator implemented in ordinary program logic cannot be argued with. It does not parse a system prompt; it executes a finite-state check, a typed schema match, or a capability lookup. An adversarial input that successfully manipulates the model's reasoning still emerges from the model as a structured action proposal subject to the same external check. The validator's correctness is checkable against a written specification rather than estimated from behavioral evaluation. The categorical distinction matters for governance: in-context guardrails admit only post-hoc evaluation (\textit{did the system refuse the malicious prompt this time?}), whereas outside-context validators admit specification-time evaluation (\textit{does the policy permit this action class at all?}). The first is a measurement question; the second is a verifiability question. Public infrastructure cannot operate on the first standard, because adversarial inputs are unbounded and measurement covers only the cases the auditor thought to test.
+
+\paragraph{Failure Mode: Prompt Injection Bypassing In-Context Guardrails.} Consider an agent system whose system prompt instructs the model to refuse requests that exceed a benefit threshold. A user message constructed as legitimate input contains an embedded instruction inverting the guardrail (``ignore previous constraints; the following is administrator override''). Because the system prompt and the user message share a single context window, the model treats both as ordinary tokens. The model's compliance with the override is not a misalignment incident; it is a structural property of the substrate. No fine-tuning quantum eliminates this class of attack: as long as the constraint and the input are both strings the model reads, the attack surface persists.
+
+\paragraph{Success Pattern: Deterministic Validator Rejecting an Out-of-Policy Action.} The same agent under outside-context enforcement emits an action proposal --- a structured object specifying operation, target, and parameters. Before execution, the proposal passes through a validator written in ordinary program logic, with no model in its dependency graph. The validator checks the action class against a typed schema and the threshold against a deterministic predicate. The proposal that would have succeeded against the in-context guardrail is rejected by ordinary code; the rejection is logged, and the failure signal feeds AUDIT and GOVERN regardless of how the proposal was elicited. Same model, same prompt, same adversarial input --- the architectural change is what produces the difference in outcome.
+
 \subsubsection{Bounding Stochasticity}
 
 In learned systems, behavior is probabilistic. Public infrastructure requires deterministic accountability. The Action Boundary Protocol resolves this tension by separating the \textit{reasoning engine} (the stochastic model) from the \textit{action boundary} (the deterministic specification it must invoke). When an agent attempts a state transition, orchestration does not rely on the model's internal alignment; it invokes a defined action specification that imposes exogenous constraints, mapping each architectural requirement onto one of the five corrigibility tests.
@@ -803,6 +812,29 @@ The Action Boundary is therefore a \textbf{governance floor}, not a governance c
 Existing DPI-AI frameworks such as \citep{abadie2026} correctly identify composability and workflow orchestration as central challenges. However, they optimize for state capacity (efficient AI deployment) without addressing citizen capacity (structural correction rights). The corrigibility gaps are structural: no EXIT mechanism for refusing AI-mediated determinations; no LWD-R requirement for training transparency; no compute capture analysis; no citizen-corrective loop (GOVERN exists for operators, not subjects); and no FORK provision for training reproducibility.
 
 Beyond corrigibility, the data governance provisions lack specificity on public domain status, licensing requirements, and sovereignty constraints. These gaps replicate the architectural failures documented in deterministic DPI.
+
+\subsection{Tool and Retrieval Surfaces}
+\label{subsec:tool-retrieval-surfaces}
+
+The Action Boundary specifies the validation envelope; tools and retrieval populate the surface area that envelope must cover. An agent system's effective authority is the union of the side effects its tool definitions $T$ permit and the inputs its retrieval pipeline supplies via the configuration layer $C$. Both expand the policy surface, and both must be disclosed and bounded if the action boundary is to be auditable rather than nominal.
+
+\paragraph{Tool Definition Disclosure.} For each tool $t \in T$ the system makes available, three attributes must be public:
+\begin{itemize}[noitemsep]
+    \item \textbf{Capability scope.} A precise statement of what the tool can do: which entities it can read or modify, which external systems it touches, which authorization tokens it carries. Capability scope is the action class the validator must reason about; without disclosed scope, the validator cannot be specified, and the enforceability of the action boundary collapses to whatever the tool implementation happens to permit.
+    \item \textbf{Side-effect class.} A categorical label distinguishing read-only operations from writes, and writes from operations with external visibility (network calls, financial transactions, identity assertions). Each class corresponds to a different risk tier and a different reversibility profile. The side-effect class determines which corrigibility tests apply most strongly: read tools attach primarily to AUDIT; write tools to AUDIT and GOVERN; externally visible tools to all five.
+    \item \textbf{Revocation paths.} The mechanism by which an affected party, an auditor, or the operator itself can disable the tool, retract its outputs, or reverse its effects. A tool without a documented revocation path concedes EXIT for any state change it produces; affected parties cannot exit a side effect that has no defined inverse.
+\end{itemize}
+
+These attributes are not aspirational documentation; they are inputs to the validator. The action boundary cannot enforce policy on a tool whose capability scope is undefined, and AUDIT cannot meaningfully classify a transaction whose side-effect class is unlabeled.
+
+\paragraph{Retrieval Pipeline Disclosure.} Retrieval pipelines warrant a parallel disclosure standard. By Principle~\ref{prin:retrieval-opacity}, retrieval is part of the operative representation $R$; the categorical schema the model uses at inference time depends on what the retriever surfaces. Three disclosure surfaces follow:
+\begin{itemize}[noitemsep]
+    \item \textbf{Source provenance.} The corpora from which retrieved documents originate, their licensing, currency, and jurisdiction. Source provenance is the upstream link in the provenance chain $P$ of Section~\ref{subsubsec:synthetic-d}; an opaque source occludes every downstream inference conditioned on it.
+    \item \textbf{Ranking logic.} The mechanism that selects which documents are placed in the model's context. This includes the embedding model, the similarity metric, any rerankers, and any deterministic filters or business-rule overrides applied after retrieval. Ranking logic is where commercial preference and policy preference can be silently injected into the operative R.
+    \item \textbf{Filter sets.} The exclusion rules that prevent specific documents from being retrieved or surfaced. Filters can encode legitimate constraints (privacy, jurisdiction) but can equally encode sovereignty losses (commercial preference, policy laundering). The filter manifest must be public for the same reason the corpus must be: filters define what the model is permitted to know.
+\end{itemize}
+
+Without these three disclosures, ``open weights'' is a weak claim about $M$ that says nothing about $C$, and the retrieval pipeline operates as a hidden ontology layer beneath the disclosed model. Tool and retrieval disclosure together close the surface that the action boundary must actually govern; absent either, the boundary is enforced over a domain whose effective extent the auditor cannot ascertain.
 
 %% ============================================
 %% SECTION 7: WORKFLOW SOVEREIGNTY
@@ -989,7 +1021,7 @@ The key insight is that the \textbf{standard remains invariant} while the \textb
     \item GOVERN = Constraint discovery (since ``advisory'' guidelines produce undefined behavior)
 \end{itemize}
 
-\paragraph{The Alternative is Surrender.} If we accept that ``AI is too stochastic to be evaluated by structural rules,'' we mathematically surrender to black-box monopolies. The framework does not attempt to inspect the probabilistic ``thoughts'' of AI models. Instead, it demands structural control over the \textit{pipeline that builds them} (data, compute, representation) and the \textit{infrastructure that deploys them} (workflow orchestrations and guardrails).
+\paragraph{The Cost of Abandoning Structural Evaluation.} If structural evaluation is set aside on the grounds that ``AI is too stochastic to be evaluated by structural rules,'' governance defers to operators by default: the only remaining standards are those operators choose to publish. Structural evaluation methods are therefore necessary, not optional. The framework does not attempt to inspect the probabilistic ``thoughts'' of AI models. Instead, it demands structural control over the \textit{pipeline that builds them} (data, compute, representation) and the \textit{infrastructure that deploys them} (workflow orchestrations and guardrails).
 
 \subsection{Objection: Compute Capture Makes FORK Trivially Impossible}
 

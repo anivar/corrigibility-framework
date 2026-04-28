@@ -51,29 +51,91 @@ in-progress.
   - Added `rtfc2018` (Right to Food Campaign 2018 fact-finding report).
   - Added `aravind2026epi` (companion paper).
 
-## P1 — Theoretical Expansion (pending)
+## P1 — Theoretical Expansion
 
-### EPI
+### EPI (complete)
 
-- §3.1.1 *Operative Representation vs. Nominal Representation* (new).
+- §3.1.1 *Operative Representation vs. Nominal Representation* (new) —
+  added at line 281 with Proposition 3.1 (Operative-R Falsifiability).
 - §3.1.2 *Synthetic Data and the Limits of Transferable Transparency*
-  (new).
-- §5.2 *Data Capture* (new) with WCC integration.
-- §6.1 *Agent Systems as Composable Architectures*: introduce the
-  $A = (M, H, B, S, T, C)$ tuple and Retrieval Opacity principle.
-- §6.3–§6.6 expansion of the harness-disclosure framework.
-- §9 / §10 restructuring (relocation, register softening, WCC harmonic-
-  mean fix).
+  (new) — added at line 304 with Provenance Transitivity principle and
+  three-regime taxonomy (open / mixed / opaque-anchored).
+- §5.2 *Data Capture* (new) — added at line 461 with the
+  $D_{required} > \kappa_D \cdot D_{accessible}$ formalization, the
+  upstream-dependency taxonomy (synthetic, distilled, evaluation,
+  RLHF, reward, tokenizer), and the Joint Forkability Condition
+  (Proposition 5.1).
+- §6.1 *Agent Systems as Composable Architectures* — added at line 571
+  with the $A = (M, H, B, S, T, C)$ tuple, component-level disclosure
+  map (Table 6.1), and Retrieval Opacity principle (line 618).
+- WCC harmonic-mean note: glossary entry and §7.2 prose both state
+  that WCC is computed as a harmonic mean to ensure weakness in any
+  dimension cannot be hidden by strength in others.
 
-### DPI
+### EPI (additional in v3.0.0-rc.1)
 
-- §4.8.3 *Contestation of Representational Categories* (new).
-- Theorem 1 reframe; thesis deduplication; open-washing taxonomy
-  compression; §7 relocations; §8.4 limitations consolidate.
+- §6.6 *Action Boundary Protocol* expanded with a worked argument for
+  why outside-context enforcement is categorically different from
+  in-context guardrails (not merely safer), one concrete failure mode
+  (prompt injection bypassing in-context guardrails), and one concrete
+  success pattern (deterministic validator rejecting an out-of-policy
+  action).
+- §6.7 *Tool and Retrieval Surfaces* (new) — disclosure standards for
+  tool definitions (capability scope, side-effect class, revocation
+  paths) and retrieval pipelines (source provenance, ranking logic,
+  filter sets), cross-referencing Principle 6.1 (Retrieval Opacity).
+- Register softening: §9.1 paragraph heading "The Alternative is
+  Surrender" → "The Cost of Abandoning Structural Evaluation"; the
+  "we mathematically surrender to black-box monopolies" sentence
+  rewritten as analytic claim ("structural evaluation methods are
+  necessary; without them, governance defers to operators by default").
 
-### Shared
+### EPI (deferred)
 
-- `papers/shared/glossary.tex` populated.
+- §9 / §10 broader restructuring; broader register sweep beyond the
+  three targeted softenings above.
+
+### DPI (complete)
+
+- §4.10 *Contestation of Representational Categories in AI-Mediated
+  DPI* (new) — added at line 561 with Remark on Extension of GOVERN
+  to Ontological Choices, completing the deterministic framework's
+  bridge to the EPI companion paper.
+- Open-washing taxonomy compressed from 7 flat categories to 3
+  strategic patterns (symbolic-openness, coerced-legitimacy,
+  substantive-substitution) with the 7 named tactics retained as
+  illustrations within each pattern; subsection cross-refs to
+  DID-Washing and Climate-Washing preserved.
+- §8.4 Limitations consolidated from 12 enumerated items to 6:
+  methodological scope (binary + control theory illustrative),
+  solution validation gaps (FORK essentiality + FEE + prescriptive
+  limits), evaluation interpretive limits (governance judgment +
+  timescale scope), network effects unmodeled, empirical scope
+  (India focus + political economy + baseline mortality), value
+  commitments. All substantive points preserved.
+
+### DPI (additional in v3.0.0-rc.1)
+
+- Null-Feedback Instability reframed from Theorem to **Proposition**
+  (subtitle "Structural Analogy"). Proof prepended with an in-text
+  scope sentence: the apparatus illustrates the consequence of broken
+  loop closure under generic disturbance, not the predicted dynamics
+  of any specified DPI implementation. All three downstream cross-
+  references updated ("Theorem~\ref{...}" → "Proposition~\ref{...}";
+  the corresponding figure caption phrasing also updated). §8.4
+  limitations item 1 trimmed: the apologetic walk-back about the
+  control model being pedagogical-not-predictive is dropped, since
+  the proposition itself now flags its scope.
+
+### DPI (deferred)
+
+- Executive Summary thesis deduplication.
+- §7 Discussion structural relocations (Methodological Foundations
+  position; Pathways/Transition Paths promotion).
+
+### Shared (complete)
+
+- `papers/shared/glossary.tex` populated with 22 cross-paper entries.
 
 ## P2 — Polish
 
@@ -133,22 +195,30 @@ in-progress.
 
 - "audit theatre" → "audit theater" (DPI §B.4) for American-English
   consistency with the rest of both papers.
+- DPI Data and Code Availability: "Assessment Skills" /
+  `skills/assess/` → "Assessment Rules" / `rules/assess/` to match
+  EPI and complete the agentskills.io terminology excision.
 - Verified no double-space typos, duplicate words, common spelling
   errors, a/an article slips, mixed quote styles, or remaining
   hardcoded section/theorem references.
 - Verified all 36 unique `\citep{}` keys resolve against
   `papers/shared/refs.bib`; no `Citation undefined` warnings.
+- Full end-to-end re-read of both papers (DPI 2527 lines, EPI 1249
+  lines) confirms no further P0/P2 residue. P1 items (Executive
+  Summary deduplication, open-washing taxonomy 7→3 compression, §7.1
+  relocation, §7.5 promotion, §8.4 limitations 12→6-8) remain
+  pending and are correctly tracked in the P1 section.
 
 ### Pending
 
-- Final tag (v3.0.0-rc.1).
+- Final tag (v3.0.0).
 
 ## Build verification
 
 | Paper | Pages | Size   |
 |-------|-------|--------|
-| DPI   | 50    | 938 KB |
-| EPI   | 25    | 663 KB |
+| DPI   | 50    | 937 KB |
+| EPI   | 26    | 670 KB |
 
 Latexmk completes without errors. Remaining warnings are typographic
 (`Underfull` / `Overfull \hbox`) plus one `T1/lmr/bx/sc undefined font

@@ -917,7 +917,7 @@ The framework addresses the transition from cloud-centric ``Platform DPI'' to de
 Edge AI is the primary strategy for restoring EXIT and FORK in population-scale infrastructure:
 
 \begin{itemize}[noitemsep]
-    \item \textbf{Server Edge (Federated Nodes)}: Running infrastructure across multiple independent server nodes (similar to Estonia's X-Road) ensures no single operator maintains execution monopoly. This creates Functional Exit Equivalence (FEE)\footnote{FEE is defined and formalized in the companion paper (Section 6.7.2). When literal exit is impossible for essential services, FEE provides architectural guarantees that recreate the error-signal strength of market exit without requiring citizens to abandon society.}: if one node is captured, system variety is preserved through other federated nodes.
+    \item \textbf{Server Edge (Federated Nodes)}: Running infrastructure across multiple independent server nodes (similar to Estonia's X-Road) ensures no single operator maintains execution monopoly. This creates Functional Exit Equivalence (FEE)\footnote{FEE is defined and formalized in the companion paper~\citep{aravind2026dpi}. When literal exit is impossible for essential services, FEE provides architectural guarantees that recreate the error-signal strength of market exit without requiring citizens to abandon society.}: if one node is captured, system variety is preserved through other federated nodes.
 
     \item \textbf{Mobile Edge (Local Inference)}: Transitioning to local execution on mobile devices (using Small Language Models) provides the strongest EXIT guarantee. Users perform essential functions without transmitting telemetry to central authority, bypassing Rule of Workflow capture.
 \end{itemize}
@@ -1090,8 +1090,40 @@ Three implications:
 
 \paragraph{Core Thesis.} The corrigibility invariant extends to stochastic systems: systems remain correctable if and only if the five conditions close the feedback loop under probabilistic verification. Learned systems do not escape the requirement; they raise the verification burden. Corrigibility is not a deployment certification. It is a persistence condition.
 
+\section*{Acknowledgments}
+
+This paper extends the DPI corrigibility framework \citep{aravind2026dpi} to learned systems. The author thanks the AI governance research community for ongoing critique.
+
+\section*{License}
+
+This work is released under CC0 1.0 Universal (Public Domain).
+
+\section*{Data and Code Availability}
+
+The complete framework is available across two repositories:
+
+\begin{itemize}
+    \item \textbf{Paper Repository}: \url{https://github.com/anivar/corrigibility-framework}
+    \begin{itemize}
+        \item Theoretical framework and proofs
+        \item Case studies and empirical analysis
+    \end{itemize}
+    \item \textbf{Schema Repository}: \url{https://github.com/anivar/corrigibility-schema}
+    \begin{itemize}
+        \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/audit.json}
+        \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/audit.json}
+        \item \textbf{Assessment Rules}: \texttt{rules/assess/} --- Test definitions including LWD-R transparency criteria, Compute Capture detection, Action Boundary verification, and Variety Drift monitoring
+        \item \textbf{Protocol}: Versioning, canonicalization, signature standards
+        \item \textbf{Examples}: Fictional reference implementations
+    \end{itemize}
+\end{itemize}
+
+The schema repository encodes the architectural requirements of Section~\ref{subsec:action-boundary} in declarative JSON; it is intentionally agnostic to any specific action-specification standard and is versioned independently from the theoretical papers to allow schema evolution as DPI/EPI systems mature.
+
+The schema architecture demonstrates that the five tests remain invariant across DPI and EPI. Only the verification method and evidence requirements adapt to the system type. The separation into creator, evaluator, and assessment components enables independent tooling for operators, auditors, and validators.
+
 %% ============================================
-%% APPENDIX: ACTION BOUNDARY SCHEMA
+%% APPENDICES
 %% ============================================
 
 \appendix
@@ -1200,43 +1232,6 @@ The schema fields directly map to corrigibility test determinations:
 
 \paragraph{Architectural Significance.} By encoding the Action Boundary requirements into adversarial JSON schemas, the framework transforms theoretical governance requirements into machine-readable, enforceable compliance gates. State architects can require these schemas in public procurement contracts, definitively banning black-box, vendor-locked agentic workflows. The schema is intentionally agnostic to any specific action-specification standard; conformance is judged structurally against the five requirements, not by branding.
 
-\section*{Data and Code Availability}
-
-The complete framework is available across two repositories:
-
-\begin{itemize}
-    \item \textbf{Paper Repository}: \url{https://github.com/anivar/corrigibility-framework}
-    \begin{itemize}
-        \item Theoretical framework and proofs
-        \item Case studies and empirical analysis
-    \end{itemize}
-    \item \textbf{Schema Repository}: \url{https://github.com/anivar/corrigibility-schema}
-    \begin{itemize}
-        \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/audit.json}
-        \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/audit.json}
-        \item \textbf{Assessment Rules}: \texttt{rules/assess/} --- Test definitions including LWD-R transparency criteria, Compute Capture detection, Action Boundary verification, and Variety Drift monitoring
-        \item \textbf{Protocol}: Versioning, canonicalization, signature standards
-        \item \textbf{Examples}: Fictional reference implementations
-    \end{itemize}
-\end{itemize}
-
-The schema repository encodes the architectural requirements of Section~\ref{subsec:action-boundary} in declarative JSON; it is intentionally agnostic to any specific action-specification standard and is versioned independently from the theoretical papers to allow schema evolution as DPI/EPI systems mature.
-
-The schema architecture demonstrates that the five tests remain invariant across DPI and EPI. Only the verification method and evidence requirements adapt to the system type. The separation into creator, evaluator, and assessment components enables independent tooling for operators, auditors, and validators.
-
-\section*{Acknowledgments}
-
-This paper extends the DPI corrigibility framework \citep{aravind2026dpi} to learned systems. The author thanks the AI governance research community for ongoing critique.
-
-\section*{License}
-
-This work is released under CC0 1.0 Universal (Public Domain).
-
-%% ============================================
-%% APPENDIX: SHARED GLOSSARY
-%% ============================================
-
-\appendix
 \section{Glossary of Key Terms}
 \label{appendix:glossary}
 

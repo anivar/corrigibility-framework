@@ -167,7 +167,7 @@ This paper defines corrigibility not as a moral preference, but as a structural 
 \paragraph{Contributions.} This paper formalizes the structural preconditions for public digital infrastructure, transitioning the discourse from normative aspirations to falsifiable engineering constraints. Specifically, the contributions are threefold:
 \begin{enumerate}[noitemsep]
     \item \textbf{A Synthesis of Corrigibility}: This framework distills principles from cybernetics, commons governance, and free software into five verifiable structural tests (EXIT, CODE, AUDIT, GOVERN, FORK).
-    \item \textbf{Control-Theoretic Formalization}: A mathematical proof (Appendix B) demonstrates that partial compliance with these tests is functionally equivalent to open-loop instability.
+    \item \textbf{Control-Theoretic Formalization}: A mathematical proof (Appendix~\ref{appendix:proofs}) demonstrates that partial compliance with these tests is functionally equivalent to open-loop instability.
     \item \textbf{Empirical Vulnerability Assessment}: The framework evaluates major national infrastructures (e.g., Aadhaar, UPI), formalizing the resource barriers to structural accountability.
 \end{enumerate}
 
@@ -485,6 +485,7 @@ Verification identifies the error, while \textbf{Constitutive Constraint} enforc
 Governance exists only when binding constraints limit system behavior in ways the operator cannot override. \textbf{Aadhaar} is governed by UIDAI fiat: the same entity that operates the system sets its rules. \textbf{UPI} has NPCI governance, but NPCI is majority-owned by participating banks, creating structural conflicts. \textbf{Let's Encrypt} shows what binding constraint looks like: the ISRG charter legally binds the organization to its public benefit mission, with community board representation. \textbf{Bitcoin's} BIP process demonstrates governance through proven fork history; contentious changes have been rejected by the network, proving the community can override developer intent. \textbf{PostgreSQL's} contributor agreement prevents any single entity from capturing the project.
 
 \subsubsection{The Post-Execution Fallacy}
+\label{subsec:post-execution}
 A critical failure in modern policy involves relying on exogenous or post-hoc remedies to substitute for structural constraints. Mechanisms such as courts, ombudsmen, and grievance redressal officers operate on ``bureaucratic time,'' measured in months or years. Infrastructure operates on ``digital time,'' measured in milliseconds. A system that executes a harmful action, such as wrongful deletion of a beneficiary, and relies on a court order to reverse it six months later is structurally ungoverned for that duration. True governance must function within the system's execution loop to block prohibited states before they manifest.
 
 Consequently, claims of governance must be evidentiary rather than declarative. They require a signed cryptographic chain of custody linking the operator's authority to an external, non-overrideable instrument.
@@ -601,7 +602,7 @@ Corrigibility closes the loop. Only when all five tests are satisfied does a sys
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/topology-of-necessity.pdf}
+\includegraphics[width=0.75\textwidth]{../shared/figures/topology-of-necessity.pdf}
 \caption{\textbf{Topology of Necessity.} Each corrigibility test corresponds to a breakage point in the feedback control loop.}
 \label{fig:topology}
 \end{figure}
@@ -1067,7 +1068,7 @@ Digital Public Infrastructure exhibits the Collingridge Dilemma in acute form. B
 
 Corrigibility is the structural response to this dilemma: build the correction mechanisms before the need for correction is apparent. EXIT, CODE, AUDIT, GOVERN, and FORK are not remedies applied after failure; they are architectural features that must be present from deployment. A system without these features will eventually require correction but will lack the capacity to receive it.
 
-This inequality explains the failure of the ``post-execution'' remedies discussed in Section 4.4. Mechanisms like ombudsmen or grievance redressal officers inherently operate at a lower bandwidth and higher latency than the systems they supervise. When the correction loop is thermodynamically too slow to manage the entropy of the environment, error accumulates in the system until it suffers catastrophic collapse. Corrigibility requires closing the gap between error generation and correction; this is only possible if correction logic operates within the technical loop (Test 4), not outside it.
+This inequality explains the failure of the ``post-execution'' remedies discussed in Section~\ref{subsec:post-execution}. Mechanisms like ombudsmen or grievance redressal officers inherently operate at a lower bandwidth and higher latency than the systems they supervise. When the correction loop is thermodynamically too slow to manage the entropy of the environment, error accumulates in the system until it suffers catastrophic collapse. Corrigibility requires closing the gap between error generation and correction; this is only possible if correction logic operates within the technical loop (Test 4), not outside it.
 
 \subsection{The Conservation of Correction Demand}
 
@@ -1378,14 +1379,18 @@ FORK & \texttt{cost\_ratio}: fork / community resources & \texttt{rights}: permi
 \begin{table}[htbp]
 \centering
 \small
-\caption{Policy constants used throughout the framework. Values are recommended defaults; jurisdictions may calibrate based on local conditions.}
+\caption{Policy constants used throughout the framework. Values are recommended defaults; jurisdictions may calibrate based on local conditions. Per-test pass/fail thresholds (penalty ratio $p$, visibility $v$, observability $o$, governance throughput $\tau$, fork resource ratio $r$) are listed separately in Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main}.}
 \label{tab:policy-constants}
 \begin{tabular}{@{}llll@{}}
 \toprule
 \textbf{Symbol} & \textbf{Name} & \textbf{Range} & \textbf{Section} \\
 \midrule
+$\tau_{\text{exit}}$ & Exit-penalty material-exclusion threshold & Context-dependent & \ref{sec:tests} \\
 $\theta_E$ & FEE sufficiency threshold & $0.8$--$1.0$ & \ref{subsubsec:fee} \\
+$\Sigma^*$ & Portability threshold (EXIT/FORK failure) & e.g.\ $>0.2$ income or $>30$ days disruption & \ref{appendix:proofs} \\
+$\kappa$ (Cohen) & Inter-rater agreement target (Cohen's kappa) & $\geq 0.8$ & \ref{subsec:methodology} \\
 $\theta$ & Neutrality stability threshold & $(0, 1]$ & \ref{appendix:neutrality} \\
+$Sc^*$ & Scale threshold for neutrality degradation & Context-dependent & \ref{appendix:neutrality} \\
 $\alpha^*$ & Fork adoption critical mass & $0.3$--$0.5$ & \ref{appendix:proofs} \\
 $\epsilon$ & Correction friction cost & Context-dependent & \ref{appendix:proofs} \\
 \bottomrule
@@ -1869,6 +1874,7 @@ The plant dynamics (DPI operation) are given by:
 \end{equation}
 
 \begin{theorem}[Null-Feedback Instability]
+\label{thm:null-feedback}
 If any component of the feedback path is structurally broken, specifically if Sensor Transparency $H=0$ (Failed AUDIT) or Actuator Coupling $K=0$ (Failed GOVERN), the system effectively operates as Open Loop. Under Open Loop conditions with non-zero integrating disturbance $d(t)$, the error $e(t)$ diverges unboundedly.
 \end{theorem}
 
@@ -1891,7 +1897,7 @@ Thus, stability is impossible without the closure of the feedback loop. ``Partia
 Corrigibility is a binary structural property. If any one of the five tests (EXIT, CODE, AUDIT, GOVERN, FORK) fails, systemic error cannot be structurally bounded, and corrective authority becomes discretionary rather than guaranteed.
 \end{corollary}
 
-\textit{Justification}: Each test corresponds to a necessary component of the feedback loop. Partial compliance does not preserve loop closure. This follows directly from Theorem~1: since $L(s) = K(s) \cdot P(s) \cdot H(s)$, if any multiplicative term is zero, the entire loop gain vanishes.
+\textit{Justification}: Each test corresponds to a necessary component of the feedback loop. Partial compliance does not preserve loop closure. This follows directly from Theorem~\ref{thm:null-feedback}: since $L(s) = K(s) \cdot P(s) \cdot H(s)$, if any multiplicative term is zero, the entire loop gain vanishes.
 
 \begin{figure}[htbp]
 \centering
@@ -1950,7 +1956,7 @@ Corrigibility requires that each component exists and is non-degenerate:
     \item FORK $\Rightarrow$ $P, K, H$ replaceable if convergence fails
 \end{itemize}
 
-\noindent \textbf{Active Deception as Sensor Attack.} The pathologies defined in Section~\ref{subsec:active-deception} (open-washing, safety-washing, audit theatre) fundamentally corrupt the sensor function $H(s)$: they either suppress the true error signal $e(t)$ or inject artificial stability metrics, thereby blinding the controller $K(s)$ to the actual divergence $y(t) - r(t)$. In control-theoretic terms, Active Deception renders $H(s) \to 0$ not by removing the sensor, but by making its output uncorrelated with the true system state.
+\noindent \textbf{Active Deception as Sensor Attack.} The pathologies defined in Section~\ref{subsec:active-deception} (open-washing, safety-washing, audit theater) fundamentally corrupt the sensor function $H(s)$: they either suppress the true error signal $e(t)$ or inject artificial stability metrics, thereby blinding the controller $K(s)$ to the actual divergence $y(t) - r(t)$. In control-theoretic terms, Active Deception renders $H(s) \to 0$ not by removing the sensor, but by making its output uncorrelated with the true system state.
 
 \begin{figure}[htbp]
 \centering
@@ -2115,6 +2121,7 @@ S(s) = \frac{1}{1 + L(s)}
 where $L(s) = K(s) \cdot P(s) \cdot H(s)$ is the loop gain. When any corrigibility test fails ($K=0$, $H=0$, or error signal blocked), $L(s) \to 0$ and $S(s) \to 1$: disturbances pass through unattenuated.
 
 \subsubsection{Discrete Integrator Example}
+\label{subsec:discrete-integrator}
 
 Consider a discrete-time scalar integrator modeling cumulative harm:
 \begin{equation}
@@ -2479,7 +2486,7 @@ This appendix addresses the strongest objections to the framework, organized by 
 \paragraph{Objection 2: Where is the Lyapunov stability proof?}
 ``You claim systems diverge without feedback. Show the Lyapunov function. Without rigorous stability analysis, this is hand-waving.''
 
-\textbf{Response:} Appendix~\ref{appendix:proofs} provides the formal treatment. Theorem 1 (Null-Feedback Instability) proves that when $H=0$ or $K=0$, the system operates open-loop and diverges under non-zero disturbance. The discrete integrator example (Section B.6.2) provides an elementary proof: $y_N = y_0 + \sum d_k \to \infty$ for any non-zero mean disturbance. A full Lyapunov treatment would require specifying the state space for a particular DPI implementation; the framework operates at the architectural level, where the key insight (that open loops diverge) is mathematically trivial.
+\textbf{Response:} Appendix~\ref{appendix:proofs} provides the formal treatment. Theorem~\ref{thm:null-feedback} (Null-Feedback Instability) proves that when $H=0$ or $K=0$, the system operates open-loop and diverges under non-zero disturbance. The discrete integrator example (Section~\ref{subsec:discrete-integrator}) provides an elementary proof: $y_N = y_0 + \sum d_k \to \infty$ for any non-zero mean disturbance. A full Lyapunov treatment would require specifying the state space for a particular DPI implementation; the framework operates at the architectural level, where the key insight (that open loops diverge) is mathematically trivial.
 
 \subsection{Political Science Objections}
 
@@ -2488,7 +2495,7 @@ This appendix addresses the strongest objections to the framework, organized by 
 
 \textbf{Response:} The framework does not prohibit mandatory systems; it diagnoses their structural properties. Emergency necessity explains but does not justify incorrigibility (Corollary to Proposition~\ref{prop:essentiality}). A pandemic contact-tracing system can still satisfy CODE (open source), AUDIT (independent testing), GOVERN (binding privacy constraints), and FORK (interoperable protocol). Only EXIT is constrained by mandatory participation. The question is whether the other four tests pass, not whether mandates are ever legitimate. Section~\ref{sec:discussion} explicitly notes that corrigibility is compatible with strict, non-negotiable rules.
 
-\paragraph{Objection 4: Proposition 2 proves your framework is useless.}
+\paragraph{Objection 4: The Essentiality-Corrigibility Tension proves your framework is useless.}
 ``You prove essential services can never be fully corrigible. This makes your framework irrelevant for the systems that matter most: identity, payments, healthcare.''
 
 \textbf{Response:} The proposition identifies a structural constraint, not a reason to abandon analysis. The architectural responses (Section~\ref{subsubsec:arch-responses}) show two paths: protected alternatives (guarantee non-digital equivalents) or federated implementation (no single provider essential). X-Road demonstrates 4/5 at population scale. The finding that fully corrigible essential services require architectural innovation is the framework's central contribution. Diagnosing why current systems fail is prerequisite to designing better ones.

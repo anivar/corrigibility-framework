@@ -103,18 +103,52 @@ in-progress.
 - EPI: new appendix added before References; same shared glossary
   block.
 
+### Cross-reference cleanup (complete)
+
+- DPI: figure path made explicit (`figures/...` →
+  `../shared/figures/...`).
+- DPI: added missing labels `subsec:post-execution`,
+  `subsec:discrete-integrator`, `thm:null-feedback`.
+- DPI: 5 hardcoded references converted to `\ref{}` ("Appendix B" →
+  `Appendix~\ref{appendix:proofs}`, "Section 4.4" →
+  `Section~\ref{subsec:post-execution}`, "Theorem 1" ×2 →
+  `Theorem~\ref{thm:null-feedback}`, "Section B.6.2" →
+  `Section~\ref{subsec:discrete-integrator}`, "Proposition 2" →
+  "The Essentiality-Corrigibility Tension").
+- EPI: hardcoded cross-paper "Section 6.7.2" footnote replaced with
+  `\citep{aravind2026dpi}`; appendix order normalized
+  (Acknowledgments / License / Data and Code Availability moved
+  before `\appendix`).
+
+### DPI policy-constants table consolidation (complete)
+
+- Three additional constants surfaced in the framework-wide table:
+  $\tau_{\text{exit}}$ (exit-penalty material-exclusion threshold),
+  $\Sigma^*$ (portability threshold), $\kappa$ (Cohen's kappa
+  inter-rater target), $Sc^*$ (scale threshold).
+- Caption notes that per-test pass/fail thresholds are listed in the
+  operational-proxies and three-indicator tables.
+
+### Sentence-level copyedit pass (complete)
+
+- "audit theatre" → "audit theater" (DPI §B.4) for American-English
+  consistency with the rest of both papers.
+- Verified no double-space typos, duplicate words, common spelling
+  errors, a/an article slips, mixed quote styles, or remaining
+  hardcoded section/theorem references.
+- Verified all 36 unique `\citep{}` keys resolve against
+  `papers/shared/refs.bib`; no `Citation undefined` warnings.
+
 ### Pending
 
-- Sentence-level copyedit pass.
-- DPI policy-constants table consolidation.
 - Final tag (v3.0.0-rc.1).
 
 ## Build verification
 
 | Paper | Pages | Size   |
 |-------|-------|--------|
-| DPI   | 50    | 935 KB |
-| EPI   | 25    | 662 KB |
+| DPI   | 50    | 938 KB |
+| EPI   | 25    | 663 KB |
 
 Latexmk completes without errors. Remaining warnings are typographic
 (`Underfull` / `Overfull \hbox`) plus one `T1/lmr/bx/sc undefined font

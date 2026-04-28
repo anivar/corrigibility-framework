@@ -1,10 +1,13 @@
 # Revision Changelog
 
-Tracks the three-priority revision pass for the v3.0.0 ArXiv submission
-and the P3 consensus revisions in v3.1.0. Organized by priority tier and
-paper.
+Tracks the revision passes for the v3.0.0 ArXiv submission, organized
+by priority tier and paper. P0/P1/P2 closed the structural revision pass
+(arXiv submission baseline); P3 added the consensus-driven revisions
+(normative anchor, two-pronged argument, strict interpretability
+firewall, citizen-side GOVERN mechanism families, scope and open
+problems). All four tiers ship under v3.0.0.
 
-## P3 — Consensus Revisions (v3.1.0-rc.1)
+## P3 — Consensus Revisions (v3.0.0)
 
 Five decision-points (DP1–DP5) addressed across both papers on branch
 `revise/p3-consensus`.
@@ -87,7 +90,7 @@ Five decision-points (DP1–DP5) addressed across both papers on branch
   discipline.
 - §1 paper-structure paragraph updated to reference the new section.
 
-### Build Verification (v3.1.0-rc.1)
+### Build Verification (v3.0.0)
 
 | Paper | Pages | Size   |
 |-------|-------|--------|

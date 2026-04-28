@@ -75,22 +75,48 @@ in-progress.
 
 - `papers/shared/glossary.tex` populated.
 
-## P2 — Polish (pending)
+## P2 — Polish
 
-- natbib + `papers/shared/refs.bib` migration; remove inline
-  `thebibliography` blocks.
-- BibTeX entries from `revision-seed.md` §P2.27: `bommasani2023fmti`,
-  `nist2023airmf`, `liang2022helm`, `shumailov2023curse`,
-  `carlini2021extracting`.
-- Sentence-level copyedit; DPI policy-constants table consolidation.
+### Shared bibliography migration (complete)
+
+- `papers/shared/refs.bib` populated with all unique references from
+  both papers (38 entries total) plus the `revision-seed.md` §P2.27
+  additions.
+- New BibTeX keys added: `bommasani2023fmti` (Foundation Model
+  Transparency Index, arXiv:2310.12941), `nist2023airmf` (NIST AI RMF
+  1.0, NIST AI 100-1, doi 10.6028/NIST.AI.100-1), `liang2022helm`
+  (HELM, arXiv:2211.09110), `carlini2021extracting` (USENIX Security
+  2021), `shumailov2023curse` (already added in P1).
+- DOIs added where available (gebru2021, mitchell2019, grother2019,
+  shumailov2023curse, bommasani2021, bommasani2023fmti, nist2023airmf,
+  liang2022helm).
+- Both papers' inline `thebibliography` blocks replaced with
+  `\bibliography{../shared/refs}`. Latexmk successfully resolves all
+  `\citep{}` sites; no Citation undefined warnings.
+
+### Shared glossary wiring (complete)
+
+- `papers/shared/glossary.tex` (22 cross-paper entries from P1) is now
+  `\input` from each paper's appendix.
+- DPI: pre-existing inline glossary at §A replaced with the shared
+  one; cross-paper note added.
+- EPI: new appendix added before References; same shared glossary
+  block.
+
+### Pending
+
+- Sentence-level copyedit pass.
+- DPI policy-constants table consolidation.
+- Final tag (v3.0.0-rc.1).
 
 ## Build verification
 
-| Paper | Pages | Size  |
-|-------|-------|-------|
-| DPI   | 50    | 597 KB |
-| EPI   | 24    | 566 KB |
+| Paper | Pages | Size   |
+|-------|-------|--------|
+| DPI   | 50    | 935 KB |
+| EPI   | 25    | 662 KB |
 
-Latexmk completed without errors; only typesetting (`Underfull` /
-`Overfull \hbox`) warnings. See `grep-check.txt` for excision
-verification.
+Latexmk completes without errors. Remaining warnings are typographic
+(`Underfull` / `Overfull \hbox`) plus one `T1/lmr/bx/sc undefined font
+shape` substitution from \scshape inside \bf in the title rule, which
+is a known Latin Modern + arxiv.sty interaction and harmless.

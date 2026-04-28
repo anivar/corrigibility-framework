@@ -1,7 +1,417 @@
-% Shared bibliography for DPI and EPI papers.
-% Populated during the v3 revision by extracting inline thebibliography
-% blocks from papers/dpi/main.tex and papers/epi/main.tex.
-%
-% Usage from each paper's main.tex:
-%   \bibliographystyle{plainnat}
-%   \bibliography{../shared/refs}
+% Shared bibliography for the DPI and EPI corrigibility papers.
+% Each paper sets \bibliographystyle{plainnat} and \bibliography{../shared/refs}.
+% Keys must match the \citep{} sites in both main.tex files.
+
+% ============================================================
+% Foundational cybernetics, systems, and commons governance
+% ============================================================
+
+@book{wiener1948,
+  author    = {Wiener, Norbert},
+  title     = {Cybernetics: Or Control and Communication in the Animal and the Machine},
+  publisher = {MIT Press},
+  year      = {1948},
+  address   = {Cambridge, MA}
+}
+
+@book{beer1972,
+  author    = {Beer, Stafford},
+  title     = {Brain of the Firm: The Managerial Cybernetics of Organization},
+  publisher = {Allen Lane},
+  year      = {1972},
+  address   = {London}
+}
+
+@book{ashby1956,
+  author    = {Ashby, W. Ross},
+  title     = {An Introduction to Cybernetics},
+  publisher = {Chapman \& Hall},
+  year      = {1956},
+  address   = {London}
+}
+
+@book{ostrom1990,
+  author    = {Ostrom, Elinor},
+  title     = {Governing the Commons: The Evolution of Institutions for Collective Action},
+  publisher = {Cambridge University Press},
+  year      = {1990},
+  address   = {Cambridge}
+}
+
+@book{stallman2002,
+  author    = {Stallman, Richard M.},
+  title     = {Free Software, Free Society: Selected Essays of Richard M. Stallman},
+  publisher = {GNU Press},
+  year      = {2002},
+  address   = {Boston, MA}
+}
+
+@article{winner1980,
+  author  = {Winner, Langdon},
+  title   = {Do Artifacts Have Politics?},
+  journal = {Daedalus},
+  volume  = {109},
+  number  = {1},
+  pages   = {121--136},
+  year    = {1980}
+}
+
+@book{hirschman1970,
+  author    = {Hirschman, Albert O.},
+  title     = {Exit, Voice, and Loyalty: Responses to Decline in Firms, Organizations, and States},
+  publisher = {Harvard University Press},
+  year      = {1970},
+  address   = {Cambridge, MA}
+}
+
+@book{lessig2006,
+  author    = {Lessig, Lawrence},
+  title     = {Code: Version 2.0},
+  publisher = {Basic Books},
+  year      = {2006},
+  address   = {New York}
+}
+
+@book{bowker1999,
+  author    = {Bowker, Geoffrey C. and Star, Susan Leigh},
+  title     = {Sorting Things Out: Classification and Its Consequences},
+  publisher = {MIT Press},
+  year      = {1999},
+  address   = {Cambridge, MA}
+}
+
+@book{leveson2011,
+  author    = {Leveson, Nancy G.},
+  title     = {Engineering a Safer World: Systems Thinking Applied to Safety},
+  publisher = {MIT Press},
+  year      = {2011},
+  address   = {Cambridge, MA}
+}
+
+@book{collingridge1980,
+  author    = {Collingridge, David},
+  title     = {The Social Control of Technology},
+  publisher = {Frances Pinter},
+  year      = {1980},
+  address   = {London}
+}
+
+@book{pasquale2015,
+  author    = {Pasquale, Frank},
+  title     = {The Black Box Society: The Secret Algorithms That Control Money and Information},
+  publisher = {Harvard University Press},
+  year      = {2015},
+  address   = {Cambridge, MA}
+}
+
+@book{cohen2019,
+  author    = {Cohen, Julie E.},
+  title     = {Between Truth and Power: The Legal Constructions of Informational Capitalism},
+  publisher = {Oxford University Press},
+  year      = {2019},
+  address   = {New York}
+}
+
+% ============================================================
+% Companion papers (cross-citations)
+% ============================================================
+
+@misc{aravind2026dpi,
+  author       = {Aravind, Anivar A.},
+  title        = {Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework},
+  howpublished = {\url{https://github.com/anivar/corrigibility-framework}},
+  year         = {2026},
+  note         = {Establishes the five-test framework (EXIT, CODE, AUDIT, GOVERN, FORK) for deterministic DPI.}
+}
+
+@misc{aravind2026epi,
+  author       = {Aravind, Anivar A.},
+  title        = {Epistemic Capture and the Action Boundary: Corrigibility for Learned and Agentic Public Infrastructure},
+  howpublished = {\url{https://github.com/anivar/corrigibility-framework}},
+  year         = {2026},
+  note         = {Companion paper extending the corrigibility framework to stochastic and agentic systems.}
+}
+
+% ============================================================
+% AI / ML transparency, governance, and safety
+% ============================================================
+
+@article{bommasani2021,
+  author  = {Bommasani, Rishi and Hudson, Drew A. and Adeli, Ehsan and others},
+  title   = {On the Opportunities and Risks of Foundation Models},
+  journal = {arXiv preprint arXiv:2108.07258},
+  year    = {2021},
+  doi     = {10.48550/arXiv.2108.07258}
+}
+
+@article{bommasani2023fmti,
+  author  = {Bommasani, Rishi and Klyman, Kevin and Longpre, Shayne and Kapoor, Sayash and Maslej, Nestor and Xiong, Betty and Zhang, Daniel and Liang, Percy},
+  title   = {The Foundation Model Transparency Index},
+  journal = {arXiv preprint arXiv:2310.12941},
+  year    = {2023},
+  doi     = {10.48550/arXiv.2310.12941},
+  note    = {Stanford CRFM, MIT Media Lab, Princeton CITP.}
+}
+
+@techreport{nist2023airmf,
+  author      = {{National Institute of Standards and Technology}},
+  title       = {Artificial Intelligence Risk Management Framework (AI RMF 1.0)},
+  institution = {U.S. Department of Commerce},
+  number      = {NIST AI 100-1},
+  year        = {2023},
+  doi         = {10.6028/NIST.AI.100-1}
+}
+
+@article{liang2022helm,
+  author  = {Liang, Percy and Bommasani, Rishi and Lee, Tony and Tsipras, Dimitris and Soylu, Dilara and Yasunaga, Michihiro and Zhang, Yian and Narayanan, Deepak and Wu, Yuhuai and Kumar, Ananya and others},
+  title   = {Holistic Evaluation of Language Models},
+  journal = {arXiv preprint arXiv:2211.09110},
+  year    = {2022},
+  doi     = {10.48550/arXiv.2211.09110}
+}
+
+@inproceedings{carlini2021extracting,
+  author    = {Carlini, Nicholas and Tramèr, Florian and Wallace, Eric and Jagielski, Matthew and Herbert-Voss, Ariel and Lee, Katherine and Roberts, Adam and Brown, Tom and Song, Dawn and Erlingsson, Úlfar and Oprea, Alina and Raffel, Colin},
+  title     = {Extracting Training Data from Large Language Models},
+  booktitle = {Proceedings of the 30th USENIX Security Symposium},
+  year      = {2021},
+  pages     = {2633--2650}
+}
+
+@article{shumailov2023curse,
+  author  = {Shumailov, Ilia and Shumaylov, Zakhar and Zhao, Yiren and Gal, Yarin and Papernot, Nicolas and Anderson, Ross},
+  title   = {The Curse of Recursion: Training on Generated Data Makes Models Forget},
+  journal = {arXiv preprint arXiv:2305.17493},
+  year    = {2023},
+  doi     = {10.48550/arXiv.2305.17493}
+}
+
+@article{gebru2021,
+  author  = {Gebru, Timnit and Morgenstern, Jamie and Vecchione, Briana and Vaughan, Jennifer Wortman and Wallach, Hanna and {Daumé III}, Hal and Crawford, Kate},
+  title   = {Datasheets for Datasets},
+  journal = {Communications of the ACM},
+  volume  = {64},
+  number  = {12},
+  pages   = {86--92},
+  year    = {2021},
+  doi     = {10.1145/3458723}
+}
+
+@inproceedings{mitchell2019,
+  author    = {Mitchell, Margaret and Wu, Simone and Zaldivar, Andrew and Barnes, Parker and Vasserman, Lucy and Hutchinson, Ben and Spitzer, Elena and Raji, Inioluwa Deborah and Gebru, Timnit},
+  title     = {Model Cards for Model Reporting},
+  booktitle = {Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT*)},
+  year      = {2019},
+  pages     = {220--229},
+  doi       = {10.1145/3287560.3287596}
+}
+
+@techreport{soares2017,
+  author      = {Soares, Nate and Fallenstein, Benja},
+  title       = {Agent Foundations for Aligning Machine Intelligence with Human Interests: A Technical Research Agenda},
+  institution = {Machine Intelligence Research Institute},
+  number      = {Technical Report 2014--8},
+  year        = {2017}
+}
+
+@inproceedings{hadfield2017,
+  author    = {Hadfield-Menell, Dylan and Dragan, Anca and Abbeel, Pieter and Russell, Stuart},
+  title     = {The Off-Switch Game},
+  booktitle = {Proceedings of the AAAI Workshop on AI, Ethics, and Society},
+  year      = {2017}
+}
+
+@misc{osi2024,
+  author       = {{Open Source Initiative}},
+  title        = {The Open Source AI Definition 1.0},
+  howpublished = {\url{https://opensource.org/ai/open-source-ai-definition}},
+  year         = {2024}
+}
+
+@techreport{grother2019,
+  author      = {Grother, Patrick and Ngan, Mei and Hanaoka, Kayee},
+  title       = {Face Recognition Vendor Test (FRVT) Part 3: Demographic Effects},
+  institution = {National Institute of Standards and Technology},
+  number      = {NIST Interagency Report 8280},
+  year        = {2019},
+  doi         = {10.6028/NIST.IR.8280}
+}
+
+@misc{euaiact2024,
+  author       = {{European Parliament and Council of the European Union}},
+  title        = {Regulation (EU) 2024/1689 Laying Down Harmonised Rules on Artificial Intelligence (Artificial Intelligence Act)},
+  howpublished = {Official Journal of the European Union},
+  year         = {2024}
+}
+
+% ============================================================
+% Aadhaar, Indian welfare, and DPI critique
+% ============================================================
+
+@article{khera2017,
+  author  = {Khera, Reetika},
+  title   = {Impact of {Aadhaar} on Welfare Programmes},
+  journal = {Economic and Political Weekly},
+  volume  = {52},
+  number  = {50},
+  pages   = {61--70},
+  year    = {2017}
+}
+
+@book{khera2019,
+  editor    = {Khera, Reetika},
+  title     = {Dissent on {Aadhaar}: Big Data Meets Big Brother},
+  publisher = {Orient BlackSwan},
+  year      = {2019},
+  address   = {Hyderabad}
+}
+
+@misc{rtfc2018,
+  author       = {{Right to Food Campaign}},
+  title        = {Starvation Deaths in India: Documented Cases and the Role of Aadhaar},
+  howpublished = {\url{http://www.righttofoodcampaign.in/}},
+  year         = {2018},
+  note         = {Right to Food Campaign Secretariat, New Delhi.}
+}
+
+@book{bhatia2019,
+  author    = {Bhatia, Gautam},
+  title     = {The Transformative Constitution: A Radical Biography in Nine Acts},
+  publisher = {HarperCollins India},
+  year      = {2019},
+  address   = {New Delhi}
+}
+
+@misc{puttaswamy2017,
+  author       = {{Supreme Court of India}},
+  title        = {Justice K.S. Puttaswamy (Retd.) v. Union of India},
+  howpublished = {Writ Petition (Civil) No. 494 of 2012, (2017) 10 SCC 1},
+  year         = {2017}
+}
+
+@article{abraham2016,
+  author  = {Abraham, Sunil and Raghavan, Nandini},
+  title   = {The Aadhaar-PAN Linkage: A Critique},
+  journal = {Economic and Political Weekly},
+  volume  = {51},
+  number  = {36},
+  year    = {2016}
+}
+
+@misc{abraham2020,
+  author       = {Abraham, Sunil},
+  title        = {Engaging with the {UPI} Debate Further},
+  howpublished = {Observer Research Foundation Expert Speak},
+  year         = {2020},
+  month        = jul,
+  note         = {\url{https://www.orfonline.org/expert-speak/engaging-with-the-upi-debate-further}}
+}
+
+@misc{npci2026,
+  author       = {{National Payments Corporation of India}},
+  title        = {{UPI} Product Statistics},
+  howpublished = {\url{https://www.npci.org.in/what-we-do/upi/product-statistics}},
+  year         = {2026}
+}
+
+@misc{mozilla2017,
+  author       = {Baker, Mitchell and Gadgil, Ankit},
+  title        = {Aadhaar Isn't Progress},
+  howpublished = {Mozilla Blog},
+  year         = {2017},
+  month        = may,
+  note         = {\url{https://blog.mozilla.org/netpolicy/2017/05/26/aadhaar-isnt-progress/}}
+}
+
+@misc{mozilla2020,
+  author       = {{Mozilla Foundation}},
+  title        = {Response to India's Strategy for National Open Digital Ecosystems},
+  howpublished = {Mozilla Policy Submission},
+  year         = {2020},
+  month        = may,
+  note         = {\url{https://blog.mozilla.org/netpolicy/files/2020/05/India-NODE-Consultation-Mozilla-Response-31052020.pdf}}
+}
+
+@misc{biometricupdate2025,
+  author       = {{Biometric Update}},
+  title        = {Strings Attached to Sri Lanka's Quest for {MOSIP} Integrator Revealed},
+  howpublished = {\url{https://www.biometricupdate.com/202505/strings-attached-to-sri-lankas-quest-for-mosip-integrator-revealed}},
+  year         = {2025},
+  month        = may
+}
+
+% ============================================================
+% Standards and DPI institutional sources
+% ============================================================
+
+@misc{g20,
+  author       = {{Group of Twenty (G20)}},
+  title        = {New Delhi Leaders' Declaration},
+  howpublished = {G20 Summit, New Delhi},
+  year         = {2023},
+  month        = sep
+}
+
+@techreport{undp,
+  author      = {{United Nations Development Programme}},
+  title       = {Digital Public Infrastructure: Definitions and Core Concepts},
+  institution = {UNDP Digital Strategy Office},
+  year        = {2024}
+}
+
+@techreport{ucl2025,
+  author      = {Fetter, Jordyn and Rao, Krisstina and Eaves, David},
+  title       = {2025 State of Digital Public Infrastructure Report: A Look at Measurement and Prevalence as DPI Transitions from Experiment to Scale},
+  institution = {UCL Institute for Innovation and Public Purpose},
+  number      = {IIPP Policy Report 2025/06},
+  year        = {2025},
+  month       = oct,
+  note        = {\url{https://www.ucl.ac.uk/bartlett/publications/2025/nov/2025-state-digital-public-infrastructure-report}}
+}
+
+@misc{w3cdid2022,
+  author       = {{World Wide Web Consortium}},
+  title        = {Decentralized Identifiers ({DIDs}) v1.0},
+  howpublished = {W3C Recommendation},
+  year         = {2022},
+  month        = jul,
+  note         = {\url{https://www.w3.org/TR/did-core/}}
+}
+
+@misc{eidas2024,
+  author       = {{European Union}},
+  title        = {Regulation (EU) 2024/1183 Amending Regulation (EU) No 910/2014 ({eIDAS} 2.0)},
+  howpublished = {Official Journal of the European Union},
+  year         = {2024}
+}
+
+@techreport{eu2021oss,
+  author      = {{European Commission}},
+  title       = {Study about the Impact of Open Source Software and Hardware on Technological Independence, Competitiveness and Innovation in the {EU} Economy},
+  institution = {European Commission, Directorate-General for Communications Networks, Content and Technology},
+  year        = {2021}
+}
+
+@misc{xroad2026,
+  author       = {{Nordic Institute for Interoperability Solutions}},
+  title        = {{X-Road}: Open-Source Data Exchange Layer},
+  howpublished = {\url{https://x-road.global/}},
+  year         = {2026},
+  note         = {Technical documentation.}
+}
+
+@misc{phipps2007,
+  author       = {Phipps, Simon},
+  title        = {Roman Canaries},
+  howpublished = {Cited in Global Information Society Watch, 2008},
+  year         = {2007},
+  note         = {\url{https://www.giswatch.org/thematic-report/2008-access-infrastructure/open-standards}}
+}
+
+@misc{abadie2026,
+  author       = {Abadie, Daniel},
+  title        = {{DPI-AI} Framework: Building {AI}-Ready Nations through Digital Public Infrastructure},
+  howpublished = {Centre for Digital Public Infrastructure (CDPI)},
+  year         = {2026},
+  note         = {\url{https://digitalpublicinfrastructure.ai}}
+}

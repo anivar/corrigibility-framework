@@ -252,7 +252,7 @@ Without hard structural requirements, ``Public'' becomes a mere descriptor of sc
 Current DPI policy specifies \textbf{intent, not conditions}. It articulates what systems \textit{should} achieve without specifying what they \textit{must} structurally provide. Under such definitions, a system that traps users in a coercive loop can be labeled ``public infrastructure'' simply because it operates at scale. The framework proposed in this paper converts aspirational adjectives into verifiable predicates. It asks not ``Is this system described as open?'' but ``Can independent parties inspect its operation?'' Not ``Is this system intended to be accountable?'' but ``Can those it affects trigger correction?''
 \end{remark}
 
-This danger is acute as digital infrastructure expands from simple databases to complex orchestration layers. When systems become opaque by design (whether through proprietary code, closed APIs, or undocumented decision logic), the gap between definitional aspiration and structural reality widens further. A companion paper extends this framework to learned systems (AI/ML) where additional verification challenges arise.
+This danger is acute as digital infrastructure expands from simple databases to complex orchestration layers. When systems become opaque by design (whether through proprietary code, closed APIs, or undocumented decision logic), the gap between definitional aspiration and structural reality widens further. A companion paper~\citep{aravind2026epi} extends this framework to learned systems (AI/ML) where additional verification challenges arise.
 
 \subsection{Related Work}
 
@@ -1210,7 +1210,7 @@ Essential services create the economic coercion that undermines EXIT. When refus
 
 The systems in Table~\ref{tab:positive} avoid this trap because alternatives exist. A developer who dislikes the Linux kernel's direction can migrate to BSD without losing the ability to compute. A journalist who distrusts Let's Encrypt can obtain certificates elsewhere. The existence of functional alternatives preserves the error signal.
 
-Aadhaar has been made prerequisite to existence. Documented cases demonstrate the consequence: the Right to Food campaign documented 57 starvation deaths across nine Indian states between 2015 and 2018, with at least 19 directly attributed to Aadhaar-related exclusion from food rations \citep{khera2017}. These deaths are not anomalies; they are the structural prediction of a system that blocks EXIT while governing essential services.
+Aadhaar has been made prerequisite to existence. Documented cases demonstrate the consequence: the Right to Food campaign documented 57 starvation deaths across nine Indian states between 2015 and 2018, with at least 19 directly attributed to Aadhaar-related exclusion from food rations \citep{rtfc2018,khera2017}. These deaths are not anomalies; they are the structural prediction of a system that blocks EXIT while governing essential services.
 
 \subsubsection{Functional Exit Equivalence (FEE)}
 \label{subsubsec:fee}
@@ -1723,7 +1723,7 @@ Corrigibility is the structural response to the Collingridge Dilemma (Section~\r
 
 \subsection{Future Work}
 
-Extensions warranting investigation: (1) \textbf{Empirical velocity measurement}, quantifying when systems become ungovernable; (2) \textbf{International comparison}, testing generality across X-Road, Singapore NDI, EU Digital Identity, Brazil Pix; (3) \textbf{Political economy of architecture choice}, examining why governments choose incorrigible designs when corrigible alternatives exist; (4) \textbf{Transition cost modeling}; (5) \textbf{Legal doctrine integration}, operationalizing corrigibility for courts; (6) \textbf{Network effect formalization}; (7) \textbf{FEE pilot design}, specifying implementable FEE mechanisms for identity infrastructure. A companion paper extends this framework to learned systems (AI/ML) where behavior is determined by training data rather than source code.
+Extensions warranting investigation: (1) \textbf{Empirical velocity measurement}, quantifying when systems become ungovernable; (2) \textbf{International comparison}, testing generality across X-Road, Singapore NDI, EU Digital Identity, Brazil Pix; (3) \textbf{Political economy of architecture choice}, examining why governments choose incorrigible designs when corrigible alternatives exist; (4) \textbf{Transition cost modeling}; (5) \textbf{Legal doctrine integration}, operationalizing corrigibility for courts; (6) \textbf{Network effect formalization}; (7) \textbf{FEE pilot design}, specifying implementable FEE mechanisms for identity infrastructure. A companion paper~\citep{aravind2026epi} extends this framework to learned systems (AI/ML) where behavior is determined by training data rather than source code.
 
 \paragraph{Liability and Enforcement.} Architectural corrigibility must be complemented by clear liability and enforcement semantics: for any failure mode, supply-chain roles (principal, integrator, operator, trustee, as distinguished in EU AI Act Article 25 et seq.) must be mappable to legal responsibility and to mandated mitigation steps, so that evidence produces enforceable consequences rather than forensic narrative alone.
 
@@ -1752,7 +1752,7 @@ The complete framework, including JSON Schemas and assessment tooling, is availa
         \item Output: \texttt{audit.json} following Protocol 2.0
     \end{itemize}
     \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/audit.json}
-    \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/audit.json} (see companion paper)
+    \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/audit.json} (see companion paper~\citep{aravind2026epi})
 \end{itemize}
 
 % ============================================
@@ -2537,11 +2537,6 @@ Ashby, W. Ross.
 \newblock {\em An Introduction to Cybernetics}.
 \newblock Chapman \& Hall, 1956.
 
-\bibitem[Agent Skills(2025)]{agentskills2025}
-Agent Skills Specification.
-\newblock The open SKILL.md standard for AI agent capabilities.
-\newblock \url{https://agentskills.io/specification}, 2025.
-
 \bibitem[Ostrom(1990)]{ostrom1990}
 Ostrom, Elinor.
 \newblock {\em Governing the Commons: The Evolution of Institutions for Collective Action}.
@@ -2648,6 +2643,18 @@ European Union.
 Khera, Reetika.
 \newblock Impact of Aadhaar on Welfare Programmes.
 \newblock {\em Economic and Political Weekly}, 52(50):61--70, 2017.
+
+\bibitem[Right to Food Campaign(2018)]{rtfc2018}
+Right to Food Campaign.
+\newblock Starvation Deaths in India: Documented Cases and the Role of Aadhaar.
+\newblock Right to Food Campaign Secretariat, New Delhi, 2018.
+\newblock \url{http://www.righttofoodcampaign.in/}
+
+\bibitem[Aravind(2026b)]{aravind2026epi}
+Aravind, Anivar A.
+\newblock Epistemic Capture and the Action Boundary: Corrigibility for Learned Public Infrastructure.
+\newblock \url{https://github.com/anivar/corrigibility-framework}, 2026.
+\newblock Companion paper extending the corrigibility framework to stochastic and agentic systems.
 
 \bibitem[European Commission(2021)]{eu2021oss}
 European Commission.

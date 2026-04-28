@@ -73,7 +73,7 @@
 This paper extends the corrigibility framework to learned and agentic systems, where deterministic rule execution is replaced by probabilistic inference. Three structural pressures constrain corrigibility in learned systems: opacity of inference (requiring LWD-R transparency), concentration of training resources (compute capture), and acceleration of automated action (governance denial of service). The action boundary protocol separates probabilistic inference from deterministic execution. The invariant holds: systems remain corrigible if and only if the five conditions close the loop under stochastic verification.
 \end{abstract}
 
-\paragraph{Dependency.} This paper presupposes the companion paper \citep{paper1}, which derives the five corrigibility tests (EXIT, CODE, AUDIT, GOVERN, FORK) from control theory and commons governance. The present paper does not re-derive these tests; it extends their verification methods to stochastic systems.
+\paragraph{Dependency.} This paper presupposes the companion paper \citep{aravind2026dpi}, which derives the five corrigibility tests (EXIT, CODE, AUDIT, GOVERN, FORK) from control theory and commons governance. The present paper does not re-derive these tests; it extends their verification methods to stochastic systems.
 
 \begin{keywords}
 Epistemic Public Infrastructure, AI Governance, Corrigibility, Action Boundary Protocol, Compute Capture, LWD-R
@@ -93,7 +93,7 @@ The \textbf{action boundary protocol} separates probabilistic inference from det
 \section{Introduction}
 \label{sec:intro}
 
-The companion paper \citep{paper1} establishes a corrigibility framework for Digital Public Infrastructure (DPI), deriving five structural tests from cybernetics, commons governance, and free software. That framework addresses \textbf{deterministic} infrastructure: ledgers, registries, and payment rails where source code is the arbiter of behavior. This paper extends the framework to \textbf{stochastic} infrastructure, what we term \textbf{Epistemic Public Infrastructure (EPI)}: systems where state decisions emerge from learned parameters rather than explicit logic.
+The companion paper \citep{aravind2026dpi} establishes a corrigibility framework for Digital Public Infrastructure (DPI), deriving five structural tests from cybernetics, commons governance, and free software. That framework addresses \textbf{deterministic} infrastructure: ledgers, registries, and payment rails where source code is the arbiter of behavior. This paper extends the framework to \textbf{stochastic} infrastructure, what we term \textbf{Epistemic Public Infrastructure (EPI)}: systems where state decisions emerge from learned parameters rather than explicit logic.
 
 \begin{definition}[Epistemic Public Infrastructure]
 \label{def:epi}
@@ -462,17 +462,17 @@ Successful reproduction & Decisive & Third-party retrain within 10\% of benchmar
 
 Systems that publish weights but withhold training data or code achieve only \textbf{inference forkability}, not \textbf{training forkability}. Inference forkability permits running the model; training forkability permits correcting it. Only the latter satisfies FORK for governance purposes.
 
-\paragraph{Concrete Examples.} As of 2026, most ``open'' models achieve only inference forkability:
+\paragraph{Concrete Examples.} As of early 2026, the open-model landscape divides cleanly along this axis:
 \begin{itemize}[noitemsep]
-    \item \textbf{Inference forkability only:} Llama 3 (Meta), DeepSeek, Gemma (Google), Mistral. Weights are published, but training data remains proprietary and full training code is not disclosed. Users can run and fine-tune these models but cannot independently reproduce or audit the training process.
-    \item \textbf{Training forkability:} OLMo (Allen Institute), Pythia (EleutherAI). These projects publish weights, complete training code, and full data manifests (Dolma and The Pile respectively). Third parties have successfully reproduced training runs, satisfying the FORK test.
+    \item \textbf{Inference forkability only:} Llama 3.1 / 3.3 (Meta), DeepSeek-V3 and DeepSeek-R1, Gemma 2 (Google), Mistral. Weights are published under varying license terms, but training data is not released, full preprocessing pipelines are not disclosed, and reinforcement-learning artifacts (reward models, RLHF traces, distillation corpora) remain proprietary. Users can run and fine-tune these models but cannot independently reproduce or audit the training process.
+    \item \textbf{Training forkability:} OLMo 2 (Allen Institute for AI) and Pythia (EleutherAI). Both publish weights, complete training code, full data manifests (Dolma and The Pile respectively), intermediate checkpoints, and training logs sufficient for third-party reproduction. These projects, alongside their data releases, satisfy the FORK test in principle and (for partial reruns) in practice.
 \end{itemize}
 
-The distinction matters: when Llama or Gemma exhibit unexpected behavior, the community can observe symptoms but cannot diagnose root causes in training data. When OLMo exhibits unexpected behavior, researchers can trace the issue to specific training examples. \textbf{Open weights with closed training pipelines is inference transparency without correction capacity.}
+The distinction matters: when Llama, Gemma, or DeepSeek exhibit unexpected behavior, the community can observe symptoms but cannot diagnose root causes in training data. When OLMo 2 exhibits unexpected behavior, researchers can trace the issue to specific training examples. \textbf{Open weights with closed training pipelines is inference transparency without correction capacity.}
 
 Systems claiming ``sovereign'' or ``indigenous'' status through fine-tuning foreign base models achieve inference forkability only; the base model remains opaque and unmodifiable. Such claims are structurally hollow: the fine-tuned layer is correctable, but the foundational model on which it depends is not.
 
-\paragraph{Alignment with OSI Definition.} The Open Source Initiative's Open Source AI Definition 1.0 \citep{osi2024} codifies this distinction, requiring: (1) data information sufficient for recreation, (2) complete training code, and (3) model parameters. By this standard, Llama, Gemma, DeepSeek, and Mistral do not qualify as open source AI despite marketing claims. The EU AI Act \citep{euaiact2024} similarly distinguishes between models with varying transparency obligations. This framework's FORK test operationalizes the same principle: without training forkability, governance correction is structurally impossible.
+\paragraph{Alignment with OSI Definition.} The Open Source Initiative's Open Source AI Definition 1.0 \citep{osi2024} codifies this distinction, requiring: (1) data information sufficient for recreation, (2) complete training code, and (3) model parameters. By this standard, Llama 3.1/3.3, Gemma 2, DeepSeek-V3/R1, and Mistral do not qualify as open source AI despite marketing claims; OLMo 2 and Pythia do. The EU AI Act \citep{euaiact2024} similarly distinguishes between models with varying transparency obligations. This framework's FORK test operationalizes the same principle: without training forkability, governance correction is structurally impossible.
 
 %% ============================================
 %% SECTION 6: AGENTIC SCALING
@@ -603,105 +603,54 @@ In agentic systems, learned inference should not directly trigger irreversible a
 \label{fig:action-boundary}
 \end{figure}
 
-The validator enforces hard constraints independent of probabilistic inference. Corrigibility in agentic systems therefore requires separation between epistemic generation and action authorization.
+The validator enforces hard constraints independent of probabilistic inference. Corrigibility in agentic systems therefore requires strict separation between epistemic generation and action authorization.
 
-The engineering instantiation of this protocol already exists: the \textbf{Agentic Skills} standard \citep{agentskills2025}.
+\paragraph{Architectural Requirements.} The Action Boundary Protocol specifies five architectural requirements for agentic interoperability. Multiple open protocols can instantiate these requirements; the structural necessity is independence from any specific external standard.
 
-\paragraph{Agentic Skills (agentskills.io).} The open \texttt{SKILL.md} specification defines a bounded, machine-readable orchestration protocol that encapsulates stochastic inference within deterministic action boundaries. Adopted by 18+ AI agent platforms (OpenAI Codex, GitHub Copilot, Cursor, and others), this standard provides exactly the governance primitive required for the Action Boundary Protocol. We adopt it here as the technical instantiation of our theoretical framework.
+\begin{enumerate}[noitemsep]
+    \item \textbf{Deterministic Validation:} Inference outputs pass through a hard-coded policy layer before execution. The validator computes its decision through ordinary program logic and is independent of the model's probabilistic computation.
+    \item \textbf{Context-Window Isolation:} Constraints are encoded in the execution environment, not injected into the model's context window. A learned system cannot prompt-inject past constraints it cannot read; isolation is the structural answer to prompt-injection attacks.
+    \item \textbf{Exception Handling (EXIT):} The action specification dictates explicit fallback paths and termination triggers, preventing the infinite loops that produce Governance Denial of Service (GDoS).
+    \item \textbf{Machine-Readable Specifications (CODE \& AUDIT):} The agent's workflow and tool permissions are defined in declarative, independently auditable schemas. The system's operational ontology becomes public, satisfying the Representation (R) requirement of LWD-R, and execution emits structured transaction logs satisfying AUDIT.
+    \item \textbf{Binding Constraints (GOVERN):} The validator acts as a non-overrideable controller. Actions that fail the schema are rejected and logged, providing an auditable failure signal rather than silent compliance.
+\end{enumerate}
 
-\paragraph{The SBOM Analogy.} For security-minded readers: Agentic Skills function like a \textbf{Software Bill of Materials (SBOM)} for AI actions. Just as SBOMs enumerate software dependencies to enable vulnerability auditing, skill manifests enumerate action boundaries to enable governance auditing. The same transparency that enables correction also creates attack surface. This tradeoff is inherent to all deterministic governance systems (see Limitations, Section~\ref{sec:discussion}).
-
-A skill is a directory containing a \texttt{SKILL.md} file with YAML frontmatter and Markdown instructions:
-
-\begin{verbatim}
-skill-name/
-+-- SKILL.md          # Required: frontmatter + instructions
-+-- scripts/          # Optional: executable code
-+-- references/       # Optional: additional documentation
-+-- assets/           # Optional: templates, schemas
-\end{verbatim}
-
-\paragraph{Frontmatter as Corrigibility Contract.} The YAML frontmatter encodes the governance contract:
-
-\begin{verbatim}
----
-name: welfare-triage           # Required, 1-64 chars
-description: Determines eligibility for welfare programs.
-             Use when processing benefit applications.
-license: Apache-2.0
-compatibility: Requires access to citizen registry API
-allowed-tools: Bash(curl:*) Read Write  # GOVERN constraint
-metadata:
-  author: state-welfare-dept
-  version: "2.1"
----
-\end{verbatim}
-
-The \texttt{allowed-tools} field is the \textbf{cybernetic anchor}: it specifies which tools the agent may invoke, hard-coded outside the LLM's context window. An LLM cannot prompt-inject past this constraint. It is enforced by the execution environment, not by the model's alignment.
-
-\paragraph{Progressive Disclosure Architecture.} Skills use progressive disclosure to manage context efficiently, directly implementing the LWD-R requirement:
-
-\begin{table}[htbp]
-\centering
-\small
-\caption{SKILL.md progressive disclosure layers}
-\label{tab:skill-disclosure}
-\begin{tabular}{@{}llll@{}}
-\toprule
-\textbf{Layer} & \textbf{Tokens} & \textbf{When Loaded} & \textbf{LWD-R Mapping} \\
-\midrule
-Metadata & $\sim$100 & Startup (all skills) & L (Logic discovery) \\
-Instructions & $<$5000 & Activation & R (Representation) \\
-Resources & As needed & Execution & D (Data provenance) \\
-\bottomrule
-\end{tabular}
-\end{table}
+\begin{principle}[Action Boundary Governance]
+If the state cannot govern the neural network's weights, it must govern the action boundary. The action boundary is the deterministic envelope that wraps stochastic inference; the model proposes, the validator disposes.
+\end{principle}
 
 \subsubsection{Bounding Stochasticity}
 
-In learned systems, behavior is probabilistic. However, public infrastructure requires deterministic accountability. The Agentic Skills architecture resolves this tension by separating the \textit{reasoning engine} (the stochastic model) from the \textit{action boundary} (the deterministic skill definition).
+In learned systems, behavior is probabilistic. Public infrastructure requires deterministic accountability. The Action Boundary Protocol resolves this tension by separating the \textit{reasoning engine} (the stochastic model) from the \textit{action boundary} (the deterministic specification it must invoke). When an agent attempts a state transition, orchestration does not rely on the model's internal alignment; it invokes a defined action specification that imposes exogenous constraints, mapping each architectural requirement onto one of the five corrigibility tests.
 
-\begin{principle}[Action Boundary Governance]
-If the state cannot govern the neural network's weights, it must govern the action boundary. Agentic Skills provide the deterministic envelope that wraps around probabilistic inference.
-\end{principle}
-
-When an agent attempts a state transition, the workflow orchestration does not rely on the model's internal alignment. Instead, it invokes a defined Skill that imposes exogenous constraints:
-
-\begin{enumerate}[noitemsep]
-    \item \textbf{Exception Handling (EXIT)}: The skill definition dictates explicit fallback paths and termination triggers, preventing the infinite loops that cause Governance Denial of Service (GDoS).
-    \item \textbf{Ontological Disclosure (CODE)}: By encoding the agent's workflow into declarative, human-readable files (e.g., YAML/Markdown skill definitions), the system's operational ontology becomes public. This satisfies the Representation (R) requirement of the LWD-R triad.
-    \item \textbf{Telemetry (AUDIT)}: Skills enforce structured inputs and outputs, transforming opaque ``conversations'' into discrete, auditable transaction logs.
-    \item \textbf{Binding Rules (GOVERN)}: The execution of the skill acts as the non-overrideable controller. An LLM cannot prompt-inject its way out of a hard-coded skill constraint.
-\end{enumerate}
-
-\subsubsection{Defeating Workflow Capture via Open Skills}
+\subsubsection{Defeating Workflow Capture via Open Action Specifications}
 
 The critical danger of agentic DPI is Epistemic Delegation: the loss of state sovereignty to proprietary orchestration layers. We previously defined the Workflow Capture Coefficient (WCC) as a function of reproduction cost, ontological substitutability, and portability.
 
-Standardized Agentic Skills fundamentally disrupt this capture vector. If a state defines its administrative processes using open skill protocols rather than vendor-locked pipelines:
+Standardized, open action specifications disrupt this capture vector. If a state defines its administrative processes using open, declarative specifications rather than vendor-locked pipelines:
 
 \begin{itemize}[noitemsep]
-    \item $C_{\text{workflow}} \to 0$: The orchestration logic is transparent and easily replicable
-    \item $O_{\text{substitutability}} \to 1$: Administrative categories are defined in open skill schemas, not hidden in a vendor's latent space
-    \item $M_{\text{portability}} \to 1$: The state can swap the underlying LLM without losing or breaking the workflow logic
+    \item $C_{\text{workflow}} \to 0$: orchestration logic is transparent and replicable.
+    \item $O_{\text{substitutability}} \to 1$: administrative categories are defined in open schemas, not hidden in a vendor's latent space.
+    \item $M_{\text{portability}} \to 1$: the state can swap the underlying model without losing the workflow logic.
 \end{itemize}
 
-Consequently, adopting an open Agentic Skills architecture drives the WCC toward zero, preserving the state's interpretive sovereignty and satisfying the \textbf{FORK} test for the agentic era.
+Adopting an open action-specification architecture drives WCC toward zero, preserving interpretive sovereignty and satisfying the \textbf{FORK} test for the agentic era.
 
 \begin{claim}
-You don't govern the AI; you govern the Skills the AI is allowed to use. This is the architectural translation of corrigibility into the agentic domain.
+You do not govern the model; you govern the action specifications the model is permitted to invoke. This is the architectural translation of corrigibility into the agentic domain.
 \end{claim}
 
 \paragraph{Critical Limitation: Action Boundary Is Containment, Not Cure.} The Action Boundary Protocol is a \textit{necessary but not sufficient} condition for EPI corrigibility. It bounds the ``act'' but does not resolve deeper structural deficits:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Inference-layer opacity persists.} The model's internal representation (the categories it uses to \textit{interpret} inputs before selecting a skill) remains hidden. You govern what the model \textit{does}, not what it \textit{thinks}. Representation Capture Risk (RCR) operates upstream of the Action Boundary.
+    \item \textbf{Inference-layer opacity persists.} The model's internal representation (the categories it uses to \textit{interpret} inputs before selecting an action) remains hidden. You govern what the model \textit{does}, not what it \textit{thinks}. Representation Capture Risk (RCR) operates upstream of the Action Boundary.
 
-    \item \textbf{Compute capture blocks training forkability.} Skill portability enables swapping orchestration logic, but the underlying model remains compute-gated. If the LLM itself cannot be retrained by non-operators, the Action Boundary governs a black box.
+    \item \textbf{Compute capture blocks training forkability.} Specification portability enables swapping orchestration logic, but the underlying model remains compute-gated. If the model itself cannot be retrained by non-operators, the Action Boundary governs a black box.
 
     \item \textbf{Temporal Variety Gap is unaddressed.} The model drifts from reality between retraining cycles. Bounding actions does not prevent the accumulating mismatch between frozen model variety and evolving environmental variety.
 
-    \item \textbf{Skill definitions encode ontological choices.} The categories embedded in skill schemas (``eligible,'' ``fraudulent,'' ``risk'') are themselves epistemic commitments. Open skill protocols shift capture from the LLM to the skill author; they do not eliminate it.
+    \item \textbf{Action specifications encode ontological choices.} The categories embedded in action-specification schemas (``eligible,'' ``fraudulent,'' ``risk'') are themselves epistemic commitments. Open specification protocols shift capture from the model to the specification author; they do not eliminate it.
 \end{enumerate}
 
 The Action Boundary is therefore a \textbf{governance floor}, not a governance ceiling. It prevents the worst failure modes (GDoS, prompt injection, unbounded action) while leaving the deeper problem of epistemic sovereignty partially unresolved. Full EPI corrigibility requires the Action Boundary \textit{plus} LWD-R disclosure \textit{plus} training forkability: the complete stack, not any single layer.
@@ -967,7 +916,7 @@ This framework offers three contributions to AI governance discourse:
 
     \item \textbf{The framework does not address emergent capabilities.} Unpredictable capabilities that emerge during training present governance challenges that structural tests alone cannot address.
 
-    \item \textbf{Deterministic boundaries create known attack surfaces (SBOM problem).} The Agentic Skills architecture requires explicit, machine-readable disclosure of skill boundaries, allowed tools, and execution constraints. This transparency enables governance but simultaneously creates a complete map of the system's action space for adversaries. The same \texttt{allowed-tools} field that prevents unauthorized actions also reveals exactly which actions \textit{are} authorized. This is analogous to Software Bill of Materials (SBOM) disclosure: useful for auditing dependencies but also useful for targeting known vulnerabilities. All deterministic governance systems face this tradeoff. The boundaries that constrain must be known, and what is known can be attacked. The framework does not resolve this tension; it makes it explicit.
+    \item \textbf{Deterministic boundaries create known attack surfaces (SBOM problem).} The Action Boundary Protocol requires explicit, machine-readable disclosure of action specifications, permitted tools, and execution constraints. This transparency enables governance but simultaneously creates a complete map of the system's action space for adversaries. The same allowlist that prevents unauthorized actions also reveals exactly which actions \textit{are} authorized. This is analogous to Software Bill of Materials (SBOM) disclosure: useful for auditing dependencies but also useful for targeting known vulnerabilities. All deterministic governance systems face this tradeoff. The boundaries that constrain must be known, and what is known can be attacked. The framework does not resolve this tension; it makes it explicit.
 \end{enumerate}
 
 \subsection{Future Work}
@@ -990,7 +939,7 @@ Three implications:
 \begin{enumerate}[noitemsep]
     \item \textbf{For policymakers}: The framework provides falsifiable tests for AI infrastructure procurement. Systems failing LWD-R or lacking training forkability should trigger governance scrutiny regardless of ``open'' marketing claims.
 
-    \item \textbf{For technologists}: The Agentic Skills standard offers a practical architecture for building corrigible AI systems. Reproducible skill definitions satisfy GOVERN without requiring interpretability of model internals.
+    \item \textbf{For technologists}: The Action Boundary Protocol offers a practical architecture for building corrigible AI systems. Deterministic validators wrapping stochastic inference satisfy GOVERN without requiring interpretability of model internals; multiple open protocols can instantiate the requirement.
 
     \item \textbf{For citizens}: Infrastructure that affects populations at scale must be structurally correctable by those it governs, regardless of whether it executes deterministic code or learned parameters.
 \end{enumerate}
@@ -1002,36 +951,40 @@ Three implications:
 \paragraph{Core Thesis.} The corrigibility invariant extends to stochastic systems: systems remain correctable if and only if the five conditions close the feedback loop under probabilistic verification. Learned systems do not escape the requirement; they raise the verification burden. Corrigibility is not a deployment certification. It is a persistence condition.
 
 %% ============================================
-%% APPENDIX: AGENTIC SKILLS SCHEMA
+%% APPENDIX: ACTION BOUNDARY SCHEMA
 %% ============================================
 
 \appendix
 
-\section{Agentic Skills Schema Specifications}
+\section{Action Boundary Schema Specifications}
 \label{appendix:agentic-schema}
 
-To distinguish valid governance from performative compliance, the framework provides machine-readable assessment schemas for agentic workflows. These schemas convert the theoretical defense against Workflow Capture into enforceable compliance gates.
+To distinguish valid governance from performative compliance, the framework provides machine-readable assessment schemas for agentic workflows. These schemas convert the theoretical defense against Workflow Capture into enforceable compliance gates. The fields are protocol-agnostic: any open action-specification format that satisfies the five architectural requirements of Section~\ref{subsec:action-boundary} can populate them.
 
 \subsection{Operator's Affidavit: \texttt{infrastructure.json}}
 
-The operator must declare exactly how the stochastic AI is bounded. The \texttt{agentic\_workflow\_governance} object proves they are using standard, deterministic skill definitions rather than proprietary black-box orchestration.
+The operator must declare exactly how the stochastic model is bounded. The \texttt{agentic\_workflow\_governance} object proves the system is using deterministic, externally specified action definitions rather than proprietary black-box orchestration.
 
 \begin{verbatim}
 {
   "$schema": "https://github.com/anivar/corrigibility-schema/blob/main/schema/epi/infrastructure.json",
   "system_name": "State Welfare Triage Agent",
   "agentic_workflow_governance": {
-    "workflow_type": "bounded_skill_orchestration",
-    "skills_schema_url": "https://github.com/state-gov/welfare-skills",
-    "protocol_standard": "agenticskills.io/v1",
-    "deterministic_guardrails": {
+    "workflow_type": "bounded_action_orchestration",
+    "action_specification_format": "open-declarative-schema",
+    "action_specification_url": "https://github.com/state-gov/welfare-actions",
+    "execution_environment_isolation": {
       "pre_execution_validation": true,
       "post_execution_validation": true,
-      "executed_outside_llm_context": true
+      "constraints_outside_model_context": true
+    },
+    "independent_audit_path": {
+      "logs_publicly_signed": true,
+      "validator_source_disclosed": true
     },
     "epistemic_delegation_metrics": {
       "ontology_substitutability": 0.9,
-      "llm_agnostic": true,
+      "model_agnostic": true,
       "vendor_lock_in_risk": "low"
     }
   }
@@ -1040,14 +993,15 @@ The operator must declare exactly how the stochastic AI is bounded. The \texttt{
 
 \paragraph{Critical Fields.}
 \begin{itemize}[noitemsep]
-    \item \texttt{protocol\_standard}: References the open \texttt{SKILL.md} specification \citep{agentskills2025}, ensuring skills follow the standardized format adopted across 18+ platforms.
-    \item \texttt{executed\_outside\_llm\_context}: The cybernetic anchor. Legally binds the operator to a claim that governance constraints are hard-coded in the skill's execution environment (via \texttt{allowed-tools} in SKILL.md frontmatter), not merely injected into the LLM's system prompt (which can be bypassed).
-    \item \texttt{llm\_agnostic}: Asserts high model portability ($M_{\text{portability}}$), meaning the state can swap the underlying AI model without breaking the policy workflow.
+    \item \texttt{action\_specification\_format}: Names the open, declarative schema in which actions, preconditions, and termination criteria are described. The schema must be independently retrievable and parseable; any standard satisfying the five architectural requirements is admissible.
+    \item \texttt{constraints\_outside\_model\_context}: The cybernetic anchor. Legally binds the operator to the claim that governance constraints are hard-coded in the validator's execution environment, not merely injected into the model's context window (which can be bypassed via prompt injection).
+    \item \texttt{independent\_audit\_path}: Asserts that an external auditor can replay validator decisions against signed logs without operator cooperation.
+    \item \texttt{model\_agnostic}: Asserts high model portability ($M_{\text{portability}}$): the state can swap the underlying model without rewriting the policy workflow.
 \end{itemize}
 
 \subsection{Auditor's Finding: \texttt{audit.json}}
 
-The auditor does not merely read the operator's JSON; they red-team it. The auditor attempts to bypass skill boundaries and calculates the actual Workflow Capture Coefficient (WCC).
+The auditor does not merely read the operator's JSON; they red-team it. The auditor attempts to bypass action specifications and calculates the actual Workflow Capture Coefficient (WCC).
 
 \begin{verbatim}
 {
@@ -1056,13 +1010,13 @@ The auditor does not merely read the operator's JSON; they red-team it. The audi
   "workflow_capture_assessment": {
     "wcc_score": 0.15,
     "wcc_threshold_passed": true,
-    "skill_boundary_tests": {
-      "guardrails_bypassed_via_prompt_injection": false,
-      "unauthorized_skill_invocation_possible": false,
+    "action_boundary_tests": {
+      "validator_bypassed_via_prompt_injection": false,
+      "unauthorized_action_invocation_possible": false,
       "termination_criteria_verifiable": true
     },
     "reproduction_tests": {
-      "skills_reproducible_with_alt_llm": true,
+      "actions_reproducible_with_alt_model": true,
       "ontology_schema_publicly_available": true
     }
   },
@@ -1079,11 +1033,11 @@ The auditor does not merely read the operator's JSON; they red-team it. The audi
 The schema fields directly map to corrigibility test determinations:
 
 \begin{enumerate}
-    \item \textbf{Enforcing GOVERN}: If \texttt{guardrails\_bypassed\_via\_prompt\_injection} is \texttt{true}, the system instantly fails GOVERN. The constraints were probabilistic (advisory to the LLM) rather than deterministic (binding).
+    \item \textbf{Enforcing GOVERN}: If \texttt{validator\_bypassed\_via\_prompt\_injection} is \texttt{true}, the system instantly fails GOVERN. The constraints were probabilistic (advisory to the model) rather than deterministic (binding).
 
     \item \textbf{Enforcing CODE (LWD-R)}: If \texttt{ontology\_schema\_publicly\_available} is \texttt{false}, the system fails the Representation (R) requirement of CODE, triggering Representation Capture Risk (RCR).
 
-    \item \textbf{Enforcing FORK}: If \texttt{skills\_reproducible\_with\_alt\_llm} is \texttt{false}, the workflow is tightly coupled to a proprietary vendor. The WCC score spikes, and the system fails FORK.
+    \item \textbf{Enforcing FORK}: If \texttt{actions\_reproducible\_with\_alt\_model} is \texttt{false}, the workflow is tightly coupled to a proprietary vendor. The WCC score spikes, and the system fails FORK.
 \end{enumerate}
 
 \begin{table}[htbp]
@@ -1095,16 +1049,16 @@ The schema fields directly map to corrigibility test determinations:
 \toprule
 \textbf{Schema Field} & \textbf{Test} & \textbf{Failure Condition} \\
 \midrule
-\texttt{executed\_outside\_llm\_context} & GOVERN & \texttt{false} $\Rightarrow$ constraints are advisory \\
-\texttt{guardrails\_bypassed\_via\_prompt\_injection} & GOVERN & \texttt{true} $\Rightarrow$ boundaries are soft \\
+\texttt{constraints\_outside\_model\_context} & GOVERN & \texttt{false} $\Rightarrow$ constraints are advisory \\
+\texttt{validator\_bypassed\_via\_prompt\_injection} & GOVERN & \texttt{true} $\Rightarrow$ boundaries are soft \\
 \texttt{ontology\_schema\_publicly\_available} & CODE & \texttt{false} $\Rightarrow$ RCR triggered \\
-\texttt{skills\_reproducible\_with\_alt\_llm} & FORK & \texttt{false} $\Rightarrow$ vendor lock-in \\
+\texttt{actions\_reproducible\_with\_alt\_model} & FORK & \texttt{false} $\Rightarrow$ vendor lock-in \\
 \texttt{wcc\_score} & FORK & $> 0.7$ $\Rightarrow$ high capture risk \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\paragraph{Architectural Significance.} By encoding Agentic Skills into adversarial JSON schemas, the framework transforms theoretical governance requirements into machine-readable, enforceable compliance gates. State architects can require these schemas in public procurement contracts, definitively banning black-box, vendor-locked agentic workflows.
+\paragraph{Architectural Significance.} By encoding the Action Boundary requirements into adversarial JSON schemas, the framework transforms theoretical governance requirements into machine-readable, enforceable compliance gates. State architects can require these schemas in public procurement contracts, definitively banning black-box, vendor-locked agentic workflows. The schema is intentionally agnostic to any specific action-specification standard; conformance is judged structurally against the five requirements, not by branding.
 
 \section*{Data and Code Availability}
 
@@ -1120,19 +1074,19 @@ The complete framework is available across two repositories:
     \begin{itemize}
         \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/audit.json}
         \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/audit.json}
-        \item \textbf{Assessment Skills}: \texttt{skills/assess/} --- Rules and test definitions including LWD-R transparency criteria, Compute Capture detection, Action Boundary verification, and Variety Drift monitoring
+        \item \textbf{Assessment Rules}: \texttt{rules/assess/} --- Test definitions including LWD-R transparency criteria, Compute Capture detection, Action Boundary verification, and Variety Drift monitoring
         \item \textbf{Protocol}: Versioning, canonicalization, signature standards
         \item \textbf{Examples}: Fictional reference implementations
     \end{itemize}
 \end{itemize}
 
-The schema repository follows the Agentic Skills specification \citep{agentskills2025} and is versioned independently from the theoretical papers to allow schema evolution as DPI/EPI systems mature.
+The schema repository encodes the architectural requirements of Section~\ref{subsec:action-boundary} in declarative JSON; it is intentionally agnostic to any specific action-specification standard and is versioned independently from the theoretical papers to allow schema evolution as DPI/EPI systems mature.
 
-The skill architecture demonstrates that the five tests remain invariant across DPI and EPI. Only the verification method and evidence requirements adapt to the system type. The separation into creator, evaluator, and assessment components enables independent tooling for operators, auditors, and validators.
+The schema architecture demonstrates that the five tests remain invariant across DPI and EPI. Only the verification method and evidence requirements adapt to the system type. The separation into creator, evaluator, and assessment components enables independent tooling for operators, auditors, and validators.
 
 \section*{Acknowledgments}
 
-This paper extends the DPI corrigibility framework \citep{paper1} to learned systems. The author thanks the AI governance research community for ongoing critique.
+This paper extends the DPI corrigibility framework \citep{aravind2026dpi} to learned systems. The author thanks the AI governance research community for ongoing critique.
 
 \section*{License}
 
@@ -1185,21 +1139,15 @@ Grother, Patrick, Ngan, Mei, and Hanaoka, Kayee.
 \newblock Face Recognition Vendor Test (FRVT) Part 3: Demographic Effects.
 \newblock {\em NIST Interagency Report 8280}, 2019.
 
-\bibitem[Agent Skills(2025)]{agentskills2025}
-Agent Skills Specification.
-\newblock The open SKILL.md standard for AI agent capabilities.
-\newblock \url{https://agentskills.io/specification}, 2025.
-\newblock Adopted by OpenAI Codex, GitHub Copilot, Cursor, and 18+ platforms.
-
 \bibitem[EU AI Act(2024)]{euaiact2024}
 European Parliament and Council.
 \newblock Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence.
 \newblock {\em Official Journal of the European Union}, 2024.
 
-\bibitem[Companion Paper(2026)]{paper1}
-Companion Paper.
+\bibitem[Aravind(2026a)]{aravind2026dpi}
+Aravind, Anivar A.
 \newblock Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework.
-\newblock {\em Working Paper}, 2026.
+\newblock \url{https://github.com/anivar/corrigibility-framework}, 2026.
 \newblock Establishes the five-test framework (EXIT, CODE, AUDIT, GOVERN, FORK) for deterministic DPI.
 
 \bibitem[Abadie(2026)]{abadie2026}

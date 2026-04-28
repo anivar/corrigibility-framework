@@ -10,10 +10,22 @@ A structural framework for evaluating **Digital Public Infrastructure (DPI)** an
 
 ## Downloads
 
-| Paper | Focus | Download |
-|-------|-------|----------|
-| **Paper I: DPI** | Deterministic infrastructure (ledgers, registries, payment rails) | [PDF](https://github.com/anivar/corrigibility-framework/releases/latest/download/corrigibility-framework-dpi.pdf) |
-| **Paper II: EPI** | Learned/agentic systems (AI, ML models) | [PDF](https://github.com/anivar/corrigibility-framework/releases/latest/download/corrigibility-framework-ai.pdf) |
+| Paper | Focus | Source | Latest PDF |
+|-------|-------|--------|------------|
+| **Paper I: DPI** | Deterministic infrastructure (ledgers, registries, payment rails) | [`papers/dpi/main.tex`](papers/dpi/main.tex) | [PDF](https://github.com/anivar/corrigibility-framework/releases/latest/download/corrigibility-framework-dpi.pdf) |
+| **Paper II: EPI** | Learned/agentic systems (AI, ML models) | [`papers/epi/main.tex`](papers/epi/main.tex) | [PDF](https://github.com/anivar/corrigibility-framework/releases/latest/download/corrigibility-framework-ai.pdf) |
+
+## Build
+
+Requires TeX Live (`texlive-latex-extra`, `texlive-science`, `texlive-publishers`),
+`latexmk`, and `biber`. Then:
+
+```bash
+just         # build both papers
+just dpi     # DPI only
+just epi     # EPI only
+just publish # stage release artifacts under dist/
+```
 
 ## The Five Tests
 

@@ -42,7 +42,7 @@
 % ============================================
 % CUSTOM COMMANDS
 % ============================================
-\newcommand{\papertitle}{Epistemic Capture and the Action Boundary: Corrigibility for Learned and Agentic Systems}
+\newcommand{\papertitle}{Epistemic Capture and the Action Boundary: Corrigibility for Learned and Agentic Public Infrastructure}
 
 % ============================================
 % METADATA
@@ -57,7 +57,7 @@
 \date{April 2026}
 
 \hypersetup{
-  pdftitle={Epistemic Capture and the Action Boundary: Corrigibility for Learned and Agentic Systems},
+  pdftitle={Epistemic Capture and the Action Boundary: Corrigibility for Learned and Agentic Public Infrastructure},
   pdfauthor={Anivar A Aravind},
   pdfsubject={Stress-testing structural corrigibility for learned and agentic systems: LWD-R disclosure, strict interpretability firewall, action boundary protocol, citizen-side GOVERN mechanism families, and the political economy of compute, data, and threshold calibration.},
   pdfkeywords={epistemic public infrastructure, EPI, AI governance, corrigibility, action boundary protocol, LWD-R, compute capture, agentic systems, learned systems, non-domination, interpretability, governance denial of service},
@@ -104,7 +104,7 @@ EPI comprises AI systems that determine citizen outcomes at population scale, in
 \subsection{DPI and EPI: Structural Contrast}
 \label{subsec:dpi-epi-contrast}
 
-Digital Public Infrastructure (DPI) processes transactions through deterministic logic. Epistemic Public Infrastructure (EPI) produces classifications, predictions, or inferences through learned parameters.
+Digital Public Infrastructure (DPI) processes transactions through deterministic logic. Epistemic Public Infrastructure (EPI) produces classifications, predictions, or inferences through learned parameters. Table~\ref{tab:dpi-epi-contrast} summarizes the structural contrast.
 
 \begin{table}[htbp]
 \centering
@@ -124,7 +124,7 @@ Static certification possible & Performance degrades under distribution shift \\
 
 Corrigibility in EPI therefore requires additional structural conditions beyond those sufficient for deterministic systems.
 
-\paragraph{Tiered Adoption.} EPI systems vary in consequence severity. The framework defines three deployment tiers with increasing compliance requirements:
+\paragraph{Tiered Adoption.} EPI systems vary in consequence severity. The framework defines three deployment tiers with increasing compliance requirements (Table~\ref{tab:epi-tiers}):
 
 \begin{table}[htbp]
 \centering
@@ -289,6 +289,8 @@ A learned system satisfies LWD-R disclosure if the following artifacts are publi
 
 \textbf{R} is not transparency about \textit{how} the model works; it is transparency about \textit{how the model sees the world}. These categories (the model's ontology) are often hidden in the latent space, undocumented and non-contestable. A specific form of opacity arises when representational categories themselves become uncontestable (``ontological capture''), weakening constraint-layer contestability. When a model's classifications cannot be challenged by affected parties, the state has surrendered interpretive sovereignty regardless of weight publication.
 
+\paragraph{Representation as Ontological Commons.} The Representation layer is the layer at which AI infrastructure becomes a commons problem in the strict sense. Deterministic public infrastructure regulates access to a shared substrate --- the registry, the rail, the payment system. Learned infrastructure regulates the substrate of meaning itself: the categorical schema through which an affected population can be administratively known. The categories under which citizens are classified as eligible or ineligible, risky or safe, deserving or undeserving constitute an \textbf{ontological commons} --- a shared structure of perception that no single party can privately own without enclosing meaning itself. Because what the deployed system actually classifies depends on quantisation, pruning, mixture-of-experts routing, and output filtering as much as on the trained weights (Section~\ref{subsubsec:operative-r}), the commons claim is over the \emph{operative} schema, not the nominal one: a vendor who shifts meaning at inference through undisclosed deployment configuration has enclosed the commons as decisively as one who hides the underlying ontology, because the categorical structure that affected communities encounter has been moved beyond their reach. The contestability criterion stated above is therefore a commons-governance requirement in Ostrom's sense \citep{ostrom1990}: operative representational categories must remain subject to the polycentric, layered review that sustains shared resources, not delegated to a vendor whose latent space is by construction beyond user reach. The free-software anchor (CODE) supplies inspectability of the artifact; the commons anchor (R as ontological commons) supplies the governance condition under which inspectability is non-trivial; the cybernetic anchor supplies the closure condition under which contestation actually corrects.
+
 \subsubsection{Operative Representation vs.\ Nominal Representation}
 \label{subsubsec:operative-r}
 
@@ -379,11 +381,10 @@ Traditional software remains static until explicitly patched. A tax calculation 
 Let $V_{\text{world}}(t)$ be the variety of situations the environment presents at time $t$, and $V_{\text{model}}(\theta)$ be the variety the model can handle, fixed at training. \textbf{Variety Drift} is the growing gap:
 \begin{equation}
 \Delta(t) = V_{\text{world}}(t) - V_{\text{model}}(\theta)
-\label{eq:variety-gap}
 \end{equation}
 \end{definition}
 
-\paragraph{Why This Matters.} Without mechanisms for retraining accessible to the community, variety drift widens indefinitely. A model that passed all five corrigibility tests at deployment may fail them two years later. Not because anyone changed anything, but because the world moved and the model did not. \textbf{AI corrigibility is not a deployment certification; it is a persistence condition.}
+\paragraph{Why This Matters.} Without mechanisms for retraining accessible to the community, variety drift widens indefinitely (Figure~\ref{fig:variety_gap}). A model that passed all five corrigibility tests at deployment may fail them two years later. Not because anyone changed anything, but because the world moved and the model did not. \textbf{AI corrigibility is not a deployment certification; it is a persistence condition.}
 
 \paragraph{The Revalidation Threshold.} When variety drift exceeds a domain-specific threshold $\tau$, mandatory revalidation is triggered:
 \begin{equation}
@@ -443,7 +444,7 @@ A learned system that passes all five corrigibility tests at deployment may fail
 
 In traditional software, forking is cheap: copy the code, set up a server, deploy. The cost is measured in storage and labor. In AI, forking is expensive: the cost is measured in \textit{compute}, the GPU-hours required to retrain a model from scratch.
 
-\paragraph{The Structural Difference.} When Elastic changed its license, AWS forked Elasticsearch and the community continued development. This was possible because the resource barrier was low. When Meta releases Llama weights, can the community ``fork'' Llama in the same sense? They can \textit{run} it (inference). They can \textit{adapt} it (fine-tuning). But can they \textit{reproduce} it from scratch if Meta's training data turns out to be problematic? For frontier models, the answer is no: the compute cost exceeds what any non-corporate actor can access.
+\paragraph{The Structural Difference.} When Elastic changed its license, AWS forked Elasticsearch and the community continued development. This was possible because the resource barrier was low. When Meta releases Llama weights, can the community ``fork'' Llama in the same sense? They can \textit{run} it (inference). They can \textit{adapt} it (fine-tuning). But can they \textit{reproduce} it from scratch if Meta's training data turns out to be problematic? For frontier models, the answer is no: the compute cost exceeds what any non-corporate actor can access. Table~\ref{tab:fork-barriers} stratifies the costs across reproduction layers.
 
 \begin{table}[htbp]
 \centering
@@ -475,7 +476,6 @@ Legal permission to fork without access to compute or data is meaningless. This 
 \textbf{Compute Capture} occurs when the compute cost to retrain a model ($C_{\text{train}}$) exceeds the compute accessible to non-operator actors ($C_{\text{accessible}}$) by more than a policy-determined threshold:
 \begin{equation}
 C_{\text{train}} > \kappa \cdot C_{\text{accessible}}
-\label{eq:compute-capture}
 \end{equation}
 where $\kappa$ is an accessibility multiplier (typically $1 \leq \kappa \leq 2$). Under Compute Capture, releasing weights provides \textbf{inference forkability} (you can run it) without \textbf{training forkability} (you can reproduce it).
 \end{definition}
@@ -485,7 +485,6 @@ where $\kappa$ is an accessibility multiplier (typically $1 \leq \kappa \leq 2$)
 The formal FORK determination for training becomes:
 \begin{equation}
 \text{FORK}_{\text{training}} = \mathbf{1}[C_{\text{train}} \leq \kappa \cdot C_{\text{accessible}}] \land \mathbf{1}[\text{data\_manifest\_available}]
-\label{eq:fork-training}
 \end{equation}
 where $\mathbf{1}[\cdot]$ is the indicator function.
 
@@ -513,7 +512,6 @@ This barrier extends well beyond raw text corpora into a taxonomy of upstream tr
 Formally, Data Capture occurs when the data corpus required for reproduction ($D_{required}$) exceeds the data accessible to non-operator actors ($D_{accessible}$) beyond a policy-determined friction threshold:
 \begin{equation}
 D_{required} > \kappa_D \cdot D_{accessible}
-\label{eq:data-capture}
 \end{equation}
 where $\kappa_D \geq 1$ is a data-accessibility multiplier analogous to the compute multiplier $\kappa$ in Definition~\ref{def:compute-capture}. The threshold accounts for non-trivial substitutes: a public corpus that is empirically equivalent to the proprietary one (e.g., Common Crawl filtered to match a vendor's quality gates) may close the gap, but only if the equivalence is auditable.
 
@@ -718,6 +716,27 @@ Failure of these predicates renders $\mathcal{I}$ a ``Hazmat Environment'' for a
 \label{fig:agentic-automaton}
 \end{figure}
 
+\subsection{EXIT as the Architecturally Privileged Test in Agentic Systems}
+\label{subsec:exit-privileged}
+
+Across the five corrigibility tests, EXIT acquires structural primacy in agentic deployments that it does not have in deterministic infrastructure. Three properties of learned and agentic systems---\textit{stochasticity} (outputs cannot be guaranteed by inspection), \textit{persistence} (the memory layer $\bar{M}$ accumulates state outside any single transaction), and \textit{autonomy} (the system initiates state changes without human action-by-action consent)---each independently raise the cost of a missing EXIT. Together they make EXIT the test whose failure most reliably converts a learned-systems deployment from infrastructure into capture.
+
+\paragraph{The Five EXIT Layers in Agentic Systems.} A deployment that nominally provides ``opt-out'' typically provides one of the following while leaving the others unguarded; corrigibility under agentic conditions requires all five.
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Subject EXIT.} Affected parties can refuse an AI-mediated determination and obtain a non-AI alternative or a human-authored decision without disproportionate penalty (per the EPI row of Table~\ref{tab:verification}). This is the canonical EXIT inherited from the deterministic case.
+    \item \textbf{Memory EXIT.} The persistent memory layer $\bar{M}$ exposes a programmatic, auditable purge interface (Section~\ref{subsec:agent-systems}, ``Memory as Liability''). Without this, ``opting out'' leaves a residue the subject cannot verify is gone, and data-protection regimes (GDPR's right-to-erasure, India's DPDP Act §12) attach to that residue regardless of operator classification.
+    \item \textbf{Workflow EXIT.} Halt signals propagate deterministically through agent chains: when a parent agent invokes a child agent or a tool, the architecture must define how cancellation, timeout, and termination flow back through the chain. Without this, autonomous chains exhibit the deadlock pathology of Figure~\ref{fig:agentic-automaton} at fleet scale, producing the Governance Denial of Service described above.
+    \item \textbf{Operator EXIT.} The operator retains a deterministic shutdown and pause capability for the deployment, including under partial failure. The AI-safety literature treats this as the ``off-switch'' problem \citep{hadfield2017}; corrigibility analysis adopts the same engineering requirement but assigns it a different normative weight. Operator EXIT is necessary but not sufficient: a system corrigible only to its operator is not corrigible to those it governs.
+    \item \textbf{Bystander EXIT.} Third parties affected by an autonomous agent's actions but not party to its operator-subject relationship (counterparties to an autonomous procurement agent, recipients of an automated communication, persons whose data is incidentally processed) require structural recourse independent of the operator-subject loop. The juridical-mechanism families of Section~\ref{subsec:govern-mechanisms}, particularly Injunction Hooks (Figure~\ref{fig:injunction-hook}) and class-action vehicles, are the legitimate sites for bystander EXIT; their absence converts agent autonomy into a unilateral expansion of operator reach.
+\end{enumerate}
+
+\paragraph{Why EXIT Is Harder for Agents Than for Deterministic Systems.} In deterministic infrastructure, refusal is a single-point property: the subject either participates or does not. In agentic deployments, refusal must be specified along a temporal axis (the agent has already acted, and may continue to act), a memory axis ($\bar{M}$ retains traces of refused interactions), a chain axis (downstream agents may have inherited state), and a counterparty axis (other parties may be mid-interaction with the agent). A deployment that provides only the first dimension---a button labelled ``stop''---is structurally indistinguishable from a deployment that provides nothing, because the system can re-enter the subject's life through any of the other four channels.
+
+\begin{claim}
+A learned or agentic deployment failing any of the five EXIT layers cannot satisfy the EXIT test in this framework, irrespective of compliance with CODE, AUDIT, GOVERN, or FORK. The irreducibility argument of Section~\ref{sec:invariance} therefore tightens under agentic conditions: where deterministic infrastructure can fail one EXIT dimension and remain a candidate for partial diagnostic indicators, agentic infrastructure cannot.
+\end{claim}
+
 \subsection{The Action Boundary Protocol}
 \label{subsec:action-boundary}
 
@@ -778,7 +797,7 @@ In agentic systems, learned inference should not directly trigger irreversible a
 \label{fig:action-boundary}
 \end{figure}
 
-The validator enforces hard constraints independent of probabilistic inference. Corrigibility in agentic systems therefore requires strict separation between epistemic generation and action authorization.
+Figure~\ref{fig:action-boundary} illustrates the architecture: the validator enforces hard constraints independent of probabilistic inference. Corrigibility in agentic systems therefore requires strict separation between epistemic generation and action authorization.
 
 \paragraph{Architectural Requirements.} The Action Boundary Protocol specifies five architectural requirements for agentic interoperability. Multiple open protocols can instantiate these requirements; the structural necessity is independence from any specific external standard.
 
@@ -874,7 +893,7 @@ Without these three disclosures, ``open weights'' is a weak claim about $M$ that
 \subsection{Citizen-Side GOVERN: Mechanism Families}
 \label{subsec:govern-mechanisms}
 
-The architectural specifications above define the corrective surface --- what the validator must enforce, what tools and retrieval must disclose, where the action boundary lies. They do not specify who pulls the lever. This subsection identifies the institutional mechanisms by which affected populations exercise structural correction authority over EPI deployments and states how those mechanisms compose at different stakes tiers.
+The architectural specifications above define the corrective surface --- what the validator must enforce, what tools and retrieval must disclose, where the action boundary lies. They do not specify who pulls the lever. This subsection identifies the institutional mechanisms by which affected populations exercise structural correction authority over EPI deployments and states how those mechanisms compose at different stakes tiers. The Bystander EXIT layer of Section~\ref{subsec:exit-privileged} in particular requires institutional hosts; the families below specify what those hosts must look like.
 
 The framework identifies five mechanism families. They are non-exclusive: a deployment can implement more than one, and most viable high-stakes deployments must.
 
@@ -978,7 +997,7 @@ If $W$ is proprietary and non-forkable, the state's ability to alter policy ($\D
 
 \subsection{Measuring Epistemic Delegation}
 
-The \textbf{Workflow Capture Coefficient (WCC)} is a diagnostic abstraction illustrating weakest-dimension dominance across layers. It quantifies epistemic delegation risk as a function of reproduction cost, ontological substitutability, and portability. A WCC approaching 1 indicates near-total capture; a WCC approaching 0 indicates high sovereignty. The harmonic mean formulation ensures that weakness in any single dimension cannot be hidden by strength in others. Formal specification appears in Appendix~\ref{appendix:agentic-schema}.
+Figure~\ref{fig:workflow-capture} formalizes the structural shift: where classical governance maps policy directly onto decisions, AI-native governance interposes a workflow orchestration layer that becomes the operative locus of authority. The \textbf{Workflow Capture Coefficient (WCC)} is a diagnostic abstraction illustrating weakest-dimension dominance across layers. It quantifies epistemic delegation risk as a function of reproduction cost, ontological substitutability, and portability. A WCC approaching 1 indicates near-total capture; a WCC approaching 0 indicates high sovereignty. The harmonic mean formulation ensures that weakness in any single dimension cannot be hidden by strength in others. Formal specification appears in Appendix~\ref{appendix:agentic-schema}.
 
 \begin{claim}
 If a state procures a system with high WCC, it is not merely buying software; it is mathematically surrendering interpretive sovereignty to a vendor.
@@ -1049,6 +1068,8 @@ Bytecode and \textbf{Reproducible Builds} are the technical prerequisites for CO
 
     \item \textbf{Wasm/Bytecode Portability}: Standardized, portable bytecode formats (like WebAssembly) avoid vendor lock-in. This lowers WCC because orchestration logic can be ported between cloud or edge environments, satisfying FORK.
 \end{itemize}
+
+Table~\ref{tab:edge-bytecode} summarises the corrigibility impact of these architectural choices across the five tests.
 
 \begin{table}[htbp]
 \centering
@@ -1221,7 +1242,7 @@ Three implications:
 
 \section*{Acknowledgments}
 
-This paper extends the DPI corrigibility framework \citep{aravind2026dpi} to learned systems. The author thanks the AI governance research community for ongoing critique.
+This paper extends the DPI corrigibility framework \citep{aravind2026dpi} to learned systems and shares its intellectual genealogy: two decades of the author's free-software contribution and engagement with population-scale public digital systems, commons-governance work originating at Moving Republic (\url{https://movingrepublic.org}), a decade of sustained architectural critique during the adversarial phases of Aadhaar, UPI, and national health-data deployments, and long-standing study of cybernetics and the political theory of power. Practitioner grounding for the agentic-systems analysis comes from leading AI-native engineering at production scale---agentic governance, agentic-harness engineering (eval, simulation, and trigger-based discovery), and a context and memory platform---where action-boundary and provenance concerns appear daily as engineering problems before they appear as theoretical ones. Errors and infelicities remain the author's own.
 
 \section*{License}
 
@@ -1250,6 +1271,10 @@ The complete framework is available across two repositories:
 The schema repository encodes the architectural requirements of Section~\ref{subsec:action-boundary} in declarative JSON; it is intentionally agnostic to any specific action-specification standard and is versioned independently from the theoretical papers to allow schema evolution as DPI/EPI systems mature.
 
 The schema architecture demonstrates that the five tests remain invariant across DPI and EPI. Only the verification method and evidence requirements adapt to the system type. The separation into creator, evaluator, and assessment components enables independent tooling for operators, auditors, and validators.
+
+\section*{Reading the Appendices}
+
+The appendix that follows specifies the machine-readable artifacts that make the architectural requirements of Section~\ref{subsec:action-boundary} auditable. Appendix~\ref{appendix:agentic-schema} defines the operator's affidavit and the auditor's finding for agentic workflows; Appendix~\ref{appendix:glossary} consolidates terminology.
 
 %% ============================================
 %% APPENDICES
@@ -1340,6 +1365,8 @@ The schema fields directly map to corrigibility test determinations:
 
     \item \textbf{Enforcing FORK}: If \texttt{actions\_reproducible\_with\_alt\_model} is \texttt{false}, the workflow is tightly coupled to a proprietary vendor. The WCC score spikes, and the system fails FORK.
 \end{enumerate}
+
+Table~\ref{tab:schema-mapping} consolidates these mappings: each schema field corresponds to a corrigibility test, and a single false value in the affidavit constitutes machine-readable evidence of structural failure.
 
 \begin{table}[htbp]
 \centering

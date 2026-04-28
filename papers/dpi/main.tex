@@ -142,9 +142,6 @@ Digital Public Infrastructure is evaluated using aspirational criteria: interope
 
 \keywords{Corrigibility \and Digital Public Infrastructure \and Cybernetics \and Feedback Control \and Requisite Variety \and Infrastructure Accountability \and India Stack}
 
-\paragraph{How to Read This Paper.}
-The argument proceeds in three parts: public systems require bounded error propagation (the invariant); five conditions close the corrective loop (the architecture); these conditions discriminate between real systems (the evaluation). Case studies illustrate discriminative power, not exhaustive institutional assessment.
-
 \section*{Executive Summary}
 
 Digital Public Infrastructure (DPI) is evaluated using aspirational criteria: openness, interoperability, inclusion, scale. These descriptors do not answer a fundamental question: can the system be corrected when it goes wrong?
@@ -154,14 +151,16 @@ Digital Public Infrastructure (DPI) is evaluated using aspirational criteria: op
 Five architectural constraints are required for corrigibility:
 
 \begin{enumerate}[noitemsep]
+    \item Reversible participation (\textbf{EXIT})
     \item Inspectable logic (\textbf{CODE})
     \item Independent verifiability (\textbf{AUDIT})
-    \item Reversible participation (\textbf{EXIT})
     \item Binding participatory constraint (\textbf{GOVERN})
     \item Independent reproducibility (\textbf{FORK})
 \end{enumerate}
 
-These constraints operate across observability, participation, governance, and replacement layers. The absence of any one constraint creates structural asymmetry. The framework provides testable criteria for evaluating real-world DPI systems.
+These constraints operate across participation, observability, governance, and replacement layers. The absence of any one constraint creates structural asymmetry. The framework provides testable criteria for evaluating real-world DPI systems.
+
+\paragraph{How to Read This Paper.} The argument proceeds in three parts: public systems require bounded error propagation (the invariant); five conditions close the corrective loop (the architecture); these conditions discriminate between real systems (the evaluation). Case studies illustrate discriminative power, not exhaustive institutional assessment.
 
 \section{Introduction}
 
@@ -327,7 +326,7 @@ Corrigibility requires closing this loop.
 \section{The Structural Conditions of Corrigibility}
 \label{sec:tests}
 
-Five architectural constraints are required for structural corrigibility. These conditions operate across distinct control layers and form a weakest-link system: the failure of any one condition collapses corrective authority from guaranteed to discretionary. Figure~\ref{fig:control-loop} illustrates this architecture.
+Five architectural constraints are required for structural corrigibility. These conditions operate across distinct control layers and form a weakest-link system: the failure of any one condition collapses corrective authority from guaranteed to discretionary.
 
 \subsection{Observability Layer: CODE and AUDIT}
 
@@ -347,9 +346,9 @@ Without CODE, internal rule structure is opaque. Without AUDIT, error detection 
 
 \textbf{FORK} requires that a functionally equivalent system can be independently reproduced. Forkability ensures that corrective governance cannot be permanently blocked by centralized control.
 
-Together, these conditions form a closed-loop structure. The five conditions are jointly necessary for structural corrigibility. They are sufficient in a narrow architectural sense: if satisfied, corrective mechanisms remain structurally accessible to affected participants. This sufficiency concerns structural access to correction, not optimal outcomes, fairness, or epistemic quality.
+Together, these conditions form a closed-loop structure. Figure~\ref{fig:four-layers} stacks the four control layers; Figure~\ref{fig:control-loop} renders the same architecture as a continuous feedback diagram. The five conditions are jointly necessary for structural corrigibility. They are sufficient in a narrow architectural sense: if satisfied, corrective mechanisms remain structurally accessible to affected participants. This sufficiency concerns structural access to correction, not optimal outcomes, fairness, or epistemic quality.
 
-\textit{Note}: Satisfying these architectural conditions is necessary but not complete. Durable legitimacy requires machine-verifiable proof: cryptographic attestations, anchored logs, revocation state and change histories. Claims about authority, constraints, and remedial actions must be demonstrably true at decision time.
+Architectural conditions are necessary but not complete. Durable legitimacy also requires machine-verifiable proof: cryptographic attestations, anchored logs, and revocation and change histories that make claims about authority, constraints, and remedial actions demonstrably true at decision time.
 
 \begin{figure}[htbp]
 \centering
@@ -384,8 +383,6 @@ Together, these conditions form a closed-loop structure. The five conditions are
 \caption{\textbf{Closed-Loop Corrigibility Architecture.} Four control layers form a closed feedback loop. Removal of any layer converts the system to open-loop, permitting unbounded error accumulation.}
 \label{fig:four-layers}
 \end{figure}
-
-Figure~\ref{fig:control-loop} illustrates the complete feedback architecture.
 
 \begin{figure}[htbp]
 \centering
@@ -551,7 +548,7 @@ Open code with locked data produces a hollow fork. The legal right to reproduce 
 
 \paragraph{Technical Requirements for Portability.} To ensure meaningful forkability, DPI systems must implement: (1) standardized export bundles with user-owned credentials, (2) interoperability APIs to accept ported data, and (3) statutory guarantees requiring public services to accept verified portable credentials. This is the lesson of PSD2 in banking: portability mandates made bank-switching economically viable.
 
-A system passes the FORK test only if the community possesses the legal rights, technical artifacts, economic means, \textbf{and state portability guarantees} to spawn a functionally equivalent instance. License choice determines whether forkability persists across derivatives: copyleft licenses (GPL, AGPL) ensure modifications remain forkable; permissive licenses (MIT, Apache) allow derivatives to be enclosed. For network-deployed DPI, AGPL-style requirements prevent operators from capturing modified code behind service interfaces. \textbf{Aadhaar} fails completely: no entity outside UIDAI can reproduce the identity infrastructure. \textbf{OpenSearch} demonstrates what successful forking looks like. When Elastic changed its license, AWS forked Elasticsearch and the community continued development independently. \textbf{Linux} has been forked thousands of times (Android, Chrome OS, countless distributions). \textbf{AWS S3} presents partial forkability: the API specification is public and MinIO provides a compatible implementation, but the operational scale, global infrastructure, and integration ecosystem cannot be reproduced by most organizations.
+A system passes the FORK test only if the community possesses the legal rights, technical artifacts, economic means, \textbf{and state portability guarantees} to spawn a functionally equivalent instance. License choice determines whether forkability persists across derivatives: copyleft licenses (GPL, AGPL) ensure modifications remain forkable; permissive licenses (MIT, Apache) allow derivatives to be enclosed. For network-deployed DPI, AGPL-style requirements prevent operators from capturing modified code behind service interfaces. \textbf{Aadhaar} fails completely: no entity outside UIDAI can reproduce the identity infrastructure. \textbf{OpenSearch} demonstrates what successful forking looks like. When Elastic changed its license, AWS forked Elasticsearch and the community continued development independently. \textbf{Linux} has been forked thousands of times (Android, Chrome OS, countless distributions). \textbf{AWS S3} presents partial forkability: the API specification is public and MinIO provides a compatible implementation, but the operational scale, global infrastructure, and integration ecosystem cannot be reproduced by most organizations. Table~\ref{tab:exit-fork-differentiation} illustrates the distinction across representative cases: substitution (EXIT) and reproduction (FORK) are independent properties, and a system can satisfy one while failing the other.
 
 \begin{table}[htbp]
 \centering
@@ -566,7 +563,8 @@ Linux & PASS & PASS & Can leave, can fork \\
 AWS S3 & PASS & PARTIAL & API open (MinIO), scale unreproducible \\
 \bottomrule
 \end{tabular}
-\caption{Differentiation between Exit (Substitution) and Fork (Reproduction)}
+\caption{Differentiation between EXIT (substitution) and FORK (reproduction). EXIT requires only that an alternative service exists; FORK requires that the system itself can be independently reproduced. Many systems satisfy EXIT through substitution while failing FORK through irreproducibility, and the distinction matters under centralized-vendor lock-in.}
+\label{tab:exit-fork-differentiation}
 \end{table}
 
 \subsection{Contestation of Representational Categories in AI-Mediated DPI}
@@ -658,7 +656,7 @@ Corrigibility closes the loop. Only when all five tests are satisfied does a sys
 
 \subsection{Structural Symmetry of Power}
 
-The five tests, while derived from distinct intellectual traditions, share a common organizing principle. Each enforces a constraint on power concentration at a different layer of the system. Together, they form a single power invariant:
+The five tests, while derived from distinct intellectual traditions (Figure~\ref{fig:framework}), share a common organizing principle. Each enforces a constraint on power concentration at a different layer of the system. Together, they form a single power invariant:
 
 \begin{center}
 \begin{tabular}{@{}lll@{}}
@@ -710,6 +708,8 @@ The system passes $T$ if and only if every layer passes $T$. The full corrigibil
 This double conjunction formalizes the ``weakest link'' principle: failure of any test at any layer propagates to the system determination.
 
 \subsubsection{Application to Identity Infrastructure}
+
+Table~\ref{tab:identity_layers} illustrates how layer decomposition applies to identity infrastructure: distinct architectural strata exhibit characteristically different failure modes that cannot be aggregated into a single system-wide judgment.
 
 \begin{table}[htbp]
 \centering
@@ -851,7 +851,7 @@ Other government systems exhibit different failure patterns. X-Road (4/5) fails 
 
 \subsection{Platform Infrastructure: The Illusion of Openness}
 
-In the private sector, systems often leverage "open source" branding while retaining centralized control. This decoupling of artifact transparency from governance reality creates a distinct failure pattern: the artifacts are public; the decisions are not.
+In the private sector, systems often leverage "open source" branding while retaining centralized control. This decoupling of artifact transparency from governance reality creates a distinct failure pattern: the artifacts are public; the decisions are not. Table~\ref{tab:corp_infra} applies the five tests across cloud, social-platform, and identity-platform examples to make the pattern visible.
 
 \begin{table}[htbp]
     \centering
@@ -983,7 +983,7 @@ Systems that fail these structural tests frequently employ vocabulary to obscure
 
 Decentralized Identifiers (DIDs) present a distinct challenge to corrigibility evaluation because they separate technical decentralization from governance decentralization across multiple architectural layers. The W3C DID Core 1.0 specification \citep{w3cdid2022} defines DIDs as ``globally unique identifiers'' that ``do not require a centralized registration authority.'' This technical claim is accurate. However, a system can implement DIDs at the identifier layer while retaining centralized control at every layer that determines actual utility.
 
-Identity infrastructure comprises at least four functional layers, each with independent governance:
+Identity infrastructure comprises at least four functional layers, each with independent governance (Table~\ref{tab:did_layers}):
 
 \begin{table}[htbp]
 \centering
@@ -1155,7 +1155,7 @@ The neutrality condition can be stated as:
 V_{\text{eff}} \geq \theta \cdot V_{\text{env}}
 \label{eq:neutrality-condition}
 \end{equation}
-where $V_{\text{eff}}$ is effective governance variety and $\theta \in (0,1]$ is a stability sufficiency constant. Neutrality degradation risk emerges when this condition fails.
+where $V_{\text{eff}}$ is effective governance variety and $\theta \in (0,1]$ is a stability sufficiency constant. Neutrality degradation risk emerges when this condition fails. Figure~\ref{fig:trilemma} visualizes the resulting tension; Table~\ref{tab:topology-risk} contrasts how alternative architectural topologies distribute the three properties.
 
 \begin{figure}[htbp]
 \centering
@@ -1305,7 +1305,7 @@ The absence of fully corrigible essential services is not a limitation of this f
 \section{Discussion}
 \label{sec:discussion}
 
-This section addresses three themes: methodological foundations, political economy, and implementation pathways.
+The political economy analysis above named the structural pressures that drive feedback-loop closure to fail. What remains is whether the binary determination holds under measurement uncertainty, whether the loop survives adversarial conditions, and what transition pathways remain open once a system is diagnosed as structurally incorrigible. This section takes those three threads in turn: the cybernetics of binary evaluation, the political economy of accountability, and the architectures of corrigible public infrastructure.
 
 \subsection{Methodological Foundations}
 \label{subsec:methodology}
@@ -1314,7 +1314,7 @@ This section addresses three themes: methodological foundations, political econo
 
 Critics argue this framework's binary pass/fail topology is too rigid, proposing instead "maturity models" or graded scorecards. From a cybernetic perspective, we reject this gradation. Corrigibility is a \textbf{structural connectivity state}: a feedback loop is either closed or open. There is no ``mostly closed'' loop.
 
-A system that allows \textbf{AUDIT} but blocks \textbf{GOVERN} is an \textbf{Open Loop}: it observes errors but cannot fix them. A system that allows \textbf{GOVERN} but blocks \textbf{EXIT} is a \textbf{Coercive Loop}: it traps energy until catastrophic failure. Partial compliance creates ``zombie infrastructure'': systems maintaining the aesthetic of responsiveness while severing actual stability capacity. A ``Partial'' score represents \textbf{Fatal Structural Failure}.
+A system that allows \textbf{AUDIT} but blocks \textbf{GOVERN} is an \textbf{Open Loop}: it observes errors but cannot fix them. A system that allows \textbf{GOVERN} but blocks \textbf{EXIT} is a \textbf{Coercive Loop}: it traps energy until catastrophic failure. Figure~\ref{fig:failure_modes} contrasts these failure topologies against the closed-loop case. Partial compliance creates ``zombie infrastructure'': systems maintaining the aesthetic of responsiveness while severing actual stability capacity. A ``Partial'' score represents \textbf{Fatal Structural Failure}.
 
 For diagnostic purposes, gradation remains useful. Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main} specify continuous measurements. The binary determination is the output; continuous measurements are inputs. Evaluators can examine inputs to prioritize interventions.
 
@@ -1404,7 +1404,7 @@ $\Sigma^*$ & Portability threshold (EXIT/FORK failure) & e.g.\ $>0.2$ income or 
 $\kappa$ (Cohen) & Inter-rater agreement target (Cohen's kappa) & $\geq 0.8$ & \ref{subsec:methodology} \\
 $\theta$ & Neutrality stability threshold & $(0, 1]$ & \ref{appendix:neutrality} \\
 $Sc^*$ & Scale threshold for neutrality degradation & Context-dependent & \ref{appendix:neutrality} \\
-$\alpha^*$ & Fork adoption critical mass & $0.3$--$0.5$ & \ref{appendix:proofs} \\
+$\alpha^*$ & Fork adoption critical mass & $0.3$--$0.5$ & schema repo \\
 $\epsilon$ & Correction friction cost & Context-dependent & \ref{appendix:proofs} \\
 \bottomrule
 \end{tabular}
@@ -1516,7 +1516,8 @@ A corollary objection concerns resources: "Who audits?" The framework does not r
 
 Incorrigibility is often justified by the rhetoric of necessity, such as national security, anti-corruption, or emergency efficiency. This framework explicitly denies such exemptions. Corrigibility does not imply that substantive rules are negotiable; a system may enforce strict, non-negotiable limits (e.g., pandemic travel restrictions or environmental caps). However, the \textit{structural capacity} to detect error, verify correct enforcement, and reverse wrongful harm must remain intact even in high-constraint environments. As safety engineering demonstrates, accidents in complex systems are caused precisely by the lack of appropriate constraints on component interactions \citep{leveson2011}.
 
-\begin{claim}
+\begin{claim}[No Structural Exemption]
+\label{claim:no-exemption}
 No exemption from the five tests is granted on the basis of emergency conditions, planetary constraints, or decentralized architecture.
 \end{claim}
 
@@ -1587,7 +1588,7 @@ This explains why open-washing is effective: partial progress creates the appear
 
 \subsubsection{Political Economy}
 
-The political economy of transition varies by test:
+The political economy of transition varies by test, with each barrier facing a characteristically different concentrated opposition (Table~\ref{tab:political-economy}):
 
 \begin{table}[h]
 \centering
@@ -1718,7 +1719,7 @@ The choice is not between chaos and control. It is between \textbf{Open Loop} sy
 
 \subsection{Summary of Topological Risk}
 
-The ``physics'' of digital governance demonstrates that certain architectures structurally increase the risk of capture independent of operator intent. The transition to platform-mediated governance does not eliminate the need for the Rule of Law; it necessitates its translation into the \textbf{Rule of the Workflow}.
+The ``physics'' of digital governance demonstrates that certain architectures structurally increase the risk of capture independent of operator intent. The transition to platform-mediated governance does not eliminate the need for the Rule of Law; it necessitates its translation into the \textbf{Rule of the Workflow}. Table~\ref{tab:topological-risk} maps the principal failure modes and structural remedies across identity, payment, and data-exchange layers.
 
 \begin{table}[htbp]
 \centering
@@ -1761,11 +1762,13 @@ Extensions warranting investigation: (1) \textbf{Empirical velocity measurement}
 
 \paragraph{Adversarial Robustness.} This framework assumes good-faith actors operating within institutional constraints. It does not address adversarial manipulation: coordinated gaming of audit mechanisms, governance capture through procedural compliance, or fork-and-poison attacks. Extension to adversarial settings requires additional machinery beyond this paper's scope.
 
+\paragraph{Methodological Note.} The five-test structure presented here did not emerge from theoretical deduction; it hardened across successive revisions through adversarial engagement with live systems. Each version closed a specific loophole: self-attestation gave way to independent assessment; partial-credit ``maturity models'' gave way to strict binary determination; advisory governance was disqualified in favor of non-overrideable constraint; substitution (EXIT) was distinguished from reproduction (FORK); and decentralized identifiers were prevented from laundering centralized governance via layer-decomposed evaluation. The framework's audit trail---version history, schema changelogs, and the rules that govern protocol revision---is maintained in the schema repository.
+
 \paragraph{Core Thesis.} Corrigibility defines the boundary between reversible and irreversible infrastructure. It does not guarantee justice. It does not optimize administration. It guarantees that corrective authority remains structurally available to those the system governs. Digital infrastructure aspires to durability. Corrigibility ensures durability does not become capture. Public systems are either structurally reversible or structurally irreversible. Corrigibility marks that boundary.
 
 \section*{Acknowledgments}
 
-This framework was developed through analysis of India Stack and subsequent generalization to universal criteria. The author thanks the digital rights community for ongoing critique and refinement.
+This work draws on the author's lived practice across the three traditions it triangulates: two decades of free-software contribution and engagement with population-scale public digital systems, commons-governance work originating at Moving Republic (\url{https://movingrepublic.org}), and a decade of sustained architectural critique during the adversarial phases of Aadhaar, UPI, and national health-data deployments---alongside long-standing study of cybernetics and the political theory of power. Errors and infelicities remain the author's own.
 
 \section*{License}
 
@@ -1787,6 +1790,10 @@ The complete framework, including JSON Schemas and assessment tooling, is availa
     \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/audit.json} (see companion paper~\citep{aravind2026epi})
 \end{itemize}
 
+\section*{Reading the Appendices}
+
+The appendices that follow ground the framework's claims in formal machinery. Appendix~\ref{appendix:architecture} develops the adversarial-manifest logic that converts policy assertions into machine-readable claims. Appendix~\ref{appendix:proofs} formalizes the structural model and proves the corrigibility invariant. Appendix~\ref{appendix:neutrality} proves the neutrality-compression result for centralized enforcement at scale. Appendix~\ref{appendix:rules} states the verification and enforcement rules (Rule A.9 on binding authority, Rule A.10 on chain of custody, and the tiered identity-assurance model) that operationalize GOVERN and AUDIT. Appendix~\ref{appendix:objections} addresses the strongest anticipated objections. Appendix~\ref{appendix:glossary} consolidates terminology. Full JSON schemas, the protocol's version history, and reference implementations are maintained as a versioned external artifact in the schema repository (see Data and Code Availability above); the rules and definitions on which the paper's argument actually depends remain in the appendices below.
+
 % ============================================
 % APPENDICES
 % ============================================
@@ -1807,6 +1814,8 @@ The architecture relies on a separation of concerns mirroring the adversarial le
 \end{enumerate}
 
 This architecture makes contradictions machine-readable. If an operator claims a governance mechanism is "binding" in their affidavit, but the auditor's observation marks the \texttt{user\_authority} field as "advisory," the mismatch serves as mathematically verifiable proof of governance failure.
+
+\paragraph{Schema Encoding.} The full normative JSON schemas implementing the affidavit/finding distinction, with field-by-field anchors back to the paper sections that justify them and structural enforcement of Rule~A.9 (Appendix~\ref{appendix:rules}) via JSON Schema conditionals, are maintained as a versioned artifact in the schema repository (\url{https://github.com/anivar/corrigibility-schema}).
 
 \begin{figure}[htbp]
 \centering
@@ -1834,7 +1843,8 @@ This architecture makes contradictions machine-readable. If an operator claims a
 
 A critical logic gate in this framework is the derivation of status.
 
-\begin{claim}
+\begin{claim}[Derived, Non-Authoritative Determination]
+\label{claim:determination-non-authoritative}
 The \texttt{determination} object in \texttt{audit.json} is a derived convenience field. It is \textbf{not authoritative}.
 \end{claim}
 
@@ -1900,7 +1910,7 @@ Thus, structural stability is unattainable without the closure of the feedback l
 Corrigibility is a binary structural property. If any one of the five tests (EXIT, CODE, AUDIT, GOVERN, FORK) fails, systemic error cannot be structurally bounded, and corrective authority becomes discretionary rather than guaranteed.
 \end{corollary}
 
-\textit{Justification}: Each test corresponds to a necessary component of the corrective apparatus. The corollary rests on the conjunction of two independent arguments developed in Section~\ref{subsubsec:two-pronged}. \textit{Mechanism (this appendix):} from Proposition~\ref{thm:null-feedback}, since $L(s) = K(s) \cdot P(s) \cdot H(s)$, if any multiplicative term is zero the loop gain vanishes and partial compliance does not preserve closure. \textit{Legitimacy (main text):} partial contestation produces \textit{sham governance} --- accountability with non-monotonic returns where additional procedural gestures may absorb political pressure without yielding correction --- so even where partial feedback transmits some signal, the system fails the non-domination criterion (Section~\ref{sec:theory}, Normative Anchor). The mechanism argument alone yields divergence-rate claims; the legitimacy argument alone yields institutional-status claims; the conjunction yields binarity.
+\textit{Justification}: Each test corresponds to a necessary component of the corrective apparatus (Figure~\ref{fig:control-model}). The corollary rests on the conjunction of two independent arguments developed in Section~\ref{subsubsec:two-pronged}. \textit{Mechanism (this appendix):} from Proposition~\ref{thm:null-feedback}, since $L(s) = K(s) \cdot P(s) \cdot H(s)$, if any multiplicative term is zero the loop gain vanishes and partial compliance does not preserve closure. \textit{Legitimacy (main text):} partial contestation produces \textit{sham governance} --- accountability with non-monotonic returns where additional procedural gestures may absorb political pressure without yielding correction --- so even where partial feedback transmits some signal, the system fails the non-domination criterion (Section~\ref{sec:theory}, Normative Anchor). The mechanism argument alone yields divergence-rate claims; the legitimacy argument alone yields institutional-status claims; the conjunction yields binarity.
 
 \begin{figure}[htbp]
 \centering
@@ -1959,7 +1969,7 @@ Corrigibility requires that each component exists and is non-degenerate:
     \item FORK $\Rightarrow$ $P, K, H$ replaceable if convergence fails
 \end{itemize}
 
-\noindent \textbf{Active Deception as Sensor Attack.} The pathologies defined in Section~\ref{subsec:active-deception} (open-washing, safety-washing, audit theater) fundamentally corrupt the sensor function $H(s)$: they either suppress the true error signal $e(t)$ or inject artificial stability metrics, thereby blinding the controller $K(s)$ to the actual divergence $y(t) - r(t)$. In control-theoretic terms, Active Deception renders $H(s) \to 0$ not by removing the sensor, but by making its output uncorrelated with the true system state.
+\noindent \textbf{Active Deception as Sensor Attack.} The pathologies defined in Section~\ref{subsec:active-deception} (open-washing, safety-washing, audit theater) fundamentally corrupt the sensor function $H(s)$: they either suppress the true error signal $e(t)$ or inject artificial stability metrics, thereby blinding the controller $K(s)$ to the actual divergence $y(t) - r(t)$. In control-theoretic terms, Active Deception renders $H(s) \to 0$ not by removing the sensor, but by making its output uncorrelated with the true system state. Figure~\ref{fig:open-loop} depicts the resulting open-loop topology in which a corrupted or absent $H(s)$ severs the feedback path.
 
 \begin{figure}[htbp]
 \centering
@@ -2005,7 +2015,7 @@ Let $\epsilon > 0$ represent the ``friction cost'' of correction (e.g., litigati
 \end{equation}
 \end{condition}
 
-\textbf{Implication:} Post-hoc remedies (Courts/Ombudsmen) have a linear or constant rate of operation ($\frac{dC}{dt} = k$). Digital errors propagate at exponential or high-frequency rates ($\frac{dE}{dt} \propto e^{t}$). Since there is no $t$ for which a linear function dominates an exponential one, relying on external courts guarantees eventual system collapse. The correction logic must be intrinsic to the loop.
+\textbf{Implication:} Post-hoc remedies (Courts/Ombudsmen) have a linear or constant rate of operation ($\frac{dC}{dt} = k$). Digital errors propagate at exponential or high-frequency rates ($\frac{dE}{dt} \propto e^{t}$). Since there is no $t$ for which a linear function dominates an exponential one, relying on external courts guarantees eventual system collapse (Figure~\ref{fig:velocity-mismatch}). The correction logic must be intrinsic to the loop.
 
 \begin{figure}[htbp]
 \centering
@@ -2035,6 +2045,8 @@ Let $\epsilon > 0$ represent the ``friction cost'' of correction (e.g., litigati
 \end{figure}
 
 \subsection{Mapping to the Five Tests}
+
+Each of the five corrigibility tests corresponds to a distinct component of the closed-loop control structure; the failure mode under each test follows directly from the role of that component (Table~\ref{tab:control-mapping}).
 
 \begin{table}[htbp]
 \centering
@@ -2078,85 +2090,19 @@ FORK & (1) License text, (2) technical artifact availability, (3) resource cost 
 
 \paragraph{Reproducibility Standard.} An assessment is reproducible if an independent auditor, given only the evidence artifacts listed above, reaches the same pass/fail determination. Disagreements must trace to (a) threshold calibration differences or (b) missing evidence, not to ambiguity in the test definitions themselves. Continuous metrics and threshold protocols are provided in Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main} (Section~\ref{subsec:methodology}).
 
-\subsection{Network Adoption Model for Fork Feasibility}
+\subsection{Restatements of the Instability Result}
 
-Model adoption fraction $\alpha(t)$. A community-spawned fork succeeds if $\alpha$ crosses critical mass $\alpha^*$. Logistic adoption with social influence:
-\begin{equation}
-\dot{\alpha} = \beta \alpha(1 - \alpha) + s(t)
-\end{equation}
-where $s(t)$ is exogenous seeding. Fork feasibility requires parameters such that $\exists t$ with $\alpha(t) \geq \alpha^*$. Practical condition:
-\begin{equation}
-s_{\min} \geq \alpha^* - \alpha_0
-\end{equation}
-or subsidies that accelerate adoption rate $\beta$.
+The proposition above admits several equivalent restatements that may be more familiar to readers from different traditions. None is independently load-bearing; each makes the same instability claim from a different angle (frequency domain, discrete time, cumulative rates).
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=0.9]
-    \begin{axis}[
-        xlabel={Seed fraction $s$},
-        ylabel={Final adoption $\alpha(\infty)$},
-        xmin=0, xmax=0.35,
-        ymin=0, ymax=1.1,
-        legend pos=south east,
-        axis lines=left,
-        width=10cm,
-        height=6cm
-    ]
-    \addplot[blue, thick, domain=0:0.35, samples=100] {1/(1+exp(-15*(x-0.15)))};
-    \addlegendentry{Logistic $\beta = 3$}
-    \draw[dashed, gray] (axis cs:0,0.5) -- (axis cs:0.35,0.5);
-    \node at (axis cs:0.28,0.55) {\scriptsize Critical mass $\alpha^* = 0.5$};
-    \end{axis}
-\end{tikzpicture}
-\caption{\textbf{Fork feasibility curve.} Below critical seeding, adoption does not reach critical mass. Parameters illustrative.}
-\label{fig:fork-feasibility}
-\end{figure}
+\paragraph{Frequency-domain restatement.} For small perturbations around a nominal operating point, the sensitivity function $S(s) = 1 / (1 + L(s))$ with loop gain $L(s) = K(s) P(s) H(s)$ characterizes disturbance propagation. Whenever any corrigibility test fails ($K=0$, $H=0$, or the error signal is blocked), $L(s) \to 0$ and $S(s) \to 1$: disturbances pass through unattenuated. This is the same instability claim of Proposition~\ref{thm:null-feedback}, expressed in the frequency domain.
 
-\subsection{Extended Formal Models}
-
-\subsubsection{Linearized Sensitivity Model}
-
-For small perturbations around a nominal operating point, the sensitivity function characterizes how disturbances propagate to the output:
-\begin{equation}
-S(s) = \frac{1}{1 + L(s)}
-\end{equation}
-where $L(s) = K(s) \cdot P(s) \cdot H(s)$ is the loop gain. When any corrigibility test fails ($K=0$, $H=0$, or error signal blocked), $L(s) \to 0$ and $S(s) \to 1$: disturbances pass through unattenuated.
-
-\subsubsection{Discrete Integrator Example}
+\paragraph{Discrete-time restatement.}
 \label{subsec:discrete-integrator}
+Consider a discrete-time scalar integrator $y_{k+1} = y_k + d_k - u_k$, where $d_k$ is a disturbance and $u_k$ is the correction. In open loop ($u_k = 0$), $y_N = y_0 + \sum_{k=0}^{N-1} d_k$, and for any non-zero mean disturbance $\mathbb{E}[d_k] = \mu > 0$ the expected state grows linearly: $\mathbb{E}[y_N] = y_0 + N\mu \to \infty$. This provides an elementary, discrete demonstration of the same divergence result.
 
-Consider a discrete-time scalar integrator modeling cumulative harm:
-\begin{equation}
-y_{k+1} = y_k + d_k - u_k
-\end{equation}
-where $d_k$ is the disturbance (errors, attacks) and $u_k$ is the correction. In open loop ($u_k = 0$):
-\begin{equation}
-y_N = y_0 + \sum_{k=0}^{N-1} d_k
-\end{equation}
+\paragraph{Friction cost in the discrete model.} The friction coefficient $\epsilon$ from Condition~\ref{cond:friction} manifests here as a delay or reduction in the correction term. If correction requires bureaucratic processing with latency $\tau$ time steps and efficiency loss $\eta < 1$, then $u_k = \eta \cdot f(y_{k-\tau}, d_{k-\tau})$ for some feedback policy $f(\cdot)$. When $\tau > 0$ or $\eta < 1$, the effective correction rate is reduced, directly corresponding to the continuous-time friction cost $\epsilon > 0$. The stability condition $|dC/dt| \geq |dE/dt| + \epsilon$ translates to requiring the feedback policy to over-correct relative to the disturbance rate, accounting for these frictional losses.
 
-For any non-zero mean disturbance $\mathbb{E}[d_k] = \mu > 0$, the expected state grows linearly: $\mathbb{E}[y_N] = y_0 + N\mu \to \infty$. This provides a simple, indisputable demonstration of open-loop divergence.
-
-\textbf{Friction cost in discrete model:} The friction coefficient $\epsilon$ from Condition~\ref{cond:friction} manifests in this discrete model as a delay or reduction in the correction term. Specifically, if correction requires bureaucratic processing with latency $\tau$ time steps and efficiency loss $\eta < 1$, then:
-\begin{equation}
-u_k = \eta \cdot f(y_{k-\tau}, d_{k-\tau})
-\end{equation}
-where $f(\cdot)$ is the feedback policy. When $\tau > 0$ or $\eta < 1$, the effective correction rate is reduced, directly corresponding to the continuous-time friction cost $\epsilon > 0$. The stability condition $|dC/dt| \geq |dE/dt| + \epsilon$ translates to requiring the feedback policy to over-correct relative to the disturbance rate, accounting for these frictional losses.
-
-\subsubsection{Formal Error and Correction Rates}
-
-Let $E(t)$ denote cumulative error (total harm or divergence from policy) and $C(t)$ denote cumulative correction applied. Define:
-\begin{itemize}
-    \item \textbf{Error generation rate:} $\dot{E}(t) = \frac{dE}{dt}$
-    \item \textbf{Effective correction rate:} $\dot{C}(t) = \frac{dC}{dt}$
-\end{itemize}
-
-The system is stable only if the net error remains bounded:
-\begin{equation}
-E(t) - C(t) < M \quad \forall t > 0
-\end{equation}
-
-This requires $\dot{C}(t) \geq \dot{E}(t)$ on average. When correction operates through bureaucratic channels with bounded throughput $\dot{C}_{\max}$ while errors grow exponentially, there exists a critical time $t^*$ beyond which correction can never catch up.
+\paragraph{Cumulative-rate restatement.} Letting $E(t)$ and $C(t)$ denote cumulative error and cumulative correction, stability requires $E(t) - C(t) < M$ for some bound $M$ and all $t > 0$, equivalently $\dot{C}(t) \geq \dot{E}(t)$ on average. When correction operates through channels with bounded throughput $\dot{C}_{\max}$ while errors grow super-linearly, a critical time $t^*$ exists beyond which correction can never catch up. This is Condition~\ref{cond:friction} restated in cumulative form.
 
 \subsection{Functional Exit Equivalence Formalization}
 
@@ -2216,12 +2162,11 @@ where $\mathcal{A}$ is the set of available alternatives and $\Sigma^*$ is a cal
 \subsection{Summary of Formal Extensions}
 
 \begin{enumerate}
-    \item Linearized result ties removal of $H$, $K$, or EXIT to vanishing loop gain $L(s)$, exposing unstable process modes.
-    \item Integrator example supplies simple, indisputable divergence demonstration.
-    \item Correction velocity formalized via measurable $C(t)$ and $E(t)$.
-    \item Network model clarifies why legal forkability may fail in practice and yields policy levers (seeding, subsidies).
-    \item Agent automaton demonstrates need for explicit machine-facing EXIT/CODE/AUDIT primitives.
-    \item Switching cost formalization operationalizes EXIT/FORK failure thresholds.
+    \item Linearized restatement ties removal of $H$, $K$, or EXIT to vanishing loop gain $L(s)$, exposing unstable process modes.
+    \item Discrete integrator supplies an elementary divergence demonstration and absorbs Condition~\ref{cond:friction} via the $(\eta, \tau)$ parameters.
+    \item Correction velocity is formalized via Condition~\ref{cond:friction} and its cumulative-rate restatement.
+    \item FEE formalization (eq.~\ref{eq:fee}) operationalizes the principle of essential-services compensation; weights $\alpha_i$ are calibrated externally.
+    \item Switching-cost formalization (eq.~\ref{eq:switching-cost}, eq.~\ref{eq:portability-threshold}) operationalizes EXIT/FORK failure thresholds.
 \end{enumerate}
 
 \section{Neutrality Compression Under Centralized Enforcement}
@@ -2340,6 +2285,8 @@ It asserts:
     \item Sublinear governance growth is a structural prediction of centralized architecture; neutrality degradation risk follows mathematically.
 \end{itemize}
 
+Figure~\ref{fig:variety-compression} visualizes the compression: as scale rises, environmental variety grows linearly while centralized governance variety grows at most sublinearly, so the neutrality-sufficiency threshold $\theta \cdot V_{\text{env}}$ is crossed at some scale $Sc^*$.
+
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=0.85]
@@ -2381,98 +2328,35 @@ It asserts:
 \label{fig:variety-compression}
 \end{figure}
 
-\section{Schema Specifications and Automated Assessment}
-\label{appendix:schema}
-
-\paragraph{Executive Summary (Machine-Readable Corrigibility).}
-This appendix provides illustrative JSON schemas demonstrating how corrigibility tests can be operationalized in machine-readable form. These schemas are not implementation mandates; they are reference architectures showing how error taxonomies, binding governance mechanisms, and audit transparency can be encoded as enforceable technical constraints. The objective is to demonstrate that corrigibility can be implemented as infrastructure logic rather than advisory policy.
-
-\medskip
-
-To move beyond qualitative debate, this framework establishes a machine-readable logic for accountability via two JSON schemas: the \texttt{infrastructure.json} (Operator Disclosure) and the \texttt{audit.json} (Auditor Assessment). By enforcing specific data structures, policy rhetoric is converted into falsifiable assertions of system state.
-
-\subsection{Architecture}
-
-The architecture relies on a separation of concerns mirroring the adversarial legal process:
-
-\begin{enumerate}[noitemsep]
-    \item \textbf{infrastructure.json (Operator's Affidavit):} A signed declaration by the system operator asserting specific operational properties, governance commitments, and functional limitations. Key fields include \texttt{offline\_equivalent} (tracking EXIT), \texttt{when\_uncertain} (tracking AI safety failures), and \texttt{layers} (enabling decomposed evaluation).
-
-    \item \textbf{audit.json (Auditor's Finding):} An independent, cryptographically signed evaluation that tests the operator's claims against observable reality. Key fields include \texttt{penalty\_ratio} (quantifying coerciveness), \texttt{visibility} (CODE inspection level), and \texttt{user\_authority} (GOVERN binding status).
-\end{enumerate}
-
-This architecture makes contradictions machine-readable. If an operator claims a governance mechanism is ``binding'' in their affidavit, but the auditor's observation marks the \texttt{user\_authority} field as ``advisory,'' the mismatch serves as mathematically verifiable proof of governance failure.
-
-\subsection{Schema Repository}
-
-Due to space constraints, the full normative JSON schemas (v1.7) with exhaustive validation rules are hosted externally. The schemas include:
-
-\begin{itemize}[noitemsep]
-    \item Exhaustive field definitions for all five tests
-    \item Layer-decomposed evaluation structures
-    \item Cryptographic signing requirements (Ed25519, DID anchoring)
-\end{itemize}
-
-Researchers and auditors may access, validate, and contribute to these schemas via the permanent repository: \url{https://github.com/anivar/corrigibility-schema}. The framework source code, including validation scripts suitable for CI/CD integration, is available at the GitHub repository listed in the Data and Code Availability section.
-
-\section{Verification and Enforcement}
+\section{Verification and Enforcement Rules}
 \label{appendix:rules}
 
-To distinguish valid governance from performative compliance, the framework enforces strict evidentiary rules for Identity and Authority.
+To distinguish constitutive governance from performative compliance, the framework states evidentiary rules for who may speak with binding authority and whose audit verdicts count as truth. These rules close the GOVERN and AUDIT loops: without them, the operator's affidavit would float free of the auditor's finding, and the corrective channel would collapse back into narrative.
 
 \subsection{Normative Rules}
 
 \paragraph{Rule A.9: Operational Definition of Binding Authority}
-To satisfy the GOVERN test, any escalation path claimed as "binding" in the Manifest MUST include:
+To satisfy the GOVERN test, any escalation path claimed as ``binding'' in the Manifest MUST include:
 \begin{enumerate*}[label=(\roman*)]
     \item a resolvable reference to the statute or charter (\texttt{binding\_proof\_url}),
     \item a cryptographic hash of that instrument to prevent silent amendment, and
     \item historical evidence of enforcement against the operator.
 \end{enumerate*}
-Assertions of authority that rely on post-execution bureaucratic discretion (e.g., ombudsmen, "feedback forms") DO NOT satisfy this rule and must be marked \texttt{false}.
+Assertions of authority that rely on post-execution bureaucratic discretion (e.g., ombudsmen, ``feedback forms'') do not satisfy this rule and must be marked \texttt{false}. This rule is what disqualifies advisory bodies from constituting governance, and is the operational test invoked when the main text concludes that systems such as Aadhaar fail GOVERN.
 
 \paragraph{Rule A.10: Chain of Custody}
-Auditor manifests must be canonically serialized (RFC 8785), hashed (SHA-256), and signed (Ed25519) using a valid W3C Decentralized Identifier. Unsigned assessments are treated as schema-invalid. This creates a permanent, falsifiable record of who certified a system.
+Auditor manifests must be canonically serialized (RFC 8785), hashed (SHA-256), and signed (Ed25519) using a valid W3C Decentralized Identifier. Unsigned assessments are treated as schema-invalid. This creates a permanent, falsifiable record of who certified a system, and is what makes an audit verdict independently checkable rather than a narrative claim.
 
-\subsection{Identity Assurance Model}
+\subsection{Tiered Identity Assurance Model}
 
-To prevent "Identity Washing", where operators use ephemeral keys to rubber-stamp their own systems, the framework employs a Tiered Assurance Model. Verification dashboards should weigh assessments accordingly:
+To prevent ``identity washing'', where operators use ephemeral keys to rubber-stamp their own systems, the framework employs a tiered assurance model. Verification dashboards should weigh assessments accordingly:
 
 \begin{enumerate}
-    \item \textbf{Tier 1: Self-Attested (\texttt{did:key}):} Ephemeral identity. Suitable for whistleblowers, individual researchers, or rapid-response checks. \textit{Status: Informational.}
-    \item \textbf{Tier 2: Domain-Verified (\texttt{did:web}):} Identity cryptographically bound to a specific DNS domain (e.g., \texttt{did:web:eff.org}). Attribution to known civil society actors. \textit{Status: Verified.}
-    \item \textbf{Tier 3: Institution-Verified:} Identity anchored in transparency logs or institutional trust registries. \textit{Status: Regulatory Standing.}
+    \item \textbf{Tier 1: Self-Attested (\texttt{did:key}):} Ephemeral identity. Suitable for whistleblowers, individual researchers, or rapid-response checks. \textit{Status: informational.}
+    \item \textbf{Tier 2: Domain-Verified (\texttt{did:web}):} Identity cryptographically bound to a specific DNS domain (e.g., \texttt{did:web:eff.org}). Attribution to known civil society actors. \textit{Status: verified.}
+    \item \textbf{Tier 3: Institution-Verified:} Identity anchored in transparency logs or institutional trust registries. \textit{Status: regulatory standing.}
 \end{enumerate}
-
-\section{Framework Evolution}
-\label{appendix:evolution}
-
-This framework did not evolve through theoretical speculation; it hardened through adversarial engagement with live systems. Each version update represents the closure of a specific "loophole" used by operators to claim public legitimacy while retaining private control.
-
-\begin{description}[style=nextline, leftmargin=1em, labelindent=0pt]
-
-\item[\textbf{Version 1.0 (Definition)}]
-Established the baseline thesis: Corrigibility is a structural precondition, distinct from feature sets. It defined the five tests to answer the foundational question: \textit{What distinguishes public infrastructure from private monopoly?}
-
-\item[\textbf{Version 1.2 (Assessment)}]
-\textbf{Closed the Self-Attestation Loophole.} Early trials showed operators self-declaring success. This version separated the \textit{Infrastructure Manifest} from the \textit{Corrigibility Assessment}, establishing the adversarial verification model where publicness must be proven by independent parties.
-
-\item[\textbf{Version 1.4 (Logic)}]
-\textbf{Closed the Ambiguity Loophole.} Eliminated partial credit and "maturity models." The shift to strictly binary logic established that failure in any single dimension breaks the feedback loop required by Ashby's Law, rendering the system unstable.
-
-\item[\textbf{Version 1.5 (Invariance)}]
-\textbf{Closed the Exceptionalism Loophole.} Extended the framework to AI and decentralized ledgers, demonstrating that neither statistical opacity nor cryptographic immutability exempts a system from the requirements of Reversibility (EXIT) and Correction (GOVERN).
-
-\item[\textbf{Version 1.6 (Constraint)}]
-\textbf{Closed the Consultation Loophole.} Redefined GOVERN as non-overrideable internal constraint rather than advice or redress. Explicitly disqualified post-execution remedies and advisory bodies from constituting system governance.
-
-\item[\textbf{Version 1.6.2 (Reproduction)}]
-\textbf{Closed the Substitution Loophole.} Distinguished EXIT (market choice) from FORK (reproduction). Switching landlords is not forking infrastructure.
-
-\item[\textbf{Version 1.7 (Layering)}]
-\textbf{Closed the DID-Washing Loophole.} Added layer-decomposed evaluation requiring analysis at each architectural stratum. Systems claiming corrigibility through identifier decentralization while retaining centralized governance at higher layers are now explicitly diagnosed. Introduced the propagation rule: $T_{\text{system}} = \bigwedge T(L_i)$.
-
-\end{description}
+This tiering is what allows the AUDIT test to distinguish credible independent verification from operator self-attestation; full schema encodings of the tiers, together with the DID resolution and canonicalization details, are maintained in the schema repository (\url{https://github.com/anivar/corrigibility-schema}).
 
 \section{Anticipated Objections and Responses}
 \label{appendix:objections}
@@ -2508,7 +2392,7 @@ This appendix addresses the strongest objections to the framework, organized by 
 \paragraph{Objection 5: Your pass/fail determinations are subjective.}
 ``Two auditors could reach different conclusions. Without precise, reproducible metrics, this is opinion dressed as science.''
 
-\textbf{Response:} Section~\ref{subsec:measurement} specifies evidence requirements for each test. Table~\ref{tab:evidence-requirements} lists required artifacts and verification methods. The reproducibility standard states: an assessment is reproducible if an independent auditor, given only the evidence artifacts, reaches the same determination. Disagreements must trace to threshold calibration or missing evidence, not definition ambiguity. The JSON schemas (Appendix~\ref{appendix:schema}) enforce structured disclosure. Future work includes inter-rater reliability studies.
+\textbf{Response:} Section~\ref{subsec:measurement} specifies evidence requirements for each test. Table~\ref{tab:evidence-requirements} lists required artifacts and verification methods. The reproducibility standard states: an assessment is reproducible if an independent auditor, given only the evidence artifacts, reaches the same determination. Disagreements must trace to threshold calibration or missing evidence, not definition ambiguity. Rule~A.10 (Appendix~\ref{appendix:rules}) binds every audit verdict to a canonically signed manifest, making disagreements traceable rather than narrative; the JSON schemas in the schema repository encode the full field set across all five tests. Future work includes inter-rater reliability studies.
 
 \subsection{Summary}
 

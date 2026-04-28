@@ -604,7 +604,7 @@ This framework distinguishes structural corrigibility from ``AI Alignment.'' The
 
 An agent system is not a model; it is a composable architecture. Treating ``the AI'' as a synonym for ``the model weights'' obscures the components that actually determine administrative behavior. Formally, an agent system $A$ is the tuple
 \[
-A = (M, H, B, S, T, C),
+A = (M, H, B, S, T, C, \bar{M}),
 \]
 where:
 \begin{itemize}[noitemsep]
@@ -613,12 +613,15 @@ where:
     \item $B$ is the \textbf{action boundary} (the deterministic validation envelope of Section~\ref{subsec:action-boundary});
     \item $S$ is the set of \textbf{action specifications} (the declarative descriptions of what actions the agent may invoke);
     \item $T$ is the set of \textbf{tool definitions} (the concrete executables, APIs, or functions that actions resolve to);
-    \item $C$ is the \textbf{deployment-time configuration} (system prompts, retrieval pipelines, output filters, environment variables).
+    \item $C$ is the \textbf{deployment-time configuration} (system prompts, retrieval pipelines, output filters, environment variables);
+    \item $\bar{M}$ is the \textbf{persistent memory layer} (per-subject context arrays, conversation history, cross-session retention, vector-store residues), distinct from the model parameters $M$ in that it accumulates over time as a function of the deployment's interaction history.
 \end{itemize}
 
-Each component bears distinct governance requirements, and each can capture or release sovereignty independently of the others. Behavior is a property of the system $A$, not the model $M$. The same model $M$ deployed in a different harness $H$, with different action specifications $S$, against different tool definitions $T$, under different configuration $C$, produces materially different administrative outcomes. Two state agencies running the same open-weights model may yield incompatible welfare-eligibility decisions because $H$, $S$, $T$, or $C$ differ.
+Each component bears distinct governance requirements, and each can capture or release sovereignty independently of the others. Behavior is a property of the system $A$, not the model $M$. The same model $M$ deployed in a different harness $H$, with different action specifications $S$, against different tool definitions $T$, under different configuration $C$, with different memory state $\bar{M}$, produces materially different administrative outcomes. Two state agencies running the same open-weights model may yield incompatible welfare-eligibility decisions because $H$, $S$, $T$, $C$, or $\bar{M}$ differ.
 
-\paragraph{Why System Behavior Is Not Model Behavior.} Because $H$, $S$, $T$, and $C$ modify behavior independent of $M$, model-level LWD-R disclosure is necessary but insufficient for agentic infrastructure. If a state deploys an open-weights model but orchestrates its actions through a proprietary vendor harness, the infrastructure fails both CODE (the orchestration logic is closed) and FORK (the vendor harness is not reproducible). Conversely, a fully open harness wrapped around a closed model leaves the inference layer opaque but makes the action boundary auditable; the system is partially corrigible in a precise sense.
+\paragraph{Why System Behavior Is Not Model Behavior.} Because $H$, $S$, $T$, $C$, and $\bar{M}$ modify behavior independent of $M$, model-level LWD-R disclosure is necessary but insufficient for agentic infrastructure. If a state deploys an open-weights model but orchestrates its actions through a proprietary vendor harness, the infrastructure fails both CODE (the orchestration logic is closed) and FORK (the vendor harness is not reproducible). Conversely, a fully open harness wrapped around a closed model leaves the inference layer opaque but makes the action boundary auditable; the system is partially corrigible in a precise sense.
+
+\paragraph{Memory as Liability.} The persistent memory layer $\bar{M}$ is structurally distinct from the other components in that its content is a running function of subjects' own interaction histories rather than a deployment-time decision of the operator. This makes $\bar{M}$ both an attack surface (cross-subject contamination, prompt-injection persistence across sessions, latent profile-building beyond the disclosed retention policy) and a rights surface (data-protection regimes such as GDPR's right-to-erasure attach directly to its contents, irrespective of how the operator has classified the deployment). Public agentic infrastructure must therefore expose a programmatic EXIT for $\bar{M}$: a deterministic, auditable interface that purges per-subject context arrays on request, on schedule, and on revocation, with the wipe verifiable against the same evidence standards as the audit log itself. ``We will not retain it next time'' is not an EXIT for memory; deletion that the subject cannot independently confirm is performative compliance, not corrigibility.
 
 \begin{claim}
 \label{claim:system-not-model}
@@ -642,6 +645,7 @@ $B$ (action boundary) & GOVERN, AUDIT & Validator bypassable via prompt injectio
 $S$ (action specifications) & CODE, GOVERN & Closed schemas; ontology hidden in latent space \\
 $T$ (tool definitions) & AUDIT, FORK & Closed APIs; vendor-locked side effects \\
 $C$ (configuration) & CODE, AUDIT & Hidden system prompts, undisclosed retrieval \\
+$\bar{M}$ (persistent memory) & EXIT, AUDIT & Cross-subject contamination, undisclosed retention, deletion that the subject cannot verify \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -875,7 +879,7 @@ The architectural specifications above define the corrective surface --- what th
 The framework identifies five mechanism families. They are non-exclusive: a deployment can implement more than one, and most viable high-stakes deployments must.
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Juridical.} Courts and statutory tribunals with jurisdiction to compel rectification, injunction, or damages. Juridical mechanisms attach when administrative determinations produce legally cognizable harms (denied benefits, criminal sanctions, immigration consequences). Their corrective force depends on standing rules, evidentiary admissibility for algorithmic records, and remedies that reach the operative system rather than the individual case.
+    \item \textbf{Juridical.} Courts and statutory tribunals with jurisdiction to compel rectification, injunction, or damages. Juridical mechanisms attach when administrative determinations produce legally cognizable harms (denied benefits, criminal sanctions, immigration consequences). Their corrective force depends on standing rules, evidentiary admissibility for algorithmic records, and remedies that reach the operative system rather than the individual case. Because juridical remediation moves at bureaucratic speed against machine-time execution, public EPI must natively expose \textbf{Injunction Hooks} (Figure~\ref{fig:injunction-hook}): architectural APIs in the action boundary $B$ built to accept rapid, cryptographically signed halt or rollback flags issued by recognized courts, executed without waiting for operator compliance. Without such hooks, an injunction that takes weeks to arrive lands on a system whose accumulated determinations have already become irreversible, and the juridical mechanism degrades from corrective intervention to retrospective declaration.
 
     \item \textbf{Administrative / Executive.} Internal review boards, ombuds offices, regulatory inspectorates, and procurement-level conformity assessments. These mechanisms operate inside the executive apparatus that deploys the system, with delegated authority to suspend, modify, or decommission. Their corrective force depends on independence from the deploying authority and binding (rather than advisory) outputs; without both, this family collapses into operator self-certification.
 
@@ -885,6 +889,32 @@ The framework identifies five mechanism families. They are non-exclusive: a depl
 
     \item \textbf{Federation-Based.} Cross-jurisdictional or cross-organizational federations that hold operators accountable through interoperability requirements, mutual-recognition rules, and the threat of de-federation. Federation mechanisms exert corrective force by attaching deployment privileges (membership, certification, access to shared infrastructure) to compliance with federation-level standards. Their corrective force depends on the federation's exit costs being asymmetric in the citizen's favor: if de-federation harms citizens more than operators, federation collapses to a private standards body.
 \end{enumerate}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    >=Stealth,
+    every node/.style={font=\small\sffamily},
+    box/.style={rectangle, draw=black!70, minimum height=0.85cm, minimum width=2.5cm, align=center, inner sep=4pt},
+    bbox/.style={rectangle, draw=black, line width=0.7pt, minimum height=0.85cm, minimum width=2.7cm, align=center, inner sep=4pt},
+    slow/.style={->, dashed, gray!70!black, thick},
+    fast/.style={->, very thick}
+]
+
+\node[box] (court) {Court / tribunal};
+\node[box, right=3.4cm of court] (operator) {Operator};
+\node[bbox, below=1.5cm of operator] (boundary) {Action boundary $B$};
+\node[box, right=1.0cm of boundary] (exec) {Subject-class operations};
+
+\draw[slow] (court.east) -- node[above, font=\scriptsize] {notice, response, compliance} (operator.west);
+\draw[slow] (operator.south) -- (boundary.north);
+\draw[fast] (court.south) to[out=-90, in=180] node[below, sloped, font=\scriptsize] {signed halt / rollback flag} (boundary.west);
+\draw[->, thick] (boundary.east) -- node[above, font=\scriptsize] {halt / rollback} (exec.west);
+
+\end{tikzpicture}
+\caption{Injunction Hook. The juridical mechanism family operates on bureaucratic time (dashed): notice, operator response, and compliance unfold over days to weeks. The underlying infrastructure executes determinations at machine speed. An Injunction Hook is an architectural API in the action boundary $B$ that admits a cryptographically signed halt or rollback flag from a recognized court (solid arrow), bypassing operator response time and converting an injunction-on-paper into an injunction-on-execution before accumulated determinations become irreversible.}
+\label{fig:injunction-hook}
+\end{figure}
 
 \paragraph{Composition Requirement at the High-Stakes Tier.} For deployments in the high-stakes tier (rights-affecting determinations: benefits eligibility, criminal-justice scoring, child-welfare classification, asylum adjudication), at least two mechanism families from the set $\{\text{juridical}, \text{distributed/class-action}, \text{deliberative}\}$ must be operative against the specific deployment. The justification is structural rather than redundancy-for-its-own-sake: each of the three covers a distinct failure mode that the others cannot. Juridical mechanisms address individual remedy and constitutional review but scale poorly to systemic patterns. Distributed/class-action mechanisms address systemic patterns but require harms severe enough to clear evidentiary thresholds, leaving categorical-schema contestation underserved. Deliberative mechanisms address the categorical schema directly but cannot produce individualized remedy. The conjunction of any two from this set covers the failure modes of the third in the dimension where the third is structurally weakest. Administrative/executive and federation-based mechanisms count as supporting structure but do not substitute for the composition requirement, because both depend on internal-to-the-state or internal-to-the-industry incentives that the corrective subjects of the deployment do not control.\footnote{Informal complements --- public reporting, investigative journalism, scholarly criticism, market reputation effects, sector-level public pressure --- exert real corrective influence on deployments and frequently surface harms that the formal mechanisms above miss. The framework's position is that these complements are necessary but not substitutive: they expand the information environment within which formal mechanisms operate, but they do not themselves produce binding correction. A deployment defended on the grounds that it can be subject to journalism and public criticism has not satisfied GOVERN; it has identified the upstream signal that the formal mechanisms are supposed to convert into structural remedy.}
 

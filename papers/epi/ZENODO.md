@@ -11,7 +11,7 @@ followed by a one-line link footer.
 ```html
 <p>This paper extends the corrigibility framework to learned and agentic systems, where deterministic rule execution is replaced by probabilistic inference. Three structural pressures constrain corrigibility in learned systems: opacity of inference (requiring <strong>LWD-R</strong> transparency), concentration of training resources (<strong>compute capture</strong>), and acceleration of automated action (<strong>governance denial of service</strong>). The <strong>action boundary protocol</strong> separates probabilistic inference from deterministic execution. The invariant holds: systems remain corrigible if and only if the five conditions close the loop under stochastic verification.</p>
 
-<p><em>Companion to the deterministic-DPI paper (Aravind, "Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework"). The present paper presupposes the five tests (EXIT, CODE, AUDIT, GOVERN, FORK) derived there, and extends their verification methods to stochastic systems.</em></p>
+<p><em>Companion to the deterministic-DPI paper (Aravind, "Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework", <a href="https://doi.org/10.2139/ssrn.6059075">doi.org/10.2139/ssrn.6059075</a>). The present paper presupposes the five tests (EXIT, CODE, AUDIT, GOVERN, FORK) derived there, and extends their verification methods to stochastic systems.</em></p>
 
 <hr>
 
@@ -30,7 +30,7 @@ followed by a one-line link footer.
 
 This paper extends the corrigibility framework to learned and agentic systems, where deterministic rule execution is replaced by probabilistic inference. Three structural pressures constrain corrigibility in learned systems: opacity of inference (requiring **LWD-R** transparency), concentration of training resources (**compute capture**), and acceleration of automated action (**governance denial of service**). The **action boundary protocol** separates probabilistic inference from deterministic execution. The invariant holds: systems remain corrigible if and only if the five conditions close the loop under stochastic verification.
 
-*Companion to the deterministic-DPI paper (Aravind, "Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework"). The present paper presupposes the five tests (EXIT, CODE, AUDIT, GOVERN, FORK) derived there, and extends their verification methods to stochastic systems.*
+*Companion to the deterministic-DPI paper (Aravind, "Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework", [doi.org/10.2139/ssrn.6059075](https://doi.org/10.2139/ssrn.6059075)). The present paper presupposes the five tests (EXIT, CODE, AUDIT, GOVERN, FORK) derived there, and extends their verification methods to stochastic systems.*
 
 ---
 
@@ -65,3 +65,10 @@ This paper extends the corrigibility framework to learned and agentic systems, w
   - `isSupplementedBy` → `https://github.com/anivar/corrigibility-framework/releases/tag/v3.0.0`
   - `references` → `https://github.com/anivar/corrigibility-schema`
   - `references` → `https://openslm.ai/accord`
+
+## Cross-references
+
+- **Zenodo DOI:** [`10.5281/zenodo.19863649`](https://doi.org/10.5281/zenodo.19863649)
+- **SSRN DOI:** *pending — add when assigned*
+- **GitHub release:** [`v3.0.0`](https://github.com/anivar/corrigibility-framework/releases/tag/v3.0.0)
+- **Mirror:** `https://anivar.net/corrigibility/corrigibility-framework-ai.pdf`

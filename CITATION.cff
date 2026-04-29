@@ -13,10 +13,13 @@ date-released: "2026-04-29"
 identifiers:
   - type: doi
     value: "10.2139/ssrn.6059075"
-    description: "SSRN DOI (DPI paper)"
+    description: "DPI paper — SSRN DOI"
   - type: doi
     value: "10.5281/zenodo.18215327"
-    description: "Zenodo concept DOI (resolves to latest version)"
+    description: "DPI paper — Zenodo concept DOI (resolves to latest version)"
+  - type: doi
+    value: "10.5281/zenodo.19863649"
+    description: "EPI paper — Zenodo DOI (companion / Paper II)"
 url: "https://anivar.net/corrigibility"
 repository-code: "https://github.com/anivar/corrigibility-framework"
 license: "CC0-1.0"

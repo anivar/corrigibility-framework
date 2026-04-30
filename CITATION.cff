@@ -15,9 +15,6 @@ identifiers:
     value: "10.2139/ssrn.6059075"
     description: "DPI paper — SSRN DOI"
   - type: doi
-    value: "10.5281/zenodo.18215327"
-    description: "DPI paper — Zenodo concept DOI (resolves to latest version)"
-  - type: doi
     value: "10.5281/zenodo.19863649"
     description: "EPI paper — Zenodo DOI (companion / Paper II)"
 url: "https://anivar.net/corrigibility"

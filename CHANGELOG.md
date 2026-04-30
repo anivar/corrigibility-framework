@@ -28,5 +28,4 @@ All notable changes to this project will be documented here. Format follows
 
 ## [2.0.0] — earlier
 
-- DPI / EPI split. v1.1 published to Zenodo
-  ([10.5281/zenodo.18215327](https://doi.org/10.5281/zenodo.18215327)).
+- DPI / EPI split.

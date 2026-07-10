@@ -76,6 +76,6 @@ Epistemic Public Infrastructure, EPI, AI governance, corrigibility, action bound
 
 - **Document type:** Working Paper / Preprint.
 - **Classification — primary network:** Artificial Intelligence eJournal *or* AI Policy & Regulation eJournal (whichever shows higher recent traffic in your dashboard at submission time).
-- **Companion paper cross-reference:** in the abstract or "Note" field, add: *Companion to Aravind, "Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework" (DPI paper).* Include the DPI SSRN ID once that companion paper is posted.
+- **Companion paper cross-reference:** in the abstract or "Note" field, add: *Companion to Aravind, "Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework," SSRN 6059075 (https://dx.doi.org/10.2139/ssrn.6059075).*
 - **Date:** match the Zenodo / GitHub release date for the v3.0.0 deposit.
 - **License:** CC0 1.0 Universal — note this in the abstract footer and in the "Note" field; SSRN does not have a CC0 selector but accepts it via author retention.

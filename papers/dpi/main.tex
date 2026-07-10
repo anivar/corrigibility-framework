@@ -113,6 +113,7 @@
 % ============================================
 
 \title{Corrigibility as a Structural Precondition for Digital Public Infrastructure: A Cybernetic Framework\thanks{SSRN: \href{https://doi.org/10.2139/ssrn.6059075}{doi.org/10.2139/ssrn.6059075}}}
+\renewcommand{\shorttitle}{Corrigibility as a Structural Precondition for DPI}
 
 \author{
   Anivar A Aravind~\orcidlink{0009-0009-8995-0005} \\
@@ -137,7 +138,7 @@
 \maketitle
 
 \begin{abstract}
-Digital Public Infrastructure is evaluated using aspirational criteria: interoperability, inclusion, openness, scale. These criteria do not establish whether systemic errors can be corrected by affected participants. This paper defines corrigibility as the minimal structural precondition for reversible public infrastructure. Five jointly necessary conditions form a closed corrective loop: EXIT, CODE, AUDIT, GOVERN, FORK. Failure of any condition opens the loop, rendering correction discretionary. Using control-topology mapping grounded in Ashby's Law of Requisite Variety, the paper formalizes corrigibility as an architectural property: partial compliance is structurally equivalent to open-loop operation. Applied analysis demonstrates discriminative power against existing infrastructures. The five conditions are stated as an invariant of the infrastructure rather than of its implementation. A companion paper carries the same invariant to learned and agentic systems, where only the verification machinery changes. Corrigibility does not guarantee fairness. It guarantees reversibility.
+Digital Public Infrastructure is evaluated using aspirational criteria: interoperability, inclusion, openness, scale. These criteria do not establish whether systemic errors can be corrected by affected participants. This paper defines corrigibility as the minimal structural precondition for reversible public infrastructure. Five jointly necessary conditions form a closed corrective loop: EXIT, CODE, AUDIT, GOVERN, FORK. Failure of any condition opens the loop, rendering correction discretionary. Using control-topology mapping grounded in Ashby's Law of Requisite Variety, the paper formalizes corrigibility as an architectural property: partial compliance is structurally equivalent to open-loop operation. Applied analysis demonstrates discriminative power against existing infrastructures. The five conditions are stated as an invariant of public infrastructure rather than of the technology that implements it. A companion paper carries the same invariant to learned and agentic systems, where only the verification machinery changes. Corrigibility does not guarantee fairness. It guarantees reversibility.
 \end{abstract}
 
 \keywords{Corrigibility \and Digital Public Infrastructure \and Cybernetics \and Feedback Control \and Requisite Variety \and Infrastructure Accountability \and India Stack}
@@ -214,7 +215,7 @@ The UNDP framework \citep{undp} elaborates:
 The World Bank's identification principles add:
 
 \begin{quote}
-``[Identity systems should be] robust, inclusive and accountable...responsive to the needs of various users and enrollment contexts...designed to allow for federation, interoperability, and data portability'' \citep{worldbank2021id4d}.
+``[Identity systems should be] robust, inclusive and accountable\ldots responsive to the needs of various users and enrollment contexts\ldots designed to allow for federation, interoperability, and data portability'' \citep{worldbank2021id4d}.
 \end{quote}
 
 \subsection{Anatomizing the Aspirations}
@@ -246,7 +247,7 @@ The definitional inadequacy manifests as four distinct capture vectors:
 \subsection{Structural Theater and Open-Washing}
 \label{subsec:openwashing-intro}
 
-The absence of structural criteria enables what we term \textbf{Open-washing}: the invocation of openness, interoperability, or digital sovereignty as reputational signals without satisfying reproducibility or governance conditions.
+The absence of structural criteria enables what we term \textbf{Open-Washing}: the invocation of openness, interoperability, or digital sovereignty as reputational signals without satisfying reproducibility or governance conditions.
 
 This is not a theoretical concern. Mozilla warned in 2017 that Aadhaar's claims of openness were misleading: ``The development was not open, the source code is not open'' \citep{mozilla2017}. In 2020, Mozilla and the Internet Society cautioned that India's National Open Digital Ecosystems (NODE) framework risked institutionalizing open-washing by leaving ``the definition of `open' vague and at the complete discretion of individual implementers,'' enabling ``closed ecosystems that are only open in appearance while being closed in practice'' \citep{mozilla2020}.
 
@@ -298,7 +299,7 @@ V(\text{controller}) \geq V(\text{disturbance})
 
 In DPI, the ``disturbance'' is the boundless diversity of the human population. No pre-programmed rule set can match this variety. Stability, therefore, relies on feedback channels that transmit error signals from the population back into the system's behavior. If these channels (specifically the ability to exit or correct) are blocked, the controller's variety effectively collapses. The system loses the capacity to regulate its own impact, leading to accumulated errors that manifest as either instability or systematic exclusion.
 
-Human variety includes technical and social edge cases that deterministic rule sets cannot exhaustively enumerate: differences in biometric capture conditions (e.g., manual laborers with worn fingerprints, elderly individuals with fading iris patterns), non-standard household and family structures that diverge from canonical registries, multilingual and script variance that invalidate literal string matches, and intermittent or low-bandwidth contexts where real-time digital verification is impossible. These concrete phenomena instantiate Ashby's theoretical argument: controllers lacking channels for diverse corrective signals will systematically misclassify and exclude.
+Human variety includes technical and social edge cases that deterministic rule sets cannot exhaustively enumerate: differences in biometric capture conditions (e.g., manual laborers with worn fingerprints, elderly individuals with fading iris patterns), non-standard household and family structures that diverge from canonical registries, multilingual and script variance that invalidates literal string matches, and intermittent or low-bandwidth contexts where real-time digital verification is impossible. These concrete phenomena instantiate Ashby's theoretical argument: controllers lacking channels for diverse corrective signals will systematically misclassify and exclude.
 
 \subsection{The Commons and Constitutional Constraint}
 
@@ -390,7 +391,7 @@ Architectural conditions are necessary but not complete. Durable legitimacy also
     node distance=1.6cm, auto, >=latex, thick,
     block/.style={draw, rectangle, minimum height=1cm, minimum width=2cm, rounded corners, font=\small},
     sum/.style={draw, circle, inner sep=2pt},
-    label/.style={font=\tiny\sffamily, text=gray}
+    label/.style={font=\scriptsize\sffamily, text=gray}
 ]
     % Main flow
     \node[block, fill=gray!10] (disturbance) at (0, 2) {Human Variety};
@@ -404,7 +405,7 @@ Architectural conditions are necessary but not complete. Durable legitimacy also
     \node[block, fill=governcolor!20] (govern) at (0, -1.8) {GOVERN};
 
     % FORK as expansion
-    \node[block, fill=forkcolor!20, dashed] (fork) at (-2.5, -1.8) {FORK};
+    \node[block, fill=forkcolor!20, dashed] (fork) at (-3.4, -1.8) {FORK};
 
     % CODE overlay
     \node[label, above=0.1cm of plant] {CODE: Logic Visible};
@@ -417,14 +418,14 @@ Architectural conditions are necessary but not complete. Durable legitimacy also
     % Connections - feedback path
     \draw[->] (output) -- node[right, label] {Error Signal} (exit);
     \draw[->] (exit) -- node[above, label] {Sensor} (audit);
-    \draw[->] (audit) -- node[above, label] {Controller} (govern);
+    \draw[->] (audit) -- node[above=2pt, label] {Controller} (govern);
     \draw[->] (govern) -- (sum1);
 
     % FORK expansion
-    \draw[->, dashed] (fork) -- node[above, label] {Variety Expansion} (govern);
+    \draw[->, dashed] (fork) -- node[below=2pt, label] {Variety Expansion} (govern);
 
     % Annotations
-    \node[font=\tiny, text=red!70!black, align=center] at (3, -3.2) {Failure of any component $\rightarrow$ open-loop divergence};
+    \node[font=\scriptsize, text=red!70!black, align=center] at (3, -3.2) {Failure of any component $\rightarrow$ open-loop divergence};
 \end{tikzpicture}
 \caption{\textbf{Corrigibility as a Closed-Loop Control Architecture.} Digital Public Infrastructure is modeled as a feedback control system subject to continuous human and environmental disturbance. Corrigibility requires that error signals (EXIT) remain detectable, that system behavior be intelligible (CODE), that sensing mechanisms be transparent (AUDIT), that binding corrective authority exist (GOVERN), and that structural reproduction be feasible (FORK). Failure of any single component collapses the loop into open-loop operation. Under non-zero integrating disturbance, error diverges unboundedly (Null-Feedback Instability, Proposition~\ref{thm:null-feedback}; Appendix~\ref{appendix:proofs}). Corrigibility is therefore a structural property of loop integrity, not a matter of operator intent.}
 \label{fig:control-loop}
@@ -472,7 +473,7 @@ A system $S$ satisfies \textbf{Independent Verification} if any external party $
 While inspection enables understanding, \textbf{Independent Verification} enables truth. This functions as the sensor in the cybernetic feedback loop. A system is verifiable only if external, permissionless actors can test its behavior, measure its error rates, and document its failure modes within production environments.
 
 \begin{remark}[The Auditability Distinction]
-The framework does not equate auditability with direct participation. AUDIT $\neq$ ``everyone audits''; AUDIT $=$ ``no one can prevent auditing.'' \textbf{Journalism analogy:} Not everyone investigates corruption. Democracy still depends on the \textit{possibility} of investigation. The problem today is not that auditors exist; operators can legally block them. The tradeoff is contestable expertise over unchallengeable authority, a defensible democratic position.
+The framework does not equate auditability with direct participation. AUDIT $\neq$ ``everyone audits''; AUDIT $=$ ``no one can prevent auditing.'' \textbf{Journalism analogy:} Not everyone investigates corruption. Democracy still depends on the \textit{possibility} of investigation. The problem today is not that auditors do not exist; it is that operators can legally block them. The tradeoff is contestable expertise over unchallengeable authority, a defensible democratic position.
 \end{remark}
 
 Ostrom's design principles require that monitors be accountable to appropriators, not external authorities \citep{ostrom1990}. Applied to DPI: audit capacity must be exercisable by affected communities or their designated agents, not delegated exclusively to operator-approved auditors or captured regulatory bodies.
@@ -635,21 +636,21 @@ Corrigibility closes the loop. Only when all five tests are satisfied does a sys
 
 % Connections - Cybernetics
 \draw[arrow] (cyber.south) -- (exit.north);
-\draw[arrow] (cyber.south) -- (audit.north west);
+\draw[arrow] (cyber.south) -- ([xshift=-10pt]audit.north);
 
 % Connections - Commons
 \draw[arrow] (commons.south) -- (audit.north);
 \draw[arrow] (commons.south) -- (govern.north);
 
 % Connections - FOSS
-\draw[arrow] (foss.south) -- (code.north east);
+\draw[arrow] (foss.south) -- ([xshift=10pt]code.north);
 \draw[arrow] (foss.south) -- (fork.north);
 
 % Verification instruments derived from the tests
 \node[instrument] (i-exit) at (0,-1.3) {Functional Exit\\Equivalence};
 \node[instrument] (i-code) at (2,-1.3) {Open-Washing\\Taxonomy};
 \node[instrument] (i-audit) at (4,-1.3) {Verification\\Tiers};
-\node[instrument] (i-govern) at (6,-1.3) {Rules\\A.9--A.11};
+\node[instrument] (i-govern) at (6,-1.3) {Rule A.9\\Evidence};
 \node[instrument] (i-fork) at (8,-1.3) {Barrier\\Taxonomy};
 
 \draw[arrow] (exit.south) -- (i-exit.north);
@@ -659,9 +660,9 @@ Corrigibility closes the loop. Only when all five tests are satisfied does a sys
 \draw[arrow] (fork.south) -- (i-fork.north);
 
 % Labels
-\node[font=\scriptsize, gray, align=center] at (4,-2.2) {All five tests required. Failure of any one disqualifies.\\Determination is evaluated at the least-resourced stratum, in both the inward and outward exercise.};
+\node[font=\footnotesize, gray, align=center] at (4,-2.3) {All five tests required. Failure of any one disqualifies.\\Determination is evaluated at the least-resourced stratum, in both the inward and outward exercise.};
 \end{tikzpicture}
-\caption{The framework at a glance. Three independent theoretical traditions (top) derive the five corrigibility tests (middle), and the tests in turn derive their verification instruments (bottom): Functional Exit Equivalence (Section~\ref{subsubsec:fee}), the open-washing taxonomy, verification tiers, the evidence rules of Appendix~\ref{appendix:rules}, and the constructed-versus-natural barrier taxonomy. Determination is evaluated at the least-resourced stratum (Remark~\ref{rem:argmin}) and in both the inward and outward exercise of each test.}
+\caption{The framework at a glance. Three independent theoretical traditions (top) derive the five corrigibility tests (middle), and the tests in turn derive their verification instruments (bottom): Functional Exit Equivalence (Section~\ref{subsubsec:fee}), the open-washing taxonomy, verification tiers, the Rule~A.9 evidence standard (Appendix~\ref{appendix:rules}), and the constructed-versus-natural barrier taxonomy, each shown under the test it most directly serves. Determination is evaluated at the least-resourced stratum (Remark~\ref{rem:argmin}) and in both the inward and outward exercise of each test.}
 \label{fig:framework}
 \end{figure}
 
@@ -741,7 +742,7 @@ The system passes $T$ if and only if every layer passes $T$. The full corrigibil
 \label{eq:full-corrigibility}
 \end{equation}
 
-This double conjunction formalizes the ``weakest link'' principle: failure of any test at any layer propagates to the system determination.
+This double conjunction formalizes the weakest-link principle: failure of any test at any layer propagates to the system determination.
 
 \subsubsection{Application to Identity Infrastructure}
 
@@ -887,7 +888,7 @@ Other government systems exhibit different failure patterns. X-Road (4/5) fails 
 
 \subsection{Platform Infrastructure: The Illusion of Openness}
 
-In the private sector, systems often leverage ``open source'' branding while retaining centralized control. This decoupling of artifact transparency from governance reality creates a distinct failure pattern: the artifacts are public; the decisions are not. Table~\ref{tab:corp_infra} applies the five tests across cloud, social-platform, and identity-platform examples to make the pattern visible.
+In the private sector, systems often leverage ``open source'' branding while retaining centralized control. This decoupling of artifact transparency from governance reality creates a distinct failure pattern: the artifacts are public; the decisions are not. Table~\ref{tab:corp_infra} applies the five tests across cloud, mobile-platform, and messaging examples to make the pattern visible.
 
 \begin{table}[htbp]
     \centering
@@ -969,7 +970,7 @@ Let's Encrypt & ISRG & \textbf{5/5} & Open source CA, IETF standards, nonprofit 
 Wikipedia & Wikimedia Foundation & \textbf{5/5} & CC BY-SA content, public edit history, community RfC governance \\
 Matrix Protocol & Matrix.org Foundation & \textbf{5/5} & Apache 2.0, federated by design, self-hostable \\
 \rowcolor{green!8}
-Bluesky (AT Protocol) & Bluesky PBC & \textbf{5/5} & MIT/Apache; portable DID identity and self-hostable PDS make the fork threat credible, which is what binds PBC direction-setting (contrast Signal's GOVERN fail: no state portability, so no latent-fork discipline) \\
+Bluesky (AT Protocol) & Bluesky PBC & \textbf{5/5} & MIT/Apache; portable DID identity and self-hostable PDS make the fork threat credible, which is what binds PBC direction-setting (contrast Signal's FORK fail: state non-portability, so no latent-fork discipline) \\
 PostgreSQL & PGDG & \textbf{5/5} & BSD-like license, public mailing lists, major forks exist \\
 \rowcolor{green!8}
 IPFS & Protocol Labs & \textbf{5/5} & MIT/Apache, public IPIP process, no token governance \\
@@ -978,7 +979,7 @@ Bitcoin & Decentralized & \textbf{5/5} & MIT source, public BIP process, proven 
 Kubernetes & CNCF & \textbf{5/5} & Apache 2.0, KEP process, distributions (OpenShift, k3s) \\
 Firefox & Mozilla Foundation & \textbf{5/5} & MPL 2.0, nonprofit manifesto, forks (LibreWolf, Tor Browser) \\
 \rowcolor{green!8}
-Apache HTTP & Apache Foundation & \textbf{5/5} & Apache 2.0 license, ASF governance, powers 30\% of web \\
+Apache HTTP & Apache Foundation & \textbf{5/5} & Apache 2.0 license, ASF governance, powers 30\% of the web \\
 Apache Kafka & Apache Foundation & \textbf{5/5} & Apache 2.0, KIP process public, Fortune 500 standard \\
 \rowcolor{green!8}
 OpenSearch & Linux Foundation & \textbf{5/5} & Forked from Elasticsearch; Apache 2.0, multi-vendor governance \\
@@ -1001,7 +1002,7 @@ The framework is governance-agnostic: corporate participation is not disqualifyi
 
 \textbf{License vs. Governance}: Redis Ltd. added AGPLv3 in 2025, restoring open licensing. But license is orthogonal to governance. \textit{License} determines what you may do with code; \textit{governance} determines who decides what it becomes. Redis passes one; Valkey passes both.
 
-\textbf{International Counterexample: Estonia's X-Road.} Estonia's X-Road architecture provides a counterexample demonstrating that scale does not necessitate centralized capture. Its federated data exchange model distributes control across institutional nodes, preserving CODE transparency (fully open-source, MIT license) and enabling institutional FORK at the implementation layer. While EXIT remains limited for certain core registries, the federated topology significantly reduces concentration coupling compared to monolithic architectures. X-Road has been adopted by Finland, Iceland, and deployed in more than twenty-five countries (Table~\ref{tab:govt_infra}), illustrating that corrigibility properties are architectural rather than cultural. The framework does not require cultural homogeneity or small population size; it requires federated governance that prevents single-point capture. (X-Road's full determination remains a fail on EXIT --- Section~\ref{subsubsec:arch-responses}; it appears here as the strongest near-miss among evaluated government systems, not as a pass.)
+\textbf{International Counterexample: Estonia's X-Road.} Estonia's X-Road architecture provides a counterexample demonstrating that scale does not necessitate centralized capture. Its federated data exchange model distributes control across institutional nodes, preserving CODE transparency (fully open-source, MIT license) and enabling institutional FORK at the implementation layer. While EXIT remains limited for certain core registries, the federated topology significantly reduces concentration coupling compared to monolithic architectures. X-Road has been adopted by Finland and Iceland, and deployed in more than twenty-five countries (Table~\ref{tab:govt_infra}), illustrating that corrigibility properties are architectural rather than cultural. The framework does not require cultural homogeneity or small population size; it requires federated governance that prevents single-point capture. (X-Road's full determination remains a fail on EXIT --- Section~\ref{subsubsec:arch-responses}; it appears here as the strongest near-miss among evaluated government systems, not as a pass.)
 
 \subsection{The Taxonomy of Open-Washing}
 \label{subsec:openwashing}
@@ -1216,9 +1217,9 @@ where $V_{\text{eff}}$ is effective governance variety and $\theta \in (0,1]$ is
     \node[font=\scriptsize, text=red!70!black, align=center] at (0,0.3) {Maximizing two\\compresses the third};
 
     % Ashby annotation
-    \node[font=\tiny, text=gray, align=center] at (0,-2.3) {Under Ashby's Law: centralization $\rightarrow$ reduced governance variety $\rightarrow$ Neutrality risk};
+    \node[font=\scriptsize, text=gray, align=center] at (0,-2.3) {Under Ashby's Law: centralization $\rightarrow$ reduced governance variety $\rightarrow$ Neutrality risk};
 \end{tikzpicture}
-\caption{\textbf{The Sovereignty, Scale, and Neutrality Tension.} Under centralized enforcement, states face structural pressure when optimizing for Sovereignty and Scale simultaneously. India Stack optimizes for Sovereignty + Scale with elevated Neutrality risk. Federated systems (Linux, SMTP) achieve Neutrality + Scale through distributed governance. X-Road holds Sovereignty + Neutrality at national rather than continental scale.}
+\caption{\textbf{The Sovereignty, Scale, and Neutrality Tension.} Under centralized enforcement, states face structural pressure when optimizing for Sovereignty and Scale simultaneously. India Stack optimizes for Sovereignty + Scale with elevated Neutrality risk. Federated systems (Linux, SMTP) achieve Neutrality + Scale through distributed governance. X-Road approaches Sovereignty + Neutrality; the evaluation records it as the instructive near-miss.}
 \label{fig:trilemma}
 \end{figure}
 
@@ -1258,7 +1259,7 @@ For any infrastructure system $S$ where participation is a prerequisite to survi
 \end{proposition}
 
 \begin{proof}
-EXIT requires that refusal incur no disproportionate penalty (Section~\ref{sec:tests}, Test 1). Let $S$ be essential: participation is required for access to food, shelter, healthcare, or legal identity. Refusal of $S$ therefore entails exclusion from survival necessities. Exclusion from survival necessities is a disproportionate penalty by any reasonable standard. Therefore, EXIT fails. \qed
+EXIT requires that refusal incur no disproportionate penalty (Section~\ref{sec:tests}, Test 1). Let $S$ be essential: participation is required for access to food, shelter, healthcare, or legal identity. Refusal of $S$ therefore entails exclusion from survival necessities. Exclusion from survival necessities is a disproportionate penalty by any reasonable standard. Therefore, EXIT fails.
 \end{proof}
 
 This proposition formalizes the empirical observation: among the systems evaluated, those that pass all five tests are precisely those where participation remains genuinely voluntary.
@@ -1303,7 +1304,7 @@ An essential system $S$ satisfies FEE if compensatory architectural guarantees r
 \begin{equation}
 E_{\text{alt}} \geq \theta_E \times E_{\text{exit}}^{\text{baseline}}
 \end{equation}
-where $\theta_E$ is domain-specific (healthcare: 0.95; payments: 0.90; social benefits: 0.85). Example, using coverage as an auditable proxy for error-signal strength (the formal construct is defined in Appendix~\ref{appendix:proofs}, eq.~\ref{eq:error-signal}): if the Public Distribution System delivers food at $E_{\text{exit}}^{\text{baseline}} = 0.80$ proxy coverage, and $\theta_E = 0.85$ for social benefits, then any alternative must achieve $E_{\text{alt}} \geq 0.68$ to preserve functional exit. FEE operationalizes EXIT. Without it, ``opt-out'' is administrative theater.
+where $\theta_E$ is domain-specific (healthcare: 0.95; payments: 0.90; social benefits: 0.85). For example, using coverage as an auditable proxy for error-signal strength (the formal construct is defined in Appendix~\ref{appendix:proofs}, eq.~\ref{eq:error-signal}): if the Public Distribution System delivers food at $E_{\text{exit}}^{\text{baseline}} = 0.80$ proxy coverage, and $\theta_E = 0.85$ for social benefits, then any alternative must achieve $E_{\text{alt}} \geq 0.68$ to preserve functional exit. FEE operationalizes EXIT. Without it, ``opt-out'' is administrative theater.
 
 \paragraph{Real-World Analogues.} A partial real-world analogue of Protected Alternatives can be observed in telecommunications number portability regimes and in Open Banking interoperability mandates (e.g., PSD2 in the European Union). These frameworks preserve service continuity while enabling institutional exit at the provider layer. While not fully satisfying EXIT in existential services such as identity, they demonstrate that architectural separation between infrastructure rails and service operators is technically feasible. Corrigibility does not demand regression to analog systems; it demands layered modularity that prevents existential lock-in.
 
@@ -1390,7 +1391,7 @@ D = \mathbf{1}[p \leq p^*] \land \mathbf{1}[v \geq v^*] \land \mathbf{1}[m \leq 
 where $\mathbf{1}[\cdot]$ is the indicator function and $\{p^*, v^*, m^*, r^*\}$ are threshold values. (The symbol $\tau$ is reserved for governance throughput in Table~\ref{tab:operational-proxies-main}; the AUDIT latency proxy is written $m$ here to avoid collision.) This formulation makes explicit that:
 \begin{enumerate}[noitemsep]
     \item Continuous inputs are preserved for diagnosis
-    \item The AND-conjunction enforces the ``weakest link'' principle
+    \item The AND-conjunction enforces the weakest-link principle
     \item Threshold calibration is a policy choice, separable from the structural argument
 \end{enumerate}
 
@@ -1431,7 +1432,7 @@ FORK & Resource feasibility ratio $r$ & $r \leq 10^{-3}$ \\
 EXIT & \texttt{penalty\_ratio}: exit cost / stay cost & \texttt{legal\_barrier}: criminalized? & $p \leq 1.2$ AND barrier = false \\
 CODE & \texttt{visibility}: public LOC / critical path LOC & \texttt{build\_repro}: deterministic build? & $v \geq 0.95$ AND build = true \\
 AUDIT & \texttt{observability}: \% verifiable transactions & \texttt{access}: third parties test? & $o \geq 0.9$ AND access = true \\
-GOVERN & \texttt{override\_rate}: operator overrule rate & \texttt{charter}: irrevocable instrument? & $r = 0$ AND charter = true \\
+GOVERN & \texttt{override\_rate}: operator overrule rate & \texttt{charter}: irrevocable instrument? & override rate $= 0$ AND charter = true \\
 FORK & \texttt{cost\_ratio}: fork / community resources & \texttt{rights}: fork-permitting license? & $c \leq 0.001$ AND rights = true \\
 \bottomrule
 \end{tabular}
@@ -1494,8 +1495,8 @@ $\epsilon$ & Correction friction cost & Context-dependent & \ref{appendix:proofs
 
 \draw[->, thick, codecolor] (op2) -- node[above, font=\tiny] {Mandate} (us2);
 \draw[->, thick, exitcolor, dashed] (us2.south) -- +(0,-0.4) -| (op2.south);
-\node[circle, fill=white, draw=red, inner sep=1pt, cross] at (2, -2.6) {};
-\node[below, font=\tiny, color=red] at (2, -2.7) {Blocked (Aadhaar)};
+\node[circle, fill=white, draw=red, inner sep=1pt, cross] at (2, -2.75) {};
+\node[below, font=\tiny, color=red] at (2, -2.9) {Blocked (Aadhaar)};
 
 \node[right=0.5cm of us2, font=\tiny\sffamily, text width=2cm, align=left, color=red!40!black] {
     \textbf{Unstable}\\
@@ -1685,9 +1686,7 @@ The forking paradox presents a genuine limitation: if you can fork the Public In
 A ``public'' good (like law or money) derives its value from universality. We all agree on the same truth. If the Identity System is ``forkable,'' and I fork it to create ``Blue-Identity'' while you use ``Red-Identity,'' we have destroyed the common knowledge required for society to function.
 
 \begin{remark}[Latent Forkability in Coordination Goods]
-Identity, money, and law are coordination goods; their value derives from uniqueness. If the exercise of FORK destroys the society's ability to coordinate, it functions as mutually assured destruction.
-
-The framework resolves this through \textbf{Latent Forkability} --- the equilibrium the Credible Replaceability remark (Section~\ref{sec:tests}) already established: the credible threat of reproduction disciplines the center without requiring routine divergence. What the coordination-goods case adds is the stake: where the good's value derives from uniqueness, the exercised fork functions as mutually assured destruction, so the threat must remain latent to remain usable. The framework penalizes \textit{constructed legal barriers} to reproduction, not the \textit{natural economic friction} of network effects.
+Identity, money, and law are coordination goods. The framework resolves this through \textbf{Latent Forkability} --- the equilibrium the Credible Replaceability remark (Section~\ref{sec:tests}) already established: the credible threat of reproduction disciplines the center without requiring routine divergence. What the coordination-goods case adds is the stake: where the good's value derives from uniqueness, the exercised fork functions as mutually assured destruction, so the threat must remain latent to remain usable. The framework penalizes \textit{constructed legal barriers} to reproduction, not the \textit{natural economic friction} of network effects.
 \end{remark}
 
 Whether this equilibrium is achievable for identity infrastructure remains an open question, but the existence of federated identity systems (X-Road, Matrix, AT Protocol) demonstrates that latent forkability is technically achievable even for coordination-sensitive infrastructure.
@@ -1718,7 +1717,7 @@ This argument has force. UPI moved from zero to over 20 billion monthly transact
     \item ``Regulate later'' rarely happens: Aadhaar 2009 pilot $\rightarrow$ 2016 mandatory $\rightarrow$ 2018 Supreme Court $\rightarrow$ still no real audit. 15 years. Where's the regulation?
 \end{itemize}
 
-This tension is not hypothetical. A documented debate between advocates of open standards (arguing for specification transparency and independent security audits) and proponents of centralized control (arguing that controlled governance enables ``faster iteration'') reveals the core disagreement \citep{abraham2020}. The efficiency argument is genuine; but efficiency without accountability is capture dressed as service.
+This tension is not hypothetical. A documented debate between advocates of open standards (arguing for specification transparency and independent security audits) and proponents of centralized control (arguing that controlled governance enables ``faster iteration'') reveals the core disagreement \citep{abraham2020}. The efficiency argument is genuine, but efficiency without accountability is capture dressed as service.
 
 \subsection{Utility Does Not Equal Accountability}
 \label{subsec:utility}
@@ -1846,7 +1845,7 @@ The complete framework, including JSON Schemas and assessment tooling, is availa
 
 \section*{Reading the Appendices}
 
-The appendices that follow ground the framework's claims in formal machinery. Appendix~\ref{appendix:architecture} develops the adversarial-manifest logic that converts policy assertions into machine-readable claims. Appendix~\ref{appendix:proofs} formalizes the structural model and proves the corrigibility invariant. Appendix~\ref{appendix:neutrality} proves the neutrality-compression result for centralized enforcement at scale. Appendix~\ref{appendix:rules} states the verification and enforcement rules (Rule A.9 on binding authority, Rule A.10 on chain of custody, and the tiered identity-assurance model) that operationalize GOVERN and AUDIT. Appendix~\ref{appendix:objections} addresses the strongest anticipated objections. Appendix~\ref{appendix:glossary} consolidates terminology. Full JSON schemas, the protocol's version history, and reference implementations are maintained as a versioned external artifact in the schema repository (see Data and Code Availability above); the rules and definitions on which the paper's argument actually depends remain in the appendices below.
+The appendices that follow ground the framework's claims in formal machinery. Appendix~\ref{appendix:architecture} develops the adversarial-manifest logic that converts policy assertions into machine-readable claims. Appendix~\ref{appendix:proofs} formalizes the structural model and proves the corrigibility invariant. Appendix~\ref{appendix:neutrality} proves the neutrality-compression result for centralized enforcement at scale. Appendix~\ref{appendix:rules} states the verification and enforcement rules (Rule~A.9 on binding authority, Rule~A.10 on chain of custody, and the tiered identity-assurance model) that operationalize GOVERN and AUDIT. Appendix~\ref{appendix:objections} addresses the strongest anticipated objections. Appendix~\ref{appendix:glossary} consolidates terminology. Full JSON schemas, the protocol's version history, and reference implementations are maintained as a versioned external artifact in the schema repository (see Data and Code Availability above); the rules and definitions on which the paper's argument actually depends remain in the appendices below.
 
 % ============================================
 % APPENDICES
@@ -1886,8 +1885,8 @@ This architecture makes contradictions machine-readable. If an operator claims a
 \draw[arrow, codecolor] (operator) -- (infra);
 \draw[arrow, auditcolor] (auditor) -- (corrig);
 \node[compare] (compare) at (3,-0.8) {Compare};
-\draw[arrow, red!70!black, dashed] (infra.south) -- (1.5,-0.5) -- (compare.north);
-\draw[arrow, red!70!black, dashed] (corrig.south) -- (4.5,-0.5) -- (compare.north);
+\draw[arrow, red!70!black, dashed] (infra.south) -- (1.5,-0.5) -- ([xshift=-8pt]compare.north);
+\draw[arrow, red!70!black, dashed] (corrig.south) -- (4.5,-0.5) -- ([xshift=8pt]compare.north);
 \end{tikzpicture}
 \caption{Adversarial Verification Architecture. Operators declare; Auditors verify. The structural gap constitutes the audit finding.}
 \label{fig:manifests}
@@ -1948,10 +1947,10 @@ We treat this as a structural analogy rather than a stability theorem for any sp
 
 If tests \textbf{AUDIT} or \textbf{EXIT} fail, $H=0$.
 If test \textbf{GOVERN} fails, $K=0$.
-In either case, the effective corrective feedback is $u_{fb} = 0$.
-The system evolution depends only on initial intent $u_{open}$ and disturbance:
+In either case, the effective corrective feedback is $u_{\text{fb}} = 0$.
+The system evolution depends only on initial intent $u_{\text{open}}$ and disturbance:
 \begin{equation}
-y(t) = \int_0^t (u_{open}(\tau) + d(\tau)) d\tau
+y(t) = \int_0^t (u_{\text{open}}(\tau) + d(\tau)) d\tau
 \end{equation}
 Given that environmental variety $d(t)$ is stochastic and non-zero (Ashby's Law), and without negative feedback to compensate:
 \begin{equation}
@@ -2000,7 +1999,7 @@ Operationally: proxy metrics and audit sampling frames must be reported as distr
 
     % Labels
     \node [above of=K, node distance=0.8cm] {\scriptsize GOVERN};
-    \node [below of=H, node distance=0.6cm] {\scriptsize AUDIT/EXIT};
+    \node [below of=H, node distance=0.85cm] {\scriptsize AUDIT/EXIT};
     \node [above of=P, node distance=0.8cm] {\scriptsize CODE};
 
     % Connections
@@ -2055,7 +2054,7 @@ Corrigibility requires that each component exists and is non-degenerate:
     \node [block, below of=P, node distance=1.5cm, draw=red, dashed] (H) {$H(s)$};
     \node [input, above of=sum2, node distance=1.2cm] (disturbance) {};
 
-    \node [below of=H, node distance=0.6cm, red] {\scriptsize AUDIT = 0: Sensor Blindness};
+    \node [below of=H, node distance=0.85cm, red] {\scriptsize AUDIT = 0: Sensor Blindness};
 
     \draw [->] (rinput) -- node[pos=0.2] {$r(t)$} (sum1);
     \draw [->] (sum1) -- node {$e(t)$} (K);
@@ -2105,7 +2104,7 @@ The symmetric upper bound completes the principle stated in Section~\ref{subsec:
     \addplot[green!60!black, thick, name path=C] {1 + 0.8*x};
     \addlegendentry{$C(t)$ Correction capacity}
     \addplot[red!30, opacity=0.5] fill between[of=E and C, soft clip={domain=1.5:5}];
-    \node at (axis cs:3.5,6) {\scriptsize Instability};
+    \node[anchor=west] at (axis cs:4.6,6) {\scriptsize Instability};
     \end{axis}
 \end{tikzpicture}
 \caption{\textbf{Correction velocity mismatch.} Error $E(t)$ accumulates faster than correction $C(t)$ in bureaucratic systems. The shaded region represents accumulated unresolved harm.}
@@ -2231,7 +2230,7 @@ where $\mathcal{A}$ is the set of available alternatives and $\Sigma^*$ is a cal
 
 \begin{enumerate}
     \item Linearized restatement ties removal of $H$, $K$, or EXIT to vanishing loop gain $L(s)$, exposing unstable process modes.
-    \item Discrete integrator supplies an elementary divergence demonstration and absorbs Condition~\ref{cond:friction} via the $(\eta, \tau)$ parameters.
+    \item Discrete integrator supplies an elementary divergence demonstration and absorbs Condition~\ref{cond:friction} through the friction cost $\epsilon$ and the verification bound $V_{\text{verify}}$.
     \item Correction velocity is formalized via Condition~\ref{cond:friction} and its cumulative-rate restatement.
     \item FEE formalization (eq.~\ref{eq:fee}) operationalizes the principle of essential-services compensation; weights $\alpha_i$ are calibrated externally.
     \item Switching-cost formalization (eq.~\ref{eq:switching-cost}, eq.~\ref{eq:portability-threshold}) operationalizes EXIT/FORK failure thresholds.
@@ -2384,11 +2383,11 @@ Figure~\ref{fig:variety-compression} visualizes the compression: as scale rises,
     \addlegendentry{$V_{\text{gov}} = V_{\text{central}} + V_{\text{restored}}$}
 
     % Mark critical threshold
-    \node[font=\scriptsize, text=red!70!black, anchor=west] at (axis cs:5.65,5.2) {$Sc^*$};
-    \draw[red!70!black, dashed, thin] (axis cs:5.5,0) -- (axis cs:5.5,5.5);
+    \node[font=\scriptsize, text=red!70!black, anchor=west] at (axis cs:5.6,5.3) {$Sc^*$};
+    \draw[red!70!black, dashed, thin] (axis cs:5.45,0) -- (axis cs:5.45,5.6);
 
     % Neutrality threshold line
-    \addplot[red, thick, dotted] {0.5*x};
+    \addplot[red, thick, dotted] {0.88*x};
     \addlegendentry{$\theta \cdot V_{\text{env}}$ (threshold)}
     \end{axis}
 \end{tikzpicture}
@@ -2420,7 +2419,7 @@ The AUDIT guarantee (``no one can prevent auditing,'' Section~\ref{sec:tests}) d
 
 \subsection{Tiered Identity Assurance Model}
 
-To prevent ``identity washing'', where operators use ephemeral keys to rubber-stamp their own systems, the framework employs a tiered assurance model. Verification dashboards should weigh assessments accordingly:
+To prevent ``identity washing,'' where operators use ephemeral keys to rubber-stamp their own systems, the framework employs a tiered assurance model. Verification dashboards should weigh assessments accordingly:
 
 \begin{enumerate}
     \item \textbf{Tier 1: Self-Attested (\texttt{did:key}):} Ephemeral identity. Suitable for whistleblowers, individual researchers, or rapid-response checks. \textit{Status: informational.}

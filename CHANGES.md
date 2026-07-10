@@ -7,9 +7,9 @@ by priority tier and paper. P0/P1/P2 closed the structural revision pass
 firewall, citizen-side GOVERN mechanism families, scope and open
 problems). All four tiers ship under v3.0.0. The Q-series
 margin-evaluation upgrades and the SSRN reference-processing fixes ship
-under v3.1.0.
+as the July 2026 revision.
 
-## Q — Margin-Evaluation Upgrades (v3.1.0)
+## Q — Margin-Evaluation Upgrades (July 2026 revision)
 
 Ten reviewer-question upgrades (Q1–Q10) applied across both papers,
 plus the political-economy expansion. Cherry-picked tex-only from
@@ -79,7 +79,7 @@ citations instead).
 - Fix: "companion paper" mis-attribution removed from the Injunction
   Hook cross-reference (it is EPI's own Section 6.9).
 
-### SSRN reference-processing fixes (v3.1.0)
+### SSRN reference-processing fixes
 
 Cherry-picked from `claude/ssrn-reference-parsing-7A5RZ` (3 commits).
 
@@ -93,12 +93,47 @@ Cherry-picked from `claude/ssrn-reference-parsing-7A5RZ` (3 commits).
   archival.
 - `papers/epi/SSRN.md`: DPI SSRN cross-reference filled in.
 
-### Build Verification (v3.1.0)
+### July sharpenings
 
-| Paper | Pages | Size    |
-|-------|-------|---------|
-| DPI   | 50    | 1.06 MB |
-| EPI   | 32    | 822 KB  |
+Deployment-reality pass, written as criteria only (no mechanisms):
+
+- EPI §2 *Deployment Variables*: human position, agent cardinality,
+  orchestration depth, scale, and exerciser species are variables the
+  tests bind over; the invariants are chain termini, checker
+  independence, and freshness of grants.
+- EPI §3.3 machine-verifiable legitimacy gains (e) *origination
+  marking*: records state who operated; absence is never evidence of
+  human operation; markers only narrow authority. Unifying criterion:
+  authority and attribution are record-borne acts, never inferences
+  from artifacts.
+- EPI §6 *Nested Delegation*: the tuple is recursive; tests compose
+  across delegation depth by weakest link; effect-surface enforcement
+  makes internal fan-out invisible to the validator.
+- EPI §6 EXIT layers: regeneration resistance added to Memory and
+  Workflow EXIT (termination counts only if resumption requires a
+  fresh grant).
+- EPI §6: *Stochastic Redundancy Is Not Validation* (judge panels share
+  the substrate they check); *Untyped Action Channels* (browser/desktop
+  agents; the boundary migrates to the effect surface); *The Normalized
+  Boundary* (possession no longer discriminates; the questions move to
+  whose constraints and outside verifiability; specification lifetimes;
+  the accountable-authority checkpoint stated functionally, not
+  positionally).
+- EPI §6 GDoS recast around orchestration fan-out; §7 Rule of Workflow
+  declared arrived (workflow layer as default assessment target);
+  open problems gain *Scale as a Governed Variable* (fan-out, rate, and
+  blast-radius caps as first-class GOVERN instruments).
+- EPI tier table and EXIT verification row rewritten species-free
+  (accountable-authority checkpoint; accountable fallback).
+- DPI layer decomposition gains the delegation-depth axis pointer.
+- Both papers carry a revision date line (10 July 2026).
+
+### Build Verification (July 2026 revision)
+
+| Paper | Pages |
+|-------|-------|
+| DPI   | 51    |
+| EPI   | 34    |
 
 Zero undefined references and zero undefined citations in both logs;
 the only remaining LaTeX warning is a cosmetic float-specifier
@@ -406,8 +441,9 @@ font-shape warning persists from arxiv.sty + Latin Modern interaction).
 
 ### Pending
 
-- ~~Final tag (v3.0.0)~~ — tagged. v3.1.0: tag + SSRN re-upload of both
-  rebuilt PDFs (so the reference parser reprocesses) pending.
+- ~~Final tag (v3.0.0)~~ — tagged. July 2026 revision: one release tag +
+  SSRN re-upload of both rebuilt PDFs (so the reference parser
+  reprocesses) pending. Delete stale pre-release tags at push.
 
 ## Build verification
 

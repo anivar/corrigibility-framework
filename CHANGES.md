@@ -20,6 +20,14 @@ citations instead).
 
 ### DPI (`papers/dpi/main.tex`)
 
+- New subsection *The Dual Exercise of the Tests* (`subsec:dual-exercise`,
+  after Structural Symmetry of Power) with Table `tab:dual-exercise`:
+  each test partitioned into its inward exercise (operator, auditor,
+  regulator) and outward exercise (the governed), mapping existing
+  instruments (Rules A.9–A.11, FEE, subject receipts, state portability,
+  category contestation) to their column. Consolidates the outward-facing
+  Q-series instruments into one surface and anchors them to the gradient
+  quantifier.
 - Q1: New Remark *The Gradient Quantifier: Corrigibility at the Margin*
   (`rem:argmin`, appendix, after the Binarity corollary). $H$ and $K$
   become distributions $H(x)$, $K(x)$ over participant position;

@@ -680,6 +680,31 @@ Each test enforces the same principle: \textit{No actor exercising power may be 
 
 A system without EXIT is coercive. A system without GOVERN is arbitrary. A system without FORK is captive.
 
+\subsection{The Dual Exercise of the Tests}
+\label{subsec:dual-exercise}
+
+Each test admits two exercises, distinguished by who holds the corrective capacity. The \textbf{inward exercise} belongs to parties at or inside the operator's institutional perimeter --- the operator's own controls, its auditors, its regulator. The \textbf{outward exercise} belongs to the subject the system decides about: the participant whose error signal the loop exists to carry. The five definitions in this section are stated in the outward voice --- refusal, inspection, verification, constraint, and reproduction are capacities of affected participants. The verification apparatus that discharges them (manifests, audit rules, evidence standards; Appendices~\ref{appendix:architecture} and~\ref{appendix:rules}) operates largely in the inward voice. The gap between the two voices is where corrigibility claims most often fail in practice: a deployment can satisfy every test through inward instruments and remain unreachable from the outside.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{The dual exercise of each test. Inward instruments enforce; outward instruments carry the error signal the enforcement exists to serve. Under the weakest-link principle, a test discharged only inward has been verified for the operator, not for the governed --- the gradient quantifier (Remark~\ref{rem:argmin}) restated at the instrument level.}
+\label{tab:dual-exercise}
+\begin{tabular}{@{}lp{5.2cm}p{5.2cm}@{}}
+\toprule
+\textbf{Test} & \textbf{Inward exercise (operator, auditor, regulator)} & \textbf{Outward exercise (the governed)} \\
+\midrule
+EXIT & Halt, suspension, deprovisioning of the system's own components & Refusal without disproportionate penalty (Definition~\ref{def:exit}); Functional Exit Equivalence for essential services (Section~\ref{subsubsec:fee}) \\
+CODE & Source access for audit teams; reproducible builds & Rules legible to the person they decide: the operative rule in a subject's case is identifiable and stated \\
+AUDIT & Permissionless verification by external parties (Rule~A.10 chain of custody) & Notice that a decision occurred, and a record the subject can verify against the lived event~\citep{aravind2026epi}, under purpose-bound data duties (Rule~A.11) \\
+GOVERN & Binding charter with enforcement history (Rule~A.9) & Contestation with binding effect, including the categorical schema (Section~\ref{subsec:contestation}); collective standing as precondition \\
+FORK & Legal rights, artifacts, and resources for independent reproduction & State portability of the subject's own credentials and history (Equation~\ref{eq:state-portability}); acceptance of the ported record \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The columns are not alternatives, and the inward column is not a deficiency. Enforcement machinery, independent audit, and regulatory teeth are how correction is executed; nothing reaches the subject without them. The failure mode is substitution: treating the inward column as the whole of the test. A system whose operator can halt it, whose auditors can verify it, and whose regulator can bind it --- but whose subjects cannot refuse it, learn the rule that decided their case, confirm the record, contest the category, or carry their state elsewhere --- is governed by its operator and incorrigible to the people it operates on. The inward column is how the operator governs the system. The outward column is how the governed correct the operator. Corrigibility is the second, standing on the first.
+
 \subsection{Layer-Decomposed Evaluation}
 \label{subsec:layers}
 

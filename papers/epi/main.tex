@@ -54,7 +54,7 @@
   Bengaluru, India \\
   \texttt{ping@anivar.net}
 }
-\date{April 2026}
+\date{April 2026 \\ {\small Revised: 10 July 2026 (v3.1)}}
 
 \hypersetup{
   pdftitle={Epistemic Capture and the Action Boundary: Corrigibility for Learned and Agentic Public Infrastructure},
@@ -73,15 +73,15 @@
 \maketitle
 
 \begin{abstract}
-This paper extends the corrigibility framework to learned and agentic systems, where deterministic rule execution is replaced by probabilistic inference. Three structural pressures constrain corrigibility in learned systems: opacity of inference (requiring LWD-R transparency), concentration of training resources (compute capture), and acceleration of automated action (governance denial of service). The action boundary protocol separates probabilistic inference from deterministic execution. The invariant holds: systems remain corrigible if and only if the five conditions close the loop under stochastic verification.
+This paper extends the corrigibility framework to learned and agentic systems, where deterministic rule execution is replaced by probabilistic inference. Three structural pressures constrain corrigibility in learned systems: opacity of inference (requiring LWD-R transparency), concentration of training resources (compute capture), and acceleration of automated action (governance denial of service). The action boundary protocol separates probabilistic inference from deterministic execution. The invariant holds: on this framework's definition, systems count as corrigible exactly when the five conditions close the loop under stochastic verification.
 \end{abstract}
 
-\paragraph{Dependency.} This paper presupposes the companion paper \citep{aravind2026dpi}, which derives the five corrigibility tests (EXIT, CODE, AUDIT, GOVERN, FORK) from control theory and commons governance. The present paper does not re-derive these tests; it extends their verification methods to stochastic systems.
+\paragraph{Dependency.} This paper presupposes the companion paper \citep{aravind2026dpi}, which derives the five corrigibility tests (EXIT, CODE, AUDIT, GOVERN, FORK) from control theory, commons governance, and free software. The present paper does not re-derive these tests; it extends their verification methods to stochastic systems.
 
 \keywords{Epistemic Public Infrastructure \and AI Governance \and Corrigibility \and Action Boundary Protocol \and Compute Capture \and LWD-R}
 
 \paragraph{How to Read This Paper.}
-Corrigibility is the minimal architectural condition that keeps public systems reversible. The argument has three parts: learned systems require bounded error propagation (the conceptual invariant); five control-layer conditions extend to stochastic inference (the architectural constraints); and these constraints discriminate between AI-mediated systems (the applied evaluation). Case studies illustrate discriminative power, not exhaustive institutional evaluation.
+Corrigibility is the minimal architectural condition that keeps public systems reversible. The argument has three parts: learned systems require bounded error propagation (the conceptual invariant); five control-layer conditions extend to stochastic inference (the architectural constraints); and these constraints discriminate between AI-mediated systems (the applied evaluation). Architecture-specific risk profiles and worked open-model examples illustrate discriminative power, not exhaustive institutional evaluation.
 
 \section*{Executive Summary}
 
@@ -143,11 +143,11 @@ Corrigibility in EPI therefore requires additional structural conditions beyond 
 
 The tier classification is a governance decision, not a technical one. Systems must declare their tier; auditors verify appropriateness.
 
-\paragraph{Gradient Quantifier in Tier Audits.} Consistent with the Gradient Quantifier remark of the companion paper~\citep{aravind2026dpi}, every compliance assessment under each tier is evaluated at the least-resourced sub-population within the deployment's affected class, not at the mean user. For \texttt{high\_stakes} deployments, this means: exit penalty ratios, MTTD, and override rates are reported as distributions across strata defined by literacy, language, connectivity, and administrative precarity; pass/fail determination is taken at the lower decile. A system that passes all tests for median users while failing them for the least-resourced sub-population does not pass. Auditors must document the stratum at which minimum performance was measured and the method by which that stratum was identified.
+\paragraph{Gradient Quantifier in Tier Audits.} Consistent with the Gradient Quantifier remark of the companion paper~\citep{aravind2026dpi}, every compliance assessment under each tier is evaluated at the least-resourced sub-population within the deployment's affected class, not at the mean user. For \texttt{high\_stakes} deployments, this means: exit penalty ratios, mean time to detect (MTTD), and override rates are reported as distributions across strata defined by literacy, language, connectivity, and administrative precarity; pass/fail determination is taken at the lower decile. A system that passes all tests for median users while failing them for the least-resourced sub-population does not pass. Auditors must document the stratum at which minimum performance was measured and the method by which that stratum was identified.
 
 \paragraph{Why ``Epistemic''?} The term is structurally precise. In deterministic DPI, infrastructure manages \textit{what happened}: the \textbf{Ledger State} (a payment was made, an identity was verified). In learned systems, infrastructure manages \textit{what is true}: the \textbf{Inference State} (a person is ``eligible,'' a transaction is ``fraudulent,'' a citizen is a ``risk''). This shift from transactional facts to administrative knowledge constitutes a transfer of \textbf{epistemic sovereignty}.
 
-When a state uses a model to determine eligibility, it is no longer merely processing data; it is producing a \textit{claim to knowledge}. If that claim is hidden in a latent space, the infrastructure has captured the state's ability to know or contest the truth. The ``R'' in the LWD-R Triad (Representation, Section~\ref{sec:code-ai}) is the epistemic anchor: if the categories through which the state ``sees'' the world are proprietary and non-contestable, the state has delegated its interpretive sovereignty. Citizens are not merely locked out of a database; they are locked into a reality they cannot define.
+When a state uses a model to determine eligibility, it is no longer merely processing data; it is producing a \textit{claim to knowledge}. If that claim is hidden in a latent space, the infrastructure has captured the state's ability to know or contest the truth. The ``R'' in the four-layer LWD-R requirement (Representation, Section~\ref{sec:code-ai}) is the epistemic anchor: if the categories through which the state ``sees'' the world are proprietary and non-contestable, the state has delegated its interpretive sovereignty. Citizens are not merely locked out of a database; they are locked into a reality they cannot define.
 
 By naming this domain \textbf{Epistemic Public Infrastructure}, the framework asserts that the ``truth'' produced by an AI system must satisfy the same corrigibility tests as a legal fact. The question shifts from ``Does the AI work?'' to ``Is the knowledge produced by this system structurally falsifiable and reversible?''
 
@@ -177,7 +177,7 @@ This paper stress-tests the framework against learned systems: infrastructure wh
 
 \paragraph{Scope.} This paper addresses Epistemic Public Infrastructure (Definition~\ref{def:epi}): AI systems deployed at population scale with administrative authority. It does not address consumer AI products where exit is trivial, nor research systems without deployment impact.
 
-\paragraph{Paper Structure.} Section~\ref{sec:invariance} establishes that the five tests remain invariant. Section~\ref{sec:code-ai} extends the CODE test via LWD-R disclosure and introduces the strict interpretability firewall. Section~\ref{sec:temporal} introduces Variety Drift. Section~\ref{sec:fork-ai} analyzes Compute Capture. Section~\ref{sec:agentic} examines agentic scaling, GDoS, and citizen-side GOVERN mechanism families. Section~\ref{sec:workflow} addresses workflow sovereignty and WCC. Section~\ref{sec:architecture} provides architecture-specific risk analysis. Section~\ref{sec:discussion} discusses implications and limitations. Section~\ref{sec:open-problems} sets out deployment regimes outside the framework's current scope.
+\paragraph{Paper Structure.} Section~\ref{sec:invariance} establishes that the five tests remain invariant. Section~\ref{sec:code-ai} extends the CODE test via LWD-R disclosure and introduces the strict interpretability firewall. Section~\ref{sec:temporal} introduces Variety Drift. Section~\ref{sec:fork-ai} analyzes Compute Capture. Section~\ref{sec:agentic} examines agentic scaling, GDoS, and citizen-side GOVERN mechanism families. Section~\ref{sec:workflow} addresses workflow sovereignty and WCC. Section~\ref{sec:architecture} provides architecture-specific risk analysis. Section~\ref{sec:objections} answers two anticipated objections. Section~\ref{sec:epistemic-constraint} separates corrigibility from epistemic competence. Section~\ref{sec:discussion} discusses implications and limitations. Section~\ref{sec:open-problems} sets out deployment regimes outside the framework's current scope.
 
 \paragraph{Key Contributions.}
 \begin{enumerate}[noitemsep]
@@ -186,7 +186,7 @@ This paper stress-tests the framework against learned systems: infrastructure wh
     \item \textbf{Ontological Capture}: When a model's categories become non-contestable facts
     \item \textbf{Variety Drift}: Why AI corrigibility is a persistence condition
     \item \textbf{Compute Capture}: When ``open weights'' fails FORK
-    \item \textbf{GDoS}: Governance collapse under agentic scaling
+    \item \textbf{GDoS} (governance denial of service): saturation of governance capacity under agentic scaling
     \item \textbf{WCC}: Quantifies epistemic delegation risk
     \item \textbf{Action Boundary}: Deterministic envelope around stochastic inference
 \end{enumerate}
@@ -202,7 +202,7 @@ This paper stress-tests the framework against learned systems: infrastructure wh
 The five corrigibility tests remain invariant for learned systems. What changes is the verification method.
 \end{proposition}
 
-The structural requirement for corrigibility derives from Ashby's Law of Requisite Variety: a controller must have at least as many response states as the system it governs \citep{ashby1956}. This requirement is independent of whether the controlled system is deterministic or stochastic. An AI model that affects citizen outcomes at population scale generates the same variety of potential harms as deterministic infrastructure; therefore, the governance apparatus must possess equivalent corrective variety.
+The structural requirement for corrigibility derives from Ashby's Law of Requisite Variety: a controller must have at least as many response states as the system it governs \citep{ashby1956}. This requirement is independent of whether the controlled system is deterministic or stochastic. An AI model that affects citizen outcomes at population scale generates at least the variety of potential harms of deterministic infrastructure --- the argument only strengthens if it generates more; therefore, the governance apparatus must possess at least equivalent corrective variety.
 
 The table below illustrates how the mechanical verification of each test adapts to the probabilistic nature of AI without softening the structural requirement.
 
@@ -235,7 +235,7 @@ FORK & Copy code and deploy & Resource forkability: compute + data + training pi
 \midrule
 Epistemic Opacity & CODE (inspection fails) & LWD-R transparency & Observability \\
 Compute Capture & FORK (reproduction gated) & Training forkability & Replacement \\
-Acceleration Overwhelm & GOVERN (decisions outpace review) & Action Boundary & Constraint \\
+Acceleration overwhelm (GDoS) & GOVERN (decisions outpace review) & Action Boundary & Constraint \\
 \bottomrule
 \end{tabular}
 \caption{Three structural pressures in learned systems: what corrigibility condition they break, what architectural mechanism restores it, and which control layer is affected.}
@@ -315,7 +315,7 @@ Two systems may share weights, training data, and inference code, and yet exhibi
 
 \begin{proposition}[Operative-R Falsifiability]
 \label{prop:operative-r-test}
-Let $D$ be the disclosed representational schema and $S$ the deployed system. The R requirement of LWD-R is satisfied if and only if an independent auditor can reproduce the observed classification distribution of $S$ on a held-out probe set using only $D$ and the disclosed deployment configuration. If the deployment variables (quantization, routing, filtering) are not enumerated in $D$, the derivation chain breaks and the system fails the R requirement.
+Let $R_{\mathrm{disc}}$ be the disclosed representational schema and $\Sigma$ the deployed system. The R requirement of LWD-R is satisfied if and only if an independent auditor, given the full disclosed LWD-R artifact set (logic, weights, data manifest), $R_{\mathrm{disc}}$, and an enumeration of the deployment variables (quantization, routing, filtering), can reproduce the classification distribution of $\Sigma$ on a published probe set within a declared statistical tolerance --- e.g., total-variation distance at most $\varepsilon$ at sample size $n$, with $\varepsilon$, $n$, and the probe set's provenance fixed in advance by the deployment tier. If the deployment variables are not enumerated in the disclosure, the derivation chain breaks and the system fails the R requirement.
 \end{proposition}
 
 The proposition converts ``representational transparency'' from a philosophical aspiration into an audit procedure. A vendor cannot claim R-disclosure by publishing the base-model architecture; the disclosure must extend to every component of the inference pipeline that selects, suppresses, or rewrites categorical outputs.
@@ -358,7 +358,7 @@ A learned system whose operative representation $R$ cannot be disclosed at the s
 
 The wording is deliberate. The principle does not assert that the law of any specific jurisdiction prohibits adoption; it states that adoption is inconsistent with the framework's structural criteria for legitimate public infrastructure. Whether jurisdictions choose to incorporate these criteria into binding administrative law is a separate question, addressed by procurement standards, statutory definitions of due process, and constitutional review.
 
-\paragraph{Why strict, not graduated.} A graduated regime would admit ``provisional certification'' for systems that meet partial R-disclosure (e.g., interpretability tooling without full operative-schema reproduction) on the condition of sunset clauses or remediation roadmaps. The structural prediction is that vendors optimize for indefinite renewal of provisional status. The same political-economy mechanism that converts ``proportionate'' contestation into sham governance (Section~\ref{sec:invariance}) converts ``provisional'' certification into permanent partial compliance: the threshold becomes the floor, the remediation roadmap becomes the documentation of unmet obligations, and the sunset clause becomes the deadline that ratchets forward each renewal cycle. The graduated regime preserves the appearance of structural evaluation while removing its corrective force. The strict position accepts the cost of disqualifying current frontier deployments in high-stakes domains in order to preserve the diagnostic instrument.
+\paragraph{Why strict, not graduated.} A graduated regime would admit ``provisional certification'' for systems that meet partial R-disclosure (e.g., interpretability tooling without full operative-schema reproduction) on the condition of sunset clauses or remediation roadmaps. The structural prediction is that vendors optimize for indefinite renewal of provisional status. The same political-economy mechanism that converts ``proportionate'' contestation into sham governance (the Open-Loop Instability Argument, Section~\ref{sec:intro}) converts ``provisional'' certification into permanent partial compliance: the threshold becomes the floor, the remediation roadmap becomes the documentation of unmet obligations, and the sunset clause becomes the deadline that ratchets forward each renewal cycle. The graduated regime preserves the appearance of structural evaluation while removing its corrective force. The strict position accepts the cost of disqualifying current frontier deployments in high-stakes domains in order to preserve the diagnostic instrument.
 
 \paragraph{The Human-Discretion Objection.} The most serious objection is that human decision-makers --- caseworkers, magistrates, social-services officers --- are also non-interpretable in the strict sense, often biased, and frequently unaccountable, yet the framework does not propose to disqualify them from rights-affecting determinations. If the standard is non-interpretability, why does it bind machines and not humans?
 
@@ -369,7 +369,7 @@ The wording is deliberate. The principle does not assert that the law of any spe
 \subsection{Machine-Verifiable Legitimacy}
 \label{subsec:machine-verifiable}
 
-For learned and agentic systems, corrigibility must be paired with machine-verifiable legitimacy: (a) \textit{authority encoding}---delegation and scope expressed as machine-interpretable credentials; (b) \textit{revocation propagation}---immediate, observable revocation states that downstream execution environments respect; (c) \textit{evidence standards}---tamper-evident execution traces and evaluation artifacts that meet defined admissibility criteria; and (d) \textit{incident-triggered mitigation}---automated mitigation gating and mandatory rollback protocols when thresholds breach. These are operational requirements; without them, architectural constraints remain unproven. Existing governance frameworks such as \citep{abadie2026} provide workflow orchestration but lack these machine-verifiable legitimacy requirements.
+For learned and agentic systems, corrigibility must be paired with machine-verifiable legitimacy: (a) \textit{authority encoding}---delegation and scope expressed as machine-interpretable credentials; (b) \textit{revocation propagation}---immediate, observable revocation states that downstream execution environments respect; (c) \textit{evidence standards}---tamper-evident execution traces and evaluation artifacts that meet defined admissibility criteria; and (d) \textit{incident-triggered mitigation}---automated mitigation gating and mandatory rollback protocols when thresholds breach. These are operational requirements; without them, architectural constraints remain unproven. Existing governance frameworks such as \citet{abadie2026} provide workflow orchestration but lack these machine-verifiable legitimacy requirements.
 
 %% ============================================
 %% SECTION 4: TEMPORAL VARIETY GAP
@@ -475,7 +475,7 @@ Legal permission to fork without access to compute or data is meaningless. This 
 \subsection{Compute Capture}
 \label{subsec:compute-capture}
 
-\paragraph{The Problem.} A company releases model weights under an open license. Headlines announce ``open source AI.'' But the training run cost \$100 million in compute. No university, no government research lab, no coalition of independent researchers can afford to retrain it. If the model exhibits problematic behavior traceable to training data, the community can observe the symptoms but cannot fix the cause. They can run the model; they cannot reproduce it.
+\paragraph{The Problem.} A company releases model weights under an open license. Headlines announce ``open source AI.'' But the training run cost \$100 million in compute. No academic consortium has to date independently reproduced a frontier training run, and public research compute is not provisioned for routine reproduction --- which is precisely the gap the Public Compute Nodes proposal below addresses. If the model exhibits problematic behavior traceable to training data, the community can observe the symptoms but cannot fix the cause. They can run the model; they cannot reproduce it.
 
 \begin{definition}[Compute Capture]
 \label{def:compute-capture}
@@ -486,7 +486,7 @@ C_{\text{train}} > \kappa \cdot C_{\text{accessible}}
 where $\kappa$ is an accessibility multiplier (typically $1 \leq \kappa \leq 2$). Under Compute Capture, releasing weights provides \textbf{inference forkability} (you can run it) without \textbf{training forkability} (you can reproduce it).
 \end{definition}
 
-\paragraph{Why This Matters.} Legal permission to fork is meaningless without physical capacity to fork. If training cost exceeds 100$\times$ global academic compute capacity, the FORK test fails regardless of licensing terms. This is an infrastructure question, not a licensing question.
+\paragraph{Why This Matters.} If training cost exceeds 100$\times$ global academic compute capacity, the FORK test fails regardless of licensing terms. Compute asymmetry is epistemic stratification: when only the most-resourced operators can execute a training fork, the capacity to correct an algorithmic worldview is structurally withheld from the populations most exposed to its errors.
 
 The formal FORK determination for training becomes:
 \begin{equation}
@@ -497,7 +497,7 @@ where $\mathbf{1}[\cdot]$ is the indicator function.
 \subsection{Data Capture}
 \label{subsec:data-capture}
 
-Training forkability requires more than compute access; it requires data sovereignty. Compute Capture and Data Capture act as independent multipliers of the Workflow Capture Coefficient: a system can satisfy one and fail the other and still be unforkable in practice. Discussions of ``open AI'' that focus exclusively on compute miss this second axis.
+Training forkability requires more than compute access; it requires data sovereignty. Compute Capture and Data Capture are independent failure axes for training forkability: a system can satisfy one and fail the other and still be unforkable in practice. Discussions of ``open AI'' that focus exclusively on compute miss this second axis.
 
 \begin{definition}[Data Capture]
 \label{def:data-capture}
@@ -523,7 +523,7 @@ where $\kappa_D \geq 1$ is a data-accessibility multiplier analogous to the comp
 
 \begin{proposition}[Joint Forkability Condition]
 \label{prop:joint-forkability}
-Training forkability is genuinely available if and only if a system evades both Compute Capture and Data Capture simultaneously:
+Training forkability is genuinely available only if the required artifacts (Table~\ref{tab:ai-fork-evidence}) are available and the system evades both Compute Capture and Data Capture simultaneously; the resource conjunction strengthens (and supersedes the manifest clause of) the earlier $\text{FORK}_{\text{training}}$ condition:
 \[
 \text{FORK}_{\text{training}}^{\text{full}} \;=\; \mathbf{1}[C_{\text{train}} \leq \kappa \cdot C_{\text{accessible}}] \;\land\; \mathbf{1}[D_{required} \leq \kappa_D \cdot D_{accessible}].
 \]
@@ -570,12 +570,13 @@ Successful reproduction & Decisive & Third-party retrain within 10\% of benchmar
 \paragraph{Forkability Determination.} A learned system passes FORK if:
 \begin{enumerate}[noitemsep]
     \item All ``Required'' artifacts are publicly available under permissive terms
-    \item The compute cost estimate demonstrates feasibility for at least one non-operator entity
+    \item The compute condition holds: $C_{\text{train}} \leq \kappa \cdot C_{\text{accessible}}$ for non-operator actors
+    \item The data condition holds: the manifested data, or an auditably equivalent substitute, is accessible within $\kappa_D$ (Definition~\ref{def:data-capture})
     \item Either a successful third-party reproduction exists, OR the training code + data manifest enables reproduction in principle
 \end{enumerate}
 
 \paragraph{Artifact-Reproducible vs.\ Governance-Reproducible: The Operational-Capacity Layer.}
-The evidence table above addresses artifact forkability --- whether the artifacts required to retrain or reproduce the system are available. It does not address operational-capacity forkability: whether the forking community possesses the tacit knowledge, evaluation infrastructure, and operational lore required to \textit{govern} the forked system after reproducing it. A fork that copies the source and leaves behind the operational \textit{m\={e}tis}~\citep{scott1998} --- the evaluation harnesses, red-team suites, known-failure registries, deployment intuition, and incident history accumulated through production operation --- has reproduced the artifact without reproducing the corrective apparatus. A governance-incapable fork is corrigible in name only: it reproduces the system's behavior but not the community's ability to detect and correct its failure modes.
+The evidence table above addresses artifact forkability --- whether the artifacts required to retrain or reproduce the system are available. It does not address operational-capacity forkability: whether the forking community possesses the tacit knowledge, evaluation infrastructure, and operational lore required to \textit{govern} the forked system after reproducing it. A fork that copies the source and leaves the tacit operational knowledge behind --- the evaluation harnesses, red-team suites, known-failure registries, deployment intuition, and incident history accumulated through production operation --- has reproduced the artifact without reproducing the corrective apparatus. A governance-incapable fork is corrigible in name only: it reproduces the system's behavior but not the community's ability to detect and correct its failure modes.
 
 This gap is the epistemic twin of Compute Capture. Where Compute Capture prices the economic barrier to training forkability, operational-capacity deficit prices the knowledge barrier to \textit{governance} forkability. The Edge/SLM fragmentation finding (Section~\ref{sec:architecture}) illustrates its other face: distributing the artifact without the coordination capacity distributes incorrigibility, not correction.
 
@@ -593,15 +594,15 @@ Systems that publish weights but withhold training data or code achieve only \te
 
 \paragraph{Concrete Examples.} As of early 2026, the open-model landscape divides cleanly along this axis:
 \begin{itemize}[noitemsep]
-    \item \textbf{Inference forkability only:} Llama 3.1 / 3.3 (Meta), DeepSeek-V3 and DeepSeek-R1, Gemma 2 (Google), Mistral. Weights are published under varying license terms, but training data is not released, full preprocessing pipelines are not disclosed, and reinforcement-learning artifacts (reward models, RLHF traces, distillation corpora) remain proprietary. Users can run and fine-tune these models but cannot independently reproduce or audit the training process.
-    \item \textbf{Training forkability:} OLMo 2 (Allen Institute for AI) and Pythia (EleutherAI). Both publish weights, complete training code, full data manifests (Dolma and The Pile respectively), intermediate checkpoints, and training logs sufficient for third-party reproduction. These projects, alongside their data releases, satisfy the FORK test in principle and (for partial reruns) in practice.
+    \item \textbf{Inference forkability only:} Llama 3.1--4 (Meta), DeepSeek-V3 and DeepSeek-R1, Gemma 2--3 (Google), Mistral Large. Weights are published under varying license terms, but training data is not released, full preprocessing pipelines are not disclosed, and reinforcement-learning artifacts (reward models, RLHF traces, distillation corpora) remain proprietary. Users can run and fine-tune these models but cannot independently reproduce or audit the training process.
+    \item \textbf{Training forkability:} the OLMo family (Allen Institute for AI; OLMo 3 extends the release to full ``model flow'' artifacts) and Pythia (EleutherAI). Both publish weights, complete training code, full data manifests (the OLMo training mixtures and The Pile respectively --- the latter's partial takedown of one component is itself an instance of data-layer fragility in FORK determinations), intermediate checkpoints, and training logs sufficient for third-party reproduction. These projects, alongside their data releases, satisfy the FORK test in principle and (for partial reruns) in practice.
 \end{itemize}
 
 The distinction matters: when Llama, Gemma, or DeepSeek exhibit unexpected behavior, the community can observe symptoms but cannot diagnose root causes in training data. When OLMo 2 exhibits unexpected behavior, researchers can trace the issue to specific training examples. \textbf{Open weights with closed training pipelines is inference transparency without correction capacity.}
 
 Systems claiming ``sovereign'' or ``indigenous'' status through fine-tuning foreign base models achieve inference forkability only; the base model remains opaque and unmodifiable. Such claims are structurally hollow: the fine-tuned layer is correctable, but the foundational model on which it depends is not.
 
-\paragraph{Alignment with OSI Definition.} The Open Source Initiative's Open Source AI Definition 1.0 \citep{osi2024} codifies this distinction, requiring: (1) data information sufficient for recreation, (2) complete training code, and (3) model parameters. By this standard, Llama 3.1/3.3, Gemma 2, DeepSeek-V3/R1, and Mistral do not qualify as open source AI despite marketing claims; OLMo 2 and Pythia do. The EU AI Act \citep{euaiact2024} similarly distinguishes between models with varying transparency obligations. This framework's FORK test operationalizes the same principle: without training forkability, governance correction is structurally impossible.
+\paragraph{Alignment with OSI Definition.} The Open Source Initiative's Open Source AI Definition 1.0 \citep{osi2024} codifies this distinction, requiring: (1) data information sufficient for recreation, (2) complete training code, and (3) model parameters. By this standard, the Llama, Gemma, DeepSeek, and Mistral release families surveyed above do not qualify as open source AI despite marketing claims; the OLMo family and Pythia do. The EU AI Act \citep{euaiact2024} similarly distinguishes between models with varying transparency obligations. This framework's FORK test operationalizes the same principle: without training forkability, governance correction is structurally impossible.
 
 %% ============================================
 %% SECTION 6: AGENTIC SCALING
@@ -636,7 +637,7 @@ where:
 
 Each component bears distinct governance requirements, and each can capture or release sovereignty independently of the others. Behavior is a property of the system $A$, not the model $M$. The same model $M$ deployed in a different harness $H$, with different action specifications $S$, against different tool definitions $T$, under different configuration $C$, with different memory state $\bar{M}$, produces materially different administrative outcomes. Two state agencies running the same open-weights model may yield incompatible welfare-eligibility decisions because $H$, $S$, $T$, $C$, or $\bar{M}$ differ.
 
-\paragraph{Why System Behavior Is Not Model Behavior.} Because $H$, $S$, $T$, $C$, and $\bar{M}$ modify behavior independent of $M$, model-level LWD-R disclosure is necessary but insufficient for agentic infrastructure. If a state deploys an open-weights model but orchestrates its actions through a proprietary vendor harness, the infrastructure fails both CODE (the orchestration logic is closed) and FORK (the vendor harness is not reproducible). Conversely, a fully open harness wrapped around a closed model leaves the inference layer opaque but makes the action boundary auditable; the system is partially corrigible in a precise sense.
+\paragraph{Why System Behavior Is Not Model Behavior.} Because $H$, $S$, $T$, $C$, and $\bar{M}$ modify behavior independent of $M$, model-level LWD-R disclosure is necessary but insufficient for agentic infrastructure. If a state deploys an open-weights model but orchestrates its actions through a proprietary vendor harness, the infrastructure fails both CODE (the orchestration logic is closed) and FORK (the vendor harness is not reproducible). Conversely, a fully open harness wrapped around a closed model leaves the inference layer opaque but makes the action boundary auditable; the action-boundary \emph{component} is independently verifiable, while the system as a whole still fails CODE at the model layer and, under the strict firewall (Section~\ref{subsec:firewall}), remains ineligible for high-stakes deployment.
 
 \paragraph{Memory as Liability.} The persistent memory layer $\bar{M}$ is structurally distinct from the other components in that its content is a running function of subjects' own interaction histories rather than a deployment-time decision of the operator. This makes $\bar{M}$ both an attack surface (cross-subject contamination, prompt-injection persistence across sessions, latent profile-building beyond the disclosed retention policy) and a rights surface (data-protection regimes such as GDPR's right-to-erasure attach directly to its contents, irrespective of how the operator has classified the deployment). Public agentic infrastructure must therefore expose a programmatic EXIT for $\bar{M}$: a deterministic, auditable interface that purges per-subject context arrays on request, on schedule, and on revocation, with the wipe verifiable against the same evidence standards as the audit log itself. ``We will not retain it next time'' is not an EXIT for memory; deletion that the subject cannot independently confirm is performative compliance, not corrigibility.
 
@@ -683,6 +684,7 @@ The principle has two consequences. First, the disclosure surface for $C$ must i
 
 \begin{itemize}[noitemsep]
     \item \textbf{EXIT is Exception Handling}: To an agent, a mandatory system with no exit path appears as a logic deadlock.
+    \item \textbf{FORK is Failover}: A dependency that cannot be substituted is a single point of failure no resilient workflow accepts.
     \item \textbf{CODE is Documentation}: Agents require inspectability of logic to form valid plans.
     \item \textbf{AUDIT is Observability}: An optimization agent cannot function without a reliable failure signal.
     \item \textbf{GOVERN is Constraint Discovery}: Advisory guidelines result in undefined behavior for software agents.
@@ -698,7 +700,9 @@ Incorrigible infrastructures may appear stable under human load because humans a
 
 \paragraph{Illustrative Scenario.} Consider an autonomous procurement agent that interacts with a mandatory payment API. On encountering a compliance flag, the agent receives an opaque error code. No machine-readable error taxonomy exists, and dispute resolution is human-mediated. The agent retries, triggering repeated failures and queue saturation. Human agents absorb such friction via manual override and phone calls; fleets of autonomous agents cannot. The result is a governance denial-of-service (GDoS) that cascades across the payment rail.
 
-\paragraph{Governance Denial of Service.} Under agentic scaling, governance capacity can be temporarily saturated (``governance denial of service''). When autonomous agents encounter errors, they retry programmatically rather than waiting patiently. Governance mechanisms designed for human patience collapse under machine speed. This is a constraint-layer failure that the Action Boundary must mitigate.
+\paragraph{Governance Denial of Service.} Under agentic scaling, governance capacity can be saturated (``governance denial of service''). When autonomous agents encounter errors, they retry programmatically rather than waiting patiently; and because one instruction can legitimately spawn many agents, governance load scales with orchestration fan-out, not with the number of principals. Governance mechanisms designed for human patience saturate under machine speed. This is a constraint-layer failure that the Action Boundary must mitigate.
+
+\paragraph{Exception Handling at the Margin.} The friction being removed was never only delay. In bureaucratic systems, informal human discretion functions as undocumented variety absorption: the clerk processes the case whose lived reality fails the literal text of the rule --- the applicant with a non-standard household, a disputed record, an unreadable fingerprint. Agentic workflows executed over deterministic interfaces remove that absorption without replacing it. Because agents optimize for legible, clean pathways, the users exhibiting the highest environmental variety --- precisely the least-resourced stratum of the gradient quantifier --- trigger immediate, repeatable exclusion where a human intermediary once absorbed the mismatch. Removing the friction buffer without explicit exception pathways and guaranteed fallbacks in the action specification concentrates the automation's failure mode on the population least equipped to contest it; the correction machinery of Section~\ref{subsec:govern-mechanisms} exists for exactly this case.
 
 \subsection{Agentic Interoperability Requirements}
 
@@ -762,7 +766,7 @@ A learned or agentic deployment failing any of the five EXIT layers cannot satis
 As infrastructure transitions to the Rule of the Workflow, the fundamental unit of governance can no longer be the static database record, nor can it be the stochastic model weight. To subject autonomous systems to democratic constraint, the architecture must adopt a new structural primitive: the \textbf{Action Boundary}.
 
 \begin{principle}[Action Boundary Protocol]
-If the state cannot govern the neural network's weights, it must govern the \textbf{action boundary}: the deterministic envelope that wraps stochastic inference. The Action Boundary Protocol specifies: (1) hard-coded preconditions, (2) deterministic tool execution, and (3) explicit termination criteria to prevent Governance Denial of Service (GDoS).
+If the state cannot govern the neural network's weights, it must govern the \textbf{action boundary}: the deterministic envelope that wraps stochastic inference. The model proposes; the validator disposes. The Action Boundary Protocol's five architectural requirements are specified below.
 \end{principle}
 
 In agentic systems, learned inference should not directly trigger irreversible action. Instead, inference outputs must pass through a deterministic validation layer that enforces policy constraints and safety rules.
@@ -822,15 +826,11 @@ Figure~\ref{fig:action-boundary} illustrates the architecture: the validator enf
 
 \begin{enumerate}[noitemsep]
     \item \textbf{Deterministic Validation:} Inference outputs pass through a hard-coded policy layer before execution. The validator computes its decision through ordinary program logic and is independent of the model's probabilistic computation.
-    \item \textbf{Context-Window Isolation:} Constraints are encoded in the execution environment, not injected into the model's context window. A learned system cannot prompt-inject past constraints it cannot read; isolation is the structural answer to prompt-injection attacks.
+    \item \textbf{Context-Window Isolation:} Constraints are encoded in the execution environment, not injected into the model's context window. A learned system cannot prompt-inject past constraints it cannot read; isolation is the structural answer to injection that attempts to cross the policy boundary. Injection that steers the model toward harmful-but-in-policy proposals remains, and must be bounded by narrowing action classes and tightening the validator's predicates.
     \item \textbf{Exception Handling (EXIT):} The action specification dictates explicit fallback paths and termination triggers, preventing the infinite loops that produce Governance Denial of Service (GDoS).
     \item \textbf{Machine-Readable Specifications (CODE \& AUDIT):} The agent's workflow and tool permissions are defined in declarative, independently auditable schemas. The system's operational ontology becomes public, satisfying the Representation (R) requirement of LWD-R, and execution emits structured transaction logs satisfying AUDIT.
     \item \textbf{Binding Constraints (GOVERN):} The validator acts as a non-overrideable controller. Actions that fail the schema are rejected and logged, providing an auditable failure signal rather than silent compliance.
 \end{enumerate}
-
-\begin{principle}[Action Boundary Governance]
-If the state cannot govern the neural network's weights, it must govern the action boundary. The action boundary is the deterministic envelope that wraps stochastic inference; the model proposes, the validator disposes.
-\end{principle}
 
 \paragraph{Subject Receipt Requirement.}
 \label{rem:subject-receipt-epi}
@@ -855,7 +855,12 @@ In learned systems, behavior is probabilistic. Public infrastructure requires de
 
 \subsubsection{Defeating Workflow Capture via Open Action Specifications}
 
-The critical danger of agentic DPI is Epistemic Delegation: the loss of state sovereignty to proprietary orchestration layers. We previously defined the Workflow Capture Coefficient (WCC) as a function of reproduction cost, ontological substitutability, and portability.
+The critical danger of agentic DPI is Epistemic Delegation: the loss of state sovereignty to proprietary orchestration layers. Define the \textbf{Workflow Capture Coefficient (WCC)} over three per-dimension sovereignty scores $s_i \in (0,1]$ --- workflow reproducibility ($s_1$, inverting reproduction cost $C_{\text{workflow}}$), ontological substitutability ($s_2 = O_{\text{substitutability}}$), and model portability ($s_3 = M_{\text{portability}}$):
+\begin{equation}
+\text{WCC} \;=\; 1 - \mathrm{HM}(s_1, s_2, s_3), \qquad \mathrm{HM}(s_1,s_2,s_3) = \frac{3}{\tfrac{1}{s_1} + \tfrac{1}{s_2} + \tfrac{1}{s_3}}
+\label{eq:wcc}
+\end{equation}
+Because the harmonic mean is dominated by its smallest input, a single weak (low-sovereignty) dimension drives WCC toward 1: weakness in any dimension cannot be hidden by strength in the others. WCC near 1 indicates near-total capture; WCC near 0 indicates high sovereignty.
 
 Standardized, open action specifications disrupt this capture vector. If a state defines its administrative processes using open, declarative specifications rather than vendor-locked pipelines:
 
@@ -865,7 +870,7 @@ Standardized, open action specifications disrupt this capture vector. If a state
     \item $M_{\text{portability}} \to 1$: the state can swap the underlying model without losing the workflow logic.
 \end{itemize}
 
-Adopting an open action-specification architecture drives WCC toward zero, preserving interpretive sovereignty and satisfying the \textbf{FORK} test for the agentic era.
+Adopting an open action-specification architecture drives WCC toward zero, preserving interpretive sovereignty and satisfying the workflow-layer component of \textbf{FORK} --- necessary but not sufficient while the underlying model remains capture-gated (the governance-floor limitation below).
 
 \begin{claim}
 You do not govern the model; you govern the action specifications the model is permitted to invoke. This is the architectural translation of corrigibility into the agentic domain.
@@ -874,7 +879,7 @@ You do not govern the model; you govern the action specifications the model is p
 \paragraph{Critical Limitation: Action Boundary Is Containment, Not Cure.} The Action Boundary Protocol is a \textit{necessary but not sufficient} condition for EPI corrigibility. It bounds the ``act'' but does not resolve deeper structural deficits:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Inference-layer opacity persists.} The model's internal representation (the categories it uses to \textit{interpret} inputs before selecting an action) remains hidden. You govern what the model \textit{does}, not what it \textit{thinks}. Representation Capture Risk (RCR) operates upstream of the Action Boundary.
+    \item \textbf{Inference-layer opacity persists.} The model's internal representation (the categories it uses to \textit{interpret} inputs before selecting an action) remains hidden. You govern what the model \textit{does}, not what it \textit{thinks}. Representation Capture Risk (RCR) --- the risk that ontological capture (Section~\ref{sec:code-ai}) becomes irreversible because the categories are neither disclosed nor contestable --- operates upstream of the Action Boundary.
 
     \item \textbf{Compute capture blocks training forkability.} Specification portability enables swapping orchestration logic, but the underlying model remains compute-gated. If the model itself cannot be retrained by non-operators, the Action Boundary governs a black box.
 
@@ -885,12 +890,12 @@ You do not govern the model; you govern the action specifications the model is p
 
 The Action Boundary is therefore a \textbf{governance floor}, not a governance ceiling. It prevents the worst failure modes (GDoS, prompt injection, unbounded action) while leaving the deeper problem of epistemic sovereignty partially unresolved. Full EPI corrigibility requires the Action Boundary \textit{plus} LWD-R disclosure \textit{plus} training forkability: the complete stack, not any single layer.
 
-\paragraph{Epistemic Constraint Boundary.} Corrigibility preserves structural contestability but does not guarantee epistemic rigor, scientific discipline, or optimization efficiency. A system may satisfy corrigibility conditions and yet generate poorly designed experiments or unstable inferences. Corrigibility bounds structural error propagation; it does not ensure epistemic excellence.
+\paragraph{Epistemic Constraint Boundary.} Corrigibility preserves structural contestability but does not guarantee epistemic rigor; Section~\ref{sec:epistemic-constraint} develops this boundary.
 
 \subsubsection{Structural Gaps in Current Frameworks}
 \label{subsec:cdpi-critique}
 
-Existing DPI-AI frameworks such as \citep{abadie2026} correctly identify composability and workflow orchestration as central challenges. However, they optimize for state capacity (efficient AI deployment) without addressing citizen capacity (structural correction rights). The corrigibility gaps are structural: no EXIT mechanism for refusing AI-mediated determinations; no LWD-R requirement for training transparency; no compute capture analysis; no citizen-corrective loop (GOVERN exists for operators, not subjects); and no FORK provision for training reproducibility.
+Existing DPI-AI frameworks such as \citet{abadie2026} correctly identify composability and workflow orchestration as central challenges. However, they optimize for state capacity (efficient AI deployment) without addressing citizen capacity (structural correction rights). The corrigibility gaps are structural: no EXIT mechanism for refusing AI-mediated determinations; no LWD-R requirement for training transparency; no compute capture analysis; no citizen-corrective loop (GOVERN exists for operators, not subjects); and no FORK provision for training reproducibility.
 
 Beyond corrigibility, the data governance provisions lack specificity on public domain status, licensing requirements, and sovereignty constraints. These gaps replicate the architectural failures documented in deterministic DPI.
 
@@ -925,7 +930,7 @@ The architectural specifications above define the corrective surface --- what th
 The framework identifies five mechanism families. They are non-exclusive: a deployment can implement more than one, and most viable high-stakes deployments must.
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Juridical.} Courts and statutory tribunals with jurisdiction to compel rectification, injunction, or damages. Juridical mechanisms attach when administrative determinations produce legally cognizable harms (denied benefits, criminal sanctions, immigration consequences). Their corrective force depends on standing rules, evidentiary admissibility for algorithmic records, and remedies that reach the operative system rather than the individual case. Because juridical remediation moves at bureaucratic speed against machine-time execution, public EPI must natively expose \textbf{Injunction Hooks} (Figure~\ref{fig:injunction-hook}): architectural APIs in the action boundary $B$ built to accept rapid, cryptographically signed halt or rollback flags issued by recognized courts, executed without waiting for operator compliance. Without such hooks, an injunction that takes weeks to arrive lands on a system whose accumulated determinations have already become irreversible, and the juridical mechanism degrades from corrective intervention to retrospective declaration.
+    \item \textbf{Juridical.} Courts and statutory tribunals with jurisdiction to compel rectification, injunction, or damages. Juridical mechanisms attach when administrative determinations produce legally cognizable harms (denied benefits, criminal sanctions, immigration consequences). Their corrective force depends on standing rules, evidentiary admissibility for algorithmic records, and remedies that reach the operative system rather than the individual case. Because juridical remediation is capital-intensive, the family also carries the collective-standing precondition (the companion paper's Ostrom-Principle-7 requirement~\citep{aravind2026dpi}): without the legally protected, retaliation-free capacity to organize, aggregate claims, and fund representation, an Injunction Hook remains a pristine mechanism the least-resourced stratum can never afford to trigger. Because juridical remediation moves at bureaucratic speed against machine-time execution, public EPI must natively expose \textbf{Injunction Hooks} (Figure~\ref{fig:injunction-hook}): architectural APIs in the action boundary $B$ built to accept rapid, cryptographically signed halt or rollback flags issued by recognized courts, executed without waiting for operator compliance. Without such hooks, an injunction that takes weeks to arrive lands on a system whose accumulated determinations have already become irreversible, and the juridical mechanism degrades from corrective intervention to retrospective declaration.
 
     \item \textbf{Administrative / Executive.} Internal review boards, ombuds offices, regulatory inspectorates, and procurement-level conformity assessments. These mechanisms operate inside the executive apparatus that deploys the system, with delegated authority to suspend, modify, or decommission. Their corrective force depends on independence from the deploying authority and binding (rather than advisory) outputs; without both, this family collapses into operator self-certification.
 
@@ -977,12 +982,12 @@ The final mutation of digital infrastructure is the transition from static regis
 
 In classical governance, policy is defined in statute, executed by bureaucracy, and reviewed by courts. In a ``Rule of Workflow'' regime, policy becomes emergent from the orchestration logic: data schemas define reality, prompts define interpretation, and API contracts define valid inputs.
 
-\textbf{Workflow Capture} is formalized as follows. Let $W$ be the orchestration layer, $M$ the underlying model, $S$ the state policy function, and $D$ the decision output. While classical governance assumes $S \rightarrow D$, AI-native governance operates as:
+\textbf{Workflow Capture} is formalized as follows. Let $\Omega$ be the orchestration layer, $M$ the underlying model, $\Pi$ the state policy function, and $Y$ the decision output. (Fresh symbols are used here to avoid collision with the LWD-R layers and the agent-system tuple.) While classical governance assumes $\Pi \rightarrow Y$, AI-native governance operates as:
 \begin{equation}
-S \rightarrow W(M, \text{Data}) \rightarrow D
+\Pi \rightarrow \Omega(M, \text{Data}) \rightarrow Y
 \end{equation}
 
-If $W$ is proprietary and non-forkable, the state's ability to alter policy ($\Delta S$) vanishes because outcomes are constrained by the workflow's technical affordances. Policy debate is reduced to parameter tuning within a vendor-controlled ontology.
+If $\Omega$ is proprietary and non-forkable, the state's ability to alter policy ($\Delta \Pi$) vanishes because outcomes are constrained by the workflow's technical affordances. Policy debate is reduced to parameter tuning within a vendor-controlled ontology.
 
 \begin{figure}[htbp]
 \centering
@@ -994,15 +999,15 @@ If $W$ is proprietary and non-forkable, the state's ability to alter policy ($\D
 
 % Classical Governance (top)
 \node[anchor=west, font=\bfseries] at (-4, 2.5) {Classical:};
-\node[block, fill=governcolor!20] (S1) at (0, 2.5) {Policy $S$};
-\node[block] (D1) at (4, 2.5) {Decision $D$};
+\node[block, fill=governcolor!20] (S1) at (0, 2.5) {Policy $\Pi$};
+\node[block] (D1) at (4, 2.5) {Decision $Y$};
 \draw[arrow, governcolor] (S1) -- (D1) node[midway, above, font=\scriptsize] {direct};
 
 % AI-Native Governance (bottom)
 \node[anchor=west, font=\bfseries] at (-4, 0) {AI-Native:};
-\node[block, fill=governcolor!20] (S2) at (-1, 0) {Policy $S$};
-\node[wblock] (W) at (2.5, 0) {Workflow $W$};
-\node[block] (D2) at (6, 0) {Decision $D$};
+\node[block, fill=governcolor!20] (S2) at (-1, 0) {Policy $\Pi$};
+\node[wblock] (W) at (2.5, 0) {Workflow $\Omega$};
+\node[block] (D2) at (6, 0) {Decision $Y$};
 
 % Internal to W
 \node[font=\tiny, text=gray] at (2.5, -0.6) {Model $M$ + Data};
@@ -1012,10 +1017,10 @@ If $W$ is proprietary and non-forkable, the state's ability to alter policy ($\D
 
 % Capture indicator
 \draw[thick, red, dashed] (1, -1.2) rectangle (4, 0.8);
-\node[font=\tiny, text=red!70!black, anchor=north] at (2.5, -1.2) {If $W$ proprietary: FORK fails};
+\node[font=\tiny, text=red!70!black, anchor=north] at (2.5, -1.2) {If $\Omega$ proprietary: FORK fails};
 
 % Legend
-\node[font=\scriptsize, text=gray, align=left] at (2.5, -2) {When $W$ is vendor-controlled, $\Delta S \not\rightarrow \Delta D$};
+\node[font=\scriptsize, text=gray, align=left] at (2.5, -2) {When $\Omega$ is vendor-controlled, $\Delta \Pi \not\rightarrow \Delta Y$};
 
 \end{tikzpicture}
 \caption{\textbf{Workflow Capture.} Classical governance: policy directly determines decisions. AI-native governance: policy is mediated by workflow orchestration. If the workflow is proprietary, policy changes cannot reliably change outcomes.}
@@ -1024,7 +1029,7 @@ If $W$ is proprietary and non-forkable, the state's ability to alter policy ($\D
 
 \subsection{Measuring Epistemic Delegation}
 
-Figure~\ref{fig:workflow-capture} formalizes the structural shift: where classical governance maps policy directly onto decisions, AI-native governance interposes a workflow orchestration layer that becomes the operative locus of authority. The \textbf{Workflow Capture Coefficient (WCC)} is a diagnostic abstraction illustrating weakest-dimension dominance across layers. It quantifies epistemic delegation risk as a function of reproduction cost, ontological substitutability, and portability. A WCC approaching 1 indicates near-total capture; a WCC approaching 0 indicates high sovereignty. The harmonic mean formulation ensures that weakness in any single dimension cannot be hidden by strength in others. Formal specification appears in Appendix~\ref{appendix:agentic-schema}.
+Figure~\ref{fig:workflow-capture} formalizes the structural shift: where classical governance maps policy directly onto decisions, AI-native governance interposes a workflow orchestration layer that becomes the operative locus of authority. The \textbf{Workflow Capture Coefficient} (WCC, Equation~\ref{eq:wcc}) is the diagnostic abstraction for this shift: a weakest-dimension-dominant score of epistemic delegation risk over workflow reproducibility, ontological substitutability, and model portability. The corresponding audit fields (\texttt{wcc\_score} and its dimension inputs) appear in Appendix~\ref{appendix:agentic-schema}; threshold calibration is a governance decision (Section~\ref{sec:open-problems}).
 
 \begin{claim}
 If a state procures a system with high WCC, it is not merely buying software; it is mathematically surrendering interpretive sovereignty to a vendor.
@@ -1045,17 +1050,17 @@ The preceding analysis enables architecture-specific risk diagnosis. Different m
 
 \begin{table}[htbp]
 \centering
-\caption{\textbf{Topology-Aware Corrigibility Risk.} Impact of architectural class on structural tests. Notation: W = weights opacity, G = gating opacity, R = representation opacity, S = scale barrier, O = ontological capture, F = fragmentation, $\kappa$ = compute capture.}
+\caption{\textbf{Topology-Aware Corrigibility Risk.} Typical failure tendencies of architectural classes under current disclosure practice; architecture class alone cannot determine a test outcome (see interpretation notes). Notation: W = weights opacity, G = gating opacity, R = representation opacity, S = scale barrier, O = ontological capture, F = fragmentation, $\kappa$ = compute capture; RCR = Representation Capture Risk (higher is worse). * = fails at frontier scale regardless of routing disclosure.}
 \label{tab:topology-risk-arch}
 \small
 \begin{tabular}{@{}lllllll@{}}
 \toprule
-\textbf{Architecture} & \textbf{EXIT} & \textbf{CODE} & \textbf{$\Delta O$ (RCR)} & \textbf{AUDIT} & \textbf{GOVERN} & \textbf{FORK} \\
+\textbf{Architecture} & \textbf{EXIT} & \textbf{CODE} & \textbf{RCR} & \textbf{AUDIT} & \textbf{GOVERN} & \textbf{FORK} \\
 \midrule
 Dense LLM & Partial & Fail (W) & Medium & Partial & Fail (S) & Fail ($\kappa$) \\
-Mixture of Experts & Medium & Fail (G) & Medium & Fail (S) & Partial & \textbf{Pass} \\
-World Model & Fail (O) & Fail (R) & \textbf{Very Low} & Partial & Partial & Fail ($\kappa$) \\
-Edge / SLM & \textbf{Pass} & \textbf{Pass} & High & Fail (F) & Fail (F) & \textbf{Pass} \\
+Mixture of Experts & Medium & Fail (G) & Medium & Fail (S) & Partial & Fail ($\kappa$)* \\
+World Model & Fail (O) & Fail (R) & \textbf{Very High} & Partial & Partial & Fail ($\kappa$) \\
+Edge / SLM & \textbf{Pass} & \textbf{Pass} & Low & Fail (F) & Fail (F) & \textbf{Pass} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1063,9 +1068,9 @@ Edge / SLM & \textbf{Pass} & \textbf{Pass} & High & Fail (F) & Fail (F) & \textb
 \paragraph{Interpretation.}
 \begin{itemize}[noitemsep]
     \item \textbf{Dense LLMs} fail FORK due to compute capture ($\kappa$). Training costs exceed accessible compute by orders of magnitude.
-    \item \textbf{World models} present the highest RCR (lowest $\Delta O$) because their representation schemas encode administrative ontologies that resist contestation.
+    \item \textbf{World models} present the highest RCR because their representation schemas encode administrative ontologies that resist contestation.
     \item \textbf{Edge/SLM models} pass EXIT and FORK but may fail GOVERN due to fragmented deployment making coordinated governance infeasible.
-    \item \textbf{Mixture of Experts} architectures may pass FORK if expert routing is documented, but gating opacity often violates CODE.
+    \item \textbf{Mixture of Experts} architectures (*) fail FORK at frontier scale on compute capture, exactly as dense models do --- routing documentation mitigates the CODE/gating opacity, not the resource barrier; architecture class alone cannot determine FORK under the Joint Forkability Condition (Proposition~\ref{prop:joint-forkability}; cf.\ the DeepSeek classification in Section~\ref{sec:fork-ai}).
 \end{itemize}
 
 \subsection{Edge Topologies: From Platform DPI to Protocol DPI}
@@ -1083,7 +1088,7 @@ Edge AI is the primary strategy for restoring EXIT and FORK in population-scale 
 \end{itemize}
 
 \begin{principle}[Edge Compute Capture Reduction]
-Decentralization reduces Compute Capture risk: the cost of running infrastructure is distributed across the community's own hardware, lowering the resource invariance barrier $\kappa$.
+Decentralization to SLM-class models reduces Compute Capture risk: small models' training cost $C_{\text{train}}$ falls within community-accessible compute, bringing the ratio $C_{\text{train}}/C_{\text{accessible}}$ well below the policy threshold $\kappa$ --- which remains a governance calibration, not a property the architecture changes.
 \end{principle}
 
 \subsubsection{CODE as Bytecode: Verification vs. Inspection}
@@ -1111,7 +1116,7 @@ EXIT & \textbf{High} (local refusal possible) & Error Signal \\
 CODE & \textbf{Verified} (via reproducible bytecode) & Transmission Clarity \\
 AUDIT & Fragmented (requires federated telemetry) & Sensor \\
 GOVERN & Challenging (requires federated guardrails) & Actuator \\
-FORK & \textbf{Excellent} (low compute multiplier $\kappa$) & Selection Pressure \\
+FORK & \textbf{Excellent} ($C_{\text{train}}/C_{\text{accessible}}$ low relative to $\kappa$) & Selection Pressure \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1125,7 +1130,7 @@ FORK & \textbf{Excellent} (low compute multiplier $\kappa$) & Selection Pressure
 \section{Anticipated Objections}
 \label{sec:objections}
 
-Before discussing implications, we address two fundamental objections that challenge the framework's applicability to learned systems.
+Before concluding, we address two fundamental objections that challenge the framework's applicability to learned systems.
 
 \subsection{Objection: Deterministic Tests Cannot Apply to Stochastic Systems}
 
@@ -1136,20 +1141,13 @@ A natural critique holds that applying rigid, deterministic structural tests to 
 The key insight is that the \textbf{standard remains invariant} while the \textbf{verification method adapts}:
 
 \begin{itemize}[noitemsep]
-    \item \textbf{CODE} shifts from reading source code to requiring the \textbf{LWD-R Triad}: Logic (architecture), Weights (parameters), Data (provenance), and Representation (ontological categories).
+    \item \textbf{CODE} shifts from reading source code to requiring the four \textbf{LWD-R} layers: Logic (architecture), Weights (parameters), Data (provenance), and Representation (ontological categories).
     \item \textbf{AUDIT} shifts from discrete logic inspection to statistical bounds and continuous monitoring.
     \item \textbf{FORK} shifts from file copying to resource forkability, measured by access to compute and training data, not just open weights.
     \item \textbf{GOVERN} requires deterministic guardrails \textit{around} the stochastic model, governing objectives and value tradeoffs at the infrastructure layer.
 \end{itemize}
 
-\paragraph{Deterministic Boundaries as Engineering Requirement.} The framework argues that deterministic structural boundaries are not incompatible with AI but are an \textit{engineering requirement} for the agentic economy. Autonomous agents lack biological resilience for ambiguity. To an AI agent, the five tests function as a necessary API contract:
-
-\begin{itemize}[noitemsep]
-    \item EXIT = Exception handling (preventing logic deadlocks)
-    \item CODE = Documentation (enabling valid plan formation)
-    \item AUDIT = Observability (providing reliable failure signals)
-    \item GOVERN = Constraint discovery (since ``advisory'' guidelines produce undefined behavior)
-\end{itemize}
+\paragraph{Deterministic Boundaries as Engineering Requirement.} The framework argues that deterministic structural boundaries are not incompatible with AI but are an \textit{engineering requirement} for the agentic economy: as the API-contract reading of Section~\ref{sec:agentic} shows, the five tests translate directly into exception handling (EXIT), documentation (CODE), observability (AUDIT), constraint discovery (GOVERN), and failover (FORK) --- properties no reliable automated counterparty can operate without.
 
 \paragraph{The Cost of Abandoning Structural Evaluation.} If structural evaluation is set aside on the grounds that ``AI is too stochastic to be evaluated by structural rules,'' governance defers to operators by default: the only remaining standards are those operators choose to publish. Structural evaluation methods are therefore necessary, not optional. The framework does not attempt to inspect the probabilistic ``thoughts'' of AI models. Instead, it demands structural control over the \textit{pipeline that builds them} (data, compute, representation) and the \textit{infrastructure that deploys them} (workflow orchestrations and guardrails).
 
@@ -1241,7 +1239,7 @@ The framework makes claims about a particular class of EPI deployments: centrali
 
 \paragraph{Continuous Learning.} Systems that update parameters in production --- online learning, RLHF in deployment, or any architecture where the deployed weights drift from the certified weights between audit cycles --- break the assumption that LWD-R disclosure at deployment time characterizes the operative system. Variety Drift (Section~\ref{sec:temporal}) addresses environment-side drift; system-side drift introduced by ongoing training is the dual problem. Possible architectural responses include continuous re-disclosure with rollback obligations, weight-update logging admissible to AUDIT, or architectural restrictions to bounded-capacity update mechanisms. Which response preserves the strict-firewall position of Section~\ref{subsec:firewall} for high-stakes deployments is open.
 
-\paragraph{Multi-Tenant Deployments.} A single underlying model deployed across multiple jurisdictions, agencies, or operator tenants, each with distinct configurations $C$, action specifications $T$, and retrieval pipelines, presents a corrigibility allocation problem the framework does not resolve. The model layer satisfies CODE once, but the operative representation $R$ is tenant-specific because configuration alters categorical behavior at inference. Whether a single audit at the model layer extends to tenant-specific deployments, or whether each tenant must independently satisfy the firewall and the GOVERN composition requirement, is a question of where the unit of corrigibility analysis attaches. The framework's current commitment is the latter, but the operational implications for shared-infrastructure deployments are unworked.
+\paragraph{Multi-Tenant Deployments.} A single underlying model deployed across multiple jurisdictions, agencies, or operator tenants, each with distinct configurations $C$ (including retrieval pipelines), action specifications $S$, and tool definitions $T$, presents a corrigibility allocation problem the framework does not resolve. The model layer satisfies CODE once, but the operative representation $R$ is tenant-specific because configuration alters categorical behavior at inference. Whether a single audit at the model layer extends to tenant-specific deployments, or whether each tenant must independently satisfy the firewall and the GOVERN composition requirement, is a question of where the unit of corrigibility analysis attaches. The framework's current commitment is the latter, but the operational implications for shared-infrastructure deployments are unworked.
 
 \paragraph{International and Jurisdictional Layer.} The framework speaks to legitimacy criteria within a unit-of-governance assumption: a deployment, a jurisdiction, an affected population, a corrective apparatus internal to the same political community. Cross-jurisdictional EPI deployments --- a model trained in jurisdiction $A$, hosted in jurisdiction $B$, deployed by an agency in jurisdiction $C$, applied to a population spanning $A$, $B$, $C$, and $D$ --- partition the corrective apparatus across legal systems whose mutual recognition is contingent. The federation-based mechanism family (Section~\ref{subsec:govern-mechanisms}) is the framework's nearest analytical resource here, but the conditions under which cross-jurisdictional federations preserve non-domination rather than relocating arbitrary power to the federation level are not analyzed in this paper.
 
@@ -1256,14 +1254,14 @@ Three implications:
 \begin{enumerate}[noitemsep]
     \item \textbf{For policymakers}: The framework provides falsifiable tests for AI infrastructure procurement. Systems failing LWD-R or lacking training forkability should trigger governance scrutiny regardless of ``open'' marketing claims.
 
-    \item \textbf{For technologists}: The Action Boundary Protocol offers a practical architecture for building corrigible AI systems. Deterministic validators wrapping stochastic inference satisfy GOVERN without requiring interpretability of model internals; multiple open protocols can instantiate the requirement.
+    \item \textbf{For technologists}: The Action Boundary Protocol offers a practical architecture for building corrigible AI systems. Deterministic validators wrapping stochastic inference satisfy GOVERN at the action layer without requiring interpretability of model internals; multiple open protocols can instantiate the requirement. For high-stakes deployment, the strict firewall still applies: LWD-R disclosure and training forkability are additionally required (Section~\ref{subsec:firewall}).
 
     \item \textbf{For citizens}: Infrastructure that affects populations at scale must be structurally correctable by those it governs, regardless of whether it executes deterministic code or learned parameters.
 \end{enumerate}
 
 \paragraph{Liability and Enforcement.} Architectural corrigibility must be complemented by clear liability and enforcement semantics: for any failure mode, supply-chain roles (principal, integrator, model provider, operator, trustee, as distinguished in EU AI Act Article 25 et seq.) must be mappable to legal responsibility and to mandated mitigation steps, so that evidence produces enforceable consequences rather than forensic narrative alone.
 
-\paragraph{Adversarial Robustness.} This framework assumes good-faith actors operating within institutional constraints. It does not address adversarial manipulation: coordinated gaming of audit mechanisms, governance capture through procedural compliance, prompt injection attacks on action boundaries, or fork-and-poison attacks on model provenance. Extension to adversarial settings requires additional machinery beyond this paper's scope.
+\paragraph{Adversarial Robustness.} This framework assumes good-faith actors operating within institutional constraints. It does not address adversarial manipulation: coordinated gaming of audit mechanisms, governance capture through procedural compliance, adversarial compromise of the validator implementation or its supply chain, injection that steers in-policy action proposals (the residual class identified in Section~\ref{subsec:action-boundary}), or fork-and-poison attacks on model provenance. Extension to adversarial settings requires additional machinery beyond this paper's scope.
 
 \paragraph{Core Thesis.} The corrigibility invariant extends to stochastic systems: systems remain correctable if and only if the five conditions close the feedback loop under probabilistic verification. Learned systems do not escape the requirement; they raise the verification burden. Corrigibility is not a deployment certification. It is a persistence condition.
 

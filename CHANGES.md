@@ -5,7 +5,96 @@ by priority tier and paper. P0/P1/P2 closed the structural revision pass
 (arXiv submission baseline); P3 added the consensus-driven revisions
 (normative anchor, two-pronged argument, strict interpretability
 firewall, citizen-side GOVERN mechanism families, scope and open
-problems). All four tiers ship under v3.0.0.
+problems). All four tiers ship under v3.0.0. The Q-series
+margin-evaluation upgrades and the SSRN reference-processing fixes ship
+under v3.1.0.
+
+## Q — Margin-Evaluation Upgrades (v3.1.0)
+
+Ten reviewer-question upgrades (Q1–Q10) applied across both papers,
+plus the political-economy expansion. Cherry-picked tex-only from
+`claude/ambedkar-matrix-revisions-XVZQP` (335ee44); the accompanying
+six-tradition theory notes were deliberately kept out of the repo (no
+visible fourth spine — the intellectual debt is carried by primary-source
+citations instead).
+
+### DPI (`papers/dpi/main.tex`)
+
+- Q1: New Remark *The Gradient Quantifier: Corrigibility at the Margin*
+  (`rem:argmin`, appendix, after the Binarity corollary). $H$ and $K$
+  become distributions $H(x)$, $K(x)$ over participant position;
+  corrigibility requires loop closure $\forall x$; pass/fail is taken at
+  $x^* = \arg\min_x H(x) \cdot K(x)$ (recommended $p_{10}$ stratum),
+  not the population mean.
+- Q2: *Bole Clause* — evidentiary standard for statutory fallbacks
+  (Rule A.9 applied at the margin stratum; documented margin-stratum
+  invocations required). Historical anchor corrected: the 1923 Bole
+  Resolution (Bombay Presidency), enforced at Mahad in 1927.
+- Q3: *Collective-Standing Precondition (Ostrom Principle 7)* appended
+  to the GOVERN contestation subsection.
+- Q4: *Intermediary-Discretion Surface* appended to AUDIT — per-rung
+  variance disclosure, delegated-discretion role enumeration, Rule A.9
+  enforcement evidence against intermediaries.
+- Q5/Q7: New *Rule A.11: Auditor Data Duties* — purpose-bound audit
+  access; the two-sided AUDIT requirement ("no one can prevent
+  auditing" / "no one can strip-mine the governed").
+- Q9/Q10: Policy-constants table caption rewritten — thresholds are
+  policy choices requiring deliberative calibration (affected-class
+  participation, documented rationale, periodic external review).
+- Political economy: the Limitations item expanded into the
+  four-mechanism analysis (graded inequality, artifact openness as
+  legitimacy cover, administrative synopticism, certification capture).
+- New citations at the debt points: `ambedkar1936annihilation` (graded
+  inequality), `ambedkar1945congress` (joint electorate),
+  `ambedkar1947states` (enforcement history vs. legislative text).
+- Fixes: added missing `\label{subsec:limitations}`; cross-document
+  `\ref{rem:subject-receipt-epi}` replaced with a textual reference plus
+  `\citep{aravind2026epi}` (the papers build standalone; no xr package).
+
+### EPI (`papers/epi/main.tex`)
+
+- Q1: *Gradient Quantifier in Tier Audits* — distributional reporting;
+  lower-decile pass/fail for `high_stakes`; cross-document
+  `\ref{rem:argmin}` replaced with a textual reference plus
+  `\citep{aravind2026dpi}`.
+- Q5: *Subject Receipt Requirement* — per-determination signed receipts
+  with transparency-log inclusion proofs (RFC 9162-style),
+  subject-facing, independently verifiable, machine-readable — plus the
+  citizen-constraint registry at the action boundary.
+- Q6: *R-Layer Change Control* — pre-deployment notice with review
+  window, suspensive objections from recognized affected-class
+  representatives, versioned schema diffs; emergency path with
+  retroactive review.
+- Q8: *Artifact-Reproducible vs. Governance-Reproducible* FORK levels;
+  `fork_viability` stated as an audit-artifact requirement (the
+  schema-repo field itself is tracked separately).
+- Fix: "companion paper" mis-attribution removed from the Injunction
+  Hook cross-reference (it is EPI's own Section 6.9).
+
+### SSRN reference-processing fixes (v3.1.0)
+
+Cherry-picked from `claude/ssrn-reference-parsing-7A5RZ` (3 commits).
+
+- `refs.bib`: no raw `\url{}` remains in `howpublished` (rtfc2018,
+  npci2026, biometricupdate2025, xroad2026, osi2024 restructured with
+  proper publisher strings + url fields); Unicode author-name encodings
+  corrected (Daumé III, Tramèr, Úlfar); companion-paper entries carry
+  canonical SSRN DOIs (DPI 10.2139/ssrn.6059075, EPI
+  10.2139/ssrn.6669318 — both verified resolving).
+- `CITATION.cff`: EPI SSRN DOI added; EPI Zenodo DOI demoted to
+  archival.
+- `papers/epi/SSRN.md`: DPI SSRN cross-reference filled in.
+
+### Build Verification (v3.1.0)
+
+| Paper | Pages | Size    |
+|-------|-------|---------|
+| DPI   | 50    | 1.06 MB |
+| EPI   | 32    | 822 KB  |
+
+Zero undefined references and zero undefined citations in both logs;
+the only remaining LaTeX warning is a cosmetic float-specifier
+adjustment (`h` → `ht`).
 
 ## P3 — Consensus Revisions (v3.0.0)
 
@@ -309,7 +398,8 @@ font-shape warning persists from arxiv.sty + Latin Modern interaction).
 
 ### Pending
 
-- Final tag (v3.0.0).
+- ~~Final tag (v3.0.0)~~ — tagged. v3.1.0: tag + SSRN re-upload of both
+  rebuilt PDFs (so the reference parser reprocesses) pending.
 
 ## Build verification
 

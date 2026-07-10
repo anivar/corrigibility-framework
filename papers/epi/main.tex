@@ -626,7 +626,7 @@ Audit artifacts for \texttt{high\_stakes} tier assessments must record which of 
 
 Systems that publish weights but withhold training data or code achieve only \textbf{inference forkability}, not \textbf{training forkability}. Inference forkability permits running the model; training forkability permits correcting it. Only the latter satisfies FORK for governance purposes.
 
-\paragraph{Concrete Examples.} As of early 2026, the open-model landscape divides cleanly along this axis:
+\paragraph{Concrete Examples.} As of mid-2026, the open-model landscape divides cleanly along this axis:
 \begin{itemize}[noitemsep]
     \item \textbf{Inference forkability only:} Llama 3.1--4 (Meta), DeepSeek-V3 and DeepSeek-R1, Gemma 2--3 (Google), Mistral Large. Weights are published under varying license terms, but training data is not released, full preprocessing pipelines are not disclosed, and reinforcement-learning artifacts (reward models, RLHF traces, distillation corpora) remain proprietary. Users can run and fine-tune these models but cannot independently reproduce or audit the training process.
     \item \textbf{Training forkability:} the OLMo family (Allen Institute for AI; OLMo 3 extends the release to full ``model flow'' artifacts) and Pythia (EleutherAI). Both publish weights, complete training code, full data manifests (the OLMo training mixtures and The Pile respectively --- the latter's partial takedown of one component is itself an instance of data-layer fragility in FORK determinations), intermediate checkpoints, and training logs sufficient for third-party reproduction. These projects, alongside their data releases, satisfy the FORK test in principle and (for partial reruns) in practice.

@@ -74,7 +74,7 @@
 \maketitle
 
 \begin{abstract}
-This paper extends the corrigibility framework to learned and agentic systems, where deterministic rule execution is replaced by probabilistic inference. Three structural pressures constrain corrigibility in learned systems: opacity of inference (requiring LWD-R transparency), concentration of training resources (compute capture), and acceleration of automated action (governance denial of service). The action boundary protocol separates probabilistic inference from deterministic execution. The invariant holds: on this framework's definition, systems count as corrigible exactly when the five conditions close the loop under stochastic verification. Across the substrate transition it is the verification machinery that changes, never the conditions.
+This paper extends the corrigibility framework to learned and agentic systems, where deterministic rule execution is replaced by probabilistic inference. Three structural pressures constrain corrigibility in learned systems: opacity of inference (requiring LWD-R transparency: logic, weights, data, representation), concentration of training resources (compute capture), and acceleration of automated action (governance denial of service). The Action Boundary Protocol separates probabilistic inference from deterministic execution. The invariant holds: on this framework's definition, systems count as corrigible exactly when the five conditions close the loop under stochastic verification. Across the substrate transition it is the verification machinery that changes, never the conditions.
 \end{abstract}
 
 \paragraph{Dependency.} This paper presupposes the companion paper \citep{aravind2026dpi}, which derives the five corrigibility tests (EXIT, CODE, AUDIT, GOVERN, FORK) from control theory, commons governance, and free software. The present paper does not re-derive these tests; it extends their verification methods to stochastic systems.
@@ -90,7 +90,7 @@ When infrastructure incorporates machine learning, it no longer merely processes
 
 Traditional transparency is insufficient. Reconstruction of model behavior requires disclosure of logic, weights, data provenance, and representational schema (\textbf{LWD-R}). Practical forkability is constrained by compute asymmetry. Performance degrades under distributional shift.
 
-The \textbf{action boundary protocol} separates probabilistic inference from deterministic execution through enforceable validation layers. Without such boundaries, agentic systems exercise unbounded epistemic power.
+The \textbf{Action Boundary Protocol} separates probabilistic inference from deterministic execution through enforceable validation layers. Without such boundaries, agentic systems exercise unbounded epistemic power.
 
 \begin{figure}[htbp]
 \centering
@@ -232,7 +232,7 @@ This paper stress-tests the framework against learned systems: infrastructure wh
     \item \textbf{Ontological Capture}: When a model's categories become non-contestable facts
     \item \textbf{Variety Drift}: Why AI corrigibility is a persistence condition
     \item \textbf{Compute Capture}: When ``open weights'' fails FORK
-    \item \textbf{GDoS} (governance denial of service): saturation of governance capacity under agentic scaling
+    \item \textbf{GDoS} (governance denial of service): Saturation of governance capacity under agentic scaling
     \item \textbf{WCC}: Quantifies epistemic delegation risk
     \item \textbf{Action Boundary}: Deterministic envelope around stochastic inference
 \end{enumerate}
@@ -295,12 +295,12 @@ To satisfy the CODE condition in learned systems, four components must be disclo
     \item \textbf{Logic (L)}: Model architecture and inference procedures
     \item \textbf{Weights (W)}: Learned parameters
     \item \textbf{Data (D)}: Training datasets with provenance
-    \item \textbf{Representation (R)}: Ontological categories and label schemas
+    \item \textbf{Representation (R)}: The operative categorical schema (ontological categories and label schemas)
 \end{itemize}
 
 We refer to this as \textbf{LWD-R transparency}. Omission of any component prevents meaningful external reconstruction of epistemic behavior.
 
-To bridge this gap, compliance requires structured disclosure across the training pipeline, such as \textbf{Data Sheets for Datasets} \citep{gebru2021} and \textbf{Model Cards} \citep{mitchell2019}. These artifacts function as the ``source code'' for structural evaluation; withholding them renders the system a black box.
+To bridge this gap, compliance requires structured disclosure across the training pipeline, such as \textbf{Datasheets for Datasets} \citep{gebru2021} and \textbf{Model Cards} \citep{mitchell2019}. These artifacts function as the ``source code'' for structural evaluation; withholding them renders the system a black box.
 
 \subsection{The LWD-R Disclosure Requirement}
 
@@ -313,7 +313,7 @@ A learned system satisfies LWD-R disclosure if the following artifacts are publi
     \item \textbf{L (Logic)}: Model architecture and inference code (\textit{how} predictions are computed)
     \item \textbf{W (Weights)}: Trained parameters (the learned patterns that produce outputs)
     \item \textbf{D (Data)}: Training corpus with provenance (\textit{what} the model learned from)
-    \item \textbf{R (Representation)}: The categorical schema (\textit{how the model sees the world})
+    \item \textbf{R (Representation)}: The categorical schema (\textit{how the deployed system sees the world})
 \end{itemize}
 \end{definition}
 
@@ -323,7 +323,7 @@ A learned system satisfies LWD-R disclosure if the following artifacts are publi
 
 \paragraph{Why ``R'' Is the Novel Contribution.} Existing ``open AI'' frameworks focus on L, W, and D. The Representation layer addresses a distinct failure mode: a model may publish weights, code, and data manifests while encoding \textit{non-contestable categories} in its latent space. When an eligibility model classifies citizens as ``high-risk,'' that category becomes an administrative fact. If the category itself cannot be challenged, the model has captured the state's interpretive sovereignty.
 
-\textbf{R} is not transparency about \textit{how} the model works; it is transparency about \textit{how the model sees the world}. These categories (the model's ontology) are often hidden in the latent space, undocumented and non-contestable. A specific form of opacity arises when representational categories themselves become uncontestable (``ontological capture''), weakening constraint-layer contestability. When a model's classifications cannot be challenged by affected parties, the state has surrendered interpretive sovereignty regardless of weight publication.
+\textbf{R} is not transparency about \textit{how} the model works; it is transparency about \textit{how the model sees the world}. These categories (the model's ontology) are often undocumented and non-contestable: latent in nominal form, and taking their deployed shape through inference-time configuration (Section~\ref{subsubsec:operative-r}). A specific form of opacity arises when representational categories themselves become uncontestable (``ontological capture''), weakening constraint-layer contestability. When a model's classifications cannot be challenged by affected parties, the state has surrendered interpretive sovereignty regardless of weight publication.
 
 \paragraph{Representation as Ontological Commons.} The Representation layer is the layer at which AI infrastructure becomes a commons problem in the strict sense. Deterministic public infrastructure regulates access to a shared substrate --- the registry, the rail, the payment system. Learned infrastructure regulates the substrate of meaning itself: the categorical schema through which an affected population can be administratively known. The categories under which citizens are classified as eligible or ineligible, risky or safe, deserving or undeserving constitute an \textbf{ontological commons} --- a shared structure of perception that no single party can privately own without enclosing meaning itself. Because what the deployed system actually classifies depends on quantization, pruning, mixture-of-experts routing, and output filtering as much as on the trained weights (Section~\ref{subsubsec:operative-r}), the commons claim is over the \emph{operative} schema, not the nominal one: a vendor who shifts meaning at inference through undisclosed deployment configuration has enclosed the commons as decisively as one who hides the underlying ontology, because the categorical structure that affected communities encounter has been moved beyond their reach. The contestability criterion stated above is therefore a commons-governance requirement in Ostrom's sense \citep{ostrom1990}: operative representational categories must remain subject to the polycentric, layered review that sustains shared resources, not delegated to a vendor whose latent space is by construction beyond user reach. The free-software anchor (CODE) supplies inspectability of the artifact; the commons anchor (R as ontological commons) supplies the governance condition under which inspectability is non-trivial; the cybernetic anchor supplies the closure condition under which contestation actually corrects.
 
@@ -349,7 +349,7 @@ Two systems may share weights, training data, and inference code, and yet exhibi
 
 \begin{proposition}[Operative-R Falsifiability]
 \label{prop:operative-r-test}
-Let $R_{\mathrm{disc}}$ be the disclosed representational schema and $\Sigma$ the deployed system. The R requirement of LWD-R is satisfied if and only if an independent auditor, given the full disclosed LWD-R artifact set (logic, weights, data manifest), $R_{\mathrm{disc}}$, and an enumeration of the deployment variables (quantization, routing, filtering), can reproduce the classification distribution of $\Sigma$ on a published probe set within a declared statistical tolerance --- e.g., total-variation distance at most $\varepsilon$ at sample size $n$, with $\varepsilon$, $n$, and the probe set's provenance fixed in advance by the deployment tier. If the deployment variables are not enumerated in the disclosure, the derivation chain breaks and the system fails the R requirement.
+Let $R_{\mathrm{disc}}$ be the disclosed representational schema and $\Sigma$ the deployed system. The R requirement of LWD-R is satisfied if and only if an independent auditor, given the full disclosed LWD-R artifact set (logic, weights, data manifest), $R_{\mathrm{disc}}$, and an enumeration of the deployment variables (quantization, pruning, routing, filtering), can reproduce the classification distribution of $\Sigma$ on a published probe set within a declared statistical tolerance --- e.g., total-variation distance at most $\varepsilon$ at sample size $n$, with $\varepsilon$, $n$, and the probe set's provenance fixed in advance by the deployment tier. If the deployment variables are not enumerated in the disclosure, the derivation chain breaks and the system fails the R requirement.
 \end{proposition}
 
 The proposition converts ``representational transparency'' from a philosophical aspiration into an audit procedure. A vendor cannot claim R-disclosure by publishing the base-model architecture; the disclosure must extend to every component of the inference pipeline that selects, suppresses, or rewrites categorical outputs.
@@ -403,7 +403,7 @@ The wording is deliberate. The principle does not assert that the law of any spe
 \subsection{Machine-Verifiable Legitimacy}
 \label{subsec:machine-verifiable}
 
-For learned and agentic systems, corrigibility must be paired with machine-verifiable legitimacy: (a) \textit{authority encoding}---delegation and scope expressed as machine-interpretable credentials; (b) \textit{revocation propagation}---immediate, observable revocation states that downstream execution environments respect; (c) \textit{evidence standards}---tamper-evident execution traces and evaluation artifacts that meet defined admissibility criteria; and (d) \textit{incident-triggered mitigation}---automated mitigation gating and mandatory rollback protocols when thresholds breach; and (e) \textit{origination marking}---the record states whether a human or an agent operated the action, because agent operation of a human-gated ceremony produces artifacts indistinguishable from human operation. Absence of a marker is never evidence of human operation, so a deployment that relies on human operation must require a positive, signed marker. Consulting a marker may only narrow authority, never enlarge it. The unifying criterion is that authority and attribution are record-borne acts rather than inferences from artifacts. No authority from persistence. No operator species from ceremony. These are operational requirements; without them, architectural constraints remain unproven. Existing governance frameworks such as \citet{abadie2026} provide workflow orchestration but lack these machine-verifiable legitimacy requirements.
+For learned and agentic systems, corrigibility must be paired with machine-verifiable legitimacy: (a) \textit{authority encoding}---delegation and scope expressed as machine-interpretable credentials; (b) \textit{revocation propagation}---immediate, observable revocation states that downstream execution environments respect; (c) \textit{evidence standards}---tamper-evident execution traces and evaluation artifacts that meet defined admissibility criteria; (d) \textit{incident-triggered mitigation}---automated mitigation gating and mandatory rollback protocols when thresholds are breached; and (e) \textit{origination marking}---the record states whether a human or an agent operated the action, because agent operation of a human-gated ceremony produces artifacts indistinguishable from human operation. Absence of a marker is never evidence of human operation, so a deployment that relies on human operation must require a positive, signed marker. Consulting a marker may only narrow authority, never enlarge it. The unifying criterion is that authority and attribution are record-borne acts rather than inferences from artifacts. No authority from persistence. No operator species from ceremony. These are operational requirements; without them, architectural constraints remain unproven. Existing governance frameworks such as \citet{abadie2026} provide workflow orchestration but lack these machine-verifiable legitimacy requirements.
 
 %% ============================================
 %% SECTION 4: TEMPORAL VARIETY GAP
@@ -549,9 +549,9 @@ This barrier extends well beyond raw text corpora into a taxonomy of upstream tr
     \item \textbf{Tokenizer and pre-training filter rules} that silently shape what content survives into training.
 \end{itemize}
 
-Formally, Data Capture occurs when the data corpus required for reproduction ($D_{required}$) exceeds the data accessible to non-operator actors ($D_{accessible}$) beyond a policy-determined friction threshold:
+Formally, Data Capture occurs when the data corpus required for reproduction ($D_{\text{required}}$) exceeds the data accessible to non-operator actors ($D_{\text{accessible}}$) beyond a policy-determined friction threshold:
 \begin{equation}
-D_{required} > \kappa_D \cdot D_{accessible}
+D_{\text{required}} > \kappa_D \cdot D_{\text{accessible}}
 \end{equation}
 where $\kappa_D \geq 1$ is a data-accessibility multiplier analogous to the compute multiplier $\kappa$ in Definition~\ref{def:compute-capture}. The threshold accounts for non-trivial substitutes: a public corpus that is empirically equivalent to the proprietary one (e.g., Common Crawl filtered to match a vendor's quality gates) may close the gap, but only if the equivalence is auditable.
 
@@ -559,7 +559,7 @@ where $\kappa_D \geq 1$ is a data-accessibility multiplier analogous to the comp
 \label{prop:joint-forkability}
 Training forkability is genuinely available only if the required artifacts (Table~\ref{tab:ai-fork-evidence}) are available and the system evades both Compute Capture and Data Capture simultaneously; the resource conjunction strengthens (and supersedes the manifest clause of) the earlier $\text{FORK}_{\text{training}}$ condition:
 \[
-\text{FORK}_{\text{training}}^{\text{full}} \;=\; \mathbf{1}[C_{\text{train}} \leq \kappa \cdot C_{\text{accessible}}] \;\land\; \mathbf{1}[D_{required} \leq \kappa_D \cdot D_{accessible}].
+\text{FORK}_{\text{training}}^{\text{full}} \;=\; \mathbf{1}[C_{\text{train}} \leq \kappa \cdot C_{\text{accessible}}] \;\land\; \mathbf{1}[D_{\text{required}} \leq \kappa_D \cdot D_{\text{accessible}}].
 \]
 \end{proposition}
 
@@ -592,7 +592,7 @@ To prevent ``FORK fails'' from becoming a rhetorical claim rather than a verifia
 \midrule
 Inference code & Required & Open source license; build reproducibility \\
 Model weights & Required & Public download; hash verification \\
-Training data manifest & Required & Data Sheets \citep{gebru2021} with provenance \\
+Training data manifest & Required & Datasheets \citep{gebru2021} with provenance \\
 Training checkpoint & Recommended & Enables fine-tuning without full retrain \\
 Training code & Required & Includes preprocessing, hyperparameters \\
 Compute cost estimate & Required & FLOP estimate or cloud cost documentation \\
@@ -696,7 +696,7 @@ Disclosure obligations attach to the agent system $A$, not to the model $M$ alon
 $M$ (model) & CODE, FORK & Compute Capture, Data Capture, opaque RLHF \\
 $H$ (harness) & CODE, FORK & Proprietary planners, closed orchestration \\
 $B$ (action boundary) & GOVERN, AUDIT & Validator bypassable via prompt injection \\
-$S$ (action specifications) & CODE, GOVERN & Closed schemas; ontology hidden in latent space \\
+$S$ (action specifications) & CODE, GOVERN & Closed schemas; action ontology left implicit in the model \\
 $T$ (tool definitions) & AUDIT, FORK & Closed APIs; vendor-locked side effects \\
 $C$ (configuration) & CODE, AUDIT & Hidden system prompts, undisclosed retrieval \\
 $\bar{M}$ (persistent memory) & EXIT, AUDIT & Cross-subject contamination, undisclosed retention, deletion that the subject cannot verify \\
@@ -734,7 +734,7 @@ Incorrigible infrastructure is structurally incompatible with AI automation.
 
 Incorrigible infrastructures may appear stable under human load because humans absorb friction through delay, compliance, and informal workaround. Autonomous agents remove this buffering layer.
 
-\paragraph{Illustrative Scenario.} Consider an autonomous procurement agent that interacts with a mandatory payment API. On encountering a compliance flag, the agent receives an opaque error code. No machine-readable error taxonomy exists, and dispute resolution is human-mediated. The agent retries, triggering repeated failures and queue saturation. Human agents absorb such friction via manual override and phone calls; fleets of autonomous agents cannot. The result is a governance denial-of-service (GDoS) that cascades across the payment rail.
+\paragraph{Illustrative Scenario.} Consider an autonomous procurement agent that interacts with a mandatory payment API. On encountering a compliance flag, the agent receives an opaque error code. No machine-readable error taxonomy exists, and dispute resolution is human-mediated. The agent retries, triggering repeated failures and queue saturation. Human agents absorb such friction via manual override and phone calls; fleets of autonomous agents cannot. The result is a governance denial of service (GDoS) that cascades across the payment rail.
 
 \paragraph{Governance Denial of Service.} Under agentic scaling, governance capacity can be saturated (``governance denial of service''). When autonomous agents encounter errors, they retry programmatically rather than waiting patiently; and because one instruction can legitimately spawn many agents, governance load scales with orchestration fan-out, not with the number of principals. Governance mechanisms designed for human patience saturate under machine speed. This is a constraint-layer failure that the Action Boundary must mitigate.
 
@@ -745,7 +745,7 @@ Incorrigible infrastructures may appear stable under human load because humans a
 For an autonomous agent $\mathcal{A}$ to operate reliably within infrastructure $\mathcal{I}$, the following predicates must be strictly True:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Reversibility:} $\forall$ state $s_t \in \mathcal{S}$, $\exists$ transition $s_{t+1}$ (via \texttt{EXIT}) such that $\text{Cost}(s_{t+1}) < \infty$. (No deadlocks).
+    \item \textbf{Reversibility:} $\forall$ state $s_t \in \mathcal{S}$, $\exists$ transition $s_{t+1}$ (via \textbf{EXIT}) such that $\text{Cost}(s_{t+1}) < \infty$. (No deadlocks).
     \item \textbf{Decidability:} $\forall$ input $x$, $\text{Compute}(x) \to \{0,1\}$ is inspectable via \textbf{CODE}. (No hidden constraints).
 \end{enumerate}
 
@@ -783,7 +783,7 @@ Across the five corrigibility tests, EXIT acquires structural primacy in agentic
 \paragraph{The Five EXIT Layers in Agentic Systems.} A deployment that nominally provides ``opt-out'' typically provides one of the following while leaving the others unguarded; corrigibility under agentic conditions requires all five.
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Subject EXIT.} Affected parties can refuse an AI-mediated determination and obtain a non-AI alternative or a human-authored decision without disproportionate penalty (per the EPI row of Table~\ref{tab:verification}). This is the canonical EXIT inherited from the deterministic case.
+    \item \textbf{Subject EXIT.} Affected parties can refuse an AI-mediated determination and obtain a non-AI alternative or a human-authored decision without disproportionate penalty (per the EXIT row of Table~\ref{tab:verification}). This is the canonical EXIT inherited from the deterministic case.
     \item \textbf{Memory EXIT.} The persistent memory layer $\bar{M}$ exposes a programmatic, auditable purge interface (Section~\ref{subsec:agent-systems}, ``Memory as Liability''). Without this, ``opting out'' leaves a residue the subject cannot verify is gone, and data-protection regimes (GDPR's right-to-erasure, India's DPDP Act §12) attach to that residue regardless of operator classification. Purge alone is not the test. Termination counts only if resumption requires a fresh grant, so nothing about the ended authority may be inferable from what persists.
     \item \textbf{Workflow EXIT.} Halt signals propagate deterministically through agent chains: when a parent agent invokes a child agent or a tool, the architecture must define how cancellation, timeout, and termination flow back through the chain. Without this, autonomous chains exhibit the deadlock pathology of Figure~\ref{fig:agentic-automaton} at fleet scale, producing the Governance Denial of Service described above. Propagation is also not the whole test. A mandate that expires cleanly and is then re-instantiated from residual context has not exited, whether the residue is a still-running orchestration graph, prior approvals in memory, or a scheduler firing the next run. EXIT is satisfied only where authority cannot regenerate from persistence.
     \item \textbf{Operator EXIT.} The operator retains a deterministic shutdown and pause capability for the deployment, including under partial failure. The AI-safety literature treats this as the ``off-switch'' problem \citep{hadfield2017}; corrigibility analysis adopts the same engineering requirement but assigns it a different normative weight. Operator EXIT is necessary but not sufficient: a system corrigible only to its operator is not corrigible to those it governs.
@@ -867,7 +867,7 @@ Figure~\ref{fig:action-boundary} illustrates the architecture: the validator enf
     \item \textbf{Deterministic Validation:} Inference outputs pass through a hard-coded policy layer before execution. The validator computes its decision through ordinary program logic and is independent of the model's probabilistic computation.
     \item \textbf{Context-Window Isolation:} Constraints are encoded in the execution environment, not injected into the model's context window. A learned system cannot prompt-inject past constraints it cannot read; isolation is the structural answer to injection that attempts to cross the policy boundary. Injection that steers the model toward harmful-but-in-policy proposals remains, and must be bounded by narrowing action classes and tightening the validator's predicates.
     \item \textbf{Exception Handling (EXIT):} The action specification dictates explicit fallback paths and termination triggers, preventing the infinite loops that produce Governance Denial of Service (GDoS).
-    \item \textbf{Machine-Readable Specifications (CODE \& AUDIT):} The agent's workflow and tool permissions are defined in declarative, independently auditable schemas. The system's operational ontology becomes public, satisfying the Representation (R) requirement of LWD-R, and execution emits structured transaction logs satisfying AUDIT.
+    \item \textbf{Machine-Readable Specifications (CODE \& AUDIT):} The agent's workflow and tool permissions are defined in declarative, independently auditable schemas. The system's operational ontology becomes public, discharging the workflow layer's share of the Representation (R) requirement of LWD-R, and execution emits structured transaction logs satisfying AUDIT.
     \item \textbf{Binding Constraints (GOVERN):} The validator acts as a non-overrideable controller. Actions that fail the schema are rejected and logged, providing an auditable failure signal rather than silent compliance.
 \end{enumerate}
 
@@ -890,7 +890,7 @@ Outside-context enforcement breaks this isomorphism. A deterministic validator i
 
 \paragraph{Stochastic Redundancy Is Not Validation.} A deployment pattern now common in agentic practice sets model-based judges over model-based workers. Panels of adversarial reviewer agents check a planner's output before it commits. This is redundancy, not independence. The judges, the workers, and the planner share a representational substrate, so their blind spots correlate and an input that misleads one tends to mislead the panel. A judge panel can raise reliability. It cannot supply the structural property the validator supplies, which is a check whose correctness is verifiable against a written specification by a party outside the substrate being checked. A deployment that presents agent-panel review as its governance claim has automated review, not constituted it.
 
-\paragraph{Untyped Action Channels.} The Protocol assumes actions arrive as typed proposals the validator can check against a schema. Agents that act through general-purpose interfaces, such as a browser or a desktop session, emit no such proposals. The keystroke and the click are not typed action classes. Where the action channel is untyped, the boundary must migrate to the effect surface. Enforcement attaches at the resource that receives the effect, the transaction system, the record store, the rail, where the action becomes typed again. The requirement is placement-invariant: some deterministic, specification-checkable gate must stand between inference and irreversible effect, wherever in the path that gate must sit. The same rule governs the seam between workflow and ledger. Where an agentic system executes by writing to deterministic infrastructure, the composite is evaluated as one system at the effect surface, and the weakest constraint set binds across the seam, so neither layer can be used to launder the other's obligations.
+\paragraph{Untyped Action Channels.} The Protocol assumes actions arrive as typed proposals the validator can check against a schema. Agents that act through general-purpose interfaces, such as a browser or a desktop session, emit no such proposals. The keystroke and the click are not typed action classes. Where the action channel is untyped, the boundary must migrate to the effect surface. Enforcement attaches at the resource that receives the effect: the transaction system, the record store, the rail, where the action becomes typed again. The requirement is placement-invariant: some deterministic, specification-checkable gate must stand between inference and irreversible effect, wherever in the path that gate must sit. The same rule governs the seam between workflow and ledger. Where an agentic system executes by writing to deterministic infrastructure, the composite is evaluated as one system at the effect surface, and the weakest constraint set binds across the seam, so neither layer can be used to launder the other's obligations.
 
 \paragraph{The Normalized Boundary.} Validators, interceptors, and gateway enforcement are now ordinary practice, and the enforcement seam itself is the subject of active standardization. Possession of an action boundary therefore no longer discriminates between corrigible and incorrigible deployments. The discriminating questions move up a level. Whose constraints does the validator enforce, only the operator's or also constraints the operator did not author. Who can verify its decisions from outside. A boundary that enforces operator policy and logs to operator storage is the inward column of the dual-exercise reading in the companion paper~\citep{aravind2026dpi}, and satisfying it alone is the harness-shaped instance of the open-washing pattern that paper taxonomizes. Two further criteria follow. Action specifications carry lifetimes, so a specification authorized once does not execute indefinitely and renewal is an act of the accountable authority, not a default. And the checkpoint requirement is functional rather than positional: what high-stakes tiers require is an accountable authority whose grant is fresh, whose liability binds, and whose correction operates within the correction window, whether that authority reviews each decision, each class of decisions, or the boundary itself.
 
@@ -1146,7 +1146,7 @@ Bytecode and \textbf{Reproducible Builds} are the technical prerequisites for CO
     \item \textbf{Wasm/Bytecode Portability}: Standardized, portable bytecode formats (like WebAssembly) avoid vendor lock-in. This lowers WCC because orchestration logic can be ported between cloud or edge environments, satisfying FORK.
 \end{itemize}
 
-The Edge/SLM row of Table~\ref{tab:topology-risk-arch} summarises the corrigibility impact of these choices across the five tests: local refusal strengthens EXIT, reproducible bytecode verifies CODE, and low retraining ratios satisfy FORK, while AUDIT and GOVERN remain the topology's open problems: telemetry and guardrails fragment across nodes, so both require federated instruments to close.
+The Edge/SLM row of Table~\ref{tab:topology-risk-arch} summarizes the corrigibility impact of these choices across the five tests: local refusal strengthens EXIT, reproducible bytecode verifies CODE, and low retraining ratios satisfy FORK, while AUDIT and GOVERN remain the topology's open problems, since telemetry and guardrails fragment across nodes and both require federated instruments to close.
 
 \paragraph{Architectural Implication.} By adopting Edge/Bytecode topologies, states move from \textbf{Rule of the Ledger} to \textbf{Rule of the Protocol}, ensuring that administrative power remains corrigible even as it scales toward universal necessity. The substrate shifts from centralized cloud to distributed edge, but the five tests remain invariant.
 
@@ -1316,7 +1316,7 @@ The complete framework is available across two repositories:
     \begin{itemize}
         \item \textbf{DPI Schemas}: \texttt{schema/dpi/infrastructure.json}, \texttt{schema/dpi/audit.json}
         \item \textbf{EPI Schemas}: \texttt{schema/epi/infrastructure.json}, \texttt{schema/epi/audit.json}
-        \item \textbf{Assessment Rules}: \texttt{rules/assess/} --- Test definitions including LWD-R transparency criteria, Compute Capture detection, Action Boundary verification, and Variety Drift monitoring
+        \item \textbf{Protocol Documentation}: \texttt{PROTOCOL.md}, \texttt{AGENTS.md}, \texttt{docs/} --- versioning rules, invariants for agent-operated roles, the machine evaluation protocol, and the failure-modes index
         \item \textbf{Protocol}: Versioning, canonicalization, signature standards
         \item \textbf{Examples}: Fictional reference implementations
     \end{itemize}
@@ -1343,7 +1343,7 @@ To distinguish valid governance from performative compliance, the framework prov
 
 \subsection{Operator's Affidavit: \texttt{infrastructure.json}}
 
-The operator must declare exactly how the stochastic model is bounded (schema identifiers use the schema repository's URN namespace). The \texttt{agentic\_workflow\_governance} object proves the system is using deterministic, externally specified action definitions rather than proprietary black-box orchestration.
+The operator must declare exactly how the stochastic model is bounded (schema identifiers use the schema repository's URN namespace; sample fields are illustrative, the normative field set being versioned in the repository). The \texttt{agentic\_workflow\_governance} object proves the system is using deterministic, externally specified action definitions rather than proprietary black-box orchestration.
 
 \begin{verbatim}
 {

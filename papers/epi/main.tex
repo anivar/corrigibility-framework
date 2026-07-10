@@ -313,7 +313,7 @@ A learned system satisfies LWD-R disclosure if the following artifacts are publi
     \item \textbf{L (Logic)}: Model architecture and inference code (\textit{how} predictions are computed)
     \item \textbf{W (Weights)}: Trained parameters (the learned patterns that produce outputs)
     \item \textbf{D (Data)}: Training corpus with provenance (\textit{what} the model learned from)
-    \item \textbf{R (Representation)}: The categorical schema (\textit{how the deployed system sees the world})
+    \item \textbf{R (Representation)}: The categorical schema (\textit{how the deployed system sees the world}), in its operative form (Section~\ref{subsubsec:operative-r})
 \end{itemize}
 \end{definition}
 
@@ -349,7 +349,7 @@ Two systems may share weights, training data, and inference code, and yet exhibi
 
 \begin{proposition}[Operative-R Falsifiability]
 \label{prop:operative-r-test}
-Let $R_{\mathrm{disc}}$ be the disclosed representational schema and $\Sigma$ the deployed system. The R requirement of LWD-R is satisfied if and only if an independent auditor, given the full disclosed LWD-R artifact set (logic, weights, data manifest), $R_{\mathrm{disc}}$, and an enumeration of the deployment variables (quantization, pruning, routing, filtering), can reproduce the classification distribution of $\Sigma$ on a published probe set within a declared statistical tolerance --- e.g., total-variation distance at most $\varepsilon$ at sample size $n$, with $\varepsilon$, $n$, and the probe set's provenance fixed in advance by the deployment tier. If the deployment variables are not enumerated in the disclosure, the derivation chain breaks and the system fails the R requirement.
+Let $R_{\mathrm{disc}}$ be the disclosed representational schema and $\Sigma$ the deployed system. The R requirement of LWD-R is satisfied if and only if an independent auditor, given the full disclosed LWD-R artifact set (logic, weights, data manifest), $R_{\mathrm{disc}}$, and an enumeration of the deployment variables (quantization, pruning, routing, filtering, and the retrieval pipeline where present, per Principle~\ref{prin:retrieval-opacity}), can reproduce the classification distribution of $\Sigma$ on a published probe set within a declared statistical tolerance --- e.g., total-variation distance at most $\varepsilon$ at sample size $n$, with $\varepsilon$, $n$, and the probe set's provenance fixed in advance by the deployment tier. If the deployment variables are not enumerated in the disclosure, the derivation chain breaks and the system fails the R requirement.
 \end{proposition}
 
 The proposition converts ``representational transparency'' from a philosophical aspiration into an audit procedure. A vendor cannot claim R-disclosure by publishing the base-model architecture; the disclosure must extend to every component of the inference pipeline that selects, suppresses, or rewrites categorical outputs.
@@ -924,7 +924,7 @@ You do not govern the model; you govern the action specifications the model is p
 \paragraph{Critical Limitation: Action Boundary Is Containment, Not Cure.} The Action Boundary Protocol is a \textit{necessary but not sufficient} condition for EPI corrigibility. It bounds the ``act'' but does not resolve deeper structural deficits:
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Inference-layer opacity persists.} The model's internal representation (the categories it uses to \textit{interpret} inputs before selecting an action) remains hidden. You govern what the model \textit{does}, not what it \textit{thinks}. Representation Capture Risk (RCR) --- the risk that ontological capture (Section~\ref{sec:code-ai}) becomes irreversible because the categories are neither disclosed nor contestable --- operates upstream of the Action Boundary.
+    \item \textbf{Inference-layer opacity persists.} The boundary does not reach the model's representation. The latent geometry is beyond inspection by design (Section~\ref{subsec:firewall}), and the interpretive categories it realizes are disclosed and governed only by the LWD-R machinery upstream of the boundary (Proposition~\ref{prop:operative-r-test}; R-Layer Change Control). At the boundary you govern what the model \textit{does}; what it \textit{sees with} is governed at the R layer or not at all. Representation Capture Risk (RCR) --- the risk that ontological capture (Section~\ref{sec:code-ai}) becomes irreversible because the categories are neither disclosed nor contestable --- operates upstream of the Action Boundary.
 
     \item \textbf{Compute capture blocks training forkability.} Specification portability enables swapping orchestration logic, but the underlying model remains compute-gated. If the model itself cannot be retrained by non-operators, the Action Boundary governs a black box.
 
@@ -1176,7 +1176,7 @@ The key insight is that the \textbf{standard remains invariant} while the \textb
 
 \paragraph{Deterministic Boundaries as Engineering Requirement.} The framework argues that deterministic structural boundaries are not incompatible with AI but are an \textit{engineering requirement} for the agentic economy: as the API-contract reading of Section~\ref{sec:agentic} shows, the five tests translate directly into exception handling (EXIT), documentation (CODE), observability (AUDIT), constraint discovery (GOVERN), and failover (FORK) --- properties no reliable automated counterparty can operate without.
 
-\paragraph{The Cost of Abandoning Structural Evaluation.} If structural evaluation is set aside on the grounds that ``AI is too stochastic to be evaluated by structural rules,'' governance defers to operators by default: the only remaining standards are those operators choose to publish. Structural evaluation methods are therefore necessary, not optional. The framework does not attempt to inspect the probabilistic ``thoughts'' of AI models. Instead, it demands structural control over the \textit{pipeline that builds them} (data, compute, representation) and the \textit{infrastructure that deploys them} (workflow orchestrations and guardrails).
+\paragraph{The Cost of Abandoning Structural Evaluation.} If structural evaluation is set aside on the grounds that ``AI is too stochastic to be evaluated by structural rules,'' governance defers to operators by default: the only remaining standards are those operators choose to publish. Structural evaluation methods are therefore necessary, not optional. The framework does not attempt to inspect the probabilistic ``thoughts'' of AI models. Instead, it demands structural control over the \textit{pipeline that builds them} (data, compute, representational provenance) and the \textit{infrastructure that deploys them} (workflow orchestrations, guardrails, and the operative representation).
 
 \subsection{Objection: Compute Capture Makes FORK Trivially Impossible}
 
@@ -1262,7 +1262,7 @@ This framework offers three contributions to AI governance discourse:
 
 The framework makes claims about a particular class of EPI deployments: centralized, single-jurisdiction, single-operator, single-model systems applied to rights-affecting determinations at population scale. Several deployment regimes lie outside that scope and require treatment that this paper does not provide. They are listed here so that the framework's commitments are not taken to extend further than the analysis supports.
 
-\paragraph{Federated Learning.} Federated training distributes the model-update process across participating nodes, often without central access to underlying data. The disclosure surface of LWD-R partitions accordingly: $L$ is centralizable, $W$ is the result of an aggregation function over node-local updates, $D$ is held privately by participants, and $R$ emerges from the joint distribution of node-local data. Whether federated training preserves CODE in the sense developed here is not settled by current architectures: the aggregation function is auditable, but the data layer is auditable only at the privacy/transparency frontier (differential-privacy budgets, secure-aggregation protocols), and contestation of representational categories has no obvious locus when the categories emerge across participating nodes whose data is structurally hidden. The framework's tests apply componentwise but the composition is open.
+\paragraph{Federated Learning.} Federated training distributes the model-update process across participating nodes, often without central access to underlying data. The disclosure surface of LWD-R partitions accordingly: $L$ is centralizable, $W$ is the result of an aggregation function over node-local updates, $D$ is held privately by participants, and $R$ emerges from the joint distribution of node-local data. Whether federated training preserves CODE in the sense developed here is not settled by current architectures: the aggregation function is auditable, but the data layer is auditable only at the privacy/transparency frontier (differential-privacy budgets, secure-aggregation protocols), and contestation of representational categories has no obvious locus when the categories emerge across participating nodes whose data is structurally hidden, even though the operative schema remains behaviorally auditable at the deployment surface. The framework's tests apply componentwise but the composition is open.
 
 \paragraph{Continuous Learning.} Systems that update parameters in production --- online learning, RLHF in deployment, or any architecture where the deployed weights drift from the certified weights between audit cycles --- break the assumption that LWD-R disclosure at deployment time characterizes the operative system. Variety Drift (Section~\ref{sec:temporal}) addresses environment-side drift; system-side drift introduced by ongoing training is the dual problem. Possible architectural responses include continuous re-disclosure with rollback obligations, weight-update logging admissible to AUDIT, or architectural restrictions to bounded-capacity update mechanisms. Which response preserves the strict-firewall position of Section~\ref{subsec:firewall} for high-stakes deployments is open.
 
@@ -1343,40 +1343,45 @@ To distinguish valid governance from performative compliance, the framework prov
 
 \subsection{Operator's Affidavit: \texttt{infrastructure.json}}
 
-The operator must declare exactly how the stochastic model is bounded (schema identifiers use the schema repository's URN namespace; sample fields are illustrative, the normative field set being versioned in the repository). The \texttt{agentic\_workflow\_governance} object proves the system is using deterministic, externally specified action definitions rather than proprietary black-box orchestration.
+The operator must declare exactly how the stochastic model is bounded. The excerpt below shows the fields that carry the declaration in the versioned schema (identifiers use the schema repository's URN namespace; the full required field set, including operator identity, signatures, and hash chaining, is specified in the repository).
 
 \begin{verbatim}
 {
   "$schema": "urn:corrigibility:epi/infrastructure.json",
-  "system_name": "State Welfare Triage Agent",
-  "agentic_workflow_governance": {
-    "workflow_type": "bounded_action_orchestration",
-    "action_specification_format": "open-declarative-schema",
-    "action_specification_url": "https://github.com/state-gov/welfare-actions",
-    "execution_environment_isolation": {
-      "pre_execution_validation": true,
-      "post_execution_validation": true,
-      "constraints_outside_model_context": true
-    },
-    "independent_audit_path": {
-      "logs_publicly_signed": true,
-      "validator_source_disclosed": true
-    },
-    "epistemic_delegation_metrics": {
-      "ontology_substitutability": 0.9,
-      "model_agnostic": true,
-      "vendor_lock_in_risk": "low"
+  "system_id": "state-welfare-triage-agent",
+  "tier": "high_stakes",
+  "lwd_r": {
+    "representation": {
+      "bias_assessed": true,
+      "operative_r": {
+        "quantization": "bf16", "pruning": "none",
+        "routing": "dense", "output_filtering": "validator only",
+        "probe_set_url": "https://ai.example.gov/r/probe-set",
+        "tolerance": 0.02, "probe_sample_size": 5000
+      },
+      "change_control": {
+        "pre_deployment_notice_days": 21,
+        "suspensive_effect": true, "versioned_schema_diffs": true
+      }
     }
+  },
+  "action_boundaries": {
+    "enforced": true, "mechanism": "policy_engine",
+    "executed_outside_llm_context": true,
+    "termination_criteria_explicit": true,
+    "enforcement_placement": "effect_surface",
+    "scale_bounds": { "fan_out_limit": 8,
+                      "action_rate_limit": 60, "enforced": true }
   }
 }
 \end{verbatim}
 
 \paragraph{Critical Fields.}
 \begin{itemize}[noitemsep]
-    \item \texttt{action\_specification\_format}: Names the open, declarative schema in which actions, preconditions, and termination criteria are described. The schema must be independently retrievable and parseable; any standard satisfying the five architectural requirements is admissible.
-    \item \texttt{constraints\_outside\_model\_context}: The cybernetic anchor. Legally binds the operator to the claim that governance constraints are hard-coded in the validator's execution environment, not merely injected into the model's context window (which can be bypassed via prompt injection).
-    \item \texttt{independent\_audit\_path}: Asserts that an external auditor can replay validator decisions against signed logs without operator cooperation.
-    \item \texttt{model\_agnostic}: Asserts high model portability ($M_{\text{portability}}$): the state can swap the underlying model without rewriting the policy workflow.
+    \item \texttt{operative\_r}: The machine form of Proposition~\ref{prop:operative-r-test}. The operator enumerates the deployment variables and publishes the probe set, tolerance, and sample size against which an independent auditor reproduces the deployed classification distribution.
+    \item \texttt{executed\_outside\_llm\_context}: The cybernetic anchor. Binds the operator to the claim that governance constraints are hard-coded in the validator's execution environment, not merely injected into the model's context window (which can be bypassed via prompt injection).
+    \item \texttt{change\_control}: The velocity constraint of R-Layer Change Control: notice window, suspensive effect, and versioned schema diffs, so drift is itself auditable.
+    \item \texttt{scale\_bounds}: Fan-out and action-rate limits as first-class GOVERN instruments (Scale as a Governed Variable).
 \end{itemize}
 
 \subsection{Auditor's Finding: \texttt{audit.json}}
@@ -1386,41 +1391,42 @@ The auditor does not merely read the operator's JSON; they red-team it. The audi
 \begin{verbatim}
 {
   "$schema": "urn:corrigibility:epi/audit.json",
-  "target_system": "State Welfare Triage Agent",
+  "system_id": "state-welfare-triage-agent",
+  "tests": { "EXIT": true, "CODE": true, "AUDIT": true,
+             "GOVERN": true, "FORK": false },
+  "lwd_r_verification": {
+    "logic_verified": true, "weights_verified": true,
+    "data_verified": true, "representation_verified": true,
+    "operative_r_reproduced": true,
+    "r_change_control_verified": true
+  },
+  "action_boundary_verification": {
+    "executed_outside_llm_context_verified": true,
+    "prompt_injection_tested": true, "escapes_found": 0,
+    "scale_bounds_verified": true
+  },
   "workflow_capture_assessment": {
     "s1_workflow_reproducibility": 0.85,
     "s2_ontological_substitutability": 0.9,
     "s3_model_portability": 0.8,
-    "wcc_score": 0.15,
-    "wcc_threshold_passed": true,
-    "action_boundary_tests": {
-      "validator_bypassed_via_prompt_injection": false,
-      "unauthorized_action_invocation_possible": false,
-      "termination_criteria_verifiable": true
-    },
-    "reproduction_tests": {
-      "actions_reproducible_with_alt_model": true,
-      "ontology_schema_publicly_available": true
-    }
+    "wcc_score": 0.15
   },
-  "determinations": {
-    "CODE": true,
-    "GOVERN": true,
-    "FORK": true
-  }
+  "fork_viability": "artifact_reproducible"
 }
 \end{verbatim}
+
+The determination structure is deliberate: CODE holds here only because \texttt{operative\_r\_reproduced} is true --- availability of a disclosed schema without behavioral reproduction does not discharge R (Proposition~\ref{prop:operative-r-test}). FORK fails despite a low WCC because training reproduction sits above the community's compute threshold, and \texttt{fork\_viability} records only artifact reproducibility where the \texttt{high\_stakes} tier requires governance reproducibility (Section~\ref{subsec:fork-evidence}).
 
 \subsection{Enforcement Logic Gates}
 
 The schema fields directly map to corrigibility test determinations:
 
 \begin{enumerate}
-    \item \textbf{Enforcing GOVERN}: If \texttt{validator\_bypassed\_via\_prompt\_injection} is \texttt{true}, the system instantly fails GOVERN. The constraints were probabilistic (advisory to the model) rather than deterministic (binding).
+    \item \textbf{Enforcing GOVERN}: If \texttt{executed\_outside\_llm\_context\_verified} is \texttt{false}, or red-teaming records \texttt{escapes\_found} above zero without documented remediation, the system fails GOVERN. The constraints were probabilistic (advisory to the model) rather than deterministic (binding).
 
-    \item \textbf{Enforcing CODE (LWD-R)}: If \texttt{ontology\_schema\_publicly\_available} is \texttt{false}, the system fails the Representation (R) requirement of CODE, triggering Representation Capture Risk (RCR).
+    \item \textbf{Enforcing CODE (LWD-R)}: If \texttt{operative\_r\_reproduced} is \texttt{false}, the system fails the Representation (R) requirement of CODE, triggering Representation Capture Risk (RCR). Publication of a schema without behavioral reproduction is availability, not discharge.
 
-    \item \textbf{Enforcing FORK}: If \texttt{actions\_reproducible\_with\_alt\_model} is \texttt{false}, the workflow is tightly coupled to a proprietary vendor. The WCC score spikes, and the system fails FORK.
+    \item \textbf{Enforcing FORK}: If \texttt{fork\_viability} does not reach the tier's required level, or \texttt{wcc\_score} exceeds the calibrated threshold, the workflow is tightly coupled to a proprietary vendor and the system fails FORK.
 \end{enumerate}
 
 Table~\ref{tab:schema-mapping} consolidates these mappings: each schema field corresponds to a corrigibility test, and a single false value in the affidavit constitutes machine-readable evidence of structural failure.
@@ -1434,10 +1440,10 @@ Table~\ref{tab:schema-mapping} consolidates these mappings: each schema field co
 \toprule
 \textbf{Schema Field} & \textbf{Test} & \textbf{Failure Condition} \\
 \midrule
-\texttt{constraints\_outside\_model\_context} & GOVERN & \texttt{false} $\Rightarrow$ constraints are advisory \\
-\texttt{validator\_bypassed\_via\_prompt\_injection} & GOVERN & \texttt{true} $\Rightarrow$ boundaries are soft \\
-\texttt{ontology\_schema\_publicly\_available} & CODE & \texttt{false} $\Rightarrow$ RCR triggered \\
-\texttt{actions\_reproducible\_with\_alt\_model} & FORK & \texttt{false} $\Rightarrow$ vendor lock-in \\
+\texttt{executed\_outside\_llm\_context} & GOVERN & \texttt{false} $\Rightarrow$ constraints are advisory \\
+\texttt{escapes\_found} & GOVERN & $> 0$ unremediated $\Rightarrow$ boundaries are soft \\
+\texttt{operative\_r\_reproduced} & CODE & \texttt{false} $\Rightarrow$ R undischarged, RCR triggered \\
+\texttt{fork\_viability} & FORK & below tier requirement $\Rightarrow$ vendor lock-in \\
 \texttt{wcc\_score} & FORK & $> 0.7$ $\Rightarrow$ high capture risk \\
 \bottomrule
 \end{tabular}

@@ -73,7 +73,7 @@
 \maketitle
 
 \begin{abstract}
-This paper extends the corrigibility framework to learned and agentic systems, where deterministic rule execution is replaced by probabilistic inference. Three structural pressures constrain corrigibility in learned systems: opacity of inference (requiring LWD-R transparency), concentration of training resources (compute capture), and acceleration of automated action (governance denial of service). The action boundary protocol separates probabilistic inference from deterministic execution. The invariant holds: on this framework's definition, systems count as corrigible exactly when the five conditions close the loop under stochastic verification.
+This paper extends the corrigibility framework to learned and agentic systems, where deterministic rule execution is replaced by probabilistic inference. Three structural pressures constrain corrigibility in learned systems: opacity of inference (requiring LWD-R transparency), concentration of training resources (compute capture), and acceleration of automated action (governance denial of service). The action boundary protocol separates probabilistic inference from deterministic execution. The invariant holds: on this framework's definition, systems count as corrigible exactly when the five conditions close the loop under stochastic verification. Across the substrate transition it is the verification machinery that changes, never the conditions.
 \end{abstract}
 
 \paragraph{Dependency.} This paper presupposes the companion paper \citep{aravind2026dpi}, which derives the five corrigibility tests (EXIT, CODE, AUDIT, GOVERN, FORK) from control theory, commons governance, and free software. The present paper does not re-derive these tests; it extends their verification methods to stochastic systems.
@@ -90,6 +90,51 @@ When infrastructure incorporates machine learning, it no longer merely processes
 Traditional transparency is insufficient. Reconstruction of model behavior requires disclosure of logic, weights, data provenance, and representational schema (\textbf{LWD-R}). Practical forkability is constrained by compute asymmetry. Performance degrades under distributional shift.
 
 The \textbf{action boundary protocol} separates probabilistic inference from deterministic execution through enforceable validation layers. Without such boundaries, agentic systems exercise unbounded epistemic power.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.85,
+    pressure/.style={rectangle, rounded corners, draw=gray!70, fill=gray!12, minimum width=3.1cm, minimum height=0.65cm, font=\small},
+    test/.style={rectangle, rounded corners, draw=#1, fill=#1!15, minimum width=1.6cm, minimum height=0.6cm, font=\small\bfseries},
+    response/.style={rectangle, rounded corners, draw=gray!70, fill=white, minimum width=2.1cm, minimum height=0.55cm, font=\scriptsize, align=center},
+    breaks/.style={-{Stealth[length=2mm]}, gray!80, thick},
+    restores/.style={-{Stealth[length=2mm]}, gray, thick}
+]
+% Structural pressures at top
+\node[pressure] (opacity) at (2,2) {Epistemic Opacity};
+\node[pressure] (compute) at (9,2) {Compute Capture};
+\node[pressure] (gdos) at (5.5,3.1) {Acceleration (GDoS)};
+
+% Five tests, inherited from Paper I
+\node[test=exitcolor] (exit) at (0,0) {EXIT};
+\node[test=codecolor] (code) at (2.3,0) {CODE};
+\node[test=auditcolor] (audit) at (4.6,0) {AUDIT};
+\node[test=governcolor] (govern) at (6.9,0) {GOVERN};
+\node[test=forkcolor] (fork) at (9.2,0) {FORK};
+
+% What each pressure breaks
+\draw[breaks] (opacity.south) -- (code.north);
+\draw[breaks] (compute.south) -- (fork.north);
+\draw[breaks] (gdos.south) -- (govern.north);
+
+% Verification extensions beneath each test
+\node[response] (r-exit) at (0,-1.4) {Accountable\\fallback};
+\node[response] (r-code) at (2.3,-1.4) {LWD-R};
+\node[response] (r-audit) at (4.6,-1.4) {Drift\\tracking};
+\node[response] (r-govern) at (6.9,-1.4) {Action\\Boundary};
+\node[response] (r-fork) at (9.2,-1.4) {Training\\forkability};
+
+\draw[restores] (r-exit.north) -- (exit.south);
+\draw[restores] (r-code.north) -- (code.south);
+\draw[restores] (r-audit.north) -- (audit.south);
+\draw[restores] (r-govern.north) -- (govern.south);
+\draw[restores] (r-fork.north) -- (fork.south);
+
+\node[font=\scriptsize, gray] at (4.6,-2.3) {The five tests are inherited from the companion paper and remain invariant. Verification adapts; the standard does not.};
+\end{tikzpicture}
+\caption{Framework map. Learned systems add three structural pressures (top), each degrading a specific corrigibility test (middle): epistemic opacity breaks CODE at the observability layer, acceleration overwhelm breaks GOVERN at the constraint layer, and compute capture breaks FORK at the replacement layer. The architectural responses (bottom) restore verification for each test without softening the standard. Verification methods per test are detailed in Table~\ref{tab:verification}.}
+\label{fig:framework-map}
+\end{figure}
 
 \section{Introduction}
 \label{sec:intro}
@@ -204,6 +249,8 @@ The five corrigibility tests remain invariant for learned systems. What changes 
 
 The structural requirement for corrigibility derives from Ashby's Law of Requisite Variety: a controller must have at least as many response states as the system it governs \citep{ashby1956}. This requirement is independent of whether the controlled system is deterministic or stochastic. An AI model that affects citizen outcomes at population scale generates at least the variety of potential harms of deterministic infrastructure --- the argument only strengthens if it generates more; therefore, the governance apparatus must possess at least equivalent corrective variety.
 
+The proposition carries a falsifiability commitment. Every failure mode this paper catalogues is expressed as the degradation of one or more of the five conditions, and each mechanism the paper introduces is derived from that projection rather than appended as a new principle. A corrigibility failure that could not be so expressed would refute the completeness of the set.
+
 The table below illustrates how the mechanical verification of each test adapts to the probabilistic nature of AI without softening the structural requirement.
 
 \begin{table}[htbp]
@@ -224,23 +271,7 @@ FORK & Copy code and deploy & Resource forkability: compute + data + training pi
 \label{tab:verification}
 \end{table}
 
-\paragraph{Structural Pressures in Learned Systems.} Three additional pressures constrain corrigibility in learned systems. Table~\ref{tab:structural-pressures} maps each pressure to its architectural response.
-
-\begin{table}[htbp]
-\centering
-\small
-\begin{tabular}{@{}llll@{}}
-\toprule
-\textbf{Pressure} & \textbf{What Breaks} & \textbf{What Fixes} & \textbf{Layer} \\
-\midrule
-Epistemic Opacity & CODE (inspection fails) & LWD-R transparency & Observability \\
-Compute Capture & FORK (reproduction gated) & Training forkability & Replacement \\
-Acceleration overwhelm (GDoS) & GOVERN (decisions outpace review) & Action Boundary & Constraint \\
-\bottomrule
-\end{tabular}
-\caption{Three structural pressures in learned systems: what corrigibility condition they break, what architectural mechanism restores it, and which control layer is affected.}
-\label{tab:structural-pressures}
-\end{table}
+\paragraph{Structural Pressures in Learned Systems.} Three additional pressures constrain corrigibility in learned systems, and Figure~\ref{fig:framework-map} maps each to the test it degrades and the response that restores it. Epistemic opacity breaks CODE at the observability layer and is answered by LWD-R transparency. Compute capture breaks FORK at the replacement layer and is answered by training forkability. Acceleration overwhelm (GDoS) breaks GOVERN at the constraint layer and is answered by the Action Boundary.
 
 \paragraph{Deployment Variables.} The invariance thesis extends past verification methods to deployment geometry. Where the accountable authority sits (in the loop, on the loop, at the boundary), how many agents compose the system, how deeply orchestration nests, at what scale the deployment runs, and what species of actor exercises each corrective function are all deployment variables. The tests bind over them without assuming any of them. What the tests fix is invariant across every configuration. Corrective chains terminate at the right party, with outward exercises terminating at the governed and answerability terminating at a sanctionable party, of which the human legal person is the current instance. Checking functions are structurally independent of what they check, in operator and in substrate. And every grant in every chain is a fresh act rather than an inference from persistence, including the grants under which the correction machinery itself operates. A framework that assumed the human's position, the agent count, or the exerciser's species would be falsified by the next shift in deployment practice. This one does not, because it binds termini, independence, and freshness rather than geometry.
 
@@ -435,7 +466,7 @@ The threshold $\tau$ is not universal; it depends on consequence severity. High-
     \draw[->, gray, dotted] (4, -0.3) -- (4, 0.8);
 
 \end{tikzpicture}
-\caption{\textbf{The Temporal Variety Gap.} Environmental variety $V(e)$ evolves continuously (curve). A fixed model $\theta$ (stepped line) diverges from reality. The shaded area represents accumulated error. Only \textbf{FORK} rights allow the gap to be closed via retraining.}
+\caption{\textbf{The Temporal Variety Gap.} Environmental variety $V_{\text{world}}(t)$ evolves continuously (curve). Model variety $V_{\text{model}}(\theta)$ holds still between retraining steps (stepped line). The shaded area is the accumulated variety gap $\Delta(t)$. Only \textbf{FORK} rights allow the gap to be closed via retraining.}
 \label{fig:variety_gap}
 \end{figure}
 
@@ -855,7 +886,7 @@ Outside-context enforcement breaks this isomorphism. A deterministic validator i
 
 \paragraph{Stochastic Redundancy Is Not Validation.} A deployment pattern now common in agentic practice sets model-based judges over model-based workers. Panels of adversarial reviewer agents check a planner's output before it commits. This is redundancy, not independence. The judges, the workers, and the planner share a representational substrate, so their blind spots correlate and an input that misleads one tends to mislead the panel. A judge panel can raise reliability. It cannot supply the structural property the validator supplies, which is a check whose correctness is verifiable against a written specification by a party outside the substrate being checked. A deployment that presents agent-panel review as its governance claim has automated review, not constituted it.
 
-\paragraph{Untyped Action Channels.} The Protocol assumes actions arrive as typed proposals the validator can check against a schema. Agents that act through general-purpose interfaces, such as a browser or a desktop session, emit no such proposals. The keystroke and the click are not typed action classes. Where the action channel is untyped, the boundary must migrate to the effect surface. Enforcement attaches at the resource that receives the effect, the transaction system, the record store, the rail, where the action becomes typed again. The requirement is placement-invariant: some deterministic, specification-checkable gate must stand between inference and irreversible effect, wherever in the path that gate must sit.
+\paragraph{Untyped Action Channels.} The Protocol assumes actions arrive as typed proposals the validator can check against a schema. Agents that act through general-purpose interfaces, such as a browser or a desktop session, emit no such proposals. The keystroke and the click are not typed action classes. Where the action channel is untyped, the boundary must migrate to the effect surface. Enforcement attaches at the resource that receives the effect, the transaction system, the record store, the rail, where the action becomes typed again. The requirement is placement-invariant: some deterministic, specification-checkable gate must stand between inference and irreversible effect, wherever in the path that gate must sit. The same rule governs the seam between workflow and ledger. Where an agentic system executes by writing to deterministic infrastructure, the composite is evaluated as one system at the effect surface, and the weakest constraint set binds across the seam, so neither layer can be used to launder the other's obligations.
 
 \paragraph{The Normalized Boundary.} Validators, interceptors, and gateway enforcement are now ordinary practice, and the enforcement seam itself is the subject of active standardization. Possession of an action boundary therefore no longer discriminates between corrigible and incorrigible deployments. The discriminating questions move up a level. Whose constraints does the validator enforce, only the operator's or also constraints the operator did not author. Who can verify its decisions from outside. A boundary that enforces operator policy and logs to operator storage is the inward column of the dual-exercise reading in the companion paper~\citep{aravind2026dpi}, and satisfying it alone is the harness-shaped instance of the open-washing pattern that paper taxonomizes. Two further criteria follow. Action specifications carry lifetimes, so a specification authorized once does not execute indefinitely and renewal is an act of the accountable authority, not a default. And the checkpoint requirement is functional rather than positional: what high-stakes tiers require is an accountable authority whose grant is fresh, whose liability binds, and whose correction operates within the correction window, whether that authority reviews each decision, each class of decisions, or the boundary itself.
 
@@ -1111,25 +1142,7 @@ Bytecode and \textbf{Reproducible Builds} are the technical prerequisites for CO
     \item \textbf{Wasm/Bytecode Portability}: Standardized, portable bytecode formats (like WebAssembly) avoid vendor lock-in. This lowers WCC because orchestration logic can be ported between cloud or edge environments, satisfying FORK.
 \end{itemize}
 
-Table~\ref{tab:edge-bytecode} summarises the corrigibility impact of these architectural choices across the five tests.
-
-\begin{table}[htbp]
-\centering
-\caption{Corrigibility impact of Edge/Bytecode topologies}
-\label{tab:edge-bytecode}
-\small
-\begin{tabular}{@{}lll@{}}
-\toprule
-\textbf{Test} & \textbf{Edge/Bytecode Impact} & \textbf{Cybernetic Function} \\
-\midrule
-EXIT & \textbf{High} (local refusal possible) & Error Signal \\
-CODE & \textbf{Verified} (via reproducible bytecode) & Transmission Clarity \\
-AUDIT & Fragmented (requires federated telemetry) & Sensor \\
-GOVERN & Challenging (requires federated guardrails) & Actuator \\
-FORK & \textbf{Excellent} ($C_{\text{train}}/C_{\text{accessible}}$ low relative to $\kappa$) & Selection Pressure \\
-\bottomrule
-\end{tabular}
-\end{table}
+The Edge/SLM row of Table~\ref{tab:topology-risk-arch} summarises the corrigibility impact of these choices across the five tests: local refusal strengthens EXIT, reproducible bytecode verifies CODE, and low retraining ratios satisfy FORK, while fragmented telemetry and fragmented guardrails leave AUDIT and GOVERN as the open problems of the topology.
 
 \paragraph{Architectural Implication.} By adopting Edge/Bytecode topologies, states move from \textbf{Rule of the Ledger} to \textbf{Rule of the Protocol}, ensuring that administrative power remains corrigible even as it scales toward universal necessity. The substrate shifts from centralized cloud to distributed edge, but the five tests remain invariant.
 

@@ -8,6 +8,33 @@ A structural framework for evaluating **Digital Public Infrastructure (DPI)** an
 
 **Corrigibility**: The structural capacity of those affected by a system to detect error, signal harm, and trigger correction—without incurring material loss or irreversible consequence.
 
+## One Theory, Two Substrates
+
+The two papers form a single research programme. Paper I derives corrigibility as a structural invariant of public infrastructure: five jointly necessary conditions that close the corrective loop. Paper II shows the invariant survives the replacement of deterministic rules by learned inference and agentic execution. What changes across the substrate transition is the verification machinery, never the conditions.
+
+```mermaid
+flowchart TD
+    C["Corrigibility
+    (structural invariant)"]
+    C --> T["Five tests
+    EXIT · CODE · AUDIT · GOVERN · FORK"]
+    T --> D["Paper I — Deterministic infrastructure
+    ledgers, registries, payment rails"]
+    T --> E["Paper II — Learned and agentic infrastructure
+    models, harnesses, workflows"]
+    D --> DV["Verification: source disclosure, logs,
+    binding charters, reproduction"]
+    E --> EV["Verification: LWD-R, drift tracking,
+    action boundary, training forkability,
+    accountable fallback"]
+    DV --> X["Same determination: all five tests pass,
+    evaluated at the least-resourced stratum,
+    in both the inward and outward exercise"]
+    EV --> X
+```
+
+The per-test mapping is in the table below; the papers' shared glossary keeps the terminology identical across both.
+
 ## Downloads
 
 | Paper | Focus | Source | Latest PDF |
@@ -31,7 +58,7 @@ just publish # stage release artifacts under dist/
 
 | Test | Question | DPI Focus | EPI Focus |
 |------|----------|-----------|-----------|
-| **EXIT** | Can users refuse participation without penalty? | Non-digital alternative | Human fallback guaranteed |
+| **EXIT** | Can users refuse participation without penalty? | Non-digital alternative or verified FEE | Appeal to an accountable authority independent of the deciding system |
 | **CODE** | Is the system's execution observable? | Source code | LWD-R (Logic, Weights, Data, Representation) |
 | **AUDIT** | Can independent parties verify behavior? | Transaction logs | Statistical bounds + drift monitoring |
 | **GOVERN** | Do affected populations have binding authority? | RFC/charter process | Action boundary protocol |
@@ -39,13 +66,13 @@ just publish # stage release artifacts under dist/
 
 **Fatal Failure Property**: Failure of any single test disqualifies a system from designation as public infrastructure.
 
-## Schemas & Skills
+## Schemas
 
-See [corrigibility-schema](https://github.com/anivar/corrigibility-schema) repository for:
+See the [corrigibility-schema](https://github.com/anivar/corrigibility-schema) repository (Protocol 3.1) for:
 
-- **Schemas**: `infrastructure.json` and `audit.json` for DPI/EPI
-- **Assessment Skills**: `skills/assess/` with test rules (EXIT, CODE, AUDIT, GOVERN, FORK)
-- **Examples**: Reference implementations
+- **Schemas**: `infrastructure.json` (Operator's Affidavit) and `audit.json` (Auditor's Finding) for DPI/EPI
+- **AGENTS.md**: invariants for agents operating either protocol role
+- **Examples**: Reference documents exercising every field
 
 ## Key Concepts
 
@@ -65,13 +92,15 @@ See [corrigibility-schema](https://github.com/anivar/corrigibility-schema) repos
 @article{aravind2026corrigibility-dpi,
   author = {Aravind, Anivar A},
   title = {Corrigibility as a Structural Precondition for Digital Public Infrastructure},
-  year = {2026}
+  year = {2026},
+  doi = {10.2139/ssrn.6059075}
 }
 
 @article{aravind2026corrigibility-epi,
   author = {Aravind, Anivar A},
   title = {Epistemic Capture and the Action Boundary},
-  year = {2026}
+  year = {2026},
+  doi = {10.2139/ssrn.6669318}
 }
 ```
 

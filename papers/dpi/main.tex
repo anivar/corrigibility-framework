@@ -137,7 +137,7 @@
 \maketitle
 
 \begin{abstract}
-Digital Public Infrastructure is evaluated using aspirational criteria: interoperability, inclusion, openness, scale. These criteria do not establish whether systemic errors can be corrected by affected participants. This paper defines corrigibility as the minimal structural precondition for reversible public infrastructure. Five jointly necessary conditions form a closed corrective loop: EXIT, CODE, AUDIT, GOVERN, FORK. Failure of any condition opens the loop, rendering correction discretionary. Using control-topology mapping grounded in Ashby's Law of Requisite Variety, the paper formalizes corrigibility as an architectural property: partial compliance is structurally equivalent to open-loop operation. Applied analysis demonstrates discriminative power against existing infrastructures. Corrigibility does not guarantee fairness. It guarantees reversibility.
+Digital Public Infrastructure is evaluated using aspirational criteria: interoperability, inclusion, openness, scale. These criteria do not establish whether systemic errors can be corrected by affected participants. This paper defines corrigibility as the minimal structural precondition for reversible public infrastructure. Five jointly necessary conditions form a closed corrective loop: EXIT, CODE, AUDIT, GOVERN, FORK. Failure of any condition opens the loop, rendering correction discretionary. Using control-topology mapping grounded in Ashby's Law of Requisite Variety, the paper formalizes corrigibility as an architectural property: partial compliance is structurally equivalent to open-loop operation. Applied analysis demonstrates discriminative power against existing infrastructures. The five conditions are stated as an invariant of the infrastructure rather than of its implementation. A companion paper carries the same invariant to learned and agentic systems, where only the verification machinery changes. Corrigibility does not guarantee fairness. It guarantees reversibility.
 \end{abstract}
 
 \keywords{Corrigibility \and Digital Public Infrastructure \and Cybernetics \and Feedback Control \and Requisite Variety \and Infrastructure Accountability \and India Stack}
@@ -597,7 +597,7 @@ This bridge clause completes the deterministic framework's account of the GOVERN
 
 \subsection{The Topology of Necessity}
 
-Five tests describe the anatomy of a stable control loop rather than a random assortment of normative virtues (see Figure~\ref{fig:topology}).
+Five tests describe the anatomy of a stable control loop rather than a random assortment of normative virtues (see Figure~\ref{fig:control-loop}).
 
 \begin{itemize}[noitemsep,topsep=0pt]
     \item \textbf{EXIT} provides the Error Signal.
@@ -615,16 +615,10 @@ Corrigibility closes the loop. Only when all five tests are satisfied does a sys
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{../shared/figures/topology-of-necessity.pdf}
-\caption{\textbf{Topology of Necessity.} Each corrigibility test corresponds to a breakage point in the feedback control loop.}
-\label{fig:topology}
-\end{figure}
-
-\begin{figure}[H]
-\centering
 \begin{tikzpicture}[scale=0.85,
     tradition/.style={rectangle, rounded corners, draw=gray, fill=gray!10, minimum width=2.4cm, minimum height=0.7cm, font=\small},
     test/.style={rectangle, rounded corners, draw=#1, fill=#1!15, minimum width=1.5cm, minimum height=0.6cm, font=\small\bfseries},
+    instrument/.style={rectangle, rounded corners, draw=gray!70, fill=white, minimum width=1.7cm, minimum height=0.55cm, font=\scriptsize, align=center},
     arrow/.style={-{Stealth[length=2mm]}, gray, thick}
 ]
 % Three traditions at top
@@ -632,7 +626,7 @@ Corrigibility closes the loop. Only when all five tests are satisfied does a sys
 \node[tradition] (commons) at (4,2.5) {Commons};
 \node[tradition] (foss) at (8,2.5) {Free Software};
 
-% Five tests at bottom
+% Five tests in the middle
 \node[test=exitcolor] (exit) at (0,0) {EXIT};
 \node[test=codecolor] (code) at (2,0) {CODE};
 \node[test=auditcolor] (audit) at (4,0) {AUDIT};
@@ -651,10 +645,23 @@ Corrigibility closes the loop. Only when all five tests are satisfied does a sys
 \draw[arrow] (foss.south) -- (code.north east);
 \draw[arrow] (foss.south) -- (fork.north);
 
+% Verification instruments derived from the tests
+\node[instrument] (i-exit) at (0,-1.3) {Functional Exit\\Equivalence};
+\node[instrument] (i-code) at (2,-1.3) {Open-Washing\\Taxonomy};
+\node[instrument] (i-audit) at (4,-1.3) {Verification\\Tiers};
+\node[instrument] (i-govern) at (6,-1.3) {Rules\\A.9--A.11};
+\node[instrument] (i-fork) at (8,-1.3) {Barrier\\Taxonomy};
+
+\draw[arrow] (exit.south) -- (i-exit.north);
+\draw[arrow] (code.south) -- (i-code.north);
+\draw[arrow] (audit.south) -- (i-audit.north);
+\draw[arrow] (govern.south) -- (i-govern.north);
+\draw[arrow] (fork.south) -- (i-fork.north);
+
 % Labels
-\node[font=\scriptsize, gray] at (4,-0.7) {All five tests required. Failure of any one disqualifies.};
+\node[font=\scriptsize, gray, align=center] at (4,-2.2) {All five tests required. Failure of any one disqualifies.\\Determination is evaluated at the least-resourced stratum, in both the inward and outward exercise.};
 \end{tikzpicture}
-\caption{Five corrigibility tests derived from three independent theoretical traditions.}
+\caption{The framework at a glance. Three independent theoretical traditions (top) derive the five corrigibility tests (middle), and the tests in turn derive their verification instruments (bottom): Functional Exit Equivalence (Section~\ref{subsubsec:fee}), the open-washing taxonomy, verification tiers, the evidence rules of Appendix~\ref{appendix:rules}, and the constructed-versus-natural barrier taxonomy. Determination is evaluated at the least-resourced stratum (Remark~\ref{rem:argmin}) and in both the inward and outward exercise of each test.}
 \label{fig:framework}
 \end{figure}
 
@@ -667,11 +674,11 @@ The five tests, while derived from distinct intellectual traditions (Figure~\ref
 \toprule
 \textbf{Layer} & \textbf{Test} & \textbf{Function (Cybernetic)} \\
 \midrule
-Individual & EXIT & Reversibility of participation \\
-Logic & CODE & Inspectability of rules \\
-Logic & AUDIT & Verifiability of error \\
-System & GOVERN & Constraint on controller variance \\
-Ecosystem & FORK & Selection pressure via reproduction \\
+Participation & EXIT & Reversibility of participation \\
+Observability & CODE & Inspectability of rules \\
+Observability & AUDIT & Verifiability of error \\
+Constraint & GOVERN & Constraint on controller variance \\
+Replacement & FORK & Selection pressure via reproduction \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -753,7 +760,7 @@ Credential & Issuer policies, attribute schemas & Often fails GOVERN (unilateral
 Trust & Relying party acceptance, trusted lists & Often fails FORK (cannot reproduce acceptance) \\
 \bottomrule
 \end{tabular}
-\caption{Identity infrastructure layer decomposition}
+\caption{Identity infrastructure layer decomposition by vertical stratum. The DID-specific functional decomposition of the same stack is given in Table~\ref{tab:did_layers}.}
 \label{tab:identity_layers}
 \end{table}
 
@@ -984,7 +991,7 @@ MariaDB & MariaDB Foundation & \textbf{5/5} & Forked from MySQL; GPL, foundation
 Eclipse IDE & Eclipse Foundation & \textbf{5/5} & EPL 2.0, 386 member orgs, committer-led governance \\
 \bottomrule
 \end{tabular}
-\caption{Infrastructure systems satisfying all five corrigibility tests. All systems demonstrate full EXIT, CODE, AUDIT, GOVERN, and FORK compliance.}
+\caption{Infrastructure systems satisfying all five corrigibility tests. The set is predominantly non-essential infrastructure, the pattern the essentiality analysis of Section~\ref{subsec:essential} explains.}
 \label{tab:positive}
 \end{table}
 
@@ -1017,7 +1024,7 @@ Identity infrastructure comprises at least four functional layers, each with ind
 \begin{table}[htbp]
 \centering
 \small
-\caption{DID infrastructure layers and typical corrigibility failures}
+\caption{DID infrastructure layers and typical corrigibility failures, by function. The vertical-strata decomposition of the identity stack is Table~\ref{tab:identity_layers}.}
 \label{tab:did_layers}
 \begin{tabular}{@{}lp{5cm}p{5cm}@{}}
 \toprule
@@ -1203,7 +1210,7 @@ where $V_{\text{eff}}$ is effective governance variety and $\theta \in (0,1]$ is
     % Edge labels showing what you get when you pick two
     \node[font=\scriptsize, text=gray, rotate=60, anchor=south] at (-1.5,0.9) {Aadhaar, UPI};
     \node[font=\scriptsize, text=gray, anchor=north] at (0,-1.5) {Linux, SMTP};
-    \node[font=\scriptsize, text=gray, rotate=-60, anchor=south] at (1.5,0.9) {Platform DPI};
+    \node[font=\scriptsize, text=gray, rotate=-60, anchor=south] at (1.5,0.9) {X-Road};
 
     % Center label
     \node[font=\scriptsize, text=red!70!black, align=center] at (0,0.3) {Maximizing two\\compresses the third};
@@ -1211,7 +1218,7 @@ where $V_{\text{eff}}$ is effective governance variety and $\theta \in (0,1]$ is
     % Ashby annotation
     \node[font=\tiny, text=gray, align=center] at (0,-2.3) {Under Ashby's Law: centralization $\rightarrow$ reduced governance variety $\rightarrow$ Neutrality risk};
 \end{tikzpicture}
-\caption{\textbf{The Sovereignty, Scale, and Neutrality Tension.} Under centralized enforcement, states face structural pressure when optimizing for Sovereignty and Scale simultaneously. India Stack optimizes for Sovereignty + Scale with elevated Neutrality risk. Federated systems (Linux, SMTP) achieve Neutrality + Scale through distributed governance.}
+\caption{\textbf{The Sovereignty, Scale, and Neutrality Tension.} Under centralized enforcement, states face structural pressure when optimizing for Sovereignty and Scale simultaneously. India Stack optimizes for Sovereignty + Scale with elevated Neutrality risk. Federated systems (Linux, SMTP) achieve Neutrality + Scale through distributed governance. X-Road holds Sovereignty + Neutrality at national rather than continental scale.}
 \label{fig:trilemma}
 \end{figure}
 
@@ -1415,7 +1422,7 @@ FORK & Resource feasibility ratio $r$ & $r \leq 10^{-3}$ \\
 \begin{table}[htbp]
 \centering
 \scriptsize
-\caption{Three-indicator protocol: continuous score, binary flag, and threshold metric for each test. Thresholds here are the stricter certification tier; Table~\ref{tab:operational-proxies-main} gives screening defaults.}
+\caption{Three-indicator protocol: continuous score, binary flag, and threshold metric for each test. Table~\ref{tab:operational-proxies-main} gives the screening-tier proxies; this protocol adds the binary flags and evidence metrics used at certification.}
 \label{tab:three-indicator-main}
 \begin{tabular}{@{}lp{2.8cm}p{2.8cm}p{3.2cm}@{}}
 \toprule
@@ -1432,12 +1439,12 @@ FORK & \texttt{cost\_ratio}: fork / community resources & \texttt{rights}: fork-
 
 \paragraph{Inter-Rater Calibration.} Before deployment, independent auditors should assess 3--5 systems using this protocol and compare determinations. Disagreements identify threshold calibration issues. Target: $\kappa \geq 0.8$ (Cohen's kappa) for binary determinations.
 
-\paragraph{Policy Constants Summary.} The framework employs several calibration constants that represent policy choices separable from the structural argument. Table~\ref{tab:policy-constants} consolidates these for reference.
+\paragraph{Policy Constants Summary.} The framework employs several calibration constants that represent policy choices separable from the structural argument. Table~\ref{tab:policy-constants} consolidates these for reference. The constants are policy choices, not engineering discoveries. Every threshold creates an operator interest in where it is set, so calibration must itself satisfy a deliberative-mechanism condition (affected-class participation, documented rationale, periodic external review), for the same structural reason that GOVERN cannot be operator self-certification (Section~\ref{subsec:limitations}).
 
 \begin{table}[htbp]
 \centering
 \small
-\caption{Policy constants used throughout the framework. Values are recommended defaults and calibration starting points, separable from the structural argument. They are policy choices, not engineering discoveries --- every threshold creates an operator interest in where it is set --- so calibration must itself satisfy a deliberative-mechanism condition (affected-class participation, documented rationale, periodic external review), for the same structural reason that GOVERN cannot be operator self-certification (Section~\ref{subsec:limitations}). Per-test pass/fail thresholds (penalty ratio $p$, visibility $v$, observability $o$, governance throughput $\tau$, fork resource ratio $r$) are listed separately in Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main}.}
+\caption{Policy constants used throughout the framework. Values are recommended defaults and calibration starting points, separable from the structural argument. Per-test pass/fail thresholds are listed in Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main}.}
 \label{tab:policy-constants}
 \begin{tabular}{@{}llll@{}}
 \toprule
@@ -1768,7 +1775,7 @@ The ``physics'' of digital governance demonstrates that certain architectures st
 
 \begin{table}[htbp]
 \centering
-\caption{Topological risk summary across infrastructure layers}
+\caption{Failure modes and structural remedies by infrastructure layer}
 \label{tab:topological-risk}
 \begin{tabular}{llll}
 \toprule
@@ -2377,7 +2384,7 @@ Figure~\ref{fig:variety-compression} visualizes the compression: as scale rises,
     \addlegendentry{$V_{\text{gov}} = V_{\text{central}} + V_{\text{restored}}$}
 
     % Mark critical threshold
-    \node[font=\scriptsize, text=red!70!black] at (axis cs:7,3) {$Sc^*$};
+    \node[font=\scriptsize, text=red!70!black, anchor=west] at (axis cs:5.65,5.2) {$Sc^*$};
     \draw[red!70!black, dashed, thin] (axis cs:5.5,0) -- (axis cs:5.5,5.5);
 
     % Neutrality threshold line

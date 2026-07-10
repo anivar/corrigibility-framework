@@ -325,7 +325,7 @@ A learned system satisfies LWD-R disclosure if the following artifacts are publi
 
 \textbf{R} is not transparency about \textit{how} the model works; it is transparency about \textit{how the model sees the world}. These categories (the model's ontology) are often hidden in the latent space, undocumented and non-contestable. A specific form of opacity arises when representational categories themselves become uncontestable (``ontological capture''), weakening constraint-layer contestability. When a model's classifications cannot be challenged by affected parties, the state has surrendered interpretive sovereignty regardless of weight publication.
 
-\paragraph{Representation as Ontological Commons.} The Representation layer is the layer at which AI infrastructure becomes a commons problem in the strict sense. Deterministic public infrastructure regulates access to a shared substrate --- the registry, the rail, the payment system. Learned infrastructure regulates the substrate of meaning itself: the categorical schema through which an affected population can be administratively known. The categories under which citizens are classified as eligible or ineligible, risky or safe, deserving or undeserving constitute an \textbf{ontological commons} --- a shared structure of perception that no single party can privately own without enclosing meaning itself. Because what the deployed system actually classifies depends on quantisation, pruning, mixture-of-experts routing, and output filtering as much as on the trained weights (Section~\ref{subsubsec:operative-r}), the commons claim is over the \emph{operative} schema, not the nominal one: a vendor who shifts meaning at inference through undisclosed deployment configuration has enclosed the commons as decisively as one who hides the underlying ontology, because the categorical structure that affected communities encounter has been moved beyond their reach. The contestability criterion stated above is therefore a commons-governance requirement in Ostrom's sense \citep{ostrom1990}: operative representational categories must remain subject to the polycentric, layered review that sustains shared resources, not delegated to a vendor whose latent space is by construction beyond user reach. The free-software anchor (CODE) supplies inspectability of the artifact; the commons anchor (R as ontological commons) supplies the governance condition under which inspectability is non-trivial; the cybernetic anchor supplies the closure condition under which contestation actually corrects.
+\paragraph{Representation as Ontological Commons.} The Representation layer is the layer at which AI infrastructure becomes a commons problem in the strict sense. Deterministic public infrastructure regulates access to a shared substrate --- the registry, the rail, the payment system. Learned infrastructure regulates the substrate of meaning itself: the categorical schema through which an affected population can be administratively known. The categories under which citizens are classified as eligible or ineligible, risky or safe, deserving or undeserving constitute an \textbf{ontological commons} --- a shared structure of perception that no single party can privately own without enclosing meaning itself. Because what the deployed system actually classifies depends on quantization, pruning, mixture-of-experts routing, and output filtering as much as on the trained weights (Section~\ref{subsubsec:operative-r}), the commons claim is over the \emph{operative} schema, not the nominal one: a vendor who shifts meaning at inference through undisclosed deployment configuration has enclosed the commons as decisively as one who hides the underlying ontology, because the categorical structure that affected communities encounter has been moved beyond their reach. The contestability criterion stated above is therefore a commons-governance requirement in Ostrom's sense \citep{ostrom1990}: operative representational categories must remain subject to the polycentric, layered review that sustains shared resources, not delegated to a vendor whose latent space is by construction beyond user reach. The free-software anchor (CODE) supplies inspectability of the artifact; the commons anchor (R as ontological commons) supplies the governance condition under which inspectability is non-trivial; the cybernetic anchor supplies the closure condition under which contestation actually corrects.
 
 \paragraph{R-Layer Change Control.} The ontological-commons claim implies a velocity constraint. Operative representation drifts at retraining, fine-tuning, and filter-update cadence --- days to weeks. A participatory ontology-review forum or deliberative contestation process operates on a cadence of weeks to months. The Temporal Stability Condition of the companion paper~\citep{aravind2026dpi} states that a correction path slower than error accumulation is a runaway state (cf.\ Variety Drift, Section~\ref{sec:temporal}). Applied to the R layer: a schema that shifts faster than the affected community's capacity to contest it satisfies the form of contestability (a channel exists) while failing its function (the channel cannot close the loop before the schema has moved again). The Injunction Hook architecture (Section~\ref{subsec:govern-mechanisms}) shows how the framework handles machine-time/governance-time mismatches for actions; the same logic applies to representations.
 
@@ -442,7 +442,7 @@ The threshold $\tau$ is not universal; it depends on consequence severity. High-
 
     % Real World Complexity (The Disturbance) - Curving up
     \draw[thick, forkcolor, smooth] plot coordinates {(0,1) (2,1.8) (4,3.5) (6,4.5) (8,7.5) (9.5, 9)};
-    \node[forkcolor, anchor=west, font=\scriptsize] at (9.5, 9) {$V(\text{Environment})$};
+    \node[forkcolor, anchor=west, font=\scriptsize] at (9.5, 9) {$V_{\text{world}}(t)$};
 
     % AI Model State (The Controller) - Step Function
     \draw[thick, codecolor] (0,1) -- (4,1);
@@ -822,6 +822,9 @@ In agentic systems, learned inference should not directly trigger irreversible a
 
 % Main flow
 \node[stochastic] (llm) {LLM\\Inference};
+% Harness envelope: the boundary sees one system emitting proposals
+\draw[dashed, rounded corners, thick, gray!60] ($(llm.center)+(-1.55,0.85)$) rectangle ($(llm.center)+(1.55,-1.15)$);
+\node[font=\tiny\sffamily, text=gray!50!black] at ($(llm.center)+(0,-0.9)$) {Harness $H$: tools $T$, memory $\bar{M}$};
 \node[box, right=of llm] (action) {Action\\Proposal};
 \node[deterministic, right=of action] (validator) {Deterministic\\Validator};
 \node[deterministic, right=of validator] (exec) {Execution};
@@ -836,11 +839,11 @@ In agentic systems, learned inference should not directly trigger irreversible a
 \draw[arrow, red!60] (validator) -- (reject);
 
 % Feedback arrow from reject to llm
-\draw[arrow, dashed, blue!60] (reject.west) -- ++(-3.5,0) |- (llm.west);
-\node[font=\tiny\sffamily, text=blue!60, below=0.1cm of llm] {Learning feedback};
+\draw[arrow, dashed, blue!60] (reject.west) -| ($(llm.west)+(-1.1,0)$) -- (llm.west);
+\node[font=\tiny\sffamily, text=blue!60] at ($(llm.south)+(0,-1.45)$) {Learning feedback};
 
 % Domain labels
-\node[above=0.4cm of llm, font=\scriptsize\sffamily\bfseries, text=orange!70!black] {INFERENCE DOMAIN};
+\node[above=0.95cm of llm, font=\scriptsize\sffamily\bfseries, text=orange!70!black] {INFERENCE DOMAIN};
 \node[above=0.4cm of exec, font=\scriptsize\sffamily\bfseries, text=green!50!black] {EXECUTION DOMAIN};
 
 % Action Boundary - vertical separator (visually strong)
@@ -852,7 +855,7 @@ In agentic systems, learned inference should not directly trigger irreversible a
 \node[above=0.15cm of validator, font=\tiny\sffamily\itshape, text=green!50!black] {Deterministic policy layer};
 
 \end{tikzpicture}
-\caption{\textbf{Action Boundary Protocol.} Probabilistic inference (orange) produces action proposals. The \textbf{deterministic policy layer} (green, implementing GOVERN) enforces hard constraints before execution. Invalid actions are rejected, logged, and fed back for learning. The vertical \textbf{Action Boundary} separates the inference domain from the execution domain: the architectural instantiation of corrigibility in agentic systems.}
+\caption{\textbf{Action Boundary Protocol.} Probabilistic inference (orange) produces action proposals from within its harness envelope (orchestration, tools $T$, persistent memory $\bar{M}$): internal delegation, however deep, is invisible to the validator, which receives only typed proposals. The \textbf{deterministic policy layer} (green, implementing GOVERN) enforces hard constraints before execution. Invalid actions are rejected, logged, and fed back for learning. The vertical \textbf{Action Boundary} separates the inference domain from the execution domain: the architectural instantiation of corrigibility in agentic systems.}
 \label{fig:action-boundary}
 \end{figure}
 
@@ -1143,7 +1146,7 @@ Bytecode and \textbf{Reproducible Builds} are the technical prerequisites for CO
     \item \textbf{Wasm/Bytecode Portability}: Standardized, portable bytecode formats (like WebAssembly) avoid vendor lock-in. This lowers WCC because orchestration logic can be ported between cloud or edge environments, satisfying FORK.
 \end{itemize}
 
-The Edge/SLM row of Table~\ref{tab:topology-risk-arch} summarises the corrigibility impact of these choices across the five tests: local refusal strengthens EXIT, reproducible bytecode verifies CODE, and low retraining ratios satisfy FORK, while fragmented telemetry and fragmented guardrails leave AUDIT and GOVERN as the open problems of the topology.
+The Edge/SLM row of Table~\ref{tab:topology-risk-arch} summarises the corrigibility impact of these choices across the five tests: local refusal strengthens EXIT, reproducible bytecode verifies CODE, and low retraining ratios satisfy FORK, while AUDIT and GOVERN remain the topology's open problems: telemetry and guardrails fragment across nodes, so both require federated instruments to close.
 
 \paragraph{Architectural Implication.} By adopting Edge/Bytecode topologies, states move from \textbf{Rule of the Ledger} to \textbf{Rule of the Protocol}, ensuring that administrative power remains corrigible even as it scales toward universal necessity. The substrate shifts from centralized cloud to distributed edge, but the five tests remain invariant.
 

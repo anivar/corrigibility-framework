@@ -122,7 +122,7 @@ The \textbf{action boundary protocol} separates probabilistic inference from det
 \node[response] (r-exit) at (0,-1.4) {Accountable\\fallback};
 \node[response] (r-code) at (2.3,-1.4) {LWD-R};
 \node[response] (r-audit) at (4.6,-1.4) {Drift\\tracking};
-\node[response] (r-govern) at (6.9,-1.4) {Action\\Boundary};
+\node[response] (r-govern) at (6.9,-1.4) {Action Boundary,\\scale bounds};
 \node[response] (r-fork) at (9.2,-1.4) {Training\\forkability};
 
 \draw[restores] (r-exit.north) -- (exit.south);
@@ -133,7 +133,7 @@ The \textbf{action boundary protocol} separates probabilistic inference from det
 
 \node[font=\footnotesize, gray, align=center] at (4.6,-2.4) {The five tests are inherited from the companion paper and remain invariant.\\Verification adapts; the standard does not.};
 \end{tikzpicture}
-\caption{Framework map. Learned systems add three structural pressures (top), each degrading a specific corrigibility test (middle): epistemic opacity breaks CODE at the observability layer, acceleration overwhelm breaks GOVERN at the constraint layer, and compute capture breaks FORK at the replacement layer. The architectural responses (bottom) restore verification for each test without softening the standard. Verification methods per test are detailed in Table~\ref{tab:verification}.}
+\caption{Framework map. Learned systems add three structural pressures (top), each degrading a specific corrigibility test (middle): epistemic opacity breaks CODE at the observability layer, acceleration overwhelm breaks GOVERN at the constraint layer (restored by the Action Boundary together with fan-out, action-rate, and blast-radius bounds), and compute capture breaks FORK at the replacement layer. The architectural responses (bottom) restore verification for each test without softening the standard. Verification methods per test are detailed in Table~\ref{tab:verification}.}
 \label{fig:framework-map}
 \end{figure}
 
@@ -855,7 +855,7 @@ In agentic systems, learned inference should not directly trigger irreversible a
 \node[above=0.15cm of validator, font=\tiny\sffamily\itshape, text=green!50!black] {Deterministic policy layer};
 
 \end{tikzpicture}
-\caption{\textbf{Action Boundary Protocol.} Probabilistic inference (orange) produces action proposals from within its harness envelope (orchestration, tools $T$, persistent memory $\bar{M}$): internal delegation, however deep, is invisible to the validator, which receives only typed proposals. The \textbf{deterministic policy layer} (green, implementing GOVERN) enforces hard constraints before execution. Invalid actions are rejected, logged, and fed back for learning. The vertical \textbf{Action Boundary} separates the inference domain from the execution domain: the architectural instantiation of corrigibility in agentic systems.}
+\caption{\textbf{Action Boundary Protocol.} Probabilistic inference (orange) produces action proposals from within its harness envelope (orchestration, tools $T$, persistent memory $\bar{M}$): internal delegation, however deep or wide, is invisible to the validator, which receives only typed proposals. The \textbf{deterministic policy layer} (green, implementing GOVERN) enforces hard constraints before execution. Invalid actions are rejected, logged, and fed back for learning. The vertical \textbf{Action Boundary} separates the inference domain from the execution domain: the architectural instantiation of corrigibility in agentic systems.}
 \label{fig:action-boundary}
 \end{figure}
 

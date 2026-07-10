@@ -4,7 +4,7 @@ All notable changes to this project will be documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 [SemVer](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.0] — Unreleased
+## [3.1.0] — 2026-07-10
 
 ### Added
 - Q1–Q10 margin-evaluation upgrades across both papers: gradient

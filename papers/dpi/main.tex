@@ -862,7 +862,7 @@ Government-operated systems currently designated as Digital Public Infrastructur
             CODE & $\checkmark$ & MIT source on GitHub. \\
             AUDIT & $\checkmark$ & Transaction logs, documented APIs. \\
             GOVERN & $\checkmark$ & NIIS treaty, MIT license irrevocable. \\
-            FORK & $\checkmark$ & 25+ country deployments prove feasibility. \\
+            FORK & $\checkmark$ & 20+ country deployments prove feasibility. \\
             \bottomrule
         \end{tabular}
     \end{subtable}
@@ -992,10 +992,10 @@ Hyperledger & LF Decentralized Trust & \textbf{5/5} & Apache 2.0 framework; inst
 LibreOffice & Document Foundation & \textbf{5/5} & Forked from OpenOffice; LGPL/MPL, nonprofit governance \\
 \rowcolor{green!8}
 MariaDB & MariaDB Foundation & \textbf{5/5} & Forked from MySQL; GPL, foundation governance \\
-Eclipse IDE & Eclipse Foundation & \textbf{5/5} & EPL 2.0, 386 member orgs, committer-led governance \\
+Eclipse IDE & Eclipse Foundation & \textbf{5/5} & EPL 2.0, 380+ member organizations, committer-led governance \\
 \bottomrule
 \end{tabular}
-\caption{Infrastructure systems satisfying all five corrigibility tests. The set is predominantly non-essential infrastructure, the pattern the essentiality analysis of Section~\ref{subsec:essential} explains.}
+\caption{Infrastructure systems satisfying all five corrigibility tests. Scores are screening-tier determinations (Tier 1--2: presence and behavior); certification-tier GOVERN verdicts additionally require the Rule~A.9 enforcement-history evidence, which Bitcoin's contentious-fork record and Kubernetes's multi-vendor overrides exemplify and which several rows have not yet accumulated. The set is predominantly non-essential infrastructure, the pattern the essentiality analysis of Section~\ref{subsec:essential} explains.}
 \label{tab:positive}
 \end{table}
 
@@ -1121,10 +1121,10 @@ This inequality explains the failure of the ``post-execution'' remedies discusse
 When a system fails to correct errors, the demand for correction does not evaporate. It transforms.
 
 \begin{principle}[Conservation of Correction Demand]
-For a given system state, the total pressure for correction is constant. Correction flows through designed channels (EXIT, GOVERN) or emergent channels (protest, litigation, hacks, grey markets, civil unrest). Operators can choose \textit{where} correction occurs; they cannot choose \textit{whether} it occurs.
+For a given system state, the demand for correction does not vanish: it flows through designed channels (EXIT, GOVERN), through emergent channels (protest, litigation, hacks, grey markets, civil unrest), or it is absorbed as harm by those least able to route it anywhere. Operators can choose \textit{where} correction demand discharges; they cannot choose \textit{whether} it exists.
 \end{principle}
 
-By suppressing EXIT (via mandatory laws) and blocking GOVERN (via executive fiat), authorities force correction demand into channels that are slower, costlier, and fundamentally more destabilizing to the social order. Corrigibility acts as a pressure relief valve that converts potential volatility into system evolution.
+By suppressing EXIT (via mandatory laws) and blocking GOVERN (via executive fiat), authorities force correction demand into channels that are slower, costlier, and fundamentally more destabilizing to the social order --- and, at the least-resourced stratum, into no channel at all: the documented starvation deaths of Section~\ref{sec:diagnosis} are correction demand discharging as harm absorbed by the marginal user. Corrigibility acts as a pressure relief valve that converts potential volatility into system evolution.
 
 \subsubsection{Grievance Is Not Feedback}
 \label{subsec:grievance}
@@ -1270,6 +1270,7 @@ EXIT requires that refusal incur no disproportionate penalty (Section~\ref{sec:t
 This proposition formalizes the empirical observation: among the systems evaluated, those that pass all five tests are precisely those where participation remains genuinely voluntary.
 
 \begin{corollary}[No Exemptions from Essentiality Tension]
+\label{cor:no-exemptions}
 The following do NOT constitute valid exemptions from Proposition~\ref{prop:essentiality}:
 \begin{enumerate}[noitemsep]
     \item \textbf{Emergency necessity}: Pandemics, wars, and crises do not suspend the requirement for correction channels. Systems deployed under emergency conditions that block EXIT remain incorrigible; the emergency explains but does not justify the structural failure.
@@ -1383,7 +1384,7 @@ The binarity of corrigibility rests on two converging arguments that must be dis
 
 \paragraph{The Control-Theoretic (Mechanism) Argument.} Open-loop feedback yields divergent dynamics under persistent disturbance. Proposition~\ref{thm:null-feedback} formalizes this as a structural analogy. The mechanism claim is: when any feedback component is severed, the loop opens, and error accumulates without correction. Real systems exhibit continuous variation in loop gain, observability, and actuation authority --- a sensor with 50\% accuracy transmits \textit{some} signal --- so the mechanism argument alone yields divergence-rate claims, not legitimacy claims.
 
-\paragraph{The Political-Theoretic (Legitimacy) Argument.} Partial contestation creates \textit{sham governance}: cosmetic accountability without corrective leverage. A system that admits 10\% of grievances, or that admits all grievances but resolves them only after harm has accumulated past reversibility, is institutionally distinct from a system with no contestation only in appearance. Beyond a threshold of feedback quality, additional gradations in compliance produce \textit{non-monotonic} legitimacy gains: increases in nominal contestation procedures may decrease real correction capacity by absorbing political pressure into procedure rather than outcome. Below this threshold, a system forfeits the right to claim public legitimacy under any non-domination criterion (Section~\ref{sec:theory}, Normative Anchor). The threshold is binary because legitimacy is binary: a prison that permits appeals 10\% of the time is still a prison.
+\paragraph{The Political-Theoretic (Legitimacy) Argument.} Partial contestation creates \textit{sham governance}: cosmetic accountability without corrective leverage. A system that admits 10\% of grievances, or that admits all grievances but resolves them only after harm has accumulated past reversibility, is institutionally distinct from a system with no contestation only in appearance. Beyond a threshold of feedback quality, additional gradations in compliance produce \textit{non-monotonic} legitimacy gains: increases in nominal contestation procedures may decrease real correction capacity by absorbing political pressure into procedure rather than outcome. Below this threshold, a system forfeits the right to claim public legitimacy under any non-domination criterion (Section~\ref{sec:theory}, Normative Anchor). The threshold is binary because legitimacy is binary: a prison that permits appeals 10\% of the time is still a prison. The binary is not stipulated. Under the non-domination criterion, domination consists in the standing possibility of arbitrary interference rather than in its exercise \citep{pettit1997}; legitimacy therefore tracks whether that possibility has been structurally foreclosed, and foreclosure is a property a system has or lacks. Degrees of benign behavior do not alter it, and an unverifiable constraint leaves the possibility standing.
 
 \paragraph{Why Both Arguments Are Needed.} The control-theoretic argument tells us that partial corrigibility cannot stabilize a system; the political-theoretic argument tells us that partial corrigibility cannot legitimize one. The conjunction yields the framework's binarity claim. Critics who reject the political-theoretic grounding can still accept the mechanism conclusion; critics who reject the control-theoretic abstraction can still accept the legitimacy conclusion. The framework is robust to either critique because it does not depend on either argument alone.
 
@@ -1438,7 +1439,7 @@ EXIT & \texttt{penalty\_ratio}: exit cost / stay cost & \texttt{legal\_barrier}:
 CODE & \texttt{visibility}: public LOC / critical path LOC & \texttt{build\_repro}: deterministic build? & $v \geq 0.95$ AND build = true \\
 AUDIT & \texttt{observability}: \% verifiable transactions & \texttt{access}: third parties test? & $o \geq 0.9$ AND access = true \\
 GOVERN & \texttt{override\_rate}: operator overrule rate & \texttt{charter}: irrevocable instrument? & override rate $= 0$ AND charter = true \\
-FORK & \texttt{cost\_ratio}: fork / community resources & \texttt{rights}: fork-permitting license? & $c \leq 0.001$ AND rights = true \\
+FORK & \texttt{cost\_ratio}: fork / community resources & \texttt{rights}: fork-permitting license? & $r \leq 0.001$ AND rights = true \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -2390,7 +2391,7 @@ Figure~\ref{fig:variety-compression} visualizes the compression: as scale rises,
     \addlegendentry{$\theta \cdot V_{\text{env}}$ (threshold)}
     \end{axis}
 \end{tikzpicture}
-\caption{\textbf{Governance Variety Compression Under Scale.} As scale increases, environmental variety grows linearly. Under centralized enforcement, governance variety grows sublinearly (logarithmic here). Neutrality degradation risk emerges when governance variety falls below the threshold $\theta \cdot V_{\text{env}}$ (at $Sc^*$).}
+\caption{\textbf{Governance Variety Compression Under Scale.} As scale increases, environmental variety grows linearly. Under centralized enforcement, governance variety grows sublinearly (logarithmic here); $V_{\text{restored}}$ denotes the variety contributed by the compensatory mechanisms of Section~\ref{subsec:trilemma} (federated execution, multi-issuer mandates, FEE, state portability). Neutrality degradation risk emerges when governance variety falls below the threshold $\theta \cdot V_{\text{env}}$ (at $Sc^*$).}
 \label{fig:variety-compression}
 \end{figure}
 
@@ -2449,7 +2450,7 @@ This appendix addresses the strongest objections to the framework, organized by 
 \paragraph{Objection 3: You ignore legitimate state interests.}
 ``Governments have valid reasons for mandatory systems: national security, public health, anti-fraud. Your framework would prohibit pandemic contact tracing.''
 
-\textbf{Response:} The framework does not prohibit mandatory systems; it diagnoses their structural properties. Emergency necessity explains but does not justify incorrigibility (Corollary to Proposition~\ref{prop:essentiality}). A pandemic contact-tracing system can still satisfy CODE (open source), AUDIT (independent testing), GOVERN (binding privacy constraints), and FORK (interoperable protocol). Only EXIT is constrained by mandatory participation. The question is whether the other four tests pass, not whether mandates are ever legitimate. Section~\ref{sec:discussion} explicitly notes that corrigibility is compatible with strict, non-negotiable rules.
+\textbf{Response:} The framework does not prohibit mandatory systems; it diagnoses their structural properties. Emergency necessity explains but does not justify incorrigibility (Corollary~\ref{cor:no-exemptions}). A pandemic contact-tracing system can still satisfy CODE (open source), AUDIT (independent testing), GOVERN (binding privacy constraints), and FORK (interoperable protocol). Only EXIT is constrained by mandatory participation. The question is whether the other four tests pass, not whether mandates are ever legitimate. Section~\ref{sec:discussion} explicitly notes that corrigibility is compatible with strict, non-negotiable rules.
 
 \paragraph{Objection 4: The Essentiality-Corrigibility Tension proves your framework is useless.}
 ``You prove essential services can never be fully corrigible. This makes your framework irrelevant for the systems that matter most: identity, payments, healthcare.''

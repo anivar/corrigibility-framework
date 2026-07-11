@@ -427,6 +427,8 @@ Let $V_{\text{world}}(t)$ be the variety of situations the environment presents 
 
 \paragraph{Why This Matters.} Without mechanisms for retraining accessible to the community, variety drift widens indefinitely (Figure~\ref{fig:variety_gap}). A model that passed all five corrigibility tests at deployment may fail them two years later. Not because anyone changed anything, but because the world moved and the model did not. \textbf{AI corrigibility is not a deployment certification; it is a persistence condition.}
 
+\paragraph{The Gap Closes from Both Ends.} Variety Drift is the model-side half of the temporal problem. The controller side erodes too: skills exercised only through a system atrophy outside it, the long-documented irony of automation \citep{bainbridge1983}, so the governance variety available for correction decays endogenously even as environmental variety grows. The persistence condition is therefore conservative. Measuring controller-side erosion alongside model-side drift is an open problem.
+
 \paragraph{The Revalidation Threshold.} When variety drift exceeds a domain-specific threshold $\tau$, mandatory revalidation is triggered:
 \begin{equation}
 \Delta(t) > \tau \implies \text{Revalidation Required}
@@ -1241,6 +1243,7 @@ This framework offers three contributions to AI governance discourse:
     \item \textbf{Rapid technological change.} AI architectures evolve faster than governance frameworks. The risk profiles in Table~\ref{tab:topology-risk-arch} may become obsolete as new architectures emerge.
 
     \item \textbf{LWD-R is aspirational.} No current frontier model satisfies full LWD-R disclosure. The requirement describes what \textit{should} exist for corrigibility, not what currently does.
+    \item \textbf{Disclosure is not publication.} LWD-R binds deployments adopted as epistemic public infrastructure in rights-affecting determinations; this paper takes no position on open-weight release policy for general-purpose models. The framework's disclosure and reproduction requirements are satisfiable in principle through gated, purpose-bound access of the kind the companion framework's audit rules specify \citep{aravind2026dpi}: what corrigibility requires is reach for the governed and their auditors, not publication to the world. Where no access regime can be constructed at all, the Strict Interpretability Firewall already renders the system ineligible for high-stakes adoption, so misuse-risk arguments against publication do not reach the framework's conditions.
 
     \item \textbf{Compute accessibility is geopolitically constrained.} Public compute infrastructure sufficient for training forkability may be infeasible for many nations due to cost, expertise, and supply chain constraints.
 

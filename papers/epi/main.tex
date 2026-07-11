@@ -11,6 +11,7 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{enumitem}
+\usepackage{needspace}
 \usepackage{xcolor}
 \usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 \usepackage{cleveref}
@@ -55,7 +56,7 @@
   Bengaluru, India \\
   \texttt{ping@anivar.net}
 }
-\date{April 2026 \\ {\small Revised: 10 July 2026}}
+\date{April 2026 \\ {\small Revised: 11 July 2026}}
 
 \hypersetup{
   pdftitle={Epistemic Capture and the Action Boundary: Corrigibility for Learned and Agentic Public Infrastructure},
@@ -336,7 +337,7 @@ Accordingly, operative representation changes above a declared materiality thres
 
 Existing transparency frameworks frequently conflate a model's latent categorical structure at training time with its categorical structure at deployment. This framework distinguishes \textbf{nominal representation} (the latent space of the trained artifact in isolation) from \textbf{operative representation} (the categorical schema that emerges during inference under specific deployment conditions).
 
-The distinction matters because deployment-time variables fundamentally modify the representational boundary, often without altering the disclosed weights:
+The distinction matters because deployment-time variables fundamentally modify the representational boundary, often without altering the disclosed weights \citep{hooker2019}:
 
 \begin{itemize}[noitemsep]
     \item \textbf{Quantization} alters representational granularity; INT4 or INT8 inference collapses fine-grained categorical distinctions present in the FP16 reference checkpoint.
@@ -629,7 +630,7 @@ Systems that publish weights but withhold training data or code achieve only \te
 \paragraph{Concrete Examples.} As of mid-2026, the open-model landscape divides cleanly along this axis:
 \begin{itemize}[noitemsep]
     \item \textbf{Inference forkability only:} Llama 3.1--4 (Meta), DeepSeek-V3 and DeepSeek-R1, Gemma 2--3 (Google), Mistral Large. Weights are published under varying license terms, but training data is not released, full preprocessing pipelines are not disclosed, and reinforcement-learning artifacts (reward models, RLHF traces, distillation corpora) remain proprietary. Users can run and fine-tune these models but cannot independently reproduce or audit the training process.
-    \item \textbf{Training forkability:} the OLMo family (Allen Institute for AI; OLMo 3 extends the release to full ``model flow'' artifacts) and Pythia (EleutherAI). Both publish weights, complete training code, full data manifests (the OLMo training mixtures and The Pile respectively --- the latter's partial takedown of one component is itself an instance of data-layer fragility in FORK determinations), intermediate checkpoints, and training logs sufficient for third-party reproduction. These projects, alongside their data releases, satisfy the FORK test in principle and (for partial reruns) in practice.
+    \item \textbf{Training forkability:} the OLMo family \citep{groeneveld2024} (Allen Institute for AI; OLMo 3 extends the release to the full model-flow artifact chain) and Pythia \citep{biderman2023} (EleutherAI). Both publish weights, complete training code, full data manifests (the OLMo training mixtures and The Pile \citep{gao2020} respectively --- the later takedown of one Pile component is itself an instance of data-layer fragility in FORK determinations), intermediate checkpoints, and training logs sufficient for third-party reproduction. These projects, alongside their data releases, satisfy the FORK test in principle and (for partial reruns) in practice.
 \end{itemize}
 
 The distinction matters: when Llama, Gemma, or DeepSeek exhibit unexpected behavior, the community can observe symptoms but cannot diagnose root causes in training data. When OLMo 2 exhibits unexpected behavior, researchers can trace the issue to specific training examples. \textbf{Open weights with closed training pipelines is inference transparency without correction capacity.}
@@ -875,7 +876,7 @@ Figure~\ref{fig:action-boundary} illustrates the architecture: the validator enf
 \label{rem:subject-receipt-epi}
 The action boundary specifies what the validator enforces on the operator's behalf. Structural corrigibility also requires that the individual subject of each determination receive a cryptographically verifiable record of it. Without such a record, AUDIT verifies the \textit{system-as-logged} against the \textit{operator's specification} but nothing verifies the \textit{log} against the \textit{lived event}: the subject cannot confirm that the determination they experienced is faithfully recorded, and auditors replaying signed logs have no ground-truth check against the population's actual encounter with the system.
 
-The action boundary must therefore emit, for each rights-affecting determination, a \textbf{subject receipt}: a signed, structured record including the action class, the validator decision, the timestamp, and an inclusion proof against the audit log (transparency-log style, per RFC 9162 or equivalent). The receipt must be: (i) \textbf{subject-facing} --- delivered to the individual through a channel independent of the operator's logging infrastructure, accessible offline; (ii) \textbf{independently verifiable} --- the inclusion proof must allow the subject, or any party they designate, to confirm that the receipt corresponds to an entry in the canonical audit log; and (iii) \textbf{machine-readable} --- in a format that class-action aggregators and juridical mechanisms can ingest as evidence, because the distributed/class-action and juridical mechanism families (Section~\ref{subsec:govern-mechanisms}) depend on these receipts as the primary evidence that a systemic pattern exists.
+The action boundary must therefore emit, for each rights-affecting determination, a \textbf{subject receipt}: a signed, structured record including the action class, the validator decision, the timestamp, and an inclusion proof against the audit log (transparency-log style, per RFC~9162 \citep{rfc9162} or equivalent). The receipt must be: (i) \textbf{subject-facing} --- delivered to the individual through a channel independent of the operator's logging infrastructure, accessible offline; (ii) \textbf{independently verifiable} --- the inclusion proof must allow the subject, or any party they designate, to confirm that the receipt corresponds to an entry in the canonical audit log; and (iii) \textbf{machine-readable} --- in a format that class-action aggregators and juridical mechanisms can ingest as evidence, because the distributed/class-action and juridical mechanism families (Section~\ref{subsec:govern-mechanisms}) depend on these receipts as the primary evidence that a systemic pattern exists.
 
 For high-stakes tiers, the system must additionally expose a \textbf{citizen-constraint registry}: a channel through which recognized subject-class representatives can lodge protective constraints --- specific categories of determination that a class certifies as producing systematic harm --- that the validator must evaluate before executing determinations in that class. This is the citizen-side counterpart of the recognized court's halt flag in the Injunction Hook: it gives the governed structural standing at the boundary they are governed by, not only recourse after the fact.
 
@@ -1082,7 +1083,7 @@ If a state procures a system with high WCC, it is not merely buying software; it
 
 \subsection{Fallout Governance}
 
-When AI decision throughput outruns human legislative correction velocity, the state enters \textbf{Fallout Governance}: policy ceases to guide behavior in advance; it instead reacts post-hoc to scandal, litigation, or failure clusters. Governance becomes damage containment: the Collingridge Dilemma at civilizational scale.
+When AI decision throughput outruns human legislative correction velocity, the state enters \textbf{Fallout Governance}: policy ceases to guide behavior in advance; it instead reacts post-hoc to scandal, litigation, or failure clusters. Governance becomes damage containment: the Collingridge Dilemma \citep{collingridge1980} at civilizational scale.
 
 %% ============================================
 %% SECTION 8: ARCHITECTURE RISK
@@ -1288,7 +1289,7 @@ Three implications:
     \item \textbf{For citizens}: Infrastructure that affects populations at scale must be structurally correctable by those it governs, regardless of whether it executes deterministic code or learned parameters.
 \end{enumerate}
 
-\paragraph{Liability and Enforcement.} Architectural corrigibility must be complemented by clear liability and enforcement semantics: for any failure mode, supply-chain roles (principal, integrator, model provider, operator, trustee, as distinguished in EU AI Act Article 25 et seq.) must be mappable to legal responsibility and to mandated mitigation steps, so that evidence produces enforceable consequences rather than forensic narrative alone.
+\paragraph{Liability and Enforcement.} Architectural corrigibility must be complemented by clear liability and enforcement semantics: for any failure mode, supply-chain roles (principal, integrator, model provider, operator, trustee; cf.\ the value-chain roles distinguished in EU AI Act Article~25 et seq.\ \citep{euaiact2024}) must be mappable to legal responsibility and to mandated mitigation steps, so that evidence produces enforceable consequences rather than forensic narrative alone.
 
 \paragraph{Adversarial Robustness.} This framework assumes good-faith actors operating within institutional constraints. It does not address adversarial manipulation: coordinated gaming of audit mechanisms, governance capture through procedural compliance, adversarial compromise of the validator implementation or its supply chain, injection that steers in-policy action proposals (the residual class identified in Section~\ref{subsec:action-boundary}), or fork-and-poison attacks on model provenance. Extension to adversarial settings requires additional machinery beyond this paper's scope.
 
@@ -1417,6 +1418,7 @@ The auditor does not merely read the operator's JSON; they red-team it. The audi
 
 The determination structure is deliberate: CODE holds here only because \texttt{operative\_r\_reproduced} is true --- availability of a disclosed schema without behavioral reproduction does not discharge R (Proposition~\ref{prop:operative-r-test}). FORK fails despite a low WCC because training reproduction sits above the community's compute threshold, and \texttt{fork\_viability} records only artifact reproducibility where the \texttt{high\_stakes} tier requires governance reproducibility (Section~\ref{subsec:fork-evidence}).
 
+\needspace{6\baselineskip}
 \subsection{Enforcement Logic Gates}
 
 The schema fields directly map to corrigibility test determinations:

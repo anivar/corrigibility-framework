@@ -21,6 +21,7 @@
 
 % Lists
 \usepackage[inline]{enumitem}
+\usepackage{needspace}
 
 % Colors
 \usepackage{xcolor}
@@ -440,7 +441,7 @@ A system $S$ satisfies \textbf{Reversibility of Participation} if, for any user 
 
 The foundational condition of any corrigible system is the \textbf{Reversibility of Participation}. Irrevocable consent functions structurally as mandatory lock-in. For an infrastructure to operate as a public utility rather than a coercive instrument, users must possess the capacity to withdraw from it without incurring disproportionate penalty or material exclusion.
 
-In practice, many systems operate as a ratchet. They are easy to enter but functional imperatives make them impossible to leave. \textbf{Aadhaar} exemplifies this failure: opting out results in exclusion from subsidized food rations under the upheld Section 7 linkage, and --- although \textit{Puttaswamy~II} (2018) struck down mandatory linking for bank accounts and SIM cards --- de facto insistence on Aadhaar at the point of service persists across banking and connectivity \citep{khera2019}. When a system becomes a prerequisite for existence, refusal results in a disproportionate survival penalty rather than functioning as feedback. \textbf{UPI} partially mitigates this because cash remains legal tender, but network effects increasingly marginalize non-participants. \textbf{Linux}, by contrast, imposes no survival penalty: a user can migrate to BSD or Windows without losing access to essential services.
+In practice, many systems operate as a ratchet. They are easy to enter but functional imperatives make them impossible to leave. \textbf{Aadhaar} exemplifies this failure: opting out results in exclusion from subsidized food rations under the upheld Section 7 linkage, and --- although \textit{Puttaswamy~II} (2018) struck down mandatory linking for bank accounts and SIM cards --- de facto insistence on Aadhaar at the point of service persists across banking and connectivity \citep{puttaswamy2018,khera2019}. When a system becomes a prerequisite for existence, refusal results in a disproportionate survival penalty rather than functioning as feedback. \textbf{UPI} partially mitigates this because cash remains legal tender, but network effects increasingly marginalize non-participants. \textbf{Linux}, by contrast, imposes no survival penalty: a user can migrate to BSD or Windows without losing access to essential services.
 
 From a cybernetic perspective, EXIT constitutes the primary negative feedback loop. Blocking this channel silences the user's error signal. This blockade overloads the political layer with demands that the technical layer has suppressed.
 
@@ -528,7 +529,7 @@ A critical distinction must be drawn between barriers to forking that are \textb
 
 \begin{itemize}
     \item \textbf{Natural barriers}: Gmail dominates email not because forking SMTP is illegal, but because Google invested in spam filtering and UX. Anyone \textit{can} run their own mail server. Network effects and capital create friction, but not prohibition.
-    \item \textbf{Constructed barriers}: NPCI is the \textit{only permitted} instant payment switch in India. The barrier is regulatory, not economic. Even with infinite capital, you cannot legally compete with UPI's core switching function.
+    \item \textbf{Constructed barriers}: NPCI is the \textit{only permitted} instant payment switch in India \citep{rbipso2026}. The barrier is regulatory, not economic. Even with infinite capital, you cannot legally compete with UPI's core switching function.
     \item \textbf{Grant-conditioned barriers}: Sri Lanka's MOSIP implementation is contractually restricted to donor-country system integrators, despite MOSIP's open-source license \citep{biometricupdate2025}. The barrier is neither regulatory nor technical but financial: grant conditions foreclose supplier choice, demonstrating how ``open'' DPI exports can create new dependencies.
 \end{itemize}
 
@@ -549,7 +550,7 @@ Open code with locked data produces a hollow fork. The legal right to reproduce 
 
 \paragraph{Switching Cost and Portability.} The practical barrier to exit and fork can be assessed through \textbf{switching cost}: the aggregate friction of data export, service downtime, credential re-establishment, network loss, and legal barriers. When switching cost to all plausible alternatives exceeds a policy threshold, EXIT and FORK functionally fail regardless of formal rights. Aadhaar exhibits near-maximal switching cost: no data export exists, service denial during transition is total, and legal mandate forecloses alternatives. UPI retains lower switching cost because cash and cards remain legal. The formal operationalization appears in Appendix~\ref{appendix:proofs}.
 
-\paragraph{Technical Requirements for Portability.} To ensure meaningful forkability, DPI systems must implement: (1) standardized export bundles with user-owned credentials, (2) interoperability APIs to accept ported data, and (3) statutory guarantees requiring public services to accept verified portable credentials. This is the lesson of PSD2 in banking: portability mandates made bank-switching economically viable.
+\paragraph{Technical Requirements for Portability.} To ensure meaningful forkability, DPI systems must implement: (1) standardized export bundles with user-owned credentials, (2) interoperability APIs to accept ported data, and (3) statutory guarantees requiring public services to accept verified portable credentials. This is the logic of PSD2 in banking: portability mandates were intended to make bank-switching economically viable.
 
 A system passes the FORK test only if the community possesses the legal rights, technical artifacts, economic means, \textbf{and state portability guarantees} to spawn a functionally equivalent instance. License choice determines whether forkability persists across derivatives: copyleft licenses (GPL, AGPL) ensure modifications remain forkable; permissive licenses (MIT, Apache) allow derivatives to be enclosed. For network-deployed DPI, AGPL-style requirements prevent operators from capturing modified code behind service interfaces. \textbf{Aadhaar} fails completely: no entity outside UIDAI can reproduce the identity infrastructure. \textbf{OpenSearch} demonstrates what successful forking looks like. When Elastic changed its license, AWS forked Elasticsearch and the community continued development independently. \textbf{Linux} has been forked thousands of times (Android, Chrome OS, countless distributions). \textbf{AWS S3} presents partial forkability: the API specification is public and MinIO provides a compatible implementation, but the operational scale, global infrastructure, and integration ecosystem cannot be reproduced by most organizations. Table~\ref{tab:exit-fork-differentiation} illustrates the distinction across representative cases: substitution (EXIT) and reproduction (FORK) are independent properties, and a system can satisfy one while failing the other.
 
@@ -804,9 +805,9 @@ Government-operated systems currently designated as Digital Public Infrastructur
             \toprule
             \textbf{Test} & \textbf{Result} & \textbf{Evidence} \\
             \midrule
-            EXIT & $\times$ & Disproportionate penalty: statutory PDS linkage; de facto banking/SIM insistence post-\textit{Puttaswamy~II} \citep{khera2019}. \\
+            EXIT & $\times$ & Disproportionate penalty: statutory PDS linkage; de facto banking/SIM insistence post-\textit{Puttaswamy~II} \citep{puttaswamy2018,khera2019}. \\
             CODE & $\times$ & Execution logic opaque: proprietary matcher, closed algorithms. \\
-            AUDIT & $\times$ & External testing prohibited: independent error measurement illegal. \\
+            AUDIT & $\times$ & External testing barred: error measurement prohibited without UIDAI authorization \citep{aadhaaract2016}. \\
             GOVERN & $\times$ & No binding constraint: UIDAI is both operator and regulator. \\
             FORK & $\times$ & No legal/technical/economic means: total centralized capture. \\
             \bottomrule
@@ -979,7 +980,7 @@ Bitcoin & Decentralized & \textbf{5/5} & MIT source, public BIP process, proven 
 Kubernetes & CNCF & \textbf{5/5} & Apache 2.0, KEP process, distributions (OpenShift, k3s) \\
 Firefox & Mozilla Foundation & \textbf{5/5} & MPL 2.0, nonprofit manifesto, forks (LibreWolf, Tor Browser) \\
 \rowcolor{green!8}
-Apache HTTP & Apache Foundation & \textbf{5/5} & Apache 2.0 license, ASF governance, powers 30\% of the web \\
+Apache HTTP & Apache Foundation & \textbf{5/5} & Apache 2.0 license, ASF governance, powers a substantial share of the web \\
 Apache Kafka & Apache Foundation & \textbf{5/5} & Apache 2.0, KIP process public, Fortune 500 standard \\
 \rowcolor{green!8}
 OpenSearch & Linux Foundation & \textbf{5/5} & Forked from Elasticsearch; Apache 2.0, multi-vendor governance \\
@@ -1052,7 +1053,7 @@ Climate policy has become a vector for infrastructure capture. The rhetorical pa
 
 \paragraph{Movement Legibility.} Traffic-management schemes enforced through automatic number-plate recognition make private movement machine-legible as a side effect of congestion or emissions policy: the camera network built to fine through-journeys is, structurally, movement-tracking infrastructure whose retention, access, and reuse rules are set by the operator. The climate framing (reduce car trips) can obscure the governance change (movement becomes recorded and reviewable). Under the framework, the question is not the traffic policy but the corrigibility of the legibility infrastructure it installs: who can audit the retention, and who can contest a record.
 
-\paragraph{Cash Elimination.} Multiple jurisdictions have proposed eliminating physical currency to ``reduce carbon footprint of money.'' The environmental claim is empirically contested (digital payment infrastructure has significant energy costs). The governance effect is uncontested: elimination of cash creates mandatory digital payment infrastructure with no EXIT option.
+\paragraph{Cash Elimination.} Cash-reduction advocacy sometimes invokes the carbon footprint of physical money. Whatever the environmental accounting, the governance effect is uncontested: elimination of cash creates mandatory digital payment infrastructure with no EXIT option.
 
 \paragraph{Carbon Tracking.} Personal carbon accounting systems propose linking identity infrastructure to consumption tracking. The stated purpose is behavioral nudging for sustainability. The structural effect is comprehensive consumption surveillance with no technical or legal mechanism for opting out while maintaining normal economic participation.
 
@@ -2106,7 +2107,7 @@ The symmetric upper bound completes the principle stated in Section~\ref{subsec:
     \addplot[green!60!black, thick, name path=C] {1 + 0.8*x};
     \addlegendentry{$C(t)$ Correction capacity}
     \addplot[red!30, opacity=0.5] fill between[of=E and C, soft clip={domain=1.5:5}];
-    \node[anchor=west] at (axis cs:4.6,6) {\scriptsize Instability};
+    \node[anchor=east] at (axis cs:4.9,6) {\scriptsize Instability};
     \end{axis}
 \end{tikzpicture}
 \caption{\textbf{Correction velocity mismatch.} Error $E(t)$ accumulates faster than correction $C(t)$ in bureaucratic systems. The shaded region represents accumulated unresolved harm.}
@@ -2137,7 +2138,7 @@ FORK & Variety Expansion & Monolithic collapse \\
 \subsection{Measurement Procedures for Reproducibility}
 \label{subsec:measurement}
 
-To enable third-party reproduction of pass/fail determinations, each test requires specific evidence types:
+To enable third-party reproduction of pass/fail determinations, each test requires specific evidence types (Table~\ref{tab:evidence-requirements}).
 
 \begin{table}[htbp]
 \centering
@@ -2157,7 +2158,7 @@ FORK & (1) License text, (2) technical artifact availability, (3) resource cost 
 \end{tabular}
 \end{table}
 
-\paragraph{Reproducibility Standard.} An assessment is reproducible if an independent auditor, given only the evidence artifacts listed above, reaches the same pass/fail determination. Disagreements must trace to (a) threshold calibration differences or (b) missing evidence, not to ambiguity in the test definitions themselves. Continuous metrics and threshold protocols are provided in Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main} (Section~\ref{subsec:methodology}).
+\paragraph{Reproducibility Standard.} An assessment is reproducible if an independent auditor, given only the evidence artifacts listed in Table~\ref{tab:evidence-requirements}, reaches the same pass/fail determination. Disagreements must trace to (a) threshold calibration differences or (b) missing evidence, not to ambiguity in the test definitions themselves. Continuous metrics and threshold protocols are provided in Tables~\ref{tab:operational-proxies-main} and~\ref{tab:three-indicator-main} (Section~\ref{subsec:methodology}).
 
 \subsection{Restatements of the Instability Result}
 
@@ -2191,7 +2192,6 @@ Let:
 where $\theta_E$ is a policy calibration constant (recommended range: $0.8$--$1.0$).
 
 \paragraph{Operationalizing $E$.} The error-signal strength $E$ can be operationalized as a weighted sum:
-
 \begin{equation}
 E = \alpha_1 \cdot \text{effective\_loss} + \alpha_2 \cdot \text{probability\_of\_departure} + \alpha_3 \cdot \text{velocity\_of\_response} + \alpha_4 \cdot \text{legal\_remedy\_speed}
 \label{eq:error-signal}
@@ -2438,7 +2438,7 @@ This appendix addresses the strongest objections to the framework, organized by 
 \subsection{Control Theory Objections}
 
 \paragraph{Objection 1: Binary model ignores continuous feedback dynamics.}
-``Real control systems have continuous loop gain. Partial observability and partial actuation still provide some regulation. Your binary pass/fail ignores systems that are 'mostly corrigible.'''
+``Real control systems have continuous loop gain. Partial observability and partial actuation still provide some regulation. Your binary pass/fail ignores systems that are `mostly corrigible.'\,''
 
 \textbf{Response:} The objection conflates physical description with normative threshold. We do not dispute that real systems exhibit continuous variation in feedback quality. The binary model is a \textit{legitimacy threshold}, not a physical claim (Section~\ref{sec:discussion}). A feedback loop with 50\% sensor accuracy transmits some signal; this does not mean the system deserves public trust. The determination function $D$ (Section~\ref{subsec:methodology}) makes explicit that continuous inputs feed a binary output. The threshold is where we draw the line for public legitimacy, separable from the physics.
 

@@ -1,67 +1,80 @@
 % Shared glossary for the DPI and EPI corrigibility papers.
 % Each paper \input{}s this file from its appendix to keep terminology
 % identical across the companion preprints.
+% \glossentry keeps each heading with its opening lines across page
+% breaks; both preambles load the needspace package for it.
+
+\providecommand{\glossentry}[1]{\needspace{4\baselineskip}\item[#1]}
 
 \begin{description}[style=nextline, leftmargin=1.5em, font=\normalfont\bfseries]
 
-\item[Accountable-Authority Checkpoint]
+\glossentry{Accountable-Authority Checkpoint}
 The checkpoint requirement for high-stakes tiers, functional rather
 than positional: an accountable authority whose grant is fresh, whose
 liability binds, and whose correction operates within the correction
 window, whether it reviews each decision, each class of decisions, or
 the boundary itself.
 
-\item[Action Boundary]
+\glossentry{Action Boundary}
 The deterministic envelope that wraps stochastic inference in an agent
 system. Inference outputs (action proposals) must pass through a
 hard-coded validation layer before execution. The action boundary is
 the architectural locus of GOVERN in agentic systems.
 
-\item[Action Boundary Protocol]
+\glossentry{Action Boundary Protocol}
 The set of five architectural requirements (deterministic validation,
 context-window isolation, exception handling, machine-readable
 specifications, binding constraints) that an agent system's action
 boundary must satisfy to support corrigibility. Independent of any
 specific external standard.
 
-\item[AUDIT]
+\glossentry{Agent System}
+The tuple $A = (M, H, B, S, T, C, \bar{M})$: model, orchestration
+harness, action boundary, action specifications, tool definitions,
+deployment-time configuration, and persistent memory layer. Behavior
+is a property of the system $A$, not the model $M$; each component
+bears distinct governance requirements and can capture or release
+sovereignty independently of the others.
+
+\glossentry{AUDIT}
 Test 3 of corrigibility. Independent verification: third parties can
 verify that the system's behavior matches its disclosed specification
-through tamper-evident logs, statistical bounds, or drift monitoring.
+without requiring operator authorization, through tamper-evident logs,
+statistical bounds, or drift monitoring.
 
-\item[Citizen-Constraint Registry]
+\glossentry{Citizen-Constraint Registry}
 A channel through which recognized subject-class representatives lodge
 protective constraints that the validator must evaluate before executing
 determinations in the certified class. The citizen-side counterpart of
 the recognized court's halt flag: structural standing at the boundary,
 not only recourse after the fact.
 
-\item[CODE]
+\glossentry{CODE}
 Test 2 of corrigibility. Inspectability of the system's execution.
 For deterministic DPI, this is source-code disclosure; for learned
 systems (EPI) it is the LWD-R requirement.
 
-\item[Collective-Standing Precondition]
+\glossentry{Collective-Standing Precondition}
 Ostrom's seventh design principle applied to GOVERN: the affected
 population's capacity to organize, aggregate claims, and fund
 representation must be legally protected and historically exercised at
 the relevant stratum. Where this precondition fails, GOVERN fails at
 that stratum.
 
-\item[Compute Capture]
+\glossentry{Compute Capture}
 A FORK failure mode specific to learned systems. Occurs when the
 compute cost to retrain a functionally equivalent model
 ($C_{\text{train}}$) exceeds the compute accessible to non-operator
 actors ($C_{\text{accessible}}$) by more than a policy-determined
 multiplier $\kappa$.
 
-\item[Corrigibility]
+\glossentry{Corrigibility}
 The structural capacity of those affected by a system to detect error,
 signal harm, and trigger correction without incurring material loss
 or irreversible consequence. Not a moral preference but an
 architectural stability requirement.
 
-\item[Data Capture]
+\glossentry{Data Capture}
 A FORK failure mode parallel to Compute Capture. Occurs when the data
 required to train a functionally equivalent model
 ($D_{\text{required}}$) exceeds the data accessible to non-operator
@@ -69,132 +82,170 @@ actors ($D_{\text{accessible}}$) by more than a policy-determined
 multiplier $\kappa_D$. Encompasses synthetic data, distilled outputs,
 RLHF traces, reward models, and proprietary evaluation sets.
 
-\item[Deployment Variables]
+\glossentry{Deployment Variables}
 Where the accountable authority sits, how many agents compose the
 system, how deeply orchestration nests, at what scale it runs, and what
 species of actor exercises each corrective function. The tests bind
 over all of them, fixing chain termini, checker independence, and grant
 freshness rather than geometry. Distinct from the inference-time
 deployment variables of Operative Representation (quantization, pruning,
-routing, filtering), which the R disclosure must enumerate.
+routing, filtering, and the retrieval pipeline where present), which
+the R disclosure must enumerate.
 
-\item[Digital Public Infrastructure (DPI)]
+\glossentry{Digital Public Infrastructure (DPI)}
 Shared digital systems --- ledgers, registries, payment rails, data
 exchanges --- intended to deliver public services at population scale.
 The subject of the deterministic-systems paper in this pair.
 
-\item[Dual Exercise of the Tests]
+\glossentry{Dual Exercise of the Tests}
 The two exercises each test admits: inward, by parties at or inside the
 operator's institutional perimeter, and outward, by the subjects the
 system decides about. A test discharged only inward has been verified
 for the operator, not for the governed.
 
-\item[Effect Surface]
+\glossentry{Effect Surface}
 The resource that receives an action's effect, where an untyped action
 becomes typed again. Where the action channel is untyped, boundary
 enforcement migrates to the effect surface: some deterministic,
 specification-checkable gate must stand between inference and
 irreversible effect.
 
-\item[Epistemic Public Infrastructure (EPI)]
+\glossentry{Epistemic Public Infrastructure (EPI)}
 Public infrastructure whose behavior is generated by learned
 parameters rather than explicit logic. Includes AI-based identity,
 eligibility, triage, and orchestration systems. The subject of the
 learned-systems paper in this pair.
 
-\item[EXIT]
+\glossentry{EXIT}
 Test 1 of corrigibility. Reversibility of participation: affected
-parties can refuse or leave the system without prohibitive penalty,
-or are guaranteed Functional Exit Equivalence when literal exit is
-infeasible.
+parties can refuse or leave the system without prohibitive penalty, or
+verified Functional Exit Equivalence is demonstrated when literal exit
+is infeasible. For agentic deployments the test decomposes into five
+layers (Subject, Memory, Workflow, Operator, Bystander); failing any
+layer fails EXIT.
 
-\item[FORK]
-Test 5 of corrigibility. Independent reproduction: the system can be
-recreated by parties outside operator control using only public
-artifacts.
+\glossentry{FORK}
+Test 5 of corrigibility. Independent reproduction: parties outside
+operator control hold the legal permission, the public artifacts, and
+the user-state portability needed to recreate a functionally
+equivalent instance. Constructed legal barriers to reproduction
+disqualify; natural economic friction (capital, network effects) does
+not.
 
-\item[Functional Exit Equivalence (FEE)]
+\glossentry{Functional Exit Equivalence (FEE)}
 Architectural guarantees that recreate the error-signal strength of
 literal exit when literal exit is impossible (e.g., for monopoly
 identity systems). FEE is achieved through multi-issuer mandates,
 credential acceptance diversity, and legally protected statutory
 fallbacks; verified FEE discharges the EXIT test for essential
-systems.
+systems (under agentic deployment, its Subject layer).
 
-\item[GOVERN]
+\glossentry{GOVERN}
 Test 4 of corrigibility. Constitutive constraint: affected populations
 have binding authority over the system, not merely advisory input.
 For deterministic DPI this is RFC/charter governance; for EPI it is
 the action boundary protocol combined with citizen-side mechanism
 families (juridical, distributed/class-action, deliberative).
 
-\item[Governance Denial of Service (GDoS)]
+\glossentry{Governance Denial of Service (GDoS)}
 Failure mode in agentic systems where action throughput outruns
 governance correction velocity. Without explicit termination criteria
 and bounded action specifications, agents loop indefinitely or
 escalate beyond legitimate authority.
 
-\item[Gradient Quantifier]
+\glossentry{Gradient Quantifier}
 The evaluation rule that takes pass/fail determinations at the
 least-resourced stratum of the affected population, the argmin of
 detection and correction probability, rather than at the mean. An audit
 that samples only median-resource users has not assessed whether the
 loop is closed.
 
-\item[Injunction Hook]
+\glossentry{Inference vs.\ Training Forkability}
+Systems that publish weights but withhold training data or code
+achieve only inference forkability: the model can be run and
+fine-tuned, not independently reproduced or corrected. Training
+forkability, third-party reproduction of the training run itself, is
+what satisfies FORK for learned systems.
+
+\glossentry{Injunction Hook}
 An API in the action boundary built to accept rapid, cryptographically
 signed halt or rollback flags issued by recognized courts, executed
 without waiting for operator compliance.
 
-\item[LWD-R]
+\glossentry{Latent Forkability}
+The equilibrium the framework requires for coordination goods such as
+identity, money, and law: the credible threat of reproduction
+disciplines the operator without routine divergence. Where a good's
+value derives from uniqueness, an exercised fork is mutually assured
+destruction, so the threat must remain latent to remain usable.
+
+\glossentry{LWD-R}
 Four-layer transparency requirement for learned systems: \textbf{L}ogic
 (architecture and inference code), \textbf{W}eights (trained
 parameters), \textbf{D}ata (training corpus with provenance), and
 \textbf{R}epresentation (the operative categorical schema of the
 deployed system).
 
-\item[Machine-Verifiable Legitimacy]
+\glossentry{Machine-Verifiable Legitimacy}
 The requirement that authority and attribution be record-borne acts
 rather than inferences from artifacts: machine-interpretable authority
 credentials, observable revocation propagation, tamper-evident
 execution traces, incident-triggered mitigation, and origination
 marking.
 
-\item[Nested Delegation]
+\glossentry{Nested Delegation}
 Composition of agent systems across delegation depth, where one
 system's harness contains another's. The tests compose across the
 nesting: authority attenuates, audit records reconstruct across levels,
 EXIT propagates down the chain, and the deployment's corrigibility is
 the minimum over its depth.
 
-\item[Operative Representation]
-The categorical schema that emerges during inference under specific
-deployment conditions (quantization, pruning, MoE routing, output filtering),
-as distinguished from \textit{nominal representation} (the latent
-space of the trained artifact in isolation). Disclosure must describe
-operative R, not nominal R.
+\glossentry{Ontological Capture}
+The condition in which a learned system's operative categories become
+non-contestable administrative facts, surrendering interpretive
+sovereignty regardless of weight publication. The risk it matures from
+is Representation Capture Risk; the mitigation is R-Layer Change
+Control over an operative schema treated as a commons rather than a
+vendor asset.
 
-\item[Origination Marking]
+\glossentry{Open-Washing}
+The invocation of openness, interoperability, or digital sovereignty
+as reputational signals without satisfying reproducibility or
+governance conditions. As an umbrella failure it spans three
+categories: symbolic-openness, coerced-legitimacy, and
+substantive-substitution washing. As a specific tactic within the
+first category it names the release of peripheral SDKs while core
+execution logic stays proprietary.
+
+\glossentry{Operative Representation}
+The categorical schema that emerges during inference under specific
+deployment conditions (quantization, pruning, MoE routing, output
+filtering, and the retrieval pipeline where present), as distinguished
+from \textit{nominal representation} (the latent space of the trained
+artifact in isolation). Disclosure must describe operative R, not
+nominal R.
+
+\glossentry{Origination Marking}
 The record states whether a human or an agent operated an action.
 Absence of a marker is never evidence of human operation; consulting a
 marker may only narrow authority, never enlarge it.
 
-\item[Provenance Chain]
+\glossentry{Provenance Chain}
 The sequence $P = [g_0, g_1, \ldots, g_n]$ of generators producing
 training data for downstream models. Transparency does not survive an
 opaque link in this chain.
 
-\item[Representation Capture Risk (RCR)]
+\glossentry{Representation Capture Risk (RCR)}
 The risk that a learned system's representational categories
 (``eligibility,'' ``risk,'' ``fraud'') become uncontestable
 administrative facts. Operates upstream of the action boundary.
 
-\item[Requisite Variety]
+\glossentry{Requisite Variety}
 Ashby's Law: a controller must possess at least as many states as the
 system it regulates. Applied to DPI/EPI: governance mechanisms must
 match the population's diversity of conditions to remain corrective.
 
-\item[R-Layer Change Control]
+\glossentry{R-Layer Change Control}
 The Temporal Stability Condition applied to operative representation.
 In high-stakes deployments, schema changes above a declared materiality
 threshold require pre-deployment notice to a designated review body,
@@ -203,13 +254,13 @@ representatives, and versioned schema diffs so drift is itself
 auditable. A schema that shifts faster than the affected community's
 capacity to contest it fails GOVERN-over-R.
 
-\item[Rule of the Ledger / Rule of the Workflow]
+\glossentry{Rule of the Ledger / Rule of the Workflow}
 Successive regimes in which authority is exerted through synchronized,
 self-executing artifacts. The Rule of the Ledger describes
 deterministic record-based authority; the Rule of the Workflow
 describes orchestration-mediated authority in agentic infrastructure.
 
-\item[Scale as a Governed Variable]
+\glossentry{Scale as a Governed Variable}
 Agentic deployment multiplies effective scale: environmental variety
 tracks principals times orchestration fan-out times action rate, so the
 threshold at which governance variety falls short is crossed far
@@ -218,7 +269,14 @@ environmental variety must be bounded instead. Fan-out limits,
 action-rate limits, and blast-radius caps are then first-class GOVERN
 instruments, not performance tuning.
 
-\item[Subject Receipt]
+\glossentry{Strict Interpretability Firewall}
+Eligibility rule for the high-stakes tier: a learned system whose
+operative representation cannot be disclosed to the operative-R
+standard is ineligible for adoption as EPI in rights-affecting
+determinations. The failure sits at CODE; nothing in EXIT, AUDIT,
+GOVERN, or FORK compensates for it.
+
+\glossentry{Subject Receipt}
 A signed, structured record emitted for each rights-affecting
 determination: action class, validator decision, timestamp, and an
 inclusion proof against the audit log. Delivered to the subject through
@@ -226,12 +284,28 @@ a channel independent of the operator's logging infrastructure,
 independently verifiable, and machine-readable for juridical and
 class-action aggregation.
 
-\item[Variety Drift / Temporal Variety Gap]
+\glossentry{Switching Cost ($\sigma$)}
+The aggregate friction of leaving a system: data export, service
+downtime, credential re-establishment, network loss, and legal
+barriers, each normalized before aggregation. When the minimum
+$\sigma$ over all plausible alternatives exceeds the calibrated
+threshold $\Sigma^*$, EXIT and FORK functionally fail regardless of
+formal rights. The implication is one-way: $\sigma$ below threshold
+licenses no pass on its own.
+
+\glossentry{Temporal Stability Condition}
+A system is corrigible only if the rate of effective correction
+exceeds the rate of error accumulation. Correction velocity carries
+both a lower bound (harm otherwise accumulates) and an upper bound
+(correction faster than verification capacity lets manipulated
+corrections bypass review).
+
+\glossentry{Variety Drift / Temporal Variety Gap}
 The growing gap between a frozen model's variety and the evolving
 environmental variety it is meant to regulate. Drives corrigibility
 from a one-shot certification into a persistence condition.
 
-\item[Workflow Capture Coefficient (WCC)]
+\glossentry{Workflow Capture Coefficient (WCC)}
 A diagnostic abstraction quantifying epistemic delegation risk as a
 function of reproduction cost, ontological substitutability, and model
 portability. WCC near 1 indicates near-total capture; WCC near 0

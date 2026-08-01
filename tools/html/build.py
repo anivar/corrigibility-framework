@@ -226,7 +226,7 @@ PAGE = """<!DOCTYPE html>
 "citation":"Aravind, Anivar A. (2026). {title}. doi:{doi}."}}
 </script>
 <style>
-:root {{ --navy:#172033; --slate:#566270; --terra:#D45C3E; --terra-deep:#B14A30;
+:root {{ --navy:#172033; --slate:#566270; --terra:#9C4A2A; --terra-deep:#7E3A21;
   --cream:#F7F5F0; --cream-deep:#EDE9E0; --elev:#FBFAF7; --hair:#d8d2c4; }}
 * {{ box-sizing: border-box; }}
 html {{ background: var(--cream); }}

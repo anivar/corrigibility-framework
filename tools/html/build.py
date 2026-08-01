@@ -127,12 +127,27 @@ def compile_svg(label: str, tikz: str, context: str, outdir: Path) -> Path:
     return svg
 
 
+def pandoc_abstract(src: Path) -> str:
+    tex = src.read_text()
+    m = re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", tex, re.S)
+    if not m:
+        raise SystemExit(f"{src}: no abstract environment found")
+    r = subprocess.run(
+        ["pandoc", "--from", "latex", "--to", "html5", "--mathml",
+         "--wrap=none", "--citeproc", "--bibliography", str(BIB)],
+        input=m.group(1), cwd=src.parent, capture_output=True, text=True,
+    )
+    if r.returncode != 0:
+        raise SystemExit(f"pandoc abstract failed: {r.stderr[-400:]}")
+    return r.stdout.strip()
+
+
 def pandoc_body(src: Path) -> str:
     r = subprocess.run(
         [
             "pandoc", str(src), "--from", "latex", "--to", "html5",
             "--mathml", "--citeproc", "--bibliography", str(BIB),
-            "--shift-heading-level-by=0",
+            "--number-sections", "--wrap=none", "--shift-heading-level-by=0",
         ],
         cwd=src.parent, capture_output=True, text=True,
     )
@@ -154,57 +169,119 @@ PAGE = """<!DOCTYPE html>
 <link rel="canonical" href="https://anivar.net/papers/{slug}/" />
 <style>
 :root {{ --navy:#172033; --slate:#566270; --terra:#D45C3E; --terra-deep:#B14A30;
-  --cream:#F7F5F0; --cream-deep:#EDE9E0; --elev:#FBFAF7; }}
+  --cream:#F7F5F0; --cream-deep:#EDE9E0; --elev:#FBFAF7; --hair:#d8d2c4; }}
+* {{ box-sizing: border-box; }}
 html {{ background: var(--cream); }}
-body {{ margin: 0 auto; max-width: 46rem; padding: 3rem 1.25rem 6rem;
-  font: 400 1.05rem/1.7 Newsreader, Georgia, 'Times New Roman', serif;
-  color: var(--navy); }}
-.masthead {{ font: 500 .72rem/1.6 ui-monospace, Menlo, monospace;
-  letter-spacing: .12em; text-transform: uppercase; color: var(--slate);
-  border-bottom: 1px solid var(--navy); padding-bottom: .9rem; }}
-.masthead a {{ color: var(--terra-deep); text-decoration: none; }}
-h1.paper-title {{ font: 600 1.9rem/1.25 'IBM Plex Sans', system-ui, sans-serif;
-  letter-spacing: -.015em; margin: 1.6rem 0 .4rem; }}
-.byline {{ color: var(--slate); font-size: .95rem; margin: 0 0 .4rem; }}
-.artifact {{ font: 400 .8rem/1.8 ui-monospace, Menlo, monospace; color: var(--slate);
-  margin-bottom: 2.2rem; }}
+body {{ margin: 0; color: var(--navy);
+  font: 400 1.02rem/1.72 Newsreader, Georgia, 'Times New Roman', serif; }}
+
+/* anivar.net overlay bar */
+.sitebar {{ position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+  background: var(--cream); border-bottom: 1px solid var(--navy);
+  font: 500 .68rem/1 ui-monospace, Menlo, monospace; letter-spacing: .12em;
+  text-transform: uppercase; }}
+.sitebar__in {{ max-width: 60rem; margin: 0 auto; padding: .8rem 1.25rem;
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }}
+.sitebar a {{ color: var(--navy); text-decoration: none; }}
+.sitebar a:hover {{ color: var(--terra-deep); }}
+.sitebar .dim {{ color: var(--slate); }}
+.sitebar .right a {{ color: var(--terra-deep); margin-left: 1.1rem; }}
+
+/* the sheet */
+.sheet {{ max-width: 60rem; margin: 4.4rem auto 4rem; background: var(--elev);
+  border: 1px solid var(--hair); padding: 4.5rem clamp(1.25rem, 8vw, 6.5rem) 5rem; }}
+
+/* title page */
+.front {{ text-align: center; margin-bottom: 3.2rem; }}
+.front .eyebrow {{ font: 500 .68rem/1 ui-monospace, Menlo, monospace;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--slate); }}
+h1.paper-title {{ font: 600 clamp(1.5rem, 3.4vw, 2.1rem)/1.28 'IBM Plex Sans',
+  system-ui, sans-serif; letter-spacing: -.015em; margin: 1.1rem auto .9rem;
+  max-width: 34ch; }}
+.byline {{ font-size: 1.02rem; margin: 0 0 .35rem; }}
+.byline .orcid {{ color: var(--slate); font-size: .85rem; }}
+.artifact {{ font: 400 .74rem/1.9 ui-monospace, Menlo, monospace;
+  color: var(--slate); }}
 .artifact a {{ color: var(--terra-deep); text-decoration: none;
   border-bottom: 1px solid var(--terra); }}
+
+/* abstract */
+.abstract {{ max-width: 36rem; margin: 0 auto 3rem; }}
+.abstract h2 {{ font: 600 .78rem/1 'IBM Plex Sans', system-ui, sans-serif;
+  letter-spacing: .18em; text-transform: uppercase; text-align: center;
+  color: var(--navy); margin: 0 0 .9rem; }}
+.abstract p {{ font-size: .95rem; line-height: 1.65; text-align: justify;
+  hyphens: auto; margin: 0 0 .8em; }}
+.rule {{ border: 0; border-top: 1px solid var(--navy); margin: 0 0 2.6rem; }}
+
+/* body typography */
+.paper p {{ text-align: justify; hyphens: auto; }}
 h1,h2,h3,h4 {{ font-family: 'IBM Plex Sans', system-ui, sans-serif;
   line-height: 1.25; letter-spacing: -.01em; }}
-h2 {{ font-size: 1.35rem; margin-top: 2.6em; }}
-h3 {{ font-size: 1.1rem; margin-top: 2em; }}
+.paper > h1, .paper section > h1 {{ font-size: 1.32rem; margin-top: 2.8em; }}
+.paper h2 {{ font-size: 1.12rem; margin-top: 2.2em; }}
+.paper h3 {{ font-size: 1rem; margin-top: 1.8em; }}
+.paper .header-section-number {{ color: var(--slate); margin-right: .6em; }}
 a {{ color: var(--terra-deep); }}
-figure {{ margin: 2rem 0; padding: 1rem; background: var(--elev);
-  border: 1px solid #d8d2c4; overflow-x: auto; }}
+
+figure {{ counter-increment: fig; margin: 2.2rem 0; padding: 1.1rem;
+  background: var(--cream); border: 1px solid var(--hair); overflow-x: auto; }}
 figure img {{ display: block; max-width: 100%; height: auto; margin: 0 auto; }}
-figcaption {{ font: 400 .85rem/1.6 'IBM Plex Sans', system-ui, sans-serif;
-  color: var(--slate); margin-top: .8rem; }}
-table {{ border-collapse: collapse; font-size: .85rem; margin: 1.5rem 0;
-  font-family: 'IBM Plex Sans', system-ui, sans-serif; display: block;
-  overflow-x: auto; }}
-th, td {{ border: 1px solid #d8d2c4; padding: .45rem .6rem; text-align: left;
-  vertical-align: top; }}
+figcaption {{ font: 400 .82rem/1.6 'IBM Plex Sans', system-ui, sans-serif;
+  color: var(--slate); margin-top: .85rem; text-align: left; }}
+figcaption::before {{ content: "Figure " counter(fig) ". ";
+  font-weight: 600; color: var(--navy); }}
+.paper {{ counter-reset: fig tbl; }}
+table {{ counter-increment: tbl; border-collapse: collapse; font-size: .84rem;
+  margin: 1.8rem 0; font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  display: block; overflow-x: auto; }}
+table caption {{ font-size: .82rem; color: var(--slate); text-align: left;
+  margin-bottom: .5rem; }}
+table caption::before {{ content: "Table " counter(tbl) ". ";
+  font-weight: 600; color: var(--navy); }}
+th, td {{ border: 1px solid var(--hair); padding: .45rem .6rem;
+  text-align: left; vertical-align: top; }}
 th {{ background: var(--cream-deep); }}
 code, pre {{ font-family: ui-monospace, Menlo, monospace; font-size: .85em; }}
-pre {{ background: var(--cream-deep); border: 1px solid #d8d2c4;
+pre {{ background: var(--cream-deep); border: 1px solid var(--hair);
   padding: .9rem 1rem; overflow-x: auto; }}
 blockquote {{ margin: 1.5rem 0; padding-left: 1.1rem;
-  border-left: 2px solid var(--terra); color: var(--navy); }}
-#refs > div {{ margin-bottom: .75rem; }}
+  border-left: 2px solid var(--terra); }}
+#refs > div {{ margin-bottom: .75rem; font-size: .92rem; }}
 math {{ font-size: 1.02em; }}
-.footer {{ margin-top: 4rem; border-top: 1px solid var(--navy);
-  padding-top: 1rem; font: 400 .8rem/1.7 ui-monospace, Menlo, monospace;
+.endnote {{ margin-top: 4rem; border-top: 1px solid var(--navy);
+  padding-top: 1rem; font: 400 .78rem/1.7 ui-monospace, Menlo, monospace;
   color: var(--slate); }}
+
+@media print {{
+  .sitebar {{ display: none; }}
+  .sheet {{ border: 0; margin: 0; padding: 0; background: white; }}
+  html {{ background: white; }}
+}}
 </style>
 </head>
 <body>
-<nav class="masthead"><a href="/">Anivar A Aravind</a> · <a href="/corrigibility/">Corrigibility</a> · HTML edition</nav>
+<nav class="sitebar"><div class="sitebar__in">
+<span><a href="/">Anivar A Aravind</a> <span class="dim">·</span> <a href="/corrigibility/">Corrigibility</a> <span class="dim">· HTML edition</span></span>
+<span class="right"><a href="https://doi.org/{doi}">DOI</a><a href="{ssrn}">SSRN</a><a href="{pdf}">PDF</a></span>
+</div></nav>
+<main class="sheet">
+<header class="front">
+<p class="eyebrow">Preprint · CC0 1.0 · no permission needed to reuse, translate, or adapt</p>
 <h1 class="paper-title">{title}</h1>
-<p class="byline">Anivar A Aravind · ORCID 0009-0009-8995-0005</p>
-<p class="artifact">doi <a href="https://doi.org/{doi}">{doi}</a> · <a href="{ssrn}">SSRN</a> · <a href="{pdf}">PDF</a> · CC0 1.0 — no permission needed to reuse, translate, or adapt</p>
+<p class="byline">Anivar A Aravind <span class="orcid">· ORCID 0009-0009-8995-0005</span></p>
+<p class="artifact">doi <a href="https://doi.org/{doi}">{doi}</a></p>
+</header>
+<section class="abstract">
+<h2>Abstract</h2>
+{abstract}
+</section>
+<hr class="rule" />
+<div class="paper">
 {body}
-<div class="footer">The PDF of record is at the DOI above; this HTML edition is built from the same LaTeX source. CC0 1.0.</div>
+</div>
+<div class="endnote">The PDF of record is at the DOI above; this HTML edition is built from the same LaTeX source. CC0 1.0.</div>
+</main>
 </body>
 </html>
 """
@@ -239,7 +316,14 @@ def build(paper: str, outbase: Path) -> None:
     for label, code in figures.items():
         compile_svg(label, code, context, outdir)
 
+    abstract = pandoc_abstract(meta["src"])
     body = pandoc_body(meta["src"])
+    # LaTeX numbers to subsubsection depth; pandoc numbers \paragraph too
+    # (x.y.z.w, and 0.-prefixed for pre-section paragraphs). Strip those.
+    body = re.sub(
+        r'<span\s+class="header-section-number">(?:0\.[0-9.]+|[0-9]+(?:\.[0-9]+){3,})</span>\s*',
+        "", body,
+    )
 
     seen = set(re.findall(r'<figure[^>]*id="(fig:[^"]+)"', body))
     missing_svg = seen - set(figures)
@@ -255,7 +339,7 @@ def build(paper: str, outbase: Path) -> None:
         body,
     )
 
-    html = PAGE.format(body=body, slug=paper, **meta)
+    html = PAGE.format(body=body, abstract=abstract, slug=paper, **meta)
     (outdir / "index.html").write_text(html)
     verify(html, len(figures), paper)
     print(f"{paper}: wrote {outdir}/index.html ({len(html)//1024} KB) + {len(figures)} svg")

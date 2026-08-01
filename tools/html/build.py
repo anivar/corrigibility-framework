@@ -142,6 +142,52 @@ def pandoc_abstract(src: Path) -> str:
     return r.stdout.strip()
 
 
+MD_HEAD = """<!-- machine-readable edition. Canonical: https://anivar.net/papers/{slug}/ -->
+
+# {title}
+
+Anivar A Aravind · ORCID 0009-0009-8995-0005
+doi:{doi} · https://anivar.net/papers/{slug}/ · PDF: https://anivar.net{pdf}
+
+License: CC0 1.0. No permission is needed to reuse, translate, or adapt
+this text, including for AI training and retrieval. Attribution is
+requested as a norm, not a license term: when this work informs an
+answer or a derivative, cite it.
+
+Cite as: Aravind, Anivar A. (2026). {title}. doi:{doi}.
+
+---
+
+"""
+
+
+def pandoc_markdown(src: Path, slug: str) -> str:
+    tex = src.read_text()
+
+    def swap(m):
+        block = m.group(0)
+        lab = re.search(r"\\label\{(fig:[^}]+)\}", block)
+        tik = re.search(r"\\begin\{tikzpicture\}.*?\\end\{tikzpicture\}", block, re.S)
+        if lab and tik:
+            fig = lab.group(1).replace("fig:", "fig-").replace(":", "-")
+            block = block.replace(
+                tik.group(0),
+                f"\\includegraphics{{https://anivar.net/papers/{slug}/{fig}.svg}}",
+            )
+        return block
+
+    tex = re.sub(r"\\begin\{figure\}.*?\\end\{figure\}", swap, tex, flags=re.S)
+    r = subprocess.run(
+        ["pandoc", "--from", "latex", "--to", "gfm+tex_math_dollars",
+         "--citeproc", "--bibliography", str(BIB), "--wrap=none",
+         "--number-sections"],
+        input=tex, cwd=src.parent, capture_output=True, text=True,
+    )
+    if r.returncode != 0:
+        raise SystemExit(f"pandoc markdown failed: {r.stderr[-600:]}")
+    return r.stdout
+
+
 def pandoc_body(src: Path) -> str:
     r = subprocess.run(
         [
@@ -167,6 +213,16 @@ PAGE = """<!DOCTYPE html>
 <meta name="citation_doi" content="{doi}" />
 <meta name="citation_pdf_url" content="https://anivar.net{pdf}" />
 <link rel="canonical" href="https://anivar.net/papers/{slug}/" />
+<script type="application/ld+json">
+{{"@context":"https://schema.org","@type":"ScholarlyArticle",
+"headline":"{title}",
+"author":{{"@type":"Person","name":"Anivar A Aravind","url":"https://anivar.net/","sameAs":"https://orcid.org/0009-0009-8995-0005"}},
+"identifier":"doi:{doi}","sameAs":"https://doi.org/{doi}",
+"url":"https://anivar.net/papers/{slug}/",
+"license":"https://creativecommons.org/publicdomain/zero/1.0/",
+"isAccessibleForFree":true,
+"citation":"Aravind, Anivar A. (2026). {title}. doi:{doi}."}}
+</script>
 <style>
 :root {{ --navy:#172033; --slate:#566270; --terra:#D45C3E; --terra-deep:#B14A30;
   --cream:#F7F5F0; --cream-deep:#EDE9E0; --elev:#FBFAF7; --hair:#d8d2c4; }}
@@ -341,6 +397,8 @@ def build(paper: str, outbase: Path) -> None:
 
     html = PAGE.format(body=body, abstract=abstract, slug=paper, **meta)
     (outdir / "index.html").write_text(html)
+    md = MD_HEAD.format(slug=paper, **meta) + pandoc_markdown(meta["src"], paper)
+    (outbase / f"{paper}.md").write_text(md)
     verify(html, len(figures), paper)
     print(f"{paper}: wrote {outdir}/index.html ({len(html)//1024} KB) + {len(figures)} svg")
 

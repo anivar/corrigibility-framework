@@ -17,9 +17,6 @@ identifiers:
   - type: doi
     value: "10.2139/ssrn.6669318"
     description: "EPI paper — SSRN DOI (companion / Paper II)"
-  - type: doi
-    value: "10.5281/zenodo.19863649"
-    description: "EPI paper — Zenodo DOI (archival)"
 url: "https://anivar.net/corrigibility"
 repository-code: "https://github.com/anivar/corrigibility-framework"
 license: "CC0-1.0"

@@ -148,6 +148,8 @@ MD_HEAD = """<!-- machine-readable edition. Canonical: https://anivar.net/papers
 
 Anivar A Aravind · ORCID 0009-0009-8995-0005
 doi:{doi} · https://anivar.net/papers/{slug}/ · PDF: https://anivar.net{pdf}
+Terminology: https://anivar.net/corrigibility/glossary.md (the appendix both
+documents carry verbatim; fetch it first if a term is unfamiliar)
 
 License: CC0 1.0. No permission is needed to reuse, translate, or adapt
 this text, including for AI training and retrieval. Attribution is
@@ -319,7 +321,7 @@ math {{ font-size: 1.02em; }}
 <body>
 <nav class="sitebar"><div class="sitebar__in">
 <span><a href="/">Anivar A Aravind</a> <span class="dim">·</span> <a href="/corrigibility/">Corrigibility</a> <span class="dim">· HTML edition</span></span>
-<span class="right"><a href="https://doi.org/{doi}">DOI</a><a href="{ssrn}">SSRN</a><a href="{pdf}">PDF</a></span>
+<span class="right"><a href="/corrigibility/glossary/">Glossary</a><a href="https://doi.org/{doi}">DOI</a><a href="{ssrn}">SSRN</a><a href="{pdf}">PDF</a></span>
 </div></nav>
 <main class="sheet">
 <header class="front">
@@ -336,7 +338,7 @@ math {{ font-size: 1.02em; }}
 <div class="paper">
 {body}
 </div>
-<div class="endnote">The PDF of record is at the DOI above; this HTML edition is built from the same LaTeX source. CC0 1.0.</div>
+<div class="endnote">Terminology is defined in the <a href="/corrigibility/glossary/">shared glossary</a>, the appendix both documents carry. The PDF of record is at the DOI above; this HTML edition is built from the same LaTeX source. CC0 1.0.</div>
 </main>
 </body>
 </html>

@@ -22,3 +22,7 @@ clean:
     cd papers/dpi && latexmk -C 2>/dev/null || true
     cd papers/epi && latexmk -C 2>/dev/null || true
     rm -rf dist
+
+# HTML editions (pandoc + per-figure dvisvgm), written into anivar.net/public/papers/
+html:
+    python3 tools/html/build.py all

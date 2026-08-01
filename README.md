@@ -6,6 +6,8 @@
 
 A structural framework for evaluating **Digital Public Infrastructure (DPI)** and **Epistemic Public Infrastructure (EPI)**.
 
+**Read the papers online:** [the framework](https://anivar.net/papers/dpi/) · [the extension to learned and agentic systems](https://anivar.net/papers/epi/) — HTML editions built from this repository's sources, with the framework in one page at [anivar.net/corrigibility](https://anivar.net/corrigibility/).
+
 **Corrigibility**: The structural capacity of those affected by a system to detect error, signal harm, and trigger correction—without incurring material loss or irreversible consequence.
 
 ## One Theory, Two Substrates

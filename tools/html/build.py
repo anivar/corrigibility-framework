@@ -195,7 +195,7 @@ def pandoc_body(src: Path) -> str:
         [
             "pandoc", str(src), "--from", "latex", "--to", "html5",
             "--mathml", "--citeproc", "--bibliography", str(BIB),
-            "--number-sections", "--wrap=none", "--shift-heading-level-by=0",
+            "--number-sections", "--wrap=none", "--shift-heading-level-by=1",
         ],
         cwd=src.parent, capture_output=True, text=True,
     )
@@ -210,6 +210,7 @@ PAGE = """<!DOCTYPE html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
+<meta name="description" content="{description}" />
 <meta name="citation_title" content="{title}" />
 <meta name="citation_author" content="Anivar A Aravind" />
 <meta name="citation_doi" content="{doi}" />
@@ -218,7 +219,7 @@ PAGE = """<!DOCTYPE html>
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"ScholarlyArticle",
 "headline":"{title}",
-"author":{{"@type":"Person","name":"Anivar A Aravind","url":"https://anivar.net/","sameAs":"https://orcid.org/0009-0009-8995-0005"}},
+"author":{{"@id":"https://anivar.net/#person","@type":"Person","name":"Anivar A Aravind","url":"https://anivar.net/","sameAs":"https://orcid.org/0009-0009-8995-0005"}},
 "identifier":"doi:{doi}","sameAs":"https://doi.org/{doi}",
 "url":"https://anivar.net/papers/{slug}/",
 "license":"https://creativecommons.org/publicdomain/zero/1.0/",
@@ -397,7 +398,17 @@ def build(paper: str, outbase: Path) -> None:
         body,
     )
 
-    html = PAGE.format(body=body, abstract=abstract, slug=paper, **meta)
+    # The description is the paper's own abstract, first sentences, trimmed to
+    # a length a search result will show whole. Derived, never hand-written, so
+    # it cannot drift from the paper.
+    plain = re.sub(r"<[^>]+>", "", abstract)
+    plain = re.sub(r"\s+", " ", plain).strip()
+    description = plain[:157].rsplit(" ", 1)[0] + "…" if len(plain) > 158 else plain
+    description = description.replace('"', "&quot;")
+
+    html = PAGE.format(
+        body=body, abstract=abstract, slug=paper, description=description, **meta
+    )
     (outdir / "index.html").write_text(html)
     md = MD_HEAD.format(slug=paper, **meta) + pandoc_markdown(meta["src"], paper)
     (outbase / f"{paper}.md").write_text(md)

@@ -26,3 +26,4 @@
 
 # Build output
 dist/
+__pycache__/

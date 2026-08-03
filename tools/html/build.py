@@ -19,6 +19,7 @@ import argparse
 import hashlib
 import re
 import subprocess
+from html import unescape
 import sys
 import tempfile
 from pathlib import Path
@@ -346,6 +347,112 @@ math {{ font-size: 1.02em; }}
 """
 
 
+# --- post-pass repairs -------------------------------------------------------
+# Both defects below are pandoc behaviours we cannot reach from the LaTeX, so
+# they are repaired on the finished document rather than worked around in the
+# source. The paper is the artefact of record; the .tex should not carry
+# workarounds for one converter.
+
+LEAKED_MATH = re.compile(r"\\begin\{(equation\*?|align\*?)\}(.*?)\\end\{\1\}", re.S)
+
+
+def render_math(env: str, inner: str) -> str:
+    """Re-render one math environment that pandoc emitted as raw LaTeX.
+
+    Custom theorem-like environments (remark, principle, ...) are passed
+    through unparsed, so any display math inside them arrives in the HTML as
+    source. Feeding just that block back through pandoc renders it correctly —
+    the constructs are all supported, they were simply never parsed.
+    """
+    src = unescape(inner)
+    src = re.sub(r"\\label\{[^}]*\}", "", src)
+    r = subprocess.run(
+        ["pandoc", "--from", "latex", "--to", "html5", "--mathml"],
+        input=f"\\begin{{{env}}}{src}\\end{{{env}}}",
+        capture_output=True, text=True,
+    )
+    # MathML carries the TeX source in <annotation> by design, so the check for
+    # "did it actually render" has to look outside it — the same distinction
+    # verify() makes.
+    rendered = re.sub(
+        r"<annotation encoding=\"application/x-tex\">.*?</annotation>", "", r.stdout, flags=re.S
+    )
+    if r.returncode != 0 or "\\begin{" in rendered:
+        raise SystemExit(f"post-pass: could not render leaked {env}: {inner[:120]!r}")
+    return r.stdout.strip()
+
+
+def repair_math(body: str) -> tuple[str, int]:
+    n = 0
+    def swap(m):
+        nonlocal n
+        n += 1
+        return render_math(m.group(1), m.group(2))
+    body = LEAKED_MATH.sub(swap, body)
+    # the raw block sits inside a display-math pair pandoc opened around it
+    body = body.replace("$$<math", "<math").replace("</math>$$", "</math>")
+    return body, n
+
+
+def subtable_captions(tex: str) -> dict[str, tuple[str, list[str]]]:
+    r"""Outer table label -> (outer caption, [inner captions in order]).
+
+    A \begin{table} holding \subtable/minipage blocks gives pandoc one <table>
+    per subtable; it stamps every one with the OUTER label and the LAST inner
+    caption. So the Aadhaar table ships labelled "UK Open Banking".
+    """
+    out = {}
+    for m in re.finditer(r"\\begin\{table\*?\}(.*?)\\end\{table\*?\}", tex, re.S):
+        blk = m.group(1)
+        caps = re.findall(r"\\caption\{", blk)
+        if len(caps) < 2:
+            continue
+        label = re.search(r"\\label\{([^}]+)\}", blk)
+        if not label:
+            continue
+        texts = []
+        for c in re.finditer(r"\\caption\{", blk):
+            i = c.end(); depth = 1; buf = []
+            while i < len(blk) and depth:
+                ch = blk[i]
+                if ch == "{": depth += 1
+                elif ch == "}":
+                    depth -= 1
+                    if not depth: break
+                buf.append(ch); i += 1
+            texts.append("".join(buf))
+        out[label.group(1)] = (texts[0], texts[1:])
+    return out
+
+
+def strip_tex(s: str) -> str:
+    s = re.sub(r"\\(?:textbf|emph|textit|texttt)\{([^}]*)\}", r"\1", s)
+    s = re.sub(r"\\[a-zA-Z]+\s*", "", s)
+    s = s.replace("``", "\u201c").replace("''", "\u201d").replace("~", " ")
+    return re.sub(r"\s+", " ", s).strip(" {}")
+
+
+def repair_captions(body: str, tex: str) -> int:
+    fixed = 0
+    for label, (outer, inners) in subtable_captions(tex).items():
+        run = list(re.finditer(
+            rf'<table id="{re.escape(label)}">\s*<caption>(.*?)</caption>', body, re.S))
+        if len(run) != len(inners):
+            continue
+        for i, m in enumerate(reversed(run)):
+            idx = len(run) - 1 - i
+            new_id = label if idx == 0 else f"{label}-{idx + 1}"
+            repl = f'<table id="{new_id}">\n<caption>{strip_tex(inners[idx])}</caption>'
+            body = body[:m.start()] + repl + body[m.end():]
+            fixed += 1
+        # the outer caption is dropped entirely by pandoc; put it back above
+        lead = f'<p class="tablegroup">{strip_tex(outer)}</p>\n'
+        anchor = body.find(f'<table id="{label}">')
+        if anchor >= 0:
+            body = body[:anchor] + lead + body[anchor:]
+    return body, fixed
+
+
 def verify(html: str, n_figs: int, paper: str) -> None:
     errs = []
     hits = LIGATURE_RE.findall(html)
@@ -358,6 +465,23 @@ def verify(html: str, n_figs: int, paper: str) -> None:
     got = html.count("<figure")
     if html.count('<img src="fig-') != n_figs:
         errs.append(f"substituted figures {html.count('<img src=\"fig-')} != compiled {n_figs}")
+    # Raw LaTeX in the output. MathML carries an <annotation> holding the TeX
+    # source by design, so that is stripped before looking — the check is for
+    # source that leaked into rendered text, not for legitimate semantics.
+    visible = re.sub(
+        r"<annotation encoding=\"application/x-tex\">.*?</annotation>", "", html, flags=re.S
+    )
+    leaked = re.findall(r"\\\\(?:begin|end|label)\{[a-zA-Z*:_-]+\}", visible)
+    if leaked:
+        errs.append(f"raw LaTeX in output: {sorted(set(leaked))[:4]}")
+    ids = re.findall(r'<table id="([^"]+)"', html)
+    dupe_ids = sorted({i for i in ids if ids.count(i) > 1})
+    if dupe_ids:
+        errs.append(f"duplicate table ids: {dupe_ids[:4]}")
+    caps = [re.sub(r"<[^>]+>", "", c).strip() for c in re.findall(r"<caption>(.*?)</caption>", html, re.S)]
+    dupe_caps = sorted({c for c in caps if caps.count(c) > 1})
+    if dupe_caps:
+        errs.append(f"tables sharing a caption: {[c[:34] for c in dupe_caps][:3]}")
     if errs:
         raise SystemExit(f"{paper}: VERIFY FAILED — " + "; ".join(errs))
     print(f"{paper}: verify ok — {n_figs} figures, {got} figure envs, refs present, no corruption")
@@ -397,6 +521,12 @@ def build(paper: str, outbase: Path) -> None:
         + f'<img src="{m.group(2).replace("fig:", "fig-").replace(":", "-")}.svg" alt="" loading="lazy" />',
         body,
     )
+
+    # Post-pass repairs on the finished document — see the helpers above.
+    body, n_math = repair_math(body)
+    body, n_caps = repair_captions(body, tex)
+    if n_math or n_caps:
+        print(f"{paper}: post-pass — {n_math} leaked equations rendered, {n_caps} captions rebound")
 
     # The description is the paper's own abstract, first sentences, trimmed to
     # a length a search result will show whole. Derived, never hand-written, so

@@ -8,15 +8,24 @@ authors:
     orcid: "https://orcid.org/0009-0009-8995-0005"
     email: "ping@anivar.net"
     website: "https://anivar.net"
-version: "3.0.0"
-date-released: "2026-04-29"
+version: "3.1.0"
+date-released: "2026-07-10"
 identifiers:
+  # Zenodo concept DOIs resolve to the newest deposited version of each paper,
+  # so they are the durable citation. The SSRN DOIs are per-paper and carry the
+  # current text.
+  - type: doi
+    value: "10.5281/zenodo.18213694"
+    description: "Paper I (DPI) — Zenodo concept DOI, all versions"
   - type: doi
     value: "10.2139/ssrn.6059075"
-    description: "DPI paper — SSRN DOI"
+    description: "Paper I (DPI) — SSRN"
+  - type: doi
+    value: "10.5281/zenodo.19863649"
+    description: "Paper II (EPI) — Zenodo concept DOI, all versions"
   - type: doi
     value: "10.2139/ssrn.6669318"
-    description: "EPI paper — SSRN DOI (companion / Paper II)"
+    description: "Paper II (EPI) — SSRN"
 url: "https://anivar.net/corrigibility"
 repository-code: "https://github.com/anivar/corrigibility-framework"
 license: "CC0-1.0"
@@ -39,3 +48,20 @@ abstract: >-
   material loss. We derive five necessary tests—EXIT, CODE, AUDIT, GOVERN, and
   FORK—from three independent theoretical traditions: cybernetics, commons
   governance, and free software principles.
+
+references:
+  - type: article
+    title: "Epistemic Capture and the Action Boundary: Corrigibility for Learned and Agentic Public Infrastructure"
+    authors:
+      - family-names: "Aravind"
+        given-names: "Anivar A"
+        orcid: "https://orcid.org/0009-0009-8995-0005"
+    year: 2026
+    identifiers:
+      - type: doi
+        value: "10.5281/zenodo.19863649"
+        description: "Zenodo concept DOI, all versions"
+      - type: doi
+        value: "10.2139/ssrn.6669318"
+        description: "SSRN"
+    notes: "Companion paper. This repository holds both."

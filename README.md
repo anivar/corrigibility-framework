@@ -93,18 +93,25 @@ See the [corrigibility-schema](https://github.com/anivar/corrigibility-schema) r
 ```bibtex
 @article{aravind2026corrigibility-dpi,
   author = {Aravind, Anivar A},
-  title = {Corrigibility as a Structural Precondition for Digital Public Infrastructure},
-  year = {2026},
-  doi = {10.2139/ssrn.6059075}
+  title  = {Corrigibility as a Structural Precondition for Digital Public Infrastructure},
+  year   = {2026},
+  doi    = {10.2139/ssrn.6059075},
+  note   = {Zenodo (all versions): 10.5281/zenodo.18213694}
 }
 
 @article{aravind2026corrigibility-epi,
   author = {Aravind, Anivar A},
-  title = {Epistemic Capture and the Action Boundary},
-  year = {2026},
-  doi = {10.2139/ssrn.6669318}
+  title  = {Epistemic Capture and the Action Boundary},
+  year   = {2026},
+  doi    = {10.2139/ssrn.6669318},
+  note   = {Zenodo (all versions): 10.5281/zenodo.19863649}
 }
 ```
+
+Two identifiers per paper, deliberately. The SSRN DOI carries the current text.
+The Zenodo concept DOI resolves to the newest deposited version and is the
+durable, open-access record — it does not disappear if a preprint server
+changes its terms.
 
 ## License
 

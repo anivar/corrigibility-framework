@@ -1,8 +1,9 @@
 # Corrigibility Framework
 
-[![Release](https://img.shields.io/github/v/release/anivar/corrigibility-framework)](https://github.com/anivar/corrigibility-framework/releases/latest)
-[![License: CC0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
-[![ORCID](https://img.shields.io/badge/ORCID-0009--0009--8995--0005-green.svg)](https://orcid.org/0009-0009-8995-0005)
+[![Release](https://anivar.net/badge?src=release&repo=anivar/corrigibility-framework)](https://github.com/anivar/corrigibility-framework/releases/latest)
+[![License: CC0 1.0](https://anivar.net/badge?label=license&value=CC0-1.0)](https://creativecommons.org/publicdomain/zero/1.0/)
+[![ORCID](https://anivar.net/badge?label=ORCID&value=0009-0009-8995-0005)](https://orcid.org/0009-0009-8995-0005)
+[![clones](https://anivar.net/traffic?repo=corrigibility-framework&m=clones)](https://github.com/anivar/corrigibility-framework/graphs/traffic)
 
 A structural framework for evaluating **Digital Public Infrastructure (DPI)** and **Epistemic Public Infrastructure (EPI)**.
 
